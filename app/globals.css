@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Fonts — Libre Franklin is the official NBIL typeface (display + body),
+     Geist Mono kept only for technical spec data. */
+  --font-display: var(--font-libre-franklin);
+  --font-sans: var(--font-libre-franklin);
+  --font-mono: var(--font-geist-mono);
+
+  /* Brand neutrals — lavender-tinted, from the Dhee palette */
+  --color-canvas: #f8f7ff;          /* off-white lavender, page bg */
+  --color-surface: #ffffff;          /* card fills */
+  --color-surface-raised: #f0ecff;   /* light purple tint panels */
+  --color-ink: #110820;              /* near-black purple, headings */
+  --color-ink-muted: #6d5a8e;        /* body text, descriptions */
+  --color-ink-faint: #7a68a0;        /* small captions, kept ≥4.5:1 on canvas */
+  --color-hairline: #e0d8f5;         /* structural borders */
+  --color-hairline-subtle: #eee9ff;  /* section dividers */
+
+  /* Brand purple */
+  --color-brand: #6d28d9;            /* primary brand purple */
+  --color-brand-hover: #5b21b6;      /* hover state */
+  --color-brand-surface: #eee9ff;    /* tinted accent bg */
+  --color-brand-subtle: #f4f0ff;     /* faint hover tint */
+
+  /* Dark surface (software section) — deep purple */
+  --color-dark-bg: #110820;
+  --color-dark-surface: #1e1136;
+  --color-dark-ink: #eee9ff;
+  --color-dark-ink-muted: #c4b8e8;
+  --color-dark-border: #2e1c52;
+  --color-dark-brand: #a78bfa;       /* lighter purple for dark bg */
+}
+
+/* ---- Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Lenis smooth scroll ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+  max-width: 65ch;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: #c4b8e8; }
+
+/* Utility to hide scrollbar on horizontal scroll tracks */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Selection ---- */
+::selection {
+  background: var(--color-brand-surface);
+  color: var(--color-brand);
+}
+
+/* ---- Shimmer skeleton ---- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-hairline-subtle) 25%,
+    var(--color-hairline) 50%,
+    var(--color-hairline-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- shadcn token bridge ---- */
+@theme inline {
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* shadcn semantic tokens mapped to the Dhee purple palette */
+:root {
+  --radius: 0.75rem;
+  --background: #f8f7ff;            /* canvas */
+  --foreground: #110820;            /* ink */
+  --card: #ffffff;                  /* surface */
+  --card-foreground: #110820;
+  --popover: #ffffff;
+  --popover-foreground: #110820;
+  --primary: #6d28d9;               /* brand purple */
+  --primary-foreground: #ffffff;
+  --secondary: #f0ecff;             /* surface-raised */
+  --secondary-foreground: #110820;
+  --muted: #f0ecff;
+  --muted-foreground: #6d5a8e;      /* ink-muted */
+  --accent: #eee9ff;                /* brand-surface */
+  --accent-foreground: #5b21b6;     /* brand-hover */
+  --destructive: #dc2626;
+  --border: #e0d8f5;                /* hairline */
+  --input: #e0d8f5;
+  --ring: #6d28d9;                  /* purple focus ring */
+  --chart-1: #6d28d9;
+  --chart-2: #7c3aed;
+  --chart-3: #8b5cf6;
+  --chart-4: #a78bfa;
+  --chart-5: #5b21b6;
+  --sidebar: #f8f7ff;
+  --sidebar-foreground: #110820;
+  --sidebar-primary: #6d28d9;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0ecff;
+  --sidebar-accent-foreground: #110820;
+  --sidebar-border: #e0d8f5;
+  --sidebar-ring: #6d28d9;
+}
+
+.dark {
+  --background: #110820;
+  --foreground: #eee9ff;
+  --card: #1e1136;
+  --card-foreground: #eee9ff;
+  --popover: #1e1136;
+  --popover-foreground: #eee9ff;
+  --primary: #a78bfa;
+  --primary-foreground: #110820;
+  --secondary: #1e1136;
+  --secondary-foreground: #eee9ff;
+  --muted: #1e1136;
+  --muted-foreground: #c4b8e8;
+  --accent: #2e1c52;
+  --accent-foreground: #c4b8ff;
+  --destructive: #dc2626;
+  --border: #2e1c52;
+  --input: #ffffff26;
+  --ring: #a78bfa;
+  --chart-1: #a78bfa;
+  --chart-2: #8b5cf6;
+  --chart-3: #c4b8ff;
+  --chart-4: #7c3aed;
+  --chart-5: #6d28d9;
+  --sidebar: #1e1136;
+  --sidebar-foreground: #eee9ff;
+  --sidebar-primary: #a78bfa;
+  --sidebar-primary-foreground: #110820;
+  --sidebar-accent: #2e1c52;
+  --sidebar-accent-foreground: #eee9ff;
+  --sidebar-border: #2e1c52;
+  --sidebar-ring: #a78bfa;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
