@@ -25,7 +25,7 @@ const ROWS: Row[] = [
   { label: "Build volume (mm)", get: (m) => spec(m, "build volume").replace(" (customizable)", "") },
   {
     label: "Bed temperature",
-    get: (m) => spec(m, "bed temperature", m.slug === "trivima-mini" ? "Not heated" : "—"),
+    get: (m) => spec(m, "bed temperature"),
   },
   {
     label: "Pressure range",
@@ -37,10 +37,6 @@ const ROWS: Row[] = [
 ];
 
 const ORDER = [
-  "trivima-mini",
-  "trivima-basic",
-  "trivima-advanced",
-  "trivima-pro",
   "trivima-np",
   "trivima-aura",
 ];
@@ -68,9 +64,9 @@ export default function CompareTable() {
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] scrollbar-hide">
-          <table className="w-full border-collapse text-left min-w-[860px]">
+          <table className="w-full border-collapse text-left min-w-[480px]">
             <caption className="sr-only">
-              Comparison of the six Trivima bioprinter models across key specifications
+              Comparison of the two Trivima bioprinter models across key specifications
             </caption>
             <thead>
               <tr>

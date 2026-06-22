@@ -1,4 +1,4 @@
-// File: C:\Users\saatv\Downloads\trivima-landing\app\page.tsx
+// File: C:\Users\NBIL_AI_3\Desktop\trivimaweb\nbil_webapp\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
