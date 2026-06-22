@@ -25,7 +25,7 @@ const ROWS: Row[] = [
   { label: "Build volume (mm)", get: (m) => spec(m, "build volume").replace(" (customizable)", "") },
   {
     label: "Bed temperature",
-    get: (m) => spec(m, "bed temperature", m.slug === "trivima-mini" ? "Not heated" : "—"),
+    get: (m) => spec(m, "bed temperature", "—"),
   },
   {
     label: "Pressure range",
@@ -36,14 +36,7 @@ const ROWS: Row[] = [
   { label: "File formats", get: (m) => spec(m, "file formats") },
 ];
 
-const ORDER = [
-  "trivima-mini",
-  "trivima-basic",
-  "trivima-advanced",
-  "trivima-pro",
-  "trivima-np",
-  "trivima-aura",
-];
+const ORDER = ["trivima-np", "trivima-pro", "trivima-aura"];
 
 export default function CompareTable() {
   const cols = ORDER.map((s) => machines.find((m) => m.slug === s)!).filter(Boolean);
@@ -68,9 +61,9 @@ export default function CompareTable() {
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] scrollbar-hide">
-          <table className="w-full border-collapse text-left min-w-[860px]">
+          <table className="w-full border-collapse text-left min-w-[600px]">
             <caption className="sr-only">
-              Comparison of the six Trivima bioprinter models across key specifications
+              Comparison of the three Trivima bioprinter models across key specifications
             </caption>
             <thead>
               <tr>
@@ -90,7 +83,7 @@ export default function CompareTable() {
                       <span className="text-[11px] font-mono uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
                         {m.year}
                       </span>
-                      <span className="font-display text-[15px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand)] transition-colors whitespace-nowrap">
+                      <span className="font-display text-[15px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-strong)] transition-colors whitespace-nowrap">
                         {m.name}
                       </span>
                     </Link>

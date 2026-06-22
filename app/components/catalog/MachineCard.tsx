@@ -73,7 +73,7 @@ export function FeatureCard({ machine, index }: { machine: Machine; index: numbe
 
           <StatRow stats={machine.stats} />
 
-          <span className="mt-auto inline-flex items-center gap-1.5 text-[14px] font-medium text-[var(--color-brand)]">
+          <span className="mt-auto inline-flex items-center gap-1.5 text-[14px] font-medium text-[var(--color-brand-strong)]">
             View full specifications
             <ArrowUpRight
               size={16}
@@ -130,7 +130,7 @@ export function MachineCard({ machine, index }: { machine: Machine; index: numbe
 
           <StatRow stats={machine.stats.slice(0, 4)} />
 
-          <span className="mt-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--color-brand)]">
+          <span className="mt-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--color-brand-strong)]">
             View details
             <ArrowUpRight
               size={15}

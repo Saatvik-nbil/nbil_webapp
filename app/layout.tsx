@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Trivima by NBIL",
   },
   description:
-    "Explore the full Trivima bioprinter range by Next Big Innovation Labs: from the 5.7 kg Mini to the six-extruder Pro, the non-planar NP and the light-based Aura. Compare extrusion, inkjet, pellet and MSLA systems spec for spec. Bengaluru, India.",
+    "Explore the Trivima bioprinter range by Next Big Innovation Labs: the non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and MSLA systems spec for spec. Bengaluru, India.",
   keywords: [
     "non-planar bioprinter",
     "Trivima NP bioprinter",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "Next Big Innovation Labs",
     title: "Trivima Bioprinters — The Full Range by NBIL",
     description:
-      "Six bioprinters spanning extrusion, inkjet, pellet, non-planar rotary and light-based MSLA. Compare every Trivima model spec for spec. By NBIL.",
+      "Trivima bioprinters spanning extrusion, inkjet, pellet, non-planar rotary and light-based MSLA. Compare every model spec for spec. By NBIL.",
     images: [
       {
         url: "/images/np-side.png",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Trivima Bioprinters — The Full Range by NBIL",
     description:
-      "From the 5.7 kg Mini to the six-extruder Pro, the non-planar NP and light-based Aura. Compare spec for spec.",
+      "The non-planar NP, the six-extruder Pro and the light-based Aura. Compare spec for spec.",
     images: ["/images/np-side.png"],
   },
   alternates: {
@@ -85,8 +85,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8f7ff" },
-    { media: "(prefers-color-scheme: dark)", color: "#110820" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a1422" },
   ],
   width: "device-width",
   initialScale: 1,

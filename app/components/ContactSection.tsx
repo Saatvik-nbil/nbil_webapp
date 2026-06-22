@@ -85,7 +85,7 @@ export default function ContactSection() {
                     {href ? (
                       <a
                         href={href}
-                        className="text-[14px] text-[var(--color-ink)] hover:text-[var(--color-brand)] transition-colors leading-relaxed"
+                        className="text-[14px] text-[var(--color-ink)] hover:text-[var(--color-brand-strong)] transition-colors leading-relaxed"
                       >
                         {value}
                       </a>

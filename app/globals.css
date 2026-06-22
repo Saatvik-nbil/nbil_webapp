@@ -11,29 +11,30 @@
   --font-sans: var(--font-libre-franklin);
   --font-mono: var(--font-geist-mono);
 
-  /* Brand neutrals — lavender-tinted, from the Dhee palette */
-  --color-canvas: #f8f7ff;          /* off-white lavender, page bg */
+  /* Neutrals — cool slate, calibrated to sit under an electric-blue accent */
+  --color-canvas: #f8fafc;           /* slate-50, page bg */
   --color-surface: #ffffff;          /* card fills */
-  --color-surface-raised: #f0ecff;   /* light purple tint panels */
-  --color-ink: #110820;              /* near-black purple, headings */
-  --color-ink-muted: #6d5a8e;        /* body text, descriptions */
-  --color-ink-faint: #7a68a0;        /* small captions, kept ≥4.5:1 on canvas */
-  --color-hairline: #e0d8f5;         /* structural borders */
-  --color-hairline-subtle: #eee9ff;  /* section dividers */
+  --color-surface-raised: #f1f5f9;   /* slate-100 panels */
+  --color-ink: #0c1626;              /* deep slate-navy, headings */
+  --color-ink-muted: #475569;        /* slate-600, body text */
+  --color-ink-faint: #58667a;        /* small captions, kept ≥4.5:1 on canvas */
+  --color-hairline: #e2e8f0;         /* slate-200, structural borders */
+  --color-hairline-subtle: #eef2f7;  /* section dividers */
 
-  /* Brand purple */
-  --color-brand: #6d28d9;            /* primary brand purple */
-  --color-brand-hover: #5b21b6;      /* hover state */
-  --color-brand-surface: #eee9ff;    /* tinted accent bg */
-  --color-brand-subtle: #f4f0ff;     /* faint hover tint */
+  /* Brand — electric blue (#2D81E4), single accent */
+  --color-brand: #2d81e4;            /* primary brand blue — fills, hero, CTA */
+  --color-brand-strong: #1763c9;     /* deeper blue for text/links on light (≥4.5:1) */
+  --color-brand-hover: #1f6fd0;      /* button hover */
+  --color-brand-surface: #e8f1fd;    /* tinted accent bg */
+  --color-brand-subtle: #f3f8fe;     /* faint hover tint */
 
-  /* Dark surface (software section) — deep purple */
-  --color-dark-bg: #110820;
-  --color-dark-surface: #1e1136;
-  --color-dark-ink: #eee9ff;
-  --color-dark-ink-muted: #c4b8e8;
-  --color-dark-border: #2e1c52;
-  --color-dark-brand: #a78bfa;       /* lighter purple for dark bg */
+  /* Dark surface (software / scroll sections) — deep navy */
+  --color-dark-bg: #0a1422;
+  --color-dark-surface: #0f1e30;
+  --color-dark-ink: #e9f0f8;
+  --color-dark-ink-muted: #9fb2c8;
+  --color-dark-border: #1c2c40;
+  --color-dark-brand: #5ea2f5;       /* lighter blue for dark bg */
 }
 
 /* ---- Base ---- */
@@ -90,7 +91,7 @@ p {
   background: var(--color-hairline);
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb:hover { background: #c4b8e8; }
+::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
 /* Utility to hide scrollbar on horizontal scroll tracks */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -99,7 +100,7 @@ p {
 /* ---- Selection ---- */
 ::selection {
   background: var(--color-brand-surface);
-  color: var(--color-brand);
+  color: var(--color-brand-strong);
 }
 
 /* ---- Shimmer skeleton ---- */
@@ -170,74 +171,74 @@ p {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* shadcn semantic tokens mapped to the Dhee purple palette */
+/* shadcn semantic tokens mapped to the slate + electric-blue palette */
 :root {
   --radius: 0.75rem;
-  --background: #f8f7ff;            /* canvas */
-  --foreground: #110820;            /* ink */
+  --background: #f8fafc;            /* canvas */
+  --foreground: #0c1626;            /* ink */
   --card: #ffffff;                  /* surface */
-  --card-foreground: #110820;
+  --card-foreground: #0c1626;
   --popover: #ffffff;
-  --popover-foreground: #110820;
-  --primary: #6d28d9;               /* brand purple */
+  --popover-foreground: #0c1626;
+  --primary: #2d81e4;               /* brand blue */
   --primary-foreground: #ffffff;
-  --secondary: #f0ecff;             /* surface-raised */
-  --secondary-foreground: #110820;
-  --muted: #f0ecff;
-  --muted-foreground: #6d5a8e;      /* ink-muted */
-  --accent: #eee9ff;                /* brand-surface */
-  --accent-foreground: #5b21b6;     /* brand-hover */
+  --secondary: #f1f5f9;             /* surface-raised */
+  --secondary-foreground: #0c1626;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;      /* ink-muted */
+  --accent: #e8f1fd;                /* brand-surface */
+  --accent-foreground: #1763c9;     /* brand-strong */
   --destructive: #dc2626;
-  --border: #e0d8f5;                /* hairline */
-  --input: #e0d8f5;
-  --ring: #6d28d9;                  /* purple focus ring */
-  --chart-1: #6d28d9;
-  --chart-2: #7c3aed;
-  --chart-3: #8b5cf6;
-  --chart-4: #a78bfa;
-  --chart-5: #5b21b6;
-  --sidebar: #f8f7ff;
-  --sidebar-foreground: #110820;
-  --sidebar-primary: #6d28d9;
+  --border: #e2e8f0;                /* hairline */
+  --input: #e2e8f0;
+  --ring: #2d81e4;                  /* blue focus ring */
+  --chart-1: #2d81e4;
+  --chart-2: #1f6fd0;
+  --chart-3: #5ea2f5;
+  --chart-4: #1763c9;
+  --chart-5: #93c0f7;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0c1626;
+  --sidebar-primary: #2d81e4;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f0ecff;
-  --sidebar-accent-foreground: #110820;
-  --sidebar-border: #e0d8f5;
-  --sidebar-ring: #6d28d9;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0c1626;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #2d81e4;
 }
 
 .dark {
-  --background: #110820;
-  --foreground: #eee9ff;
-  --card: #1e1136;
-  --card-foreground: #eee9ff;
-  --popover: #1e1136;
-  --popover-foreground: #eee9ff;
-  --primary: #a78bfa;
-  --primary-foreground: #110820;
-  --secondary: #1e1136;
-  --secondary-foreground: #eee9ff;
-  --muted: #1e1136;
-  --muted-foreground: #c4b8e8;
-  --accent: #2e1c52;
-  --accent-foreground: #c4b8ff;
+  --background: #0a1422;
+  --foreground: #e9f0f8;
+  --card: #0f1e30;
+  --card-foreground: #e9f0f8;
+  --popover: #0f1e30;
+  --popover-foreground: #e9f0f8;
+  --primary: #5ea2f5;
+  --primary-foreground: #0a1422;
+  --secondary: #0f1e30;
+  --secondary-foreground: #e9f0f8;
+  --muted: #0f1e30;
+  --muted-foreground: #9fb2c8;
+  --accent: #1c2c40;
+  --accent-foreground: #bcd4f4;
   --destructive: #dc2626;
-  --border: #2e1c52;
+  --border: #1c2c40;
   --input: #ffffff26;
-  --ring: #a78bfa;
-  --chart-1: #a78bfa;
-  --chart-2: #8b5cf6;
-  --chart-3: #c4b8ff;
-  --chart-4: #7c3aed;
-  --chart-5: #6d28d9;
-  --sidebar: #1e1136;
-  --sidebar-foreground: #eee9ff;
-  --sidebar-primary: #a78bfa;
-  --sidebar-primary-foreground: #110820;
-  --sidebar-accent: #2e1c52;
-  --sidebar-accent-foreground: #eee9ff;
-  --sidebar-border: #2e1c52;
-  --sidebar-ring: #a78bfa;
+  --ring: #5ea2f5;
+  --chart-1: #5ea2f5;
+  --chart-2: #2d81e4;
+  --chart-3: #93c0f7;
+  --chart-4: #1f6fd0;
+  --chart-5: #1763c9;
+  --sidebar: #0f1e30;
+  --sidebar-foreground: #e9f0f8;
+  --sidebar-primary: #5ea2f5;
+  --sidebar-primary-foreground: #0a1422;
+  --sidebar-accent: #1c2c40;
+  --sidebar-accent-foreground: #e9f0f8;
+  --sidebar-border: #1c2c40;
+  --sidebar-ring: #5ea2f5;
 }
 
 @layer base {

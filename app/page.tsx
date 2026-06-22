@@ -1,33 +1,30 @@
+import type { Metadata } from "next";
 import NavBar from "@/app/components/NavBar";
-import CatalogHero from "@/app/components/catalog/CatalogHero";
-import ModelsSection from "@/app/components/catalog/ModelsSection";
-import CompareTable from "@/app/components/catalog/CompareTable";
-import ApplicationsSection from "@/app/components/catalog/ApplicationsSection";
-import CatalogSoftware from "@/app/components/catalog/CatalogSoftware";
-import TestimonialsSection from "@/app/components/catalog/TestimonialsSection";
-import ContactSection from "@/app/components/ContactSection";
+import CompanyHero from "@/app/components/company/CompanyHero";
+import CredibilityStrip from "@/app/components/company/CredibilityStrip";
+import MissionScroll from "@/app/components/company/MissionScroll";
+import FocusAreas from "@/app/components/company/FocusAreas";
+import StoryTimeline from "@/app/components/company/StoryTimeline";
+import ProductsShowcase from "@/app/components/company/ProductsShowcase";
+import ValuesSection from "@/app/components/company/ValuesSection";
+import LeadershipSection from "@/app/components/company/LeadershipSection";
+import CompanyConnect from "@/app/components/company/CompanyConnect";
 import Footer from "@/app/components/Footer";
-import { machines, COMPANY } from "@/lib/machines";
+import { COMPANY } from "@/lib/machines";
 
-/* ---- Structured data: ItemList of all products ---- */
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Trivima Bioprinter Range",
+export const metadata: Metadata = {
+  title: "Next Big Innovation Labs — Bioprinting for a Better Future",
   description:
-    "The full range of Trivima bioprinters by Next Big Innovation Labs, from compact benchtop extrusion systems to non-planar rotary and light-based platforms.",
-  itemListElement: machines.map((m, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type": "Product",
-      name: m.fullName,
-      url: `https://nextbiginnovationlabs.com/machines/${m.slug}`,
-      description: m.blurb,
-      brand: { "@type": "Brand", name: COMPANY.name, alternateName: COMPANY.short },
-      category: "Scientific Equipment",
-    },
-  })),
+    "Next Big Innovation Labs (NBIL) builds the bioprinting instruments researchers and clinicians use to model disease, develop drugs, and engineer living tissue. Founded 2016 in Bengaluru. World Economic Forum Technology Pioneer 2023.",
+  alternates: { canonical: "https://nextbiginnovationlabs.com/" },
+  openGraph: {
+    type: "website",
+    url: "https://nextbiginnovationlabs.com/",
+    title: "Next Big Innovation Labs — Bioprinting for a Better Future",
+    description:
+      "We set out to print a better future. NBIL builds bioprinting hardware and software for research, regenerative medicine and bioengineered organs.",
+    images: [{ url: "/images/np-side.png", width: 1200, height: 630, alt: "Next Big Innovation Labs bioprinter" }],
+  },
 };
 
 const orgSchema = {
@@ -38,6 +35,15 @@ const orgSchema = {
   url: COMPANY.site,
   email: COMPANY.email,
   telephone: "+91-6364-596-016",
+  foundingDate: "2016",
+  description:
+    "Next Big Innovation Labs develops bioprinting solutions for researchers and clinicians focused on drug development, regenerative medicine and bioengineered organ fabrication.",
+  founder: [
+    { "@type": "Person", name: "Piyush Padmanabhan", jobTitle: "CEO, Co-Founder & Director" },
+    { "@type": "Person", name: "Pooja Venkatesh", jobTitle: "Co-CEO & Co-Founder" },
+    { "@type": "Person", name: "Alok Medikepura Anil", jobTitle: "Co-Founder & Director" },
+  ],
+  award: "World Economic Forum Technology Pioneer 2023",
   address: {
     "@type": "PostalAddress",
     streetAddress: `${COMPANY.address.line1}, ${COMPANY.address.line2}`,
@@ -48,21 +54,22 @@ const orgSchema = {
   },
 };
 
-export default function Page() {
+export default function HomePage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
 
       <NavBar />
       <main id="main-content">
-        <CatalogHero />
-        <ModelsSection />
-        <CompareTable />
-        <ApplicationsSection />
-        <CatalogSoftware />
-        <TestimonialsSection />
-        <ContactSection />
+        <CompanyHero />
+        <CredibilityStrip />
+        <MissionScroll />
+        <FocusAreas />
+        <StoryTimeline />
+        <ProductsShowcase />
+        <ValuesSection />
+        <LeadershipSection />
+        <CompanyConnect />
       </main>
       <Footer />
     </>

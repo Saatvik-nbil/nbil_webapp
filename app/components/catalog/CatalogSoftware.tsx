@@ -8,12 +8,12 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const SUITES = [
   {
     name: "Dhee",
-    on: "NP · Aura · Mini",
+    on: "NP · Aura",
     body: "Generates non-planar and rotary toolpaths, with per-extruder parameter control and real-time crosslinking synchronization.",
   },
   {
     name: "Niyantranam",
-    on: "Basic · Advanced · Pro",
+    on: "Pro",
     body: "Drives multi-extruder workflows with coordinated temperature, pressure and well-plate motion control.",
   },
 ];

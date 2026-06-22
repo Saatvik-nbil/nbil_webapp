@@ -15,6 +15,7 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import ContactSection from "@/app/components/ContactSection";
 import MachineGallery from "@/app/components/machine/MachineGallery";
+import ExplodedScroll from "@/app/components/machine/ExplodedScroll";
 import Reveal from "@/app/components/machine/Reveal";
 import { Button } from "@/components/ui/button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
@@ -105,7 +106,7 @@ export default async function MachinePage({
           <ol className="flex items-center gap-2 text-[12px] text-[var(--color-ink-faint)]" role="list">
             <li><Link href="/" className="hover:text-[var(--color-ink)] transition-colors">Home</Link></li>
             <li aria-hidden="true"><CaretRight size={12} weight="bold" /></li>
-            <li><Link href="/#models" className="hover:text-[var(--color-ink)] transition-colors">Models</Link></li>
+            <li><Link href="/trivima" className="hover:text-[var(--color-ink)] transition-colors">Bioprinters</Link></li>
             <li aria-hidden="true"><CaretRight size={12} weight="bold" /></li>
             <li className="text-[var(--color-ink-muted)]" aria-current="page">{machine.name}</li>
           </ol>
@@ -200,6 +201,9 @@ export default async function MachinePage({
             </Reveal>
           </div>
         </section>
+
+        {/* Exploded scroll sequence (NP only) */}
+        {machine.slug === "trivima-np" && <ExplodedScroll />}
 
         {/* Specifications */}
         <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
@@ -326,11 +330,11 @@ export default async function MachinePage({
               <h2 id="others-heading" className="font-display text-[1.5rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)]">
                 Explore the rest of the range
               </h2>
-              <Link href="/#models" className="text-[13px] font-medium text-[var(--color-brand)] hover:underline whitespace-nowrap">
+              <Link href="/trivima#models" className="text-[13px] font-medium text-[var(--color-brand-strong)] hover:underline whitespace-nowrap">
                 All models
               </Link>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 gap-4 max-w-xl">
               {others.map((m) => (
                 <Link
                   key={m.slug}
@@ -347,7 +351,7 @@ export default async function MachinePage({
                     />
                   </div>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-[13px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand)] transition-colors">
+                    <span className="text-[13px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-strong)] transition-colors">
                       {m.name}
                     </span>
                     <span className="text-[11px] text-[var(--color-ink-faint)]">{m.tier}</span>

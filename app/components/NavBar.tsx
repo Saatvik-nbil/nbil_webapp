@@ -7,10 +7,10 @@ import { List, X } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
-  { label: "Models", href: "/#models" },
-  { label: "Compare", href: "/#compare" },
-  { label: "Software", href: "/#software" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Bioprinters", href: "/trivima" },
+  { label: "Our story", href: "/#story" },
+  { label: "Products", href: "/#products" },
+  { label: "Contact", href: "/#connect" },
 ];
 
 export default function NavBar() {
@@ -40,15 +40,15 @@ export default function NavBar() {
         {/* Wordmark */}
         <Link
           href="/"
-          className="flex items-center gap-3 shrink-0"
-          aria-label="Trivima by Next Big Innovation Labs — home"
+          className="flex items-center gap-2.5 shrink-0"
+          aria-label="Next Big Innovation Labs — home"
         >
-          <span className="text-[15px] font-semibold text-[var(--color-ink)] tracking-tight font-display">
-            Trivima
+          <span className="text-[15px] font-bold text-[var(--color-ink)] tracking-tight font-display">
+            NBIL
           </span>
           <span className="w-px h-4 bg-[var(--color-hairline)]" aria-hidden="true" />
-          <span className="text-[13px] font-medium text-[var(--color-ink-muted)] tracking-tight">
-            by NBIL
+          <span className="hidden sm:inline text-[13px] font-medium text-[var(--color-ink-muted)] tracking-tight">
+            Next Big Innovation Labs
           </span>
         </Link>
 
@@ -68,7 +68,7 @@ export default function NavBar() {
         {/* CTA + mobile trigger */}
         <div className="flex items-center gap-3 shrink-0">
           <Button asChild className="hidden md:inline-flex h-10 px-5 rounded-xl text-[14px]">
-            <Link href="/#contact">Request a Quote</Link>
+            <Link href="/#connect">Get in touch</Link>
           </Button>
           <button
             className="md:hidden p-2 -mr-1 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors rounded-lg cursor-pointer"
@@ -104,8 +104,8 @@ export default function NavBar() {
               </Link>
             ))}
             <Button asChild className="mt-2 h-12 rounded-xl text-[15px]">
-              <Link href="/#contact" onClick={() => setMobileOpen(false)}>
-                Request a Quote
+              <Link href="/#connect" onClick={() => setMobileOpen(false)}>
+                Get in touch
               </Link>
             </Button>
           </motion.div>

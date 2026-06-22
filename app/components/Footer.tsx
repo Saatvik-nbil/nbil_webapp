@@ -3,17 +3,17 @@ import Link from "next/link";
 import { machines, COMPANY } from "@/lib/machines";
 
 const RESOURCE_LINKS = [
-  { label: "Compare models", href: "/#compare" },
-  { label: "Control software", href: "/#software" },
-  { label: "Applications", href: "/#applications" },
-  { label: "Request a quote", href: "/#contact" },
+  { label: "All bioprinters", href: "/trivima" },
+  { label: "Compare models", href: "/trivima#compare" },
+  { label: "Control software", href: "/trivima#software" },
+  { label: "Applications", href: "/trivima#applications" },
 ];
 
 const COMPANY_LINKS = [
-  { label: "About NBIL", href: COMPANY.site },
+  { label: "About NBIL", href: "/" },
+  { label: "Our story", href: "/#story" },
   { label: "Learn bioprinting", href: "https://nextbiginnovationlabs.com/certified-course-on-bioprinting/" },
-  { label: "Request a quote", href: "https://nextbiginnovationlabs.com/quote/" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/#connect" },
 ];
 
 const Footer: FC = () => (
@@ -27,14 +27,14 @@ const Footer: FC = () => (
         <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
           <div>
             <p className="text-[16px] font-display font-semibold text-[var(--color-ink)] tracking-tight">
-              Trivima
+              {COMPANY.name}
             </p>
             <p className="text-[13px] text-[var(--color-ink-muted)] mt-0.5">
-              by {COMPANY.name}
+              Makers of Trivima bioprinters
             </p>
           </div>
           <p className="text-[12px] text-[var(--color-ink-faint)] leading-relaxed max-w-[28ch]">
-            Precision biofabrication instruments for the research lab of tomorrow.
+            Bioprinting hardware and software for research, regenerative medicine and bioengineered organs.
           </p>
           <address className="not-italic text-[12px] text-[var(--color-ink-faint)] leading-relaxed">
             {COMPANY.address.line1}
@@ -48,13 +48,13 @@ const Footer: FC = () => (
           <div className="flex flex-col gap-1">
             <a
               href={`mailto:${COMPANY.email}`}
-              className="text-[12px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand)] transition-colors"
+              className="text-[12px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors"
             >
               {COMPANY.email}
             </a>
             <a
               href={`tel:${COMPANY.phoneHref}`}
-              className="text-[12px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand)] transition-colors"
+              className="text-[12px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors"
             >
               {COMPANY.phone}
             </a>
@@ -82,8 +82,8 @@ const Footer: FC = () => (
 
         {/* Resources */}
         <div className="flex flex-col gap-4">
-          <p className="text-[12px] font-semibold text-[var(--color-ink)]">Resources</p>
-          <nav aria-label="Resource links">
+          <p className="text-[12px] font-semibold text-[var(--color-ink)]">Explore</p>
+          <nav aria-label="Explore links">
             <ul className="flex flex-col gap-2.5" role="list">
               {RESOURCE_LINKS.map((link) => (
                 <li key={link.label}>
@@ -125,7 +125,7 @@ const Footer: FC = () => (
           &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
         </p>
         <p className="text-[11px] font-mono text-[var(--color-ink-faint)]">
-          Trivima · Bioprinters for tissue engineering
+          NBIL · Bioprinting for a better future
         </p>
       </div>
     </div>

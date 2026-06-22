@@ -1,13 +1,13 @@
 import { machines } from "@/lib/machines";
-import { FeatureCard, MachineCard } from "./MachineCard";
+import { FeatureCard } from "./MachineCard";
 
 // Specialised / newest systems get the large feature treatment.
 const FEATURED = ["trivima-np", "trivima-aura"];
-const CORE_ORDER = ["trivima-mini", "trivima-basic", "trivima-advanced", "trivima-pro"];
+const FLAGSHIP = "trivima-pro";
 
 export default function ModelsSection() {
   const featured = FEATURED.map((s) => machines.find((m) => m.slug === s)!).filter(Boolean);
-  const core = CORE_ORDER.map((s) => machines.find((m) => m.slug === s)!).filter(Boolean);
+  const flagship = machines.find((m) => m.slug === FLAGSHIP);
 
   return (
     <section id="models" aria-labelledby="models-heading" className="py-20 lg:py-28">
@@ -18,7 +18,7 @@ export default function ModelsSection() {
             id="models-heading"
             className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.12]"
           >
-            One family, six systems
+            One family, three systems
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
             Every Trivima machine shares the same control philosophy and open material
@@ -28,7 +28,7 @@ export default function ModelsSection() {
         </div>
 
         {/* Featured / specialised systems */}
-        <div className="flex flex-col gap-6 mb-16">
+        <div className="flex flex-col gap-6 mb-12">
           <div className="flex items-baseline justify-between gap-4 border-b border-[var(--color-hairline)] pb-3">
             <h3 className="font-display text-[1.0625rem] font-semibold text-[var(--color-ink)]">
               Specialised systems
@@ -42,20 +42,18 @@ export default function ModelsSection() {
           </div>
         </div>
 
-        {/* Core extrusion range */}
-        <div className="flex flex-col gap-6">
-          <div className="flex items-baseline justify-between gap-4 border-b border-[var(--color-hairline)] pb-3">
-            <h3 className="font-display text-[1.0625rem] font-semibold text-[var(--color-ink)]">
-              The core extrusion range
-            </h3>
-            <span className="text-[13px] text-[var(--color-ink-muted)]">Entry to flagship</span>
+        {/* Flagship extrusion system */}
+        {flagship && (
+          <div className="flex flex-col gap-6">
+            <div className="flex items-baseline justify-between gap-4 border-b border-[var(--color-hairline)] pb-3">
+              <h3 className="font-display text-[1.0625rem] font-semibold text-[var(--color-ink)]">
+                The flagship
+              </h3>
+              <span className="text-[13px] text-[var(--color-ink-muted)]">Multi-technology extrusion</span>
+            </div>
+            <FeatureCard machine={flagship} index={0} />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {core.map((m, i) => (
-              <MachineCard key={m.slug} machine={m} index={i} />
-            ))}
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );

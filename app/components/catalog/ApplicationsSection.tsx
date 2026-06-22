@@ -9,12 +9,12 @@ const APPLICATIONS = [
   {
     title: "Vascular & tubular constructs",
     body: "Perfusable grafts, small-diameter vessels, stents and ducts via coaxial and rotary printing.",
-    models: "NP · Advanced · Pro",
+    models: "NP · Pro",
   },
   {
     title: "Organoids & spheroids",
     body: "Reproducible organoid arrays and spheroids with consistent geometry for disease models.",
-    models: "Advanced · Pro · NP",
+    models: "Pro · NP",
   },
   {
     title: "Respiratory & airway models",
@@ -29,7 +29,7 @@ const APPLICATIONS = [
   {
     title: "Soft & hard tissue scaffolds",
     body: "Hydrogel, bioceramic and synthetic-polymer scaffolds across the extrusion range.",
-    models: "Mini · Basic · Advanced",
+    models: "Pro",
   },
   {
     title: "Ocular & corneal constructs",
@@ -59,7 +59,7 @@ export default function ApplicationsSection() {
             </p>
             <p className="text-[14px] text-[var(--color-ink-muted)]">
               Not sure which system fits?{" "}
-              <Link href="#contact" className="font-medium text-[var(--color-brand)] hover:underline underline-offset-4">
+              <Link href="#contact" className="font-medium text-[var(--color-brand-strong)] hover:underline underline-offset-4">
                 Talk to the NBIL team
               </Link>
               .
@@ -86,7 +86,7 @@ export default function ApplicationsSection() {
                   {app.body}
                 </dd>
               </div>
-              <span className="font-mono text-[12px] text-[var(--color-brand)] sm:text-right sm:pt-1 whitespace-nowrap">
+              <span className="font-mono text-[12px] text-[var(--color-brand-strong)] sm:text-right sm:pt-1 whitespace-nowrap">
                 {app.models}
               </span>
             </motion.div>

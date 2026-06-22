@@ -24,7 +24,7 @@ export default function CatalogHero() {
       aria-labelledby="hero-heading"
       className="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24"
     >
-      {/* Ambient teal wash, very subtle */}
+      {/* Ambient blue wash, very subtle */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full opacity-60 blur-3xl"
@@ -37,7 +37,7 @@ export default function CatalogHero() {
           <div className="lg:col-span-7 flex flex-col gap-7">
             <motion.p
               {...rise(0)}
-              className="text-[13px] font-semibold tracking-tight text-[var(--color-brand)]"
+              className="text-[13px] font-semibold tracking-tight text-[var(--color-brand-strong)]"
             >
               The full Trivima range, by Next Big Innovation Labs
             </motion.p>
@@ -54,9 +54,9 @@ export default function CatalogHero() {
               {...rise(0.13)}
               className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[54ch]"
             >
-              From a 5.7 kg benchtop starter to a six-extruder research flagship and a
-              non-planar rotary system, the Trivima family spans extrusion, inkjet,
-              pellet and light-based bioprinting. Explore every machine, spec for spec.
+              From a non-planar rotary system to a six-extruder research flagship and a
+              light-based platform, the Trivima family spans extrusion, inkjet, pellet
+              and light-based bioprinting. Explore every machine, spec for spec.
             </motion.p>
 
             <motion.div {...rise(0.2)} className="flex flex-wrap items-center gap-3">
@@ -76,7 +76,7 @@ export default function CatalogHero() {
               {...rise(0.28)}
               className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--color-hairline)] pt-7 text-[14px] text-[var(--color-ink-muted)]"
             >
-              <span><strong className="font-semibold text-[var(--color-ink)]">Six models</strong></span>
+              <span><strong className="font-semibold text-[var(--color-ink)]">Three models</strong></span>
               <span aria-hidden="true" className="text-[var(--color-ink-faint)]">·</span>
               <span>extrusion, inkjet, pellet and light</span>
               <span aria-hidden="true" className="text-[var(--color-ink-faint)]">·</span>
@@ -112,7 +112,7 @@ export default function CatalogHero() {
                 className="group absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8 flex items-center justify-between rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/85 backdrop-blur-sm px-4 py-3 transition-colors hover:border-[var(--color-brand)]"
               >
                 <span className="flex flex-col">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-brand)]">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
                     Newest · 2025
                   </span>
                   <span className="text-[14px] font-medium text-[var(--color-ink)]">
