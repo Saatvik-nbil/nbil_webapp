@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -162,14 +163,19 @@ export default function CompanyHero() {
                 className="w-full h-auto object-contain drop-shadow-[0_28px_56px_rgba(15,23,42,0.16)]"
                 sizes="(max-width: 1024px) 80vw, 38vw"
               />
-              <div className="absolute left-7 bottom-7 right-7 flex items-center justify-between rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/85 backdrop-blur-sm px-4 py-3">
-                <span className="text-[13px] font-medium text-[var(--color-ink)]">
-                  The Trivima bioprinter line
-                </span>
-                <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
-                  3 models
-                </span>
-              </div>
+              <LiquidGlass
+                tint="light"
+                className="absolute left-7 bottom-7 right-7 rounded-xl border border-white/50"
+              >
+                <div className="flex items-center justify-between px-4 py-3">
+                  <span className="text-[13px] font-medium text-[var(--color-ink)]">
+                    The Trivima bioprinter line
+                  </span>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+                    3 models
+                  </span>
+                </div>
+              </LiquidGlass>
             </div>
           </div>
         </div>

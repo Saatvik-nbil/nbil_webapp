@@ -3,6 +3,7 @@ import { Libre_Franklin } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollProgress from "@/app/components/ScrollProgress";
+import { GlassFilter, SoftGlassFilter } from "@/components/ui/liquid-glass";
 import "./globals.css";
 
 // Official NBIL brand typeface, used for both display and body.
@@ -99,6 +100,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${libreFranklin.variable} ${GeistMono.variable}`}
     >
       <body>
+        {/* SVG filter defs for the liquid-glass surfaces (rendered once) */}
+        <GlassFilter />
+        <SoftGlassFilter />
         <SmoothScroll>
           <ScrollProgress />
           {children}

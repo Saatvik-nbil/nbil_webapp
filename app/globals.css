@@ -103,6 +103,12 @@ p {
   color: var(--color-brand-strong);
 }
 
+/* ---- Liquid-glass demo background pan ---- */
+@keyframes moveBackground {
+  from { background-position: 0% 0%; }
+  to { background-position: 0% -1000%; }
+}
+
 /* ---- Shimmer skeleton ---- */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
