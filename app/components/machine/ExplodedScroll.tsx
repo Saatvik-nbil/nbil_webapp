@@ -11,8 +11,10 @@ const framePath = (i: number) => `/images/np-seq/np-${String(i + 1).padStart(3, 
 
 type Stop = {
   side: "left" | "right";
-  fy: number; // vertical centre of the part in the final exploded frame (0–1)
+  fy: number; // vertical centre of the part at the moment it is featured (0–1)
+  fx?: number; // horizontal centre of the part (defaults to 0.5)
   scale: number; // zoom factor
+  at: number; // timeline beat (0–10) where the part is featured
   title: string;
   value: string;
   hero?: boolean;
@@ -23,11 +25,11 @@ type Stop = {
 // part has separated by then while the rest of the machine is still blooming
 // apart, and `fy` is the part's vertical centre at that moment.
 const STOPS: Stop[] = [
-  { side: "right", fy: 0.25, scale: 2.2, at: 3.3, title: "Swappable print head", value: "2–3 extruder slots · pneumatic, pellet & motor-driven" },
-  { side: "left", fy: 0.34, scale: 2.3, at: 4.9, title: "Precision motion", value: "Better than 10 µm movement precision" },
-  { side: "right", fy: 0.45, scale: 2.6, at: 6.1, title: "Rotatory spindle", value: "True cylindrical & helical, non-planar paths", hero: true },
-  { side: "left", fy: 0.55, scale: 2.4, at: 7.1, title: "Build platform", value: "120 × 70 × 50 mm · bed 4–80 °C" },
-  { side: "right", fy: 0.86, scale: 2.4, at: 8.8, title: "Embedded controller", value: "Runs Dhee · UV & visible crosslinking" },
+  { side: "right", fy: 0.22, fx: 0.57, scale: 1.5, at: 4.4, title: "Swappable print head", value: "2–3 extruder slots · pneumatic, pellet & motor-driven" },
+  { side: "left", fy: 0.34, scale: 1.5, at: 5.4, title: "Precision motion", value: "Better than 10 µm movement precision" },
+  { side: "right", fy: 0.45, scale: 1.7, at: 6.3, title: "Rotatory spindle", value: "True cylindrical & helical, non-planar paths", hero: true },
+  { side: "left", fy: 0.55, scale: 1.55, at: 7.2, title: "Build platform", value: "120 × 70 × 50 mm · bed 4–80 °C" },
+  { side: "right", fy: 0.85, scale: 1.55, at: 8.6, title: "Embedded controller", value: "Runs Dhee · UV & visible crosslinking" },
 ];
 
 const FX = 0.5; // parts are horizontally centred
@@ -38,6 +40,10 @@ export default function ExplodedScroll() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef({ i: 0 });
+  // Camera: focus point (fx,fy) in the frame is placed at stage anchor (ax,ay)
+  // and magnified by `scale`. The zoom is rendered by scaling the source image
+  // into the canvas (not a CSS transform) so the full 2560px source stays sharp.
+  const camRef = useRef({ scale: 1, fx: 0.5, fy: 0.5, ax: 0.5, ay: 0.5 });
   const [loaded, setLoaded] = useState(0);
   const [reduced, setReduced] = useState(false);
 
@@ -75,26 +81,28 @@ export default function ExplodedScroll() {
     draw(frameRef.current.i);
   }
 
-  function draw(index: number) {
+  function draw(index?: number) {
     const canvas = canvasRef.current;
-    const img = imagesRef.current[Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(index)))];
+    const idx = index ?? frameRef.current.i;
+    const img = imagesRef.current[Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(idx)))];
     if (!canvas || !img || !img.complete || !img.naturalWidth) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const cw = canvas.width;
     const ch = canvas.height;
-    ctx.clearRect(0, 0, cw, ch);
-    const ir = img.naturalWidth / img.naturalHeight;
-    const cr = cw / ch;
-    let dw: number, dh: number;
-    if (ir > cr) {
-      dw = cw;
-      dh = cw / ir;
-    } else {
-      dh = ch;
-      dw = ch * ir;
-    }
-    ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    const cam = camRef.current;
+    // The frame is 16:9 like the canvas, so at scale 1 it fills it exactly.
+    // Scaling + translating the *source draw* keeps it sampled from the full-res
+    // image at every zoom level, so it never pixelates the way a CSS scale would.
+    const dW = cw * cam.scale;
+    const dH = ch * cam.scale;
+    const dx = cw * (cam.ax - cam.fx * cam.scale);
+    const dy = ch * (cam.ay - cam.fy * cam.scale);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, cw, ch);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(img, dx, dy, dW, dH);
   }
 
   useEffect(() => {
@@ -115,48 +123,51 @@ export default function ExplodedScroll() {
       return () => window.removeEventListener("resize", sizeCanvas);
     }
 
+    // Redraw the canvas every frame so the scrub's smooth catch-up stays in sync.
+    const render = () => draw();
+    gsap.ticker.add(render);
+
     const ctx = gsap.context(() => {
-      const cam = canvasRef.current!;
-      gsap.set(cam, { transformOrigin: "0% 0%" });
+      const cam = camRef.current;
 
       const tl = gsap.timeline({
+        defaults: { ease: "sine.inOut" },
         scrollTrigger: {
           trigger: pinRef.current,
           start: "top top",
-          end: () => "+=" + window.innerHeight * 6,
+          end: () => "+=" + window.innerHeight * 7,
           pin: pinRef.current,
-          scrub: 1,
+          scrub: 1.3,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
 
-      // 1. Explosion plays, fully zoomed out.
-      tl.set(cam, { scale: 1, xPercent: 0, yPercent: 0 }, 0);
-      tl.to(
-        frameRef.current,
-        { i: FRAME_COUNT - 1, ease: "none", duration: 2.2, onUpdate: () => draw(frameRef.current.i) },
-        0,
-      );
+      // 1. The machine disintegrates continuously across the whole scroll, so the
+      //    camera moves in (step 2) while it is still blooming apart.
+      tl.set(cam, { scale: 1, fx: 0.5, fy: 0.5, ax: 0.5, ay: 0.5 }, 0);
+      tl.to(frameRef.current, { i: FRAME_COUNT - 1, ease: "none", duration: 9.3 }, 0.3);
 
-      // 2. Camera tours each part with its callout + leader line.
+      // 2. While it disintegrates, the camera glides down through each part with a
+      //    gentle zoom (so the rest of the machine stays in view), a blue leader
+      //    line + spec, one callout at a time with overlapping cross-fades.
       STOPS.forEach((s, i) => {
         const ax = s.side === "right" ? 0.34 : 0.66;
-        const cx = (ax - s.scale * FX) * 100;
-        const cy = (0.5 - s.scale * s.fy) * 100;
-        const t = 2.8 + i * 1.3;
-        tl.to(cam, { scale: s.scale, xPercent: cx, yPercent: cy, duration: 0.7, ease: "power2.inOut" }, t);
-        tl.fromTo(`.exp-stop-${i}`, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, t + 0.35);
-        tl.to(`.exp-stop-${i}`, { autoAlpha: 0, duration: 0.3 }, t + 1.15);
+        const t = s.at;
+        const next = STOPS[i + 1];
+        tl.to(cam, { scale: s.scale, fx: s.fx ?? FX, fy: s.fy, ax, ay: 0.5, duration: 1.1 }, t - 1.1);
+        tl.fromTo(`.exp-stop-${i}`, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, t - 0.5);
+        const outAt = next ? next.at - 0.5 : 9.0;
+        tl.to(`.exp-stop-${i}`, { autoAlpha: 0, duration: 0.4 }, outAt);
       });
 
-      // 3. Pull back to the full exploded view.
-      const lastT = 2.8 + (STOPS.length - 1) * 1.3;
-      tl.to(cam, { scale: 1, xPercent: 0, yPercent: 0, duration: 0.9, ease: "power2.inOut" }, lastT + 1.3);
+      // 3. Pull back to reveal the fully exploded machine.
+      tl.to(cam, { scale: 1, fx: 0.5, fy: 0.5, ax: 0.5, ay: 0.5, duration: 1.0 }, 9.0);
     }, pinRef);
 
     return () => {
       window.removeEventListener("resize", sizeCanvas);
+      gsap.ticker.remove(render);
       ctx.revert();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
