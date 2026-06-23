@@ -44,8 +44,27 @@ export default function ExplodedScroll() {
   // and magnified by `scale`. The zoom is rendered by scaling the source image
   // into the canvas (not a CSS transform) so the full 2560px source stays sharp.
   const camRef = useRef({ scale: 1, fx: 0.5, fy: 0.5, ax: 0.5, ay: 0.5 });
+  // Frames are JPEGs, so their "white" backdrop isn't pure #fff. We sample it
+  // once and fill any uncovered canvas area with that exact colour, so the
+  // zoomed-out / edge views show no seam between the fill and the photo.
+  const bgRef = useRef<string>("#ffffff");
   const [loaded, setLoaded] = useState(0);
   const [reduced, setReduced] = useState(false);
+
+  function sampleBg(img: HTMLImageElement) {
+    try {
+      const c = document.createElement("canvas");
+      c.width = 8;
+      c.height = 8;
+      const cx = c.getContext("2d");
+      if (!cx) return;
+      cx.drawImage(img, 0, 0, 8, 8);
+      const d = cx.getImageData(0, 0, 1, 1).data;
+      bgRef.current = `rgb(${d[0]}, ${d[1]}, ${d[2]})`;
+    } catch {
+      /* tainted canvas — keep default */
+    }
+  }
 
   // Preload the frame sequence.
   useEffect(() => {
@@ -58,7 +77,10 @@ export default function ExplodedScroll() {
       img.onload = img.onerror = () => {
         if (cancelled) return;
         count++;
-        if (i === 0) draw(0);
+        if (i === 0) {
+          sampleBg(img);
+          draw(0);
+        }
         if (count % 8 === 0 || count === FRAME_COUNT) setLoaded(count);
         if (count === FRAME_COUNT) ScrollTrigger.refresh();
       };
@@ -98,7 +120,7 @@ export default function ExplodedScroll() {
     const dH = ch * cam.scale;
     const dx = cw * (cam.ax - cam.fx * cam.scale);
     const dy = ch * (cam.ay - cam.fy * cam.scale);
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = bgRef.current;
     ctx.fillRect(0, 0, cw, ch);
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
