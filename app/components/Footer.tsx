@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import Link from "next/link";
 import { machines, COMPANY } from "@/lib/machines";
+import MagneticDock from "@/components/ui/magnetic-dock";
 
 const RESOURCE_LINKS = [
   { label: "All bioprinters", href: "/trivima" },
@@ -119,8 +120,16 @@ const Footer: FC = () => (
         </div>
       </div>
 
+      {/* Socials */}
+      <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[12px] font-mono uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
+          Follow along
+        </p>
+        <MagneticDock />
+      </div>
+
       {/* Bottom bar */}
-      <div className="mt-14 pt-6 border-t border-[var(--color-hairline-subtle)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="mt-10 pt-6 border-t border-[var(--color-hairline-subtle)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <p className="text-[12px] text-[var(--color-ink-faint)]">
           &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
         </p>

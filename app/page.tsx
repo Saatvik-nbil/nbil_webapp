@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import NavBar from "@/app/components/NavBar";
 import CompanyHero from "@/app/components/company/CompanyHero";
 import CredibilityStrip from "@/app/components/company/CredibilityStrip";
+import IntegrationHero from "@/components/ui/integration-hero";
 import MissionScroll from "@/app/components/company/MissionScroll";
 import FocusAreas from "@/app/components/company/FocusAreas";
 import StoryTimeline from "@/app/components/company/StoryTimeline";
@@ -63,6 +64,7 @@ export default function HomePage() {
       <main id="main-content">
         <CompanyHero />
         <CredibilityStrip />
+        <IntegrationHero />
         <MissionScroll />
         <FocusAreas />
         <StoryTimeline />
