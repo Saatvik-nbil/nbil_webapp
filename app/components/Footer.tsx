@@ -26,11 +26,14 @@ const Footer: FC = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
         {/* Brand */}
         <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
-          <div>
-            <p className="text-[16px] font-display font-semibold text-[var(--color-ink)] tracking-tight">
-              {COMPANY.name}
-            </p>
-            <p className="text-[13px] text-[var(--color-ink-muted)] mt-0.5">
+          <div className="flex flex-col gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/recognition/nbil-logo.png"
+              alt={COMPANY.name}
+              className="h-8 w-auto self-start"
+            />
+            <p className="text-[13px] text-[var(--color-ink-muted)]">
               Makers of Trivima bioprinters
             </p>
           </div>

@@ -44,16 +44,15 @@ export default function NavBar() {
             {/* Wordmark */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 shrink-0"
+              className="flex items-center shrink-0"
               aria-label="Next Big Innovation Labs — home"
             >
-              <span className="text-[15px] font-bold text-[var(--color-ink)] tracking-tight font-display">
-                NBIL
-              </span>
-              <span className="w-px h-4 bg-[var(--color-hairline)]" aria-hidden="true" />
-              <span className="hidden sm:inline text-[13px] font-medium text-[var(--color-ink-muted)] tracking-tight">
-                Next Big Innovation Labs
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/recognition/nbil-logo.png"
+                alt="Next Big Innovation Labs"
+                className="h-7 w-auto"
+              />
             </Link>
 
             {/* Desktop navigation */}
