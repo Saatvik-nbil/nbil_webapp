@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Bioprinters", href: "/trivima" },
   { label: "Our story", href: "/#story" },
   { label: "Products", href: "/#products" },
+  { label: "Team", href: "/team" },
   { label: "Contact", href: "/#connect" },
 ];
 
