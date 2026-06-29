@@ -52,7 +52,7 @@ export default function CompanyConnect() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Researchers */}
           <motion.div {...rise(0.05)}>
-            <LiquidGlass tint="dark" interactive className="h-full rounded-2xl border border-white/10">
+            <LiquidGlass tint="dark" interactive distort={false} className="h-full rounded-2xl border border-white/10">
               <div className="flex flex-col gap-5 p-8 lg:p-10">
                 <span className="flex size-11 items-center justify-center rounded-xl bg-[#13263d]">
                   <Flask size={22} weight="duotone" className="text-[var(--color-dark-brand)]" />
@@ -85,7 +85,7 @@ export default function CompanyConnect() {
 
           {/* Partners & investors */}
           <motion.div {...rise(0.12)}>
-            <LiquidGlass tint="dark" interactive className="h-full rounded-2xl border border-white/10">
+            <LiquidGlass tint="dark" interactive distort={false} className="h-full rounded-2xl border border-white/10">
               <div className="flex flex-col gap-5 p-8 lg:p-10">
                 <span className="flex size-11 items-center justify-center rounded-xl bg-[#13263d]">
                   <Handshake size={22} weight="duotone" className="text-[var(--color-dark-brand)]" />

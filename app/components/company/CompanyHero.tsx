@@ -165,6 +165,7 @@ export default function CompanyHero() {
               />
               <LiquidGlass
                 tint="light"
+                distort={false}
                 className="absolute left-7 bottom-7 right-7 rounded-xl border border-white/50"
               >
                 <div className="flex items-center justify-between px-4 py-3">
