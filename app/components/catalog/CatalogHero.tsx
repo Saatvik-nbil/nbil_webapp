@@ -1,133 +1,225 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowDown,
+  Pause,
+  Play,
+  SpeakerSimpleHigh,
+  SpeakerSimpleSlash,
+} from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function CatalogHero() {
   const reduce = useReducedMotion();
-  const rise = (delay: number) =>
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
+  const [blurred, setBlurred] = useState(false); // freeze + blur on the end frame
+  const [revealed, setRevealed] = useState(false); // overlay copy visible
+
+  // Orchestrate the intro: play once → blur end frame → pop the copy.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reduce) {
+      video.pause();
+      setPlaying(false);
+      setRevealed(true);
+      return;
+    }
+
+    const onEnded = () => {
+      setBlurred(true);
+      setPlaying(false);
+      setRevealed(true);
+    };
+    video.addEventListener("ended", onEnded);
+
+    // The clip may already have finished before hydration attached the listener.
+    if (video.ended) {
+      onEnded();
+    } else {
+      // If autoplay is blocked, don't trap the copy behind a clip that never plays.
+      video.play().catch(() => {
+        setPlaying(false);
+        setRevealed(true);
+      });
+    }
+
+    // Safety net in case the 'ended' event never fires.
+    const fallback = setTimeout(() => setRevealed(true), 9000);
+
+    return () => {
+      video.removeEventListener("ended", onEnded);
+      clearTimeout(fallback);
+    };
+  }, [reduce]);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      if (blurred) {
+        // Replay the intro from the top.
+        setBlurred(false);
+        video.currentTime = 0;
+      }
+      video.play().catch(() => {});
+      setPlaying(true);
+    } else {
+      video.pause();
+      setPlaying(false);
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const next = !video.muted;
+    video.muted = next;
+    setMuted(next);
+  };
+
+  // The copy mounts only after the intro clip finishes, so each line animates
+  // from its initial state to visible on mount — a reliable staggered pop.
+  const pop = (i: number) =>
     reduce
-      ? {}
+      ? { initial: false as const }
       : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: { delay, duration: 0.7, ease: EASE },
+          initial: { opacity: 0, y: 24, scale: 0.96, filter: "blur(8px)" },
+          animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+          transition: { delay: 0.1 + i * 0.09, duration: 0.6, ease: EASE },
         };
 
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24"
+      className="relative flex min-h-[100svh] items-end overflow-hidden bg-[var(--color-dark-bg)]"
     >
-      {/* Ambient blue wash, very subtle */}
-      <div
+      {/* Background video, inset below the navbar so the two never overlap */}
+      <video
+        ref={videoRef}
+        className="absolute inset-x-0 bottom-0 top-[84px] object-cover sm:top-[92px]"
+        style={{
+          filter: blurred ? "blur(18px)" : "blur(0px)",
+          transform: blurred ? "scale(1.08)" : "scale(1)",
+          transformOrigin: "center top",
+          transition: "filter 900ms ease, transform 900ms ease",
+        }}
+        src="/images/explore.mp4"
+        muted
+        playsInline
+        preload="auto"
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full opacity-60 blur-3xl"
-        style={{ background: "radial-gradient(closest-side, var(--color-brand-surface), transparent)" }}
       />
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          {/* Left — copy (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-7">
+      {/* Solid dark cap keeps the strip behind the navbar black — as at the
+          start — even once the end frame blurs and scales up */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[84px] bg-[var(--color-dark-bg)] sm:h-[92px]"
+      />
+      {/* Seam blend softens the video's top edge below the cap */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[84px] z-[1] h-24 bg-gradient-to-b from-[var(--color-dark-bg)] to-transparent sm:top-[92px]"
+      />
+      {/* Bottom scrim anchors the copy once it appears */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
+      />
+
+      {/* Overlay copy */}
+      <div className="relative w-full">
+        <div className="mx-auto max-w-7xl px-6 pb-16 pt-40 lg:pb-24">
+          {revealed && (
+          <div className="flex max-w-[60ch] flex-col gap-6">
             <motion.p
-              {...rise(0)}
-              className="text-[13px] font-semibold tracking-tight text-[var(--color-brand-strong)]"
+              {...pop(0)}
+              className="text-[13px] font-semibold tracking-tight text-[var(--color-dark-brand)]"
             >
               The full Trivima range, by Next Big Innovation Labs
             </motion.p>
 
             <motion.h1
               id="hero-heading"
-              {...rise(0.06)}
-              className="text-[2.75rem] sm:text-[3.25rem] lg:text-[4rem] font-display font-semibold tracking-[-0.03em] leading-[1.04] text-[var(--color-ink)]"
+              {...pop(1)}
+              className="font-display text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.03em] text-white sm:text-[3.25rem] lg:text-[4.25rem]"
             >
               Bioprinters built to match the geometry of biology.
             </motion.h1>
 
             <motion.p
-              {...rise(0.13)}
-              className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[54ch]"
+              {...pop(2)}
+              className="max-w-[54ch] text-[1.0625rem] leading-relaxed text-white/75"
             >
-              From a non-planar rotary system to a six-extruder research flagship and a
-              light-based platform, the Trivima family spans extrusion, inkjet, pellet
-              and light-based bioprinting. Explore every machine, spec for spec.
+              From a non-planar rotary system to a six-extruder research flagship and
+              a light-based platform, the Trivima family spans extrusion, inkjet,
+              pellet and light-based bioprinting. Explore every machine, spec for spec.
             </motion.p>
 
-            <motion.div {...rise(0.2)} className="flex flex-wrap items-center gap-3">
-              <Button asChild className="h-11 px-6 rounded-xl text-[15px]">
-                <Link href="#models">
-                  Explore the models
-                  <ArrowDown data-icon="inline-end" weight="bold" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="h-11 px-6 rounded-xl text-[15px]">
-                <Link href="#compare">Compare specs</Link>
-              </Button>
+            <motion.div {...pop(3)} className="mt-1 flex flex-wrap items-center gap-3">
+              <Link
+                href="#models"
+                className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+              >
+                Explore the models
+                <ArrowDown weight="bold" size={17} />
+              </Link>
+              <Link
+                href="#compare"
+                className="inline-flex h-11 items-center rounded-xl border border-white/25 bg-white/10 px-6 text-[15px] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20"
+              >
+                Compare specs
+              </Link>
             </motion.div>
 
-            {/* Key facts, stated as a line rather than a metric grid */}
+            {/* Key facts */}
             <motion.p
-              {...rise(0.28)}
-              className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--color-hairline)] pt-7 text-[14px] text-[var(--color-ink-muted)]"
+              {...pop(4)}
+              className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-white/15 pt-6 text-[14px] text-white/70"
             >
-              <span><strong className="font-semibold text-[var(--color-ink)]">Three models</strong></span>
-              <span aria-hidden="true" className="text-[var(--color-ink-faint)]">·</span>
+              <span><strong className="font-semibold text-white">Three models</strong></span>
+              <span aria-hidden="true" className="text-white/35">·</span>
               <span>extrusion, inkjet, pellet and light</span>
-              <span aria-hidden="true" className="text-[var(--color-ink-faint)]">·</span>
-              <span>down to <strong className="font-semibold text-[var(--color-ink)]">10&nbsp;µm</strong></span>
-              <span aria-hidden="true" className="text-[var(--color-ink-faint)]">·</span>
+              <span aria-hidden="true" className="text-white/35">·</span>
+              <span>down to <strong className="font-semibold text-white">10&nbsp;µm</strong></span>
+              <span aria-hidden="true" className="text-white/35">·</span>
               <span>eight years in research labs</span>
             </motion.p>
           </div>
-
-          {/* Right — hero machine (5 cols) */}
-          <motion.div
-            {...(reduce
-              ? {}
-              : {
-                  initial: { opacity: 0, scale: 0.96 },
-                  animate: { opacity: 1, scale: 1 },
-                  transition: { delay: 0.15, duration: 0.8, ease: EASE },
-                })}
-            className="lg:col-span-5 relative"
-          >
-            <div className="relative rounded-3xl border border-[var(--color-hairline)] bg-gradient-to-b from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 sm:p-8">
-              <Image
-                src="/images/np-side.png"
-                alt="Trivima NP non-planar bioprinter"
-                width={900}
-                height={900}
-                priority
-                className="w-full h-auto object-contain drop-shadow-[0_24px_48px_rgba(15,23,42,0.18)]"
-                sizes="(max-width: 1024px) 90vw, 40vw"
-              />
-              <Link
-                href="/machines/trivima-np"
-                className="group absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8 flex items-center justify-between rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/85 backdrop-blur-sm px-4 py-3 transition-colors hover:border-[var(--color-brand)]"
-              >
-                <span className="flex flex-col">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-brand-strong)]">
-                    Newest · 2025
-                  </span>
-                  <span className="text-[14px] font-medium text-[var(--color-ink)]">
-                    Trivima NP — non-planar
-                  </span>
-                </span>
-                <ArrowUpRight
-                  size={18}
-                  weight="bold"
-                  className="text-[var(--color-ink-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--color-brand)]"
-                />
-              </Link>
-            </div>
-          </motion.div>
+          )}
         </div>
+      </div>
+
+      {/* Glass playback controls */}
+      <div className="absolute bottom-5 right-5 z-10 flex items-center gap-1.5 rounded-full border border-white/15 bg-black/30 p-1 backdrop-blur-md">
+        <button
+          type="button"
+          onClick={togglePlay}
+          aria-label={playing ? "Pause background video" : blurred ? "Replay intro video" : "Play background video"}
+          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/15 hover:text-white"
+        >
+          {playing ? <Pause size={16} weight="fill" /> : <Play size={16} weight="fill" />}
+        </button>
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute background video" : "Mute background video"}
+          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/15 hover:text-white"
+        >
+          {muted ? (
+            <SpeakerSimpleSlash size={16} weight="fill" />
+          ) : (
+            <SpeakerSimpleHigh size={16} weight="fill" />
+          )}
+        </button>
       </div>
     </section>
   );
