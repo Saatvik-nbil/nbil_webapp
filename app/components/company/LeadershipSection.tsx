@@ -1,13 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const LEADERS = [
-  { name: "Piyush Padmanabhan", role: "CEO, Co-Founder & Director", initials: "PP" },
-  { name: "Pooja Venkatesh", role: "Co-CEO & Co-Founder", initials: "PV" },
-  { name: "Alok Medikepura Anil", role: "Co-Founder & Director", initials: "AA" },
+  { name: "Piyush Padmanabhan", role: "CEO, Co-Founder & Director", image: "/founders/Piyush.png" },
+  { name: "Pooja Venkatesh", role: "Co-CEO & Co-Founder", image: "/founders/Pooja.jpg" },
+  { name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/Alok.jpg" },
 ];
 
 export default function LeadershipSection() {
@@ -39,18 +40,16 @@ export default function LeadershipSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ delay: i * 0.08, duration: 0.55, ease: EASE }}
-              className="flex flex-col gap-4"
+              className="group flex flex-col gap-4"
             >
-              <div
-                className="flex aspect-[4/5] items-end justify-start rounded-2xl border border-[var(--color-hairline)] p-5"
-                style={{
-                  background:
-                    "linear-gradient(155deg, var(--color-brand-surface), var(--color-surface) 70%)",
-                }}
-              >
-                <span className="font-display text-[2.6rem] font-semibold tracking-tight text-[var(--color-brand)] leading-none">
-                  {p.initials}
-                </span>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
+                <Image
+                  src={p.image}
+                  alt={p.name}
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 28vw"
+                  className="object-cover object-top grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+                />
               </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-display text-[1.15rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">

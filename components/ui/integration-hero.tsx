@@ -18,31 +18,34 @@ const FEATURED: Item[] = [
 ];
 
 const PARTNERS: Item[] = [
-  { name: "Microsoft for Startups" },
-  { name: "HiMedia Laboratories" },
-  { name: "IIT Hyderabad" },
-  { name: "AIIMS New Delhi" },
-  { name: "Govt. of Karnataka" },
-  { name: "Jyothy Institute of Technology" },
+  { name: "Microsoft for Startups", logo: "/institute/msft.png" },
+  { name: "IISc Bengaluru", logo: "/institute/IISc_Master_Seal_Transparent.png" },
+  { name: "AIIMS New Delhi", logo: "/institute/All_India_Institute_of_Medical_Sciences,_Delhi.svg.webp" },
+  { name: "IIT Hyderabad", logo: "/institute/iithyd.png" },
+  { name: "CSIR-CLRI", logo: "/institute/csir-clri-logo.png" },
+  { name: "HiMedia Laboratories", logo: "/institute/HiMedia_Logo_-1.png" },
+  { name: "Manipal University", logo: "/institute/Manipal_University_logo.png" },
+  { name: "Govt. of Karnataka", logo: "/institute/the-karnataka-government-kannada-logo-png_seeklogo-407164.png" },
+  { name: "AIC-JITF", logo: "/institute/aic-jitf-logo.png" },
 ];
 
 function Chip({ item }: { item: Item }) {
   return (
-    <div className="flex shrink-0 items-center gap-3 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] pl-3 pr-5 py-2 shadow-[0_1px_2px_rgba(2,12,27,0.04)]">
+    <div className="flex shrink-0 items-center gap-3.5 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] pl-3 pr-6 py-2.5 shadow-[0_1px_2px_rgba(2,12,27,0.04)]">
       {item.logo ? (
-        <span className="grid size-9 place-items-center rounded-full bg-white">
+        <span className="grid size-14 place-items-center rounded-full bg-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.logo} alt={item.name} className="h-6 w-6 object-contain" loading="lazy" />
+          <img src={item.logo} alt={item.name} className="h-10 w-10 object-contain" loading="lazy" />
         </span>
       ) : (
         <span
           aria-hidden="true"
-          className="grid size-9 place-items-center rounded-full bg-[var(--color-brand-surface)] text-[12px] font-semibold text-[var(--color-brand-strong)]"
+          className="grid size-14 place-items-center rounded-full bg-[var(--color-brand-surface)] text-[18px] font-semibold text-[var(--color-brand-strong)]"
         >
           {item.name.replace(/^(Govt\. of|The)\s+/i, "").trim().charAt(0)}
         </span>
       )}
-      <span className="whitespace-nowrap text-[14px] font-medium text-[var(--color-ink-muted)]">
+      <span className="whitespace-nowrap text-[15px] font-medium text-[var(--color-ink-muted)]">
         {item.name}
       </span>
     </div>

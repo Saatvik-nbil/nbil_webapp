@@ -10,22 +10,22 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* The three founders — shown first, as the anchor of the page. */
 const FOUNDERS = [
-  { id: "f1", name: "Piyush Padmanabhan", role: "CEO · Co-Founder & Director", image: "/founders/Piyush.png", linkedin: "#" },
-  { id: "f2", name: "Pooja Venkatesh", role: "Co-CEO · Co-Founder", image: "/founders/Pooja.jpg", linkedin: "#" },
-  { id: "f3", name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/Alok.jpg", linkedin: "#" },
+  { id: "f1", name: "Piyush Padmanabhan", role: "CEO · Co-Founder & Director", image: "/founders/Piyush.png", linkedin: "https://www.linkedin.com/in/piyush-padmanabhan/" },
+  { id: "f2", name: "Pooja Venkatesh", role: "Co-CEO · Co-Founder", image: "/founders/Pooja.jpg", linkedin: "https://www.linkedin.com/in/pooja-venkatesh-5a8079153/" },
+  { id: "f3", name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/Alok.jpg", linkedin: "https://www.linkedin.com/in/alokanil/" },
 ];
 
 /* The wider team — revealed in the showcase as you scroll down. */
 const TEAM: TeamMember[] = [
-  { id: "t2", name: "Muthukumaran V", role: "Senior Software & R&D Engineer", image: "/team/Muthu Kumaran.jpeg", social: { linkedin: "#" } },
-  { id: "t1", name: "Gowthaman S P", role: "Senior R&D Engineer", image: "/team/Gowthaman-Photoroom.jpeg", social: { linkedin: "#" } },
-  { id: "t3", name: "Maria Da Costa", role: "Biofabrication Specialist", image: "/team/Maria.jpeg", social: { linkedin: "#" } },
-  { id: "t4", name: "Aseem Gupta", role: "Jr. Engineer · Software & AI", image: "/team/Aseem Gupta.jpeg", social: { linkedin: "#" } },
-  { id: "t5", name: "Saatvik S Shastry", role: "Jr. Engineer · Software & AI", image: "/team/Saatvik.jpeg", social: { linkedin: "#" } },
-  { id: "t6", name: "Gargi Chakraborty", role: "Marketing & Ops Associate", image: "/team/Gargi.JPG", social: { linkedin: "#" } },
-  { id: "t7", name: "Aalim Hussain", role: "Jr. Mechanical Engineer", image: "/team/Aalim.png", social: { linkedin: "#" } },
-  { id: "t8", name: "Snehangshu Sengupta", role: "Jr. Mechanical Engineer", image: "/team/Snehangshu.jpg", social: { linkedin: "#" } },
-  { id: "t9", name: "Pooja H P", role: "Biofabrication Intern", image: "/team/Pooja H P.jpg", social: { linkedin: "#" } },
+  { id: "t2", name: "Muthukumaran V", role: "Senior Software & R&D Engineer", image: "/team/Muthu.webp", social: { linkedin: "https://www.linkedin.com/in/muthukumaran-v-48a411224/" } },
+  { id: "t1", name: "Gowthaman S P", role: "Senior R&D Engineer", image: "/team/Gowthaman-Photoroom.jpeg", social: { linkedin: "https://www.linkedin.com/in/gowthaman2/" } },
+  { id: "t3", name: "Maria Da Costa", role: "Biofabrication Specialist", image: "/team/MariaDC.webp", social: { linkedin: "https://www.linkedin.com/in/maria-dacosta/" } },
+  { id: "t4", name: "Aseem Gupta", role: "Jr. Engineer · Software & AI", image: "/team/Aseem Gupta.jpeg", social: { linkedin: "https://www.linkedin.com/in/theaseemgupta/" } },
+  { id: "t5", name: "Saatvik S Shastry", role: "Jr. Engineer · Software & AI", image: "/team/Saatvik.jpeg", social: { linkedin: "https://www.linkedin.com/in/saatvik-shastry-a9a38a212/" } },
+  { id: "t6", name: "Gargi Chakraborty", role: "Marketing & Ops Associate", image: "/team/Gargi.webp", social: { linkedin: "https://www.linkedin.com/in/gargichakraborty14/" } },
+  { id: "t7", name: "Aalim Hussain", role: "Mechanical Engineer", image: "/team/Aalim.png", social: { linkedin: "https://www.linkedin.com/in/aalim-hussain-mechanical-engineer/" } },
+  { id: "t8", name: "Snehangshu Sengupta", role: "Mechanical Engineer", image: "/team/Snehangshu.jpg", social: { linkedin: "https://www.linkedin.com/in/snehangshu-sengupta-9251091b1/" } },
+  { id: "t9", name: "Pooja H P", role: "Biofabrication Intern", image: "/team/PoojaHP.webp", social: { linkedin: "https://www.linkedin.com/in/pooja-h-p-8a2251214/" } },
 ];
 
 export default function TeamLanding() {
