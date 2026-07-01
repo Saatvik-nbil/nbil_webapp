@@ -31,21 +31,21 @@ const PARTNERS: Item[] = [
 
 function Chip({ item }: { item: Item }) {
   return (
-    <div className="flex shrink-0 items-center gap-3.5 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] pl-3 pr-6 py-2.5 shadow-[0_1px_2px_rgba(2,12,27,0.04)]">
+    <div className="flex shrink-0 items-center gap-4 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] pl-3.5 pr-8 py-3 shadow-[0_1px_2px_rgba(2,12,27,0.04)]">
       {item.logo ? (
-        <span className="grid size-14 place-items-center rounded-full bg-white">
+        <span className="grid size-25 place-items-center rounded-full bg-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.logo} alt={item.name} className="h-10 w-10 object-contain" loading="lazy" />
+          <img src={item.logo} alt={item.name} className="h-20 w-20 object-contain" loading="lazy" />
         </span>
       ) : (
         <span
           aria-hidden="true"
-          className="grid size-14 place-items-center rounded-full bg-[var(--color-brand-surface)] text-[18px] font-semibold text-[var(--color-brand-strong)]"
+          className="grid size-20 place-items-center rounded-full bg-[var(--color-brand-surface)] text-[24px] font-semibold text-[var(--color-brand-strong)]"
         >
           {item.name.replace(/^(Govt\. of|The)\s+/i, "").trim().charAt(0)}
         </span>
       )}
-      <span className="whitespace-nowrap text-[15px] font-medium text-[var(--color-ink-muted)]">
+      <span className="whitespace-nowrap text-[18px] font-medium text-[var(--color-ink-muted)]">
         {item.name}
       </span>
     </div>

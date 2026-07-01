@@ -1,10 +1,19 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "motion/react";
 import { Pill, Heartbeat, Tree } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const TILT_SPRING = { stiffness: 150, damping: 18, mass: 0.4 } as const;
 
 const AREAS = [
   {
@@ -26,6 +35,36 @@ const AREAS = [
 
 export default function FocusAreas() {
   const reduce = useReducedMotion();
+  const visualRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: visualRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Scroll parallax: the popped-out subject drifts upward as it passes through,
+  // reinforcing the sense that it's lifting off the frame.
+  const imgY = useTransform(scrollYProgress, [0, 1], ["10%", "-12%"]);
+  // ...and enlarges as it scrolls into view, so it grows out of the frame.
+  const imgScale = useTransform(scrollYProgress, [0, 0.55, 1], [0.86, 1.08, 1.14]);
+
+  // Pointer-driven 3D tilt — like the depth you get through 3D glasses. We map
+  // the cursor position over the frame to a rotateX/rotateY, spring-smoothed.
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [12, -12]), TILT_SPRING);
+  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-16, 16]), TILT_SPRING);
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (reduce) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    px.set((e.clientX - rect.left) / rect.width - 0.5);
+    py.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const resetTilt = () => {
+    px.set(0);
+    py.set(0);
+  };
+
   return (
     <section aria-labelledby="focus-heading" className="py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -37,15 +76,51 @@ export default function FocusAreas() {
           transition={{ duration: 0.7, ease: EASE }}
           className="lg:col-span-5 order-2 lg:order-1"
         >
-          <div className="relative rounded-[1.75rem] overflow-hidden border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
-            <Image
-              src="/images/applications.png"
-              alt="Tissue constructs and scaffolds bioprinted on NBIL systems"
-              width={900}
-              height={760}
-              className="w-full h-auto object-cover"
-              sizes="(max-width: 1024px) 90vw, 40vw"
-            />
+          <div
+            ref={visualRef}
+            onPointerMove={handlePointerMove}
+            onPointerLeave={resetTilt}
+            className="relative [perspective:1200px]"
+          >
+            <motion.div
+              style={reduce ? undefined : { rotateX, rotateY }}
+              className="relative [transform-style:preserve-3d]"
+            >
+              {/* The stage / frame the subject lifts out of */}
+              <div className="relative aspect-[7/5] rounded-[1.75rem] overflow-hidden border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
+                {/* soft inner depth so the frame reads as a recessed screen */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(120% 90% at 50% 10%, transparent 40%, rgba(2,12,27,0.10) 100%)",
+                  }}
+                />
+                {/* grounding shadow the subject appears to cast on the stage */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-[12%] bottom-[8%] h-[16%] rounded-[50%] blur-2xl"
+                  style={{ background: "rgba(2,12,27,0.28)" }}
+                />
+              </div>
+
+              {/* Popped-out subject: transparent PNG lifted above the frame,
+                  pushed toward the viewer on the Z axis and casting a shadow. */}
+              <motion.div
+                style={reduce ? undefined : { y: imgY, scale: imgScale, z: 70 }}
+                className="pointer-events-none absolute inset-0 grid place-items-center will-change-transform"
+              >
+                <Image
+                  src="/images/applications.png"
+                  alt="Tissue constructs and scaffolds bioprinted on NBIL systems"
+                  width={637}
+                  height={333}
+                  className="w-[116%] max-w-none h-auto object-contain -translate-y-[14%] drop-shadow-[0_34px_44px_rgba(2,12,27,0.34)]"
+                  sizes="(max-width: 1024px) 90vw, 40vw"
+                />
+              </motion.div>
+            </motion.div>
           </div>
         </motion.div>
 
