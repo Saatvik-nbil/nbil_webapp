@@ -14,6 +14,7 @@ const COMPANY_LINKS = [
   { label: "About NBIL", href: "/" },
   { label: "Our story", href: "/#story" },
   { label: "Learn bioprinting", href: "https://nextbiginnovationlabs.com/certified-course-on-bioprinting/" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/#connect" },
 ];
 
@@ -133,9 +134,17 @@ const Footer: FC = () => (
 
       {/* Bottom bar */}
       <div className="mt-10 pt-6 border-t border-[var(--color-hairline-subtle)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <p className="text-[12px] text-[var(--color-ink-faint)]">
-          &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <p className="text-[12px] text-[var(--color-ink-faint)]">
+            &copy; {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
+          </p>
+          <Link
+            href="/privacy-policy"
+            className="text-[12px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
+          >
+            Privacy Policy
+          </Link>
+        </div>
         <p className="text-[11px] font-mono text-[var(--color-ink-faint)]">
           NBIL · Bioprinting for a better future
         </p>
