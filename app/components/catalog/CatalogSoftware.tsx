@@ -8,13 +8,13 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const SUITES = [
   {
     name: "Dhee",
-    on: "NP · Aura",
-    body: "Generates non-planar and rotary toolpaths, with per-extruder parameter control and real-time crosslinking synchronization.",
+    on: "NP · Pro",
+    body: "Generates non-planar, rotary and multi-extruder toolpaths, with per-extruder parameter control, coordinated temperature and pressure, and real-time crosslinking synchronization.",
   },
   {
-    name: "Niyantranam",
-    on: "Pro",
-    body: "Drives multi-extruder workflows with coordinated temperature, pressure and well-plate motion control.",
+    name: "Hikari",
+    on: "Aura",
+    body: "Drives the light-based MSLA workflow with layer-by-layer mask generation, exposure timing and optical-intensity control.",
   },
 ];
 
@@ -58,8 +58,8 @@ export default function CatalogSoftware() {
               className="text-[0.9375rem] leading-relaxed max-w-[48ch]"
               style={{ color: "var(--color-dark-ink-muted)" }}
             >
-              Dhee powers the non-planar and light-based systems; Niyantranam drives the
-              multi-extruder extrusion range. Both handle slicing and machine control in
+              Dhee powers the non-planar and multi-extruder extrusion systems; Hikari drives
+              the light-based MSLA range. Both handle slicing and machine control in
               one place.
             </motion.p>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -46,7 +46,7 @@ const testimonials = [
   {
     tempId: 5,
     testimonial:
-      "Niyantranam runs our well-plate jobs unattended overnight. Throughput tripled.",
+      "Dhee runs our well-plate jobs unattended overnight. Throughput tripled.",
     by: "Sofia M., Lab Manager, Organoid Core Facility",
     imgSrc: "https://i.pravatar.cc/150?img=16",
   },
@@ -201,8 +201,34 @@ export const StaggerTestimonials: React.FC = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
+  // Swipe navigation for touch devices.
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    // Only treat as a swipe when it's mostly horizontal and past a threshold.
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      handleMove(dx < 0 ? 1 : -1);
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   return (
-    <div className="relative w-full overflow-hidden bg-muted/30" style={{ height: 600 }}>
+    <div
+      className="relative w-full overflow-hidden bg-muted/30 touch-pan-y select-none"
+      style={{ height: 600 }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {testimonialsList.map((testimonial, index) => {
         const position =
           testimonialsList.length % 2

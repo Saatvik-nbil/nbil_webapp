@@ -3,21 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import {
-  ArrowDown,
-  Pause,
-  Play,
-  SpeakerSimpleHigh,
-  SpeakerSimpleSlash,
-} from "@phosphor-icons/react";
+import { ArrowDown } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function CatalogHero() {
   const reduce = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true);
-  const [muted, setMuted] = useState(true);
   const [blurred, setBlurred] = useState(false); // freeze + blur on the end frame
   const [revealed, setRevealed] = useState(false); // overlay copy visible
 
@@ -28,14 +20,12 @@ export default function CatalogHero() {
 
     if (reduce) {
       video.pause();
-      setPlaying(false);
       setRevealed(true);
       return;
     }
 
     const onEnded = () => {
       setBlurred(true);
-      setPlaying(false);
       setRevealed(true);
     };
     video.addEventListener("ended", onEnded);
@@ -46,7 +36,6 @@ export default function CatalogHero() {
     } else {
       // If autoplay is blocked, don't trap the copy behind a clip that never plays.
       video.play().catch(() => {
-        setPlaying(false);
         setRevealed(true);
       });
     }
@@ -59,31 +48,6 @@ export default function CatalogHero() {
       clearTimeout(fallback);
     };
   }, [reduce]);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      if (blurred) {
-        // Replay the intro from the top.
-        setBlurred(false);
-        video.currentTime = 0;
-      }
-      video.play().catch(() => {});
-      setPlaying(true);
-    } else {
-      video.pause();
-      setPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    const next = !video.muted;
-    video.muted = next;
-    setMuted(next);
-  };
 
   // The copy mounts only after the intro clip finishes, so each line animates
   // from its initial state to visible on mount — a reliable staggered pop.
@@ -142,7 +106,7 @@ export default function CatalogHero() {
           <div className="flex max-w-[60ch] flex-col gap-6">
             <motion.p
               {...pop(0)}
-              className="text-[13px] font-semibold tracking-tight text-[var(--color-dark-brand)]"
+              className="text-[13px] font-semibold tracking-tight text-[#7db4ff] [text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_2px_14px_rgba(0,0,0,0.85)]"
             >
               The full Trivima range, by Next Big Innovation Labs
             </motion.p>
@@ -198,29 +162,6 @@ export default function CatalogHero() {
         </div>
       </div>
 
-      {/* Glass playback controls */}
-      <div className="absolute bottom-5 right-5 z-10 flex items-center gap-1.5 rounded-full border border-white/15 bg-black/30 p-1 backdrop-blur-md">
-        <button
-          type="button"
-          onClick={togglePlay}
-          aria-label={playing ? "Pause background video" : blurred ? "Replay intro video" : "Play background video"}
-          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/15 hover:text-white"
-        >
-          {playing ? <Pause size={16} weight="fill" /> : <Play size={16} weight="fill" />}
-        </button>
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-label={muted ? "Unmute background video" : "Mute background video"}
-          className="flex size-9 cursor-pointer items-center justify-center rounded-full text-white/90 transition-colors hover:bg-white/15 hover:text-white"
-        >
-          {muted ? (
-            <SpeakerSimpleSlash size={16} weight="fill" />
-          ) : (
-            <SpeakerSimpleHigh size={16} weight="fill" />
-          )}
-        </button>
-      </div>
     </section>
   );
 }

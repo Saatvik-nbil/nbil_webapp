@@ -82,7 +82,7 @@ export const machines: Machine[] = [
       { label: "Outer dimensions (L×B×H)", value: "90 × 120 × 70 cm" },
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "In-built sterility", value: "H14 HEPA & germicidal UV" },
-      { label: "Control software", value: "Niyantranam by NBIL" },
+      { label: "Control software", value: "Dhee by NBIL" },
       { label: "Compatible file formats", value: ".stl, .obj, .gcode, .amf" },
     ],
     features: [
@@ -113,7 +113,7 @@ export const machines: Machine[] = [
       { title: "Research-driven applications", description: "From pioneering treatments to biological science and food technology." },
     ],
     fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
-    software: "Niyantranam by NBIL",
+    software: "Dhee by NBIL",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",
   },
   {
@@ -219,7 +219,7 @@ export const machines: Machine[] = [
       { label: "Optical intensity", value: "Adjustable based on light engine" },
       { label: "User interface", value: "Touch screen display & external system" },
       { label: "Compatible file formats", value: ".stl, .obj, .gcode, .amf" },
-      { label: "Control software", value: "Dhee by NBIL" },
+      { label: "Control software", value: "Hikari by NBIL" },
     ],
     features: [
       "Compatible with commercial biomaterials and user-defined polymers",
@@ -238,7 +238,7 @@ export const machines: Machine[] = [
       { title: "Organ-on-chip & microphysiological systems", description: "Microfluidic devices and compartmentalized tissue chambers." },
       { title: "Bioinspired materials & soft-matter physics", description: "Lattice structures, gradient materials and bio-inspired architectures." },
     ],
-    software: "Dhee by NBIL",
+    software: "Hikari by NBIL",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivima-aura/",
   },
 ];

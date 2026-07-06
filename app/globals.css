@@ -271,3 +271,9 @@ p {
     @apply bg-background text-foreground;
   }
 }
+
+/* When the coordinate cursor is active, hide the native cursor everywhere. */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}

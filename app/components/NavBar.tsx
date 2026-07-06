@@ -57,21 +57,19 @@ export default function NavBar() {
               />
             </Link>
 
-            {/* Desktop navigation */}
-            <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* CTA + mobile trigger */}
-            <div className="flex items-center gap-2 shrink-0">
+            {/* Right-aligned navigation + CTA + mobile trigger */}
+            <div className="flex items-center gap-8 shrink-0">
+              <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
               <Button asChild className="hidden md:inline-flex h-9 px-5 rounded-xl text-[14px]">
                 <Link href="/#connect">Get in touch</Link>
               </Button>
