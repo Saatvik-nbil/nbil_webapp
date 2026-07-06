@@ -49,14 +49,14 @@ export default function TeamShowcase({ members }: TeamShowcaseProps) {
   return (
     <div className="flex flex-col md:flex-row items-start gap-8 md:gap-10 lg:gap-14 select-none w-full max-w-6xl mx-auto py-8 px-4 md:px-6 font-sans">
       {/* ── Left: photo grid ── */}
-      <div className="flex gap-2 md:gap-3 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
+      <div className="flex w-full gap-2 md:w-auto md:flex-shrink-0 md:gap-3">
         {/* Column 1 */}
-        <div className="flex flex-col gap-2 md:gap-3">
+        <div className="flex min-w-0 flex-1 flex-col gap-2 md:flex-none md:gap-3">
           {col1.map((member, i) => (
             <motion.div key={member.id} {...reveal(i * 3)}>
               <PhotoCard
                 member={member}
-                className="w-[150px] h-[164px] sm:w-[182px] sm:h-[196px] md:w-[228px] md:h-[244px]"
+                className="aspect-[150/164] w-full md:aspect-auto md:h-[244px] md:w-[228px]"
                 hoveredId={hoveredId}
                 onHover={setHoveredId}
               />
@@ -65,12 +65,12 @@ export default function TeamShowcase({ members }: TeamShowcaseProps) {
         </div>
 
         {/* Column 2 */}
-        <div className="flex flex-col gap-2 md:gap-3 mt-[64px] sm:mt-[78px] md:mt-[96px]">
+        <div className="mt-[9%] flex min-w-0 flex-1 flex-col gap-2 md:mt-[96px] md:flex-none md:gap-3">
           {col2.map((member, i) => (
             <motion.div key={member.id} {...reveal(i * 3 + 1)}>
               <PhotoCard
                 member={member}
-                className="w-[166px] h-[180px] sm:w-[204px] sm:h-[218px] md:w-[252px] md:h-[266px]"
+                className="aspect-[166/180] w-full md:aspect-auto md:h-[266px] md:w-[252px]"
                 hoveredId={hoveredId}
                 onHover={setHoveredId}
               />
@@ -79,12 +79,12 @@ export default function TeamShowcase({ members }: TeamShowcaseProps) {
         </div>
 
         {/* Column 3 */}
-        <div className="flex flex-col gap-2 md:gap-3 mt-[30px] sm:mt-[37px] md:mt-[46px]">
+        <div className="mt-[4%] flex min-w-0 flex-1 flex-col gap-2 md:mt-[46px] md:flex-none md:gap-3">
           {col3.map((member, i) => (
             <motion.div key={member.id} {...reveal(i * 3 + 2)}>
               <PhotoCard
                 member={member}
-                className="w-[158px] h-[170px] sm:w-[190px] sm:h-[204px] md:w-[238px] md:h-[252px]"
+                className="aspect-[158/170] w-full md:aspect-auto md:h-[252px] md:w-[238px]"
                 hoveredId={hoveredId}
                 onHover={setHoveredId}
               />
@@ -122,31 +122,48 @@ function PhotoCard({
 }) {
   const isActive = hoveredId === member.id;
   const isDimmed = hoveredId !== null && !isActive;
+  const linkedin = member.social?.linkedin;
 
-  return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-300",
-        className,
-        isDimmed ? "opacity-60" : "opacity-100",
-      )}
-      onMouseEnter={() => onHover(member.id)}
-      onMouseLeave={() => onHover(null)}
-    >
-      <Image
-        src={member.image}
-        alt={member.name}
-        fill
-        sizes="(max-width: 768px) 200px, 260px"
-        className="object-cover object-top transition-[filter] duration-500"
-        style={{
-          filter: isActive
-            ? "grayscale(0) brightness(1)"
-            : "grayscale(1) brightness(0.9)",
-        }}
-      />
-    </div>
+  const sharedProps = {
+    className: cn(
+      "relative overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-300 block",
+      className,
+      isDimmed ? "opacity-60" : "opacity-100",
+    ),
+    onMouseEnter: () => onHover(member.id),
+    onMouseLeave: () => onHover(null),
+  };
+
+  const photo = (
+    <Image
+      src={member.image}
+      alt={member.name}
+      fill
+      sizes="(max-width: 768px) 200px, 260px"
+      className="object-cover object-top transition-[filter] duration-500"
+      style={{
+        filter: isActive
+          ? "grayscale(0) brightness(1)"
+          : "grayscale(1) brightness(0.9)",
+      }}
+    />
   );
+
+  if (linkedin) {
+    return (
+      <a
+        href={linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${member.name} on LinkedIn`}
+        {...sharedProps}
+      >
+        {photo}
+      </a>
+    );
+  }
+
+  return <div {...sharedProps}>{photo}</div>;
 }
 
 /* ─────────────────────────────────────────
