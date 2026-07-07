@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const CUBE_COLOR = 0x2563eb; // brand blue
+const CUBE_COLOR = 0x3b82f6; // blue — change this to recolor the exploding cubes
+
+// How long the loading screen stays before it fades out (in milliseconds).
+// 👉 Change this value to make the intro longer or shorter.
+const LOADER_DURATION_MS = 4200;
 
 /**
  * Full-screen intro loader: an exploding instanced-cube (three.js + anime.js)
@@ -127,7 +131,7 @@ export function NbilLoader({ onDone }: { onDone: () => void }) {
 
   // Play for a beat, then fade out and hand control back to the site.
   useEffect(() => {
-    const t = setTimeout(() => setLeaving(true), 4200);
+    const t = setTimeout(() => setLeaving(true), LOADER_DURATION_MS);
     return () => clearTimeout(t);
   }, []);
 

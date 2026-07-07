@@ -1,11 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { EnvelopeSimple, Phone, MapPin, ArrowRight } from "@phosphor-icons/react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
+import HubSpotForm from "@/components/ui/hubspot-form";
 
 const CONTACTS = [
   {
@@ -112,67 +109,16 @@ export default function ContactSection() {
               Request a quote or demo
             </h3>
 
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex flex-col gap-4"
-              aria-label="Quote request form"
-            >
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Full name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Dr. Jane Smith"
-                  required
-                />
-              </div>
+            <HubSpotForm
+              portalId="43589364"
+              formId="0f3a8808-5c7d-4a76-9d32-b9af1e9e4c16"
+              region="na2"
+              targetId="hubspot-trivima-form"
+            />
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="institution">Institution or organization</Label>
-                <Input
-                  id="institution"
-                  name="institution"
-                  type="text"
-                  autoComplete="organization"
-                  placeholder="University of Example"
-                  required
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Work email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="jane@university.edu"
-                  required
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="application">Primary research application</Label>
-                <Textarea
-                  id="application"
-                  name="application"
-                  rows={3}
-                  placeholder="Describe the constructs or tissue models you intend to fabricate..."
-                  className="resize-none"
-                />
-              </div>
-
-              <Button type="submit" className="w-full h-11 rounded-xl mt-1">
-                Send request
-                <ArrowRight data-icon="inline-end" weight="bold" />
-              </Button>
-
-              <p className="text-[11px] text-[var(--color-ink-faint)] text-center leading-relaxed">
-                NBIL responds to all inquiries within 2 business days.
-              </p>
-            </form>
+            <p className="text-[11px] text-[var(--color-ink-faint)] text-center leading-relaxed">
+              NBIL responds to all inquiries within 2 business days.
+            </p>
           </motion.div>
 
         </div>

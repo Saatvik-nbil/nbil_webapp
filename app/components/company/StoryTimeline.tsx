@@ -66,7 +66,7 @@ export default function StoryTimeline() {
           id="story-heading"
           className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1] max-w-[20ch]"
         >
-          Eight years from a bold idea to a working range
+          Ten years from a bold idea to a working range
         </h2>
       </div>
 
