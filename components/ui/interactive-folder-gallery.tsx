@@ -1,10 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
 export interface GalleryPhoto {
   id: string | number;
   image: string;
+  /** Optional destination — clicking the photo navigates here when the folder is open. */
+  href?: string;
 }
 
 const defaultPhotos: GalleryPhoto[] = [
@@ -28,8 +31,12 @@ export function InteractiveFolderGallery({
   dragHintText = "Drag any photo down to close",
   className
 }: InteractiveFolderGalleryProps) {
+  const router = useRouter();
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [hoverFolder, setHoverFolder] = useState(false);
+  // Suppress the click that motion fires at the end of a drag so dragging a
+  // photo (e.g. to close the folder) never triggers navigation.
+  const draggedRef = useRef(false);
 
   // Center the stack regardless of how many photos are supplied.
   const mid = Math.floor(photos.length / 2);
@@ -68,13 +75,25 @@ export function InteractiveFolderGallery({
                   key={photo.id}
                   drag={isFolderOpen ? true : false}
                   dragSnapToOrigin={true}
+                  onDragStart={() => {
+                    draggedRef.current = true;
+                  }}
                   onDragEnd={(e, info) => {
                     if (info.offset.y > 100 && isFolderOpen) {
                       setIsFolderOpen(false);
                       setHoverFolder(false);
                     }
+                    // Reset after the trailing click has been swallowed.
+                    setTimeout(() => {
+                      draggedRef.current = false;
+                    }, 0);
                   }}
-                  className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden border border-white/20 origin-bottom bg-linear-to-b from-white to-[#e9f1fc] ${isFolderOpen ? "cursor-grab active:cursor-grabbing pointer-events-auto" : "pointer-events-none"}`}
+                  onClick={() => {
+                    if (isFolderOpen && photo.href && !draggedRef.current) {
+                      router.push(photo.href);
+                    }
+                  }}
+                  className={`absolute bottom-0 w-56 h-72 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden border border-white/20 origin-bottom bg-linear-to-b from-white to-[#e9f1fc] ${isFolderOpen ? (photo.href ? "cursor-pointer" : "cursor-grab") + " active:cursor-grabbing pointer-events-auto" : "pointer-events-none"}`}
                   animate={!isFolderOpen ? {
                     y: stackY,
                     x: stackX,

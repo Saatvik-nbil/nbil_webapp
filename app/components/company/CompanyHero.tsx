@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/button";
 import { InteractiveFolderGallery } from "@/components/ui/interactive-folder-gallery";
 
 const TRIVIMA_PHOTOS = [
-  { id: "np", image: "/images/np-side.png" },
-  { id: "aura", image: "/images/aura-front.png" },
-  { id: "pro", image: "/images/pro-1.webp" },
+  { id: "np", image: "/images/np-side.png", href: "/machines/trivima-np" },
+  { id: "aura", image: "/images/aura-front.png", href: "/machines/trivima-aura" },
+  { id: "pro", image: "/images/pro-1.webp", href: "/machines/trivima-pro" },
 ];
 
 gsap.registerPlugin(ScrollTrigger);
