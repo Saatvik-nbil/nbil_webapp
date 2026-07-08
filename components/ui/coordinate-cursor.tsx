@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Replaces the native cursor (on fine-pointer devices) with a dot that
- * trails the pointer and a live readout of the current x / y coordinates.
+ * Replaces the native cursor (on fine-pointer devices) with a static glassy
+ * circle, a dot in its center, and a live readout of the current x / y
+ * coordinates. Everything tracks the pointer exactly (no trailing / easing).
  * Renders nothing on touch devices, where there is no cursor to follow.
  */
 export function CoordinateCursor() {
   const [enabled, setEnabled] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
 
@@ -29,9 +30,8 @@ export function CoordinateCursor() {
 
     const render = () => {
       raf = 0;
-      if (dotRef.current) {
-        // Anchor the arrow's tip (top-left of the SVG) to the pointer.
-        dotRef.current.style.transform = `translate(${x}px, ${y}px)`;
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
       }
       if (labelRef.current) {
         labelRef.current.style.transform = `translate(${x}px, ${y}px)`;
@@ -74,25 +74,12 @@ export function CoordinateCursor() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-[99999] opacity-0 transition-opacity duration-200"
     >
-      <div ref={dotRef} className="fixed left-0 top-0">
-        <svg
-          width="30"
-          height="30"
-          viewBox="0 0 30 30"
-          fill="none"
-          className="drop-shadow-[0_2px_6px_rgba(2,12,27,0.45)]"
-          style={{ transform: "translate(-5px, -5px)" }}
-        >
-          {/* Soft, rounded triangle blob (brand blue), tip anchored to the pointer */}
-          <path
-            d="M6 5 L8 25 L25 15 Z"
-            fill="var(--color-brand)"
-            stroke="var(--color-brand)"
-            strokeWidth="6"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-        </svg>
+      {/* Static glassy circle with a dot in the middle, pinned to the pointer */}
+      <div
+        ref={cursorRef}
+        className="fixed left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-white/40 bg-white/10 shadow-[0_2px_8px_rgba(2,12,27,0.25)] backdrop-blur-[2px]"
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-brand)]" />
       </div>
       <div ref={labelRef} className="fixed left-0 top-0">
         <span

@@ -2,17 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import { InteractiveFolderGallery } from "@/components/ui/interactive-folder-gallery";
-
-const TRIVIMA_PHOTOS = [
-  { id: "np", image: "/images/np-side.png", href: "/machines/trivima-np" },
-  { id: "aura", image: "/images/aura-front.png", href: "/machines/trivima-aura" },
-  { id: "pro", image: "/images/pro-1.webp", href: "/machines/trivima-pro" },
-];
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,14 +151,33 @@ export default function CompanyHero() {
             </p>
           </div>
 
-          {/* Visual — right, 5 cols: interactive folder holding the Trivima range */}
-          <div className="hero-visual lg:col-span-5 relative flex justify-center">
-            <InteractiveFolderGallery
-              photos={TRIVIMA_PHOTOS}
-              folderName="Trivima Range"
-              dragHintText="Drag a bioprinter down to close"
-              className="!py-4 scale-[1.12] -translate-y-10 origin-center"
-            />
+          {/* Visual — right, 5 cols */}
+          <div className="hero-visual lg:col-span-5 relative">
+            <div className="relative rounded-[2rem] border border-[var(--color-hairline)] bg-gradient-to-b from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 sm:p-8">
+              <Image
+                src="/images/np-side.png"
+                alt="A Trivima bioprinter by Next Big Innovation Labs"
+                width={900}
+                height={900}
+                priority
+                className="w-full h-auto object-contain drop-shadow-[0_28px_56px_rgba(15,23,42,0.16)]"
+                sizes="(max-width: 1024px) 80vw, 38vw"
+              />
+              <LiquidGlass
+                tint="light"
+                distort={false}
+                className="absolute left-7 bottom-7 right-7 rounded-xl border border-white/50"
+              >
+                <div className="flex items-center justify-between px-4 py-3">
+                  <span className="text-[13px] font-medium text-[var(--color-ink)]">
+                    The Trivima bioprinter line
+                  </span>
+                  <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+                    3 models
+                  </span>
+                </div>
+              </LiquidGlass>
+            </div>
           </div>
         </div>
       </div>
