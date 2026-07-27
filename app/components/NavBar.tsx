@@ -3,23 +3,80 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, CaretDown } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 
-const NAV_LINKS = [
+type NavChild = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  comingSoon?: boolean;
+};
+type NavItem = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  children?: NavChild[];
+};
+
+const NAV_ITEMS: NavItem[] = [
   { label: "Bioprinters", href: "/trivima" },
-  { label: "Our story", href: "/#story" },
-  { label: "Products", href: "/#products" },
-  { label: "Team", href: "/team" },
-  { label: "News", href: "/news" },
-  { label: "Contact", href: "/#connect" },
+  { label: "Software", href: "https://dhee-web-new.onrender.com/", external: true },
+  {
+    label: "Products",
+    children: [
+      { label: "Consumables", comingSoon: true },
+      { label: "Consultancy", href: "/consultancy" },
+      { label: "Microcourses", comingSoon: true },
+    ],
+  },
+  {
+    label: "Resources",
+    children: [
+      { label: "Blog", href: "/blogs" },
+      { label: "Newsletter", href: "/newsletter" },
+      { label: "Guides", comingSoon: true },
+      { label: "Brochure", comingSoon: true },
+    ],
+  },
+  {
+    label: "About Us",
+    children: [
+      { label: "Our Story", href: "/our-story" },
+      { label: "Team", href: "/team" },
+      { label: "News", href: "/news" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/#connect" },
+    ],
+  },
 ];
+
+const extAttrs = (external?: boolean) =>
+  external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+
+function ComingSoonBadge() {
+  return (
+    <span className="ml-2 rounded-full bg-[var(--color-surface-raised)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.06em] text-[var(--color-ink-faint)]">
+      Soon
+    </span>
+  );
+}
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [menuRect, setMenuRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
   const reduce = useReducedMotion();
+
+  const openMenuAt = (label: string, el: HTMLElement | null) => {
+    setOpenMenu(label);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      setMenuRect({ left: r.left, bottom: r.bottom, width: r.width });
+    }
+  };
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 24);
@@ -27,6 +84,8 @@ export default function NavBar() {
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <header role="banner" className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 pt-3">
@@ -58,17 +117,101 @@ export default function NavBar() {
             </Link>
 
             {/* Right-aligned navigation + CTA + mobile trigger */}
-            <div className="flex items-center gap-8 shrink-0">
-              <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+            <div className="flex items-center gap-6 shrink-0">
+              <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+                {NAV_ITEMS.map((item) =>
+                  item.children ? (
+                    <div
+                      key={item.label}
+                      className="relative"
+                      onMouseEnter={(e) =>
+                        openMenuAt(item.label, e.currentTarget.querySelector("button"))
+                      }
+                      onMouseLeave={() => setOpenMenu(null)}
+                      onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget as Node))
+                          setOpenMenu(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape") setOpenMenu(null);
+                      }}
+                    >
+                      <button
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded={openMenu === item.label}
+                        onClick={(e) =>
+                          openMenu === item.label
+                            ? setOpenMenu(null)
+                            : openMenuAt(item.label, e.currentTarget)
+                        }
+                        onFocus={(e) => openMenuAt(item.label, e.currentTarget)}
+                        className="flex items-center gap-1 text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap cursor-pointer"
+                      >
+                        {item.label}
+                        <CaretDown
+                          size={12}
+                          weight="bold"
+                          className={`transition-transform duration-200 ${
+                            openMenu === item.label ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {openMenu === item.label && menuRect && (
+                          <motion.div
+                            initial={reduce ? false : { opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            transition={{ duration: 0.14, ease: [0.16, 1, 0.3, 1] }}
+                            style={{
+                              position: "fixed",
+                              top: menuRect.bottom,
+                              left: menuRect.left + menuRect.width / 2,
+                              transform: "translateX(-50%)",
+                            }}
+                            className="z-50 pt-3"
+                          >
+                            <div className="min-w-[220px] rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-2 shadow-[0_16px_44px_rgba(2,12,27,0.16)]">
+                              {item.children.map((child) =>
+                                child.comingSoon || !child.href ? (
+                                  <span
+                                    key={child.label}
+                                    aria-disabled="true"
+                                    className="flex cursor-default items-center rounded-lg px-3 py-2 text-[14px] text-[var(--color-ink-faint)]"
+                                  >
+                                    {child.label}
+                                    <ComingSoonBadge />
+                                  </span>
+                                ) : (
+                                  <Link
+                                    key={child.label}
+                                    href={child.href}
+                                    {...extAttrs(child.external)}
+                                    onClick={() => setOpenMenu(null)}
+                                    className="flex items-center rounded-lg px-3 py-2 text-[14px] text-[var(--color-ink-muted)] transition-colors hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-ink)]"
+                                  >
+                                    {child.label}
+                                  </Link>
+                                ),
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      href={item.href ?? "#"}
+                      {...extAttrs(item.external)}
+                      className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap"
+                    >
+                      {item.label}
+                    </Link>
+                  ),
+                )}
               </nav>
               <Button asChild className="hidden md:inline-flex h-9 px-5 rounded-xl text-[14px]">
                 <Link href="/#connect">Get in touch</Link>
@@ -100,21 +243,62 @@ export default function NavBar() {
               <LiquidGlass
                 distort={false}
                 tint="light"
-                className="rounded-2xl border border-white/50 bg-[var(--color-surface)]/70 shadow-[0_12px_34px_rgba(2,12,27,0.16)]"
+                className="rounded-2xl border border-white/50 bg-[var(--color-surface)]/80 shadow-[0_12px_34px_rgba(2,12,27,0.16)]"
               >
-                <div className="px-5 pb-5 pt-3 flex flex-col gap-1">
-                  {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-[16px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors py-2.5 border-b border-[var(--color-hairline-subtle)] last:border-0"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <Button asChild className="mt-3 h-12 rounded-xl text-[15px]">
-                    <Link href="/#connect" onClick={() => setMobileOpen(false)}>
+                <div className="px-4 pb-4 pt-2 flex flex-col max-h-[70vh] overflow-y-auto">
+                  {NAV_ITEMS.map((item) =>
+                    item.children ? (
+                      <details
+                        key={item.label}
+                        className="group border-b border-[var(--color-hairline-subtle)]"
+                      >
+                        <summary className="flex cursor-pointer list-none items-center justify-between py-3 text-[16px] text-[var(--color-ink)] [&::-webkit-details-marker]:hidden">
+                          {item.label}
+                          <CaretDown
+                            size={16}
+                            weight="bold"
+                            className="text-[var(--color-ink-faint)] transition-transform duration-200 group-open:rotate-180"
+                          />
+                        </summary>
+                        <div className="flex flex-col pb-2">
+                          {item.children.map((child) =>
+                            child.comingSoon || !child.href ? (
+                              <span
+                                key={child.label}
+                                aria-disabled="true"
+                                className="flex items-center py-2 pl-3 text-[15px] text-[var(--color-ink-faint)]"
+                              >
+                                {child.label}
+                                <ComingSoonBadge />
+                              </span>
+                            ) : (
+                              <Link
+                                key={child.label}
+                                href={child.href}
+                                {...extAttrs(child.external)}
+                                onClick={closeMobile}
+                                className="py-2 pl-3 text-[15px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+                              >
+                                {child.label}
+                              </Link>
+                            ),
+                          )}
+                        </div>
+                      </details>
+                    ) : (
+                      <Link
+                        key={item.label}
+                        href={item.href ?? "#"}
+                        {...extAttrs(item.external)}
+                        onClick={closeMobile}
+                        className="border-b border-[var(--color-hairline-subtle)] py-3 text-[16px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+                      >
+                        {item.label}
+                      </Link>
+                    ),
+                  )}
+                  <Button asChild className="mt-4 h-12 rounded-xl text-[15px]">
+                    <Link href="/#connect" onClick={closeMobile}>
                       Get in touch
                     </Link>
                   </Button>

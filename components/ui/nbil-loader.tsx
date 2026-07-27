@@ -6,7 +6,7 @@ const CUBE_COLOR = 0x3b82f6; // blue — change this to recolor the exploding cu
 
 // How long the loading screen stays before it fades out (in milliseconds).
 // 👉 Change this value to make the intro longer or shorter.
-const LOADER_DURATION_MS = 4200;
+const LOADER_DURATION_MS = 100;
 
 /**
  * Full-screen intro loader: an exploding instanced-cube (three.js + anime.js)

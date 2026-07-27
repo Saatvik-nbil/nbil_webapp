@@ -83,7 +83,7 @@ export default function CompanyConnect() {
             </LiquidGlass>
           </motion.div>
 
-          {/* Partners & investors */}
+          {/* Partners */}
           <motion.div {...rise(0.12)}>
             <LiquidGlass tint="dark" interactive distort={false} className="h-full rounded-2xl border border-white/10">
               <div className="flex flex-col gap-5 p-8 lg:p-10">
@@ -91,11 +91,11 @@ export default function CompanyConnect() {
                   <Handshake size={22} weight="duotone" className="text-[var(--color-dark-brand)]" />
                 </span>
                 <h3 className="font-display text-[1.5rem] font-semibold tracking-[-0.02em] text-[var(--color-dark-ink)]">
-                  For partners & investors
+                  For partners
                 </h3>
                 <p className="text-[15px] text-[var(--color-dark-ink-muted)] leading-relaxed max-w-[44ch]">
-                  Distribution, research collaborations, institutional deployments and
-                  investment. We would like to hear what you are building.
+                  Distribution, research collaborations and institutional deployments.
+                  We would like to hear what you are building.
                 </p>
                 <div className="mt-1 flex flex-wrap gap-3">
                   <a
