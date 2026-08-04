@@ -21,22 +21,22 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Bioprinters", href: "/trivima" },
-  { label: "Software", href: "https://dhee-web-new.onrender.com/", external: true },
   {
     label: "Products",
     children: [
+      { label: "Bioprinters", href: "/trivima" },
+      { label: "Software", href: "https://dhee-web-new.onrender.com/", external: true },
       { label: "Consumables", comingSoon: true },
-      { label: "Consultancy", href: "/consultancy" },
-      { label: "Microcourses", comingSoon: true },
     ],
   },
+  { label: "Consultancy", href: "/consultancy" },
   {
     label: "Resources",
     children: [
       { label: "Blog", href: "/blogs" },
       { label: "Newsletter", href: "/newsletter" },
-      { label: "Guides", comingSoon: true },
+      { label: "Microcourses", comingSoon: true },
+      { label: "Guides", href: "/guides" },
       { label: "Brochure", comingSoon: true },
     ],
   },

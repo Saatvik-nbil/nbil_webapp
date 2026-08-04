@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 628" width="1200" height="628" role="img" aria-label="Placeholder cover for the Dhee quick-start guide">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3f8fe"/>
+      <stop offset="100%" stop-color="#e8f1fd"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#d4e4f8" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="628" fill="url(#bg)"/>
+  <rect width="1200" height="628" fill="url(#grid)"/>
+  <rect x="1" y="1" width="1198" height="626" fill="none" stroke="#cbdcf3" stroke-width="2" stroke-dasharray="12 10"/>
+  <g fill="none" stroke="#2d81e4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <rect x="486" y="216" width="228" height="150" rx="12"/>
+    <path d="M486 318l62-56 50 44 58-52 58 50"/>
+    <circle cx="646" cy="262" r="16"/>
+  </g>
+  <text x="600" y="432" text-anchor="middle" font-family="Libre Franklin, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#0c1626">Dhee Quick-Start Guide</text>
+  <text x="600" y="474" text-anchor="middle" font-family="Libre Franklin, Helvetica, Arial, sans-serif" font-size="22" fill="#58667a">Cover image placeholder &#8212; replace with a Dhee screenshot</text>
+</svg>

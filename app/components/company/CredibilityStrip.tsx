@@ -5,7 +5,7 @@ import { useInView, useReducedMotion, animate } from "motion/react";
 
 const FACTS = [
   { value: 2016, suffix: "", label: "Founded in Bengaluru by engineers and biomedical scientists" },
-  { value: 8, suffix: "+ yrs", label: "Designing and shipping research bioprinters" },
+  { value: 10, suffix: "+ yrs", label: "Designing and shipping research bioprinters" },
   { value: 600, suffix: "+", label: "Researchers trained through Next Big Learning" },
   { value: 2023, suffix: "", label: "World Economic Forum Technology Pioneer" },
 ];

@@ -9,6 +9,9 @@ type Post = {
   href: string;
   date: string;
   tags: string[];
+  /** Posts hosted on this site render as internal links. */
+  internal?: boolean;
+  readTime?: string;
 };
 
 // Seeded from nextbiginnovationlabs.com/blogs — new posts can be prepended here.
@@ -77,7 +80,7 @@ export default function RecentBlogs() {
           </h2>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {POSTS.map((post) => (
             <GlassBlogCard
               key={post.href}
@@ -85,8 +88,9 @@ export default function RecentBlogs() {
               excerpt={post.excerpt}
               image={post.image}
               href={post.href}
-              external
+              external={!post.internal}
               date={post.date}
+              readTime={post.readTime}
               tags={post.tags}
               author={{ name: "Next Big Innovation Labs" }}
               ctaLabel="Read article"
