@@ -11,13 +11,13 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 /* The three founders — shown first, as the anchor of the page. */
 const FOUNDERS = [
   { id: "f1", name: "Piyush Padmanabhan", role: "CEO · Co-Founder & Director", image: "/founders/Piyush.png", linkedin: "https://www.linkedin.com/in/piyush-padmanabhan/" },
-  { id: "f2", name: "Pooja Venkatesh", role: "Co-CEO · Co-Founder", image: "/founders/Pooja.jpg", linkedin: "https://www.linkedin.com/in/pooja-venkatesh-5a8079153/" },
-  { id: "f3", name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/Alok.jpg", linkedin: "https://www.linkedin.com/in/alokanil/" },
+  { id: "f2", name: "Pooja Venkatesh", role: "Co-CEO · Co-Founder", image: "/founders/PoojaNew.jpeg", linkedin: "https://www.linkedin.com/in/pooja-venkatesh-5a8079153/" },
+  { id: "f3", name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/AlokNew.jpeg", linkedin: "https://www.linkedin.com/in/alokanil/" },
 ];
 
 /* The wider team — revealed in the showcase as you scroll down. */
 const TEAM: TeamMember[] = [
-  { id: "t2", name: "Muthukumaran V", role: "Senior Software & R&D Engineer", image: "/team/Muthu.webp", social: { linkedin: "https://www.linkedin.com/in/muthukumaran-v-48a411224/" } },
+  { id: "t2", name: "Muthukumaran V", role: "Senior Software & R&D Engineer", image: "/team/Muthu.jpg", social: { linkedin: "https://www.linkedin.com/in/muthukumaran-v-48a411224/" } },
   { id: "t1", name: "Gowthaman S P", role: "Senior R&D Engineer", image: "/team/Gowthaman-Photoroom.jpeg", social: { linkedin: "https://www.linkedin.com/in/gowthaman2/" } },
   { id: "t3", name: "Sree Nithi R", role: "Biofabrication Intern", image: "/team/SreeNithi.jpeg", social: { linkedin: "https://www.linkedin.com/in/sree-nithi-r/" } },
   { id: "t4", name: "Aseem Gupta", role: "Engineer · Software & AI", image: "/team/Aseem Gupta.jpeg", social: { linkedin: "https://www.linkedin.com/in/theaseemgupta/" } },

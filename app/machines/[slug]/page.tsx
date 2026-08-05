@@ -17,7 +17,7 @@ import ContactSection from "@/app/components/ContactSection";
 import MachineGallery from "@/app/components/machine/MachineGallery";
 import ExplodedScroll from "@/app/components/machine/ExplodedScroll";
 import Reveal from "@/app/components/machine/Reveal";
-import { Button } from "@/components/ui/button";
+import { OriginButton } from "@/components/ui/origin-button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
 
 export function generateStaticParams() {
@@ -158,18 +158,20 @@ export default async function MachinePage({
               </dl>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Button asChild className="h-11 px-6 rounded-xl text-[15px]">
-                  <Link href="/#contact">
-                    Request a quote
-                    <ArrowRight data-icon="inline-end" weight="bold" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="h-11 px-6 rounded-xl text-[15px]">
-                  <a href={machine.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    View on nbil.com
-                    <ArrowUpRight data-icon="inline-end" weight="bold" />
-                  </a>
-                </Button>
+                <OriginButton href="/#contact" className="h-11 px-6 text-[15px]">
+                  Request a quote
+                  <ArrowRight size={16} weight="bold" />
+                </OriginButton>
+                <OriginButton
+                  href={machine.sourceUrl}
+                  variant="outline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-11 px-6 text-[15px]"
+                >
+                  View on nbil.com
+                  <ArrowUpRight size={16} weight="bold" />
+                </OriginButton>
               </div>
 
               <div className="flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-[var(--color-ink-muted)]">

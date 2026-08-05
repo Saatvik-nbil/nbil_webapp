@@ -7,8 +7,8 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 const LEADERS = [
   { name: "Piyush Padmanabhan", role: "CEO, Co-Founder & Director", image: "/founders/Piyush.png" },
-  { name: "Pooja Venkatesh", role: "Co-CEO & Co-Founder", image: "/founders/Pooja.jpg" },
-  { name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/Alok.jpg" },
+  { name: "Pooja Venkatesh", role: "Co-CEO & Co-Founder", image: "/founders/PoojaNew.jpeg" },
+  { name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/AlokNew.jpeg" },
 ];
 
 export default function LeadershipSection() {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, ArrowRight } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
+import { OriginButton } from "@/components/ui/origin-button";
 import { machines } from "@/lib/machines";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -33,12 +33,14 @@ export default function ProductsShowcase() {
               every machine shares one workflow.
             </p>
           </div>
-          <Button asChild variant="outline" className="h-11 px-5 rounded-xl text-[14px] shrink-0 self-start lg:self-auto">
-            <Link href="/trivima">
-              Compare the full range
-              <ArrowRight data-icon="inline-end" weight="bold" />
-            </Link>
-          </Button>
+          <OriginButton
+            href="/trivima"
+            variant="outline"
+            className="h-11 px-5 text-[14px] shrink-0 self-start lg:self-auto"
+          >
+            Compare the full range
+            <ArrowRight size={15} weight="bold" />
+          </OriginButton>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import {
   PhoneCall,
@@ -8,6 +7,7 @@ import {
   FileText,
   ArrowRight,
 } from "@phosphor-icons/react";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -107,13 +107,10 @@ export default function ConsultancyProcess() {
           transition={{ duration: 0.6, ease: EASE }}
           className="mt-14 flex justify-center"
         >
-          <Link
-            href="#project-form"
-            className="inline-flex h-12 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-          >
+          <OriginButton href="#project-form" className="px-6 font-semibold">
             Start your consultation
             <ArrowRight size={16} weight="bold" />
-          </Link>
+          </OriginButton>
         </motion.div>
       </div>
     </section>

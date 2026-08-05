@@ -92,7 +92,7 @@ export default function RecentBlogs() {
               date={post.date}
               readTime={post.readTime}
               tags={post.tags}
-              author={{ name: "Next Big Innovation Labs" }}
+              author={{ name: "Next Big Innovation Labs®" }}
               ctaLabel="Read article"
             />
           ))}

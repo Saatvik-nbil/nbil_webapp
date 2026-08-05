@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
 } from "@phosphor-icons/react";
 import { COMPANY } from "@/lib/machines";
+import { CompanyName } from "@/app/components/CompanyName";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -62,7 +63,7 @@ export default function CareersLanding() {
             Build your career with NBIL
           </h1>
           <p className="text-[16px] lg:text-[17px] text-[var(--color-ink-muted)] leading-relaxed">
-            At Next Big Innovation Labs, we strongly believe in dreaming big,
+            At <CompanyName />, we strongly believe in dreaming big,
             working hard, working together and definitely loving what we do
             because Steve Jobs once quoted, &ldquo;The only way to do great work
             is to love what you do.&rdquo;

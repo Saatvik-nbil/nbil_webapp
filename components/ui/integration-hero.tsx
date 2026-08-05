@@ -95,8 +95,8 @@ export default function IntegrationHero() {
             Recognised where it counts
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-            A World Economic Forum Technology Pioneer, featured across national media, and
-            built alongside leading research institutions and accelerators.
+            Featured across national media and built alongside leading research
+            institutions.
           </p>
         </div>
 

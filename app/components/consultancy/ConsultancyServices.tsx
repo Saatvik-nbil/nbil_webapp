@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import {
   Printer,
@@ -17,7 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -199,16 +198,14 @@ export default function ConsultancyServices() {
                 </ul>
 
                 {/* Contact button placeholder — pricing intentionally omitted for now */}
-                <Button
-                  asChild
-                  variant={highlighted ? "secondary" : "default"}
-                  className="relative z-10 h-11 w-full rounded-xl text-[14px]"
+                <OriginButton
+                  href="#project-form"
+                  variant={highlighted ? "outline" : "solid"}
+                  className="relative z-10 h-11 w-full text-[14px]"
                 >
-                  <Link href="#project-form">
-                    {service.cta}
-                    <ArrowRight className="ml-1.5 size-4" />
-                  </Link>
-                </Button>
+                  {service.cta}
+                  <ArrowRight className="size-4" />
+                </OriginButton>
               </motion.div>
             );
           })}

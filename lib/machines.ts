@@ -198,9 +198,9 @@ export const machines: Machine[] = [
     tier: "Specialised",
     role: "Light-based / MSLA",
     year: "2025",
-    heroImage: { src: "/images/aura-front.png", alt: "Trivima Aura MSLA resin bioprinter" },
+    heroImage: { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA resin bioprinter" },
     images: [
-      { src: "/images/aura-front.png", alt: "Trivima Aura MSLA bioprinter, front view" },
+      { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA bioprinter, front view" },
     ],
     stats: [
       { label: "Print resolution", value: "≤40", unit: "µm" },

@@ -2,6 +2,7 @@ import type { FC } from "react";
 import Link from "next/link";
 import { COMPANY } from "@/lib/machines";
 import MagneticDock from "@/components/ui/magnetic-dock";
+import { CompanyName } from "@/app/components/CompanyName";
 
 const QUICK_LINKS = [
   { label: "Trivima Bioprinters", href: "/trivima" },
@@ -99,7 +100,7 @@ const Footer: FC = () => (
           rel="noopener noreferrer"
           className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
         >
-          {COMPANY.name}
+          <CompanyName />
         </a>
       </div>
     </div>

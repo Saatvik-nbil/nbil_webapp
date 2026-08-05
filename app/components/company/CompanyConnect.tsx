@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, EnvelopeSimple, Phone, MapPin, Flask, Handshake } from "@phosphor-icons/react";
 import { COMPANY } from "@/lib/machines";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -65,19 +65,20 @@ export default function CompanyConnect() {
                   quote or live demo. Installation, training and support are included.
                 </p>
                 <div className="mt-1 flex flex-wrap gap-3">
-                  <Link
+                  <OriginButton
                     href="/trivima"
-                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-5 text-[14px] font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+                    className="h-11 px-5 text-[14px]"
                   >
                     Explore bioprinters
                     <ArrowRight size={16} weight="bold" />
-                  </Link>
-                  <Link
+                  </OriginButton>
+                  <OriginButton
                     href="/trivima#contact"
-                    className="inline-flex h-11 items-center gap-2 rounded-xl border border-[var(--color-dark-border)] px-5 text-[14px] font-medium text-[var(--color-dark-ink)] transition-colors hover:border-[var(--color-dark-brand)]"
+                    variant="outline"
+                    className="h-11 border-[var(--color-dark-border)] bg-transparent px-5 text-[14px] text-[var(--color-dark-ink)]"
                   >
                     Request a demo
-                  </Link>
+                  </OriginButton>
                 </div>
               </div>
             </LiquidGlass>
@@ -98,13 +99,13 @@ export default function CompanyConnect() {
                   We would like to hear what you are building.
                 </p>
                 <div className="mt-1 flex flex-wrap gap-3">
-                  <a
+                  <OriginButton
                     href={`mailto:${COMPANY.email}?subject=Partnership%20enquiry`}
-                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-5 text-[14px] font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+                    className="h-11 px-5 text-[14px]"
                   >
                     Start a conversation
                     <ArrowRight size={16} weight="bold" />
-                  </a>
+                  </OriginButton>
                 </div>
               </div>
             </LiquidGlass>

@@ -61,7 +61,7 @@ export default function GuidesList() {
               date={guide.date}
               readTime={guide.readTime}
               tags={guide.tags}
-              author={{ name: "Next Big Innovation Labs" }}
+              author={{ name: "Next Big Innovation Labs®" }}
               ctaLabel="Read guide"
             />
           ))}

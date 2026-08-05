@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Star, ArrowRight, CalendarCheck } from "@phosphor-icons/react";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -97,20 +98,18 @@ export default function ConsultancyHero() {
                 Schedule a free session with our specialists.
               </motion.p>
               <motion.div {...rise(0.18)} className="mt-8 flex flex-wrap items-center gap-4">
-                <a
-                  href="#project-form"
-                  className="inline-flex h-12 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-                >
+                <OriginButton href="#project-form" className="px-6 font-semibold">
                   <CalendarCheck size={18} weight="bold" />
                   Book Now
-                </a>
-                <a
+                </OriginButton>
+                <OriginButton
                   href="#process"
-                  className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 text-[15px] font-semibold text-white transition-colors hover:border-white/50 hover:bg-white/10"
+                  variant="outline"
+                  className="border-white/25 bg-white/5 px-6 font-semibold text-white"
                 >
                   How it works
                   <ArrowRight size={16} weight="bold" />
-                </a>
+                </OriginButton>
               </motion.div>
 
               {/* Trust line, folded into the same glass panel */}

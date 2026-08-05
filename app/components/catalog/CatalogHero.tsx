@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown } from "@phosphor-icons/react";
+import { OriginButton } from "@/components/ui/origin-button";
+import { CompanyName } from "@/app/components/CompanyName";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -108,7 +109,7 @@ export default function CatalogHero() {
               {...pop(0)}
               className="text-[13px] font-semibold tracking-tight text-[#7db4ff] [text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_2px_14px_rgba(0,0,0,0.85)]"
             >
-              The full Trivima range, by Next Big Innovation Labs
+              The full Trivima range, by <CompanyName />
             </motion.p>
 
             <motion.h1
@@ -129,19 +130,17 @@ export default function CatalogHero() {
             </motion.p>
 
             <motion.div {...pop(3)} className="mt-1 flex flex-wrap items-center gap-3">
-              <Link
-                href="#models"
-                className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-              >
+              <OriginButton href="#models" className="h-11 px-6 text-[15px]">
                 Explore the models
                 <ArrowDown weight="bold" size={17} />
-              </Link>
-              <Link
+              </OriginButton>
+              <OriginButton
                 href="#compare"
-                className="inline-flex h-11 items-center rounded-xl border border-white/25 bg-white/10 px-6 text-[15px] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20"
+                variant="outline"
+                className="h-11 border-white/25 bg-white/10 px-6 text-[15px] text-white backdrop-blur-md"
               >
                 Compare specs
-              </Link>
+              </OriginButton>
             </motion.div>
 
             {/* Key facts */}

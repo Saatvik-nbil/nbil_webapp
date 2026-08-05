@@ -10,6 +10,7 @@ import {
   CaretDown,
 } from "@phosphor-icons/react";
 import { COMPANY } from "@/lib/machines";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -194,12 +195,12 @@ export default function ProjectForm() {
                 />
               </div>
 
-              <button
+              <OriginButton
                 type="submit"
-                className="mt-2 inline-flex h-13 items-center justify-center rounded-xl bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand)]"
+                className="mt-2 h-13 px-6 py-3.5 font-semibold"
               >
                 Send Consultation Request
-              </button>
+              </OriginButton>
             </form>
           </motion.div>
 

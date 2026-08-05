@@ -44,8 +44,8 @@ export default function FocusAreas() {
   // Scroll parallax: the popped-out subject drifts upward as it passes through,
   // reinforcing the sense that it's lifting off the frame.
   const imgY = useTransform(scrollYProgress, [0, 1], ["10%", "-12%"]);
-  // ...and enlarges as it scrolls into view, so it grows out of the frame.
-  const imgScale = useTransform(scrollYProgress, [0, 0.55, 1], [0.86, 1.08, 1.14]);
+  // ...and enlarges as it scrolls into view, growing past the frame edges.
+  const imgScale = useTransform(scrollYProgress, [0, 0.55, 1], [0.92, 1.18, 1.3]);
 
   // Pointer-driven 3D tilt — like the depth you get through 3D glasses. We map
   // the cursor position over the frame to a rotateX/rotateY, spring-smoothed.
@@ -116,7 +116,7 @@ export default function FocusAreas() {
                   alt="Tissue constructs and scaffolds bioprinted on NBIL systems"
                   width={637}
                   height={333}
-                  className="w-[116%] max-w-none h-auto object-contain -translate-y-[14%] drop-shadow-[0_34px_44px_rgba(2,12,27,0.34)]"
+                  className="w-[128%] max-w-none h-auto object-contain -translate-y-[14%] drop-shadow-[0_46px_60px_rgba(2,12,27,0.48)]"
                   sizes="(max-width: 1024px) 90vw, 40vw"
                 />
               </motion.div>

@@ -4,6 +4,7 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import BlogMedia, { type MediaKind } from "@/app/components/blog/BlogMedia";
 import { COMPANY } from "@/lib/machines";
+import { OriginButton } from "@/components/ui/origin-button";
 
 const TITLE = "Getting Started with Dhee: A Quick-Start Guide";
 const DESCRIPTION =
@@ -434,18 +435,19 @@ export default function DheeQuickStartPage() {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
+              <OriginButton
                 href={`mailto:${COMPANY.email}`}
-                className="inline-flex h-12 items-center rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+                className="px-6 font-semibold"
               >
                 Contact support
-              </a>
-              <Link
-                href="/blogs"
-                className="inline-flex h-12 items-center rounded-xl border border-[var(--color-hairline)] px-6 text-[15px] font-semibold text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)]"
+              </OriginButton>
+              <OriginButton
+                href="/guides"
+                variant="outline"
+                className="px-6 font-semibold"
               >
-                More from the blog
-              </Link>
+                More guides
+              </OriginButton>
             </div>
           </div>
         </section>

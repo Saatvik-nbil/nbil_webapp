@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { List, X, CaretDown } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
+import { OriginButton } from "@/components/ui/origin-button";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 
 type NavChild = {
@@ -105,14 +105,25 @@ export default function NavBar() {
             {/* Wordmark */}
             <Link
               href="/"
-              className="flex items-center shrink-0"
+              className="group flex items-center shrink-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60"
               aria-label="Next Big Innovation Labs — home"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/recognition/nbil-logo.png"
                 alt="Next Big Innovation Labs"
-                className="h-7 w-auto"
+                className={[
+                  "h-7 w-auto origin-left will-change-[scale,filter]",
+                  // Tailwind v4 compiles scale-* to the standalone `scale`
+                  // property, not `transform` — transition that, or it snaps.
+                  // The transparent base shadow gives the glow something to
+                  // interpolate from; filter:none is not animatable.
+                  "drop-shadow-[0_0_0_rgba(45,129,228,0)]",
+                  "transition-[scale,filter] duration-700 ease-in-out",
+                  "group-hover:scale-[1.05] group-hover:drop-shadow-[0_2px_12px_rgba(45,129,228,0.38)]",
+                  "group-active:scale-[0.985] group-active:duration-200",
+                  "motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100",
+                ].join(" ")}
               />
             </Link>
 
@@ -213,9 +224,12 @@ export default function NavBar() {
                   ),
                 )}
               </nav>
-              <Button asChild className="hidden md:inline-flex h-9 px-5 rounded-xl text-[14px]">
-                <Link href="/#connect">Get in touch</Link>
-              </Button>
+              <OriginButton
+                href="/#connect"
+                className="hidden md:inline-flex h-9 px-5 text-[14px]"
+              >
+                Get in touch
+              </OriginButton>
               <button
                 className="md:hidden p-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors rounded-lg cursor-pointer"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -297,11 +311,13 @@ export default function NavBar() {
                       </Link>
                     ),
                   )}
-                  <Button asChild className="mt-4 h-12 rounded-xl text-[15px]">
-                    <Link href="/#connect" onClick={closeMobile}>
-                      Get in touch
-                    </Link>
-                  </Button>
+                  <OriginButton
+                    href="/#connect"
+                    onClick={closeMobile}
+                    className="mt-4 h-12 w-full text-[15px]"
+                  >
+                    Get in touch
+                  </OriginButton>
                 </div>
               </LiquidGlass>
             </motion.div>

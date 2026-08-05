@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
-import { LiquidGlass } from "@/components/ui/liquid-glass";
+import { OriginButton } from "@/components/ui/origin-button";
+import { CompanyName } from "@/app/components/CompanyName";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,9 +13,14 @@ const HEADLINE = ["We", "set", "out", "to", "print", "a", "better", "future."];
 
 export default function CompanyHero() {
   const root = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Hold on the poster frame rather than looping the clip.
+      video.current?.pause();
+      return;
+    }
     const ctx = gsap.context((self) => {
       const q = self.selector!;
 
@@ -52,6 +55,23 @@ export default function CompanyHero() {
         ease: "none",
         scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
       });
+      // The clip settles back and lifts slightly as the hero scrolls away,
+      // so the print reads as an object being set down rather than a flat panel.
+      gsap.fromTo(
+        q(".hero-clip"),
+        { scale: 1.04, rotateZ: -1.2 },
+        {
+          scale: 0.96,
+          rotateZ: 1.2,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
       // Copy fades as the hero leaves.
       gsap.to(q(".hero-copy"), {
         opacity: 0,
@@ -97,14 +117,12 @@ export default function CompanyHero() {
           {/* Copy — left, 7 cols */}
           <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
             <p className="hero-fade inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
-              Next Big Innovation Labs
-              <span aria-hidden className="h-px w-8 bg-[var(--color-brand)]" />
-              Bengaluru, India
+              <CompanyName symbolClassName="text-[0.95em]" />
             </p>
 
             <h1
               id="company-hero-heading"
-              className="font-display font-semibold tracking-[-0.03em] leading-[1.02] text-[var(--color-ink)] text-[2.85rem] sm:text-[3.6rem] lg:text-[4.5rem]"
+              className="font-display font-semibold tracking-[-0.03em] leading-[0.94]! text-[var(--color-ink)] text-[2.85rem] sm:text-[3.6rem] lg:text-[4.5rem]"
             >
               <span className="sr-only">We set out to print a better future.</span>
               <span aria-hidden="true" className="flex flex-wrap gap-x-[0.28em]">
@@ -129,15 +147,13 @@ export default function CompanyHero() {
             </p>
 
             <div className="hero-fade flex flex-wrap items-center gap-3">
-              <Button asChild className="h-12 px-6 rounded-xl text-[15px]">
-                <Link href="/trivima">
-                  Explore the bioprinters
-                  <ArrowRight data-icon="inline-end" weight="bold" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="h-12 px-6 rounded-xl text-[15px]">
-                <Link href="#connect">Partner with us</Link>
-              </Button>
+              <OriginButton href="/trivima">
+                Explore the bioprinters
+                <ArrowRight size={16} weight="bold" />
+              </OriginButton>
+              <OriginButton href="#connect" variant="outline">
+                Partner with us
+              </OriginButton>
             </div>
 
             <p className="hero-fade flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--color-hairline)] pt-6 text-[13.5px] text-[var(--color-ink-muted)]">
@@ -145,38 +161,31 @@ export default function CompanyHero() {
                 World Economic Forum Technology Pioneer
               </span>
               <span aria-hidden className="text-[var(--color-ink-faint)]">·</span>
-              <span>600+ researchers trained</span>
+              <span>Core bioprinting patents</span>
               <span aria-hidden className="text-[var(--color-ink-faint)]">·</span>
-              <span>3 bioprinting patents</span>
+              <span>Global installations</span>
             </p>
           </div>
 
           {/* Visual — right, 5 cols */}
           <div className="hero-visual lg:col-span-5 relative">
             <div className="relative rounded-[2rem] border border-[var(--color-hairline)] bg-gradient-to-b from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 sm:p-8">
-              <Image
-                src="/images/np-side.png"
-                alt="A Trivima bioprinter by Next Big Innovation Labs"
-                width={900}
-                height={900}
-                priority
-                className="w-full h-auto object-contain drop-shadow-[0_28px_56px_rgba(15,23,42,0.16)]"
-                sizes="(max-width: 1024px) 80vw, 38vw"
-              />
-              <LiquidGlass
-                tint="light"
-                distort={false}
-                className="absolute left-7 bottom-7 right-7 rounded-xl border border-white/50"
+              {/* Deflickered, seamlessly ping-ponged clip of a bioprinted ear
+                  being turned through its angles. Falls back to the poster
+                  frame under reduced motion (see the effect above). */}
+              <video
+                ref={video}
+                className="hero-clip w-full h-auto aspect-square rounded-[1.4rem] object-cover drop-shadow-[0_28px_56px_rgba(15,23,42,0.16)]"
+                poster="/videos/ear-print-poster.jpg"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="A bioprinted human ear on a Trivima print bed, turned to show it from every angle"
               >
-                <div className="flex items-center justify-between px-4 py-3">
-                  <span className="text-[13px] font-medium text-[var(--color-ink)]">
-                    The Trivima bioprinter line
-                  </span>
-                  <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
-                    3 models
-                  </span>
-                </div>
-              </LiquidGlass>
+                <source src="/videos/ear-print.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
