@@ -1,112 +1,60 @@
 import type { Metadata } from "next";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
-import { Timeline, type TimelineItem } from "@/components/ui/modern-timeline";
+import OurStoryLanding from "@/app/components/company/OurStoryLanding";
+import { STORY_MILESTONES } from "@/lib/story";
+import { COMPANY } from "@/lib/machines";
 
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "Ten years from a bold idea to a working range — the story of Next Big Innovation Labs, from its founding in Bengaluru in 2016 to a shipping Trivima bioprinter range today.",
+    "The full record of Next Big Innovation Labs, from a Bengaluru startup in 2016 to a World Economic Forum Technology Pioneer and Engineering Product of the Year — every patent, grant, collaboration and recognition along the way.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/our-story" },
+  openGraph: {
+    type: "article",
+    url: "https://nextbiginnovationlabs.com/our-story",
+    title: "Our Story — Next Big Innovation Labs",
+    description:
+      "Ten years from a bold idea to a working range: the milestones, patents, grants and collaborations behind the Trivima bioprinter range.",
+    images: [
+      {
+        url: "/images/np-side.png",
+        width: 1200,
+        height: 630,
+        alt: "Next Big Innovation Labs bioprinter",
+      },
+    ],
+  },
 };
 
-const MILESTONES: TimelineItem[] = [
-  {
-    title: "The starting line",
-    description:
-      "Founded in Bengaluru to build technology around transplant organs and bridge research and the clinic.",
-    date: "2016",
-    category: "Foundation",
-    status: "completed",
-  },
-  {
-    title: "Autodesk & Bangalore Bioinnovation Centre",
-    description:
-      "Collaborations with Autodesk and the Bangalore Bioinnovation Centre accelerate our design tooling and lab infrastructure.",
-    date: "2017",
-    category: "Collaboration",
-    status: "completed",
-  },
-  {
-    title: "Merck KGaA collaboration",
-    description:
-      "A collaboration with Merck KGaA broadens access to biomaterials and life-science expertise.",
-    date: "2018",
-    category: "Partnership",
-    status: "completed",
-  },
-  {
-    title: "First patents",
-    description:
-      "Two foundational bioprinting patents granted, protecting the core extrusion approach.",
-    date: "2019",
-    category: "Patents",
-    status: "completed",
-  },
-  {
-    title: "Printing human tissue",
-    description:
-      "A process patent for bioprinting human tissue moves the platform toward clinical relevance.",
-    date: "2020",
-    category: "R&D",
-    status: "completed",
-  },
-  {
-    title: "Microsoft for Startups",
-    description:
-      "Selected into the Microsoft Startup Program, scaling the software and cloud workflow.",
-    date: "2021",
-    category: "Programs",
-    status: "completed",
-  },
-  {
-    title: "HiMedia partnership",
-    description:
-      "Strategic partnership with HiMedia Laboratories expands biomaterials and reach.",
-    date: "2022",
-    category: "Partnership",
-    status: "completed",
-  },
-  {
-    title: "WEF Technology Pioneer",
-    description:
-      "Named a World Economic Forum Technology Pioneer; signed an R&D MoU with the Karnataka government.",
-    date: "2023",
-    category: "Recognition",
-    status: "completed",
-  },
-  {
-    title: "A full range, a community",
-    description:
-      "A focused Trivima range shipping and 600+ researchers trained through Next Big Learning.",
-    date: "Today",
-    category: "Milestone",
-    status: "current",
-  },
-];
+// Structured data is derived from the same list the page renders, so awards
+// can never drift out of sync with the visible copy.
+const storySchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: COMPANY.name,
+  alternateName: COMPANY.short,
+  url: COMPANY.site,
+  foundingDate: "2016",
+  foundingLocation: "Bengaluru, Karnataka, India",
+  description:
+    "Next Big Innovation Labs develops bioprinting solutions for researchers and clinicians focused on drug development, regenerative medicine and bioengineered organ fabrication.",
+  award: STORY_MILESTONES.filter(
+    (m) => m.category === "Award" || m.category === "Recognition"
+  ).map((m) => `${m.title}, ${m.year}`),
+};
 
 export default function OurStoryPage() {
   return (
     <>
-      <NavBar />
-      <main className="bg-[var(--color-canvas)]">
-        {/* Hero */}
-        <section className="max-w-7xl mx-auto px-6 pt-32 pb-6 lg:pt-40 lg:pb-8">
-          <div className="flex flex-col gap-5 max-w-3xl">
-            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
-              Our story
-            </p>
-            <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.04]">
-              Ten years from a bold idea to a working range
-            </h1>
-            <p className="text-[16px] lg:text-[17px] text-[var(--color-ink-muted)] leading-relaxed">
-              Since 2016, NBIL has built the bioprinting instruments researchers
-              and clinicians rely on. One mission, printed one layer at a time.
-            </p>
-          </div>
-        </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(storySchema) }}
+      />
 
-        <Timeline items={MILESTONES} className="pb-24 lg:pb-32" />
+      <NavBar />
+      <main id="main-content">
+        <OurStoryLanding />
       </main>
       <Footer />
     </>

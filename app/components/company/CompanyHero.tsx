@@ -6,21 +6,30 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
 import { CompanyName } from "@/app/components/CompanyName";
+import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const HEADLINE = ["We", "set", "out", "to", "print", "a", "better", "future."];
 
+/* Card size is solved from the item count, so fewer entries means larger
+   cards: 6 is the sweet spot for this column, 8 the practical maximum.
+   `pos` sets each shot's focal point — the cards are portrait, so landscape
+   sources lose roughly half their width to the crop and need it. */
+const HERO_GALLERY: GalleryItem[] = [
+  { src: "/images/1.png", alt: "A bioprinted human ear held on a print disc", pos: "45% 50%" },
+  { src: "/images/5.JPG", alt: "A printed hydrogel lattice in a petri dish, held in front of a Trivima printer", pos: "70% 50%" },
+  { src: "/images/2.jpeg", alt: "A Trivima extruder printing bioink into a petri dish" },
+  { src: "/images/3.JPG", alt: "The NBIL mark bioprinted inside a clear hydrogel cube", pos: "55% 50%" },
+  { src: "/images/6.JPG", alt: "Close-up of a Trivima nozzle drawing a single filament", pos: "42% 45%" },
+  { src: "/images/7.png", alt: "A bioprinted human ear on a grey print disc", pos: "50% 48%" },
+];
+
 export default function CompanyHero() {
   const root = useRef<HTMLDivElement>(null);
-  const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      // Hold on the poster frame rather than looping the clip.
-      video.current?.pause();
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context((self) => {
       const q = self.selector!;
 
@@ -113,7 +122,7 @@ export default function CompanyHero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Copy — left, 7 cols */}
           <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
             <p className="hero-fade inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
@@ -167,25 +176,26 @@ export default function CompanyHero() {
             </p>
           </div>
 
-          {/* Visual — right, 5 cols */}
+          {/* Visual — right, 5 cols. No panel or frame: the ring sits directly
+              on the hero's background field so it reads as part of the scene. */}
           <div className="hero-visual lg:col-span-5 relative">
-            <div className="relative rounded-[2rem] border border-[var(--color-hairline)] bg-gradient-to-b from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 sm:p-8">
-              {/* Deflickered, seamlessly ping-ponged clip of a bioprinted ear
-                  being turned through its angles. Falls back to the poster
-                  frame under reduced motion (see the effect above). */}
-              <video
-                ref={video}
-                className="hero-clip w-full h-auto aspect-square rounded-[1.4rem] object-cover drop-shadow-[0_28px_56px_rgba(15,23,42,0.16)]"
-                poster="/videos/ear-print-poster.jpg"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="A bioprinted human ear on a Trivima print bed, turned to show it from every angle"
-              >
-                <source src="/videos/ear-print.mp4" type="video/mp4" />
-              </video>
+            {/* Soft pool of light under the ring, so the cards have something
+                to sit on without introducing a hard edge. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl opacity-60"
+              style={{ background: "radial-gradient(closest-side, #dceafb, transparent)" }}
+            />
+            {/* The ring is wider than its column, so nudge it right: the
+                overhang lands in the page margin instead of the copy's gutter.
+                Its own div — GSAP owns the transform on .hero-visual and
+                .hero-clip, and would overwrite a utility class there.
+                `relative` is load-bearing: the light pool above is positioned,
+                so without it that glow paints over the ring — positioned
+                descendants sit above in-flow ones whatever the DOM order — and
+                washes out whichever card is at front. */}
+            <div className="relative lg:translate-x-[6%]">
+              <CircularGallery items={HERO_GALLERY} className="hero-clip" />
             </div>
           </div>
         </div>

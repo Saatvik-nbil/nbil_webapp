@@ -25,7 +25,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "Products",
     children: [
       { label: "Bioprinters", href: "/trivima" },
-      { label: "Software", href: "https://dhee-web-new.onrender.com/", external: true },
+      { label: "Software", href: "/dhee-slicer" },
       { label: "Consumables", comingSoon: true },
     ],
   },

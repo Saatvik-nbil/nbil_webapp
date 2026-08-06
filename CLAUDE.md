@@ -31,9 +31,10 @@ There is no standalone ESLint config — `next lint` uses Next's built-in rulese
 
 **Data is centralized in `lib/machines.ts`.** This is the single source of truth for the entire product catalog: the `Machine[]` array (Trivima Pro / NP / Aura with full specs, stats, features, applications) plus the `COMPANY` constant (name, email, phone, address). Pages and components import from here rather than hardcoding — when product facts or contact details change, edit this file. `getMachine(slug)` looks up a single model.
 
-**Routing** is the App Router under `app/`. Top-level routes each have a `page.tsx` (`/`, `/trivima`, `/consultancy`, `/our-story`, `/team`, `/careers`, `/news`, `/blogs`, `/newsletter`, `/privacy-policy`). Product detail is the dynamic route `app/machines/[slug]/page.tsx`, which is statically generated via `generateStaticParams()` from the `machines` array and builds per-model metadata + JSON-LD in `generateMetadata`.
+**Routing** is the App Router under `app/`. Top-level routes each have a `page.tsx` (`/`, `/trivima`, `/consultancy`, `/team`, `/careers`, `/news`, `/blogs`, `/guides`, `/newsletter`, `/privacy-policy`). The company story is a section on the home page (`StoryTimeline`, anchor `/#story`), not a standalone route. Product detail is the dynamic route `app/machines/[slug]/page.tsx`, which is statically generated via `generateStaticParams()` from the `machines` array and builds per-model metadata + JSON-LD in `generateMetadata`.
 
 **Component layers:**
+
 - `components/ui/` — shadcn/ui primitives + vendored visual-effect components (liquid-glass, coordinate-cursor, timelines, etc.). shadcn is configured for the `radix-nova` style with the `lucide` icon library (`components.json`).
 - `app/components/` — page-specific sections, grouped by area (`company/`, `catalog/`, `consultancy/`, `machine/`, `blog/`, `careers/`, `news/`, `team/`) plus shared chrome (`NavBar`, `Footer`, `ContactSection`, `SmoothScroll`, `ScrollProgress`, `IntroGate`).
 - Pages compose these sections top-to-bottom (see `app/page.tsx`); most of the visual work is in the section components.
@@ -45,6 +46,7 @@ There is no standalone ESLint config — `next lint` uses Next's built-in rulese
 ## Motion & scroll
 
 Motion is layered and intentional — several libraries coexist by role:
+
 - **Lenis** smooth-scroll + **GSAP ScrollTrigger** are wired together in `app/components/SmoothScroll.tsx` (Lenis drives GSAP's ticker so ScrollTriggers stay in sync). Lenis is exposed as `window.lenis` for anchor scrolling.
 - **Motion** (`motion/react`) for component reveals/hover, **anime.js** and **three.js** for specific effects.
 

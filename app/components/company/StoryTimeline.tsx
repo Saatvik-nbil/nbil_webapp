@@ -1,26 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight } from "lucide-react";
+import { FEATURED_MILESTONES, STORY_MILESTONES } from "@/lib/story";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// `image` is a placeholder for now — drop a path like "/images/story/2016.jpg"
-// into each entry once the photos are ready and it renders automatically.
-type Milestone = { year: string; title: string; body: string; image?: string };
-
-const MILESTONES: Milestone[] = [
-  { year: "2016", title: "The starting line", body: "Founded in Bengaluru to build technology around transplant organs and bridge research and the clinic.", image: undefined },
-  { year: "2017", title: "Autodesk & Bangalore Bioinnovation Centre", body: "Collaborations with Autodesk and the Bangalore Bioinnovation Centre accelerate our design tooling and lab infrastructure.", image: undefined },
-  { year: "2018", title: "Merck KGaA collaboration", body: "A collaboration with Merck KGaA broadens access to biomaterials and life-science expertise.", image: undefined },
-  { year: "2019", title: "First patents", body: "Two foundational bioprinting patents granted, protecting the core extrusion approach.", image: undefined },
-  { year: "2020", title: "Printing human tissue", body: "A process patent for bioprinting human tissue moves the platform toward clinical relevance.", image: undefined },
-  { year: "2021", title: "Microsoft for Startups", body: "Selected into the Microsoft Startup Program, scaling the software and cloud workflow.", image: undefined },
-  { year: "2022", title: "HiMedia partnership", body: "Strategic partnership with HiMedia Laboratories expands biomaterials and reach.", image: undefined },
-  { year: "2023", title: "WEF Technology Pioneer", body: "Named a World Economic Forum Technology Pioneer; signed an R&D MoU with the Karnataka government.", image: undefined },
-  { year: "Today", title: "A full range, a community", body: "A focused Trivima range shipping and 600+ researchers trained through Next Big Learning.", image: undefined },
-];
+// The curated arc shown here is a subset of `lib/story.ts`; the full record —
+// every award, grant, collaboration and incubation — lives on /our-story,
+// reached through the "Explore more" card at the end of the track.
+const MILESTONES = FEATURED_MILESTONES;
 
 export default function StoryTimeline() {
   const root = useRef<HTMLDivElement>(null);
@@ -83,10 +75,23 @@ export default function StoryTimeline() {
             {/* Photo — replace `image` in MILESTONES to swap this placeholder.
                 Tilted in 3D at rest, flattens and lifts on hover. */}
             <div className="group/photo [perspective:1000px]">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-dashed border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_38px_-16px_rgba(2,12,27,0.45)] transition-transform duration-500 ease-out will-change-transform [transform:rotateX(9deg)_rotateY(-8deg)] group-hover/photo:[transform:rotateX(0deg)_rotateY(0deg)_translateY(-4px)_scale(1.02)]">
+              <div
+                className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_38px_-16px_rgba(2,12,27,0.45)] transition-transform duration-500 ease-out will-change-transform [transform:rotateX(9deg)_rotateY(-8deg)] group-hover/photo:[transform:rotateX(0deg)_rotateY(0deg)_translateY(-4px)_scale(1.02)] ${
+                  m.image ? "" : "border-dashed"
+                }`}
+              >
                 {m.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={m.image} alt={m.title} className="h-full w-full object-cover" />
+                  <img
+                    src={m.image}
+                    alt={m.title}
+                    loading="lazy"
+                    className={
+                      m.fit === "contain"
+                        ? "h-full w-full object-contain p-5"
+                        : "h-full w-full object-cover"
+                    }
+                  />
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
                     <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Photo</span>
@@ -111,6 +116,33 @@ export default function StoryTimeline() {
             </p>
           </article>
         ))}
+
+        {/* Terminal CTA — the full record continues on /our-story. Sized like
+            the article cards so the GSAP scrub width still resolves. */}
+        <Link
+          href="/our-story"
+          className="group relative shrink-0 lg:w-[26rem] rounded-2xl border border-[var(--color-brand)] bg-[var(--color-brand)] p-7 lg:p-9 flex flex-col justify-between gap-8 text-white transition-transform duration-300 ease-out hover:-translate-y-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
+        >
+          <div>
+            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-white/70 mb-4">
+              The full record
+            </p>
+            <h3 className="font-display text-[1.9rem] lg:text-[2.2rem] font-semibold tracking-[-0.025em] leading-[1.1]">
+              Explore more
+            </h3>
+            <p className="mt-4 text-[14.5px] leading-relaxed text-white/80">
+              Every award, grant, collaboration and milestone since 2016 — all{" "}
+              {STORY_MILESTONES.length} of them, on one page.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-2 text-[14px] font-medium">
+            See the whole story
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
+            />
+          </span>
+        </Link>
       </div>
     </section>
   );
