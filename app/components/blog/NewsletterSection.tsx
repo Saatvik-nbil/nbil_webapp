@@ -1,12 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, EnvelopeSimple } from "@phosphor-icons/react";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const SUBSTACK_URL = "https://nextbiginnovationlabs.substack.com";
-const SUBSCRIBE_URL = "https://nextbiginnovationlabs.substack.com/subscribe";
+export const SUBSTACK_URL = "https://nextbiginnovationlabs.substack.com";
+export const SUBSCRIBE_URL =
+  "https://nextbiginnovationlabs.substack.com/subscribe";
 
 type Issue = {
   title: string;
@@ -81,36 +82,15 @@ export default function NewsletterSection() {
     <section
       id="newsletter"
       aria-labelledby="newsletter-heading"
-      className="scroll-mt-24 bg-[var(--color-surface)] pt-32 pb-16 lg:pt-40 lg:pb-24"
+      className="scroll-mt-24 bg-[var(--color-surface)] py-16 lg:py-24"
     >
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header + subscribe */}
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-10 lg:mb-14">
-          <div className="flex flex-col gap-4 max-w-2xl">
-            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
-              Newsletter
-            </p>
-            <h2
-              id="newsletter-heading"
-              className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
-            >
-              The NBIL bioprinting newsletter
-            </h2>
-            <p className="text-[15.5px] text-[var(--color-ink-muted)] leading-relaxed">
-              Research breakdowns and biofabrication news, published on Substack.
-              Subscribe for new issues, or read any of the recent ones below.
-            </p>
-          </div>
-          <a
-            href={SUBSCRIBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-12 shrink-0 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-          >
-            <EnvelopeSimple size={18} weight="bold" />
-            Subscribe to newsletter
-          </a>
-        </div>
+        <h2
+          id="newsletter-heading"
+          className="mb-10 font-display text-[1.6rem] lg:text-[2rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.1] lg:mb-14"
+        >
+          Recent issues
+        </h2>
 
         {/* Issues grid — preview + Learn more (no full embed) */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

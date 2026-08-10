@@ -38,7 +38,7 @@ const STEPS: Step[] = [
   {
     title: "Import your model",
     body: [
-      "Click **Import Model** and select your 3D file. Dhee reads .stl, .obj, .amf and .gcode directly, so there is no conversion step before you start.",
+      "Click **Import Model** and select your 3D file. Dhee reads .stl and .gcode directly, so there is no conversion step before you start.",
     ],
     callout: { type: "check", text: "The model appears on the build platform." },
     media: {

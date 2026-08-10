@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Timeline3D, { type TimelineEvent } from "@/components/ui/3d-interactive-timeline";
+import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 import { OriginButton } from "@/components/ui/origin-button";
 import {
   STORY_CATEGORIES,
@@ -51,25 +52,31 @@ export default function OurStoryLanding() {
       {/* Hero */}
       <section
         aria-labelledby="our-story-heading"
-        className="relative border-b border-[var(--color-hairline)] bg-[var(--color-surface)] pt-32 pb-16 lg:pt-40 lg:pb-20"
+        className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32"
       >
-        <div className="mx-auto max-w-7xl px-6">
+        <PhotoHeroBackdrop
+          src="/images/heroes/our-story-hero.webp"
+          objectPosition="50% 58%"
+          fadeTo="248,250,252"
+          fadeHeight="30%"
+        />
+        <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.p
             {...rise(0)}
-            className="mb-3 font-mono text-[12px] uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
+            className="mb-3 font-mono text-[12px] uppercase tracking-[0.18em] text-[#8fbdfb]"
           >
             Our story
           </motion.p>
           <motion.h1
             {...rise(0.06)}
             id="our-story-heading"
-            className="max-w-[18ch] font-display text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[3.4rem]"
+            className="max-w-[18ch] font-display text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.025em] text-white lg:text-[3.4rem]"
           >
             Ten years from a bold idea to a working range
           </motion.h1>
           <motion.p
             {...rise(0.12)}
-            className="mt-6 max-w-[58ch] text-[16px] leading-relaxed text-[var(--color-ink-muted)] lg:text-[17px]"
+            className="mt-6 max-w-[58ch] text-[16px] leading-relaxed text-white/75 lg:text-[17px]"
           >
             Next Big Innovation Labs began in 2016 with a single question: what
             would it take to print living tissue reliably enough for a lab to

@@ -177,6 +177,39 @@ export default function ShaderBackground({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // This is a per-pixel shader with 16 iterations, so cap the pixel ratio —
+    // a full 3x retina buffer costs ~9x the fragments for no visible gain.
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const started = performance.now();
+
+    let program: WebGLProgram | null = null;
+    let buffer: WebGLBuffer | null = null;
+    let aVertexPosition = -1;
+    let uResolution: WebGLUniformLocation | null = null;
+    let uTime: WebGLUniformLocation | null = null;
+    let frame = 0;
+    let visible = false;
+    let disposed = false;
+
+    // Registered before the context is acquired so a loss can never slip
+    // through unhandled. Without preventDefault the browser will not offer the
+    // context back, and the section stays blank until a reload.
+    const onContextLost = (event: Event) => {
+      event.preventDefault();
+      stop();
+      program = null;
+      buffer = null;
+    };
+    const onContextRestored = () => {
+      if (disposed || !build()) return;
+      gl?.viewport(0, 0, canvas.width, canvas.height);
+      if (reduced) draw(0);
+      else if (visible) start();
+    };
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
+
     const gl = canvas.getContext("webgl", {
       alpha: false,
       antialias: false,
@@ -185,62 +218,81 @@ export default function ShaderBackground({
     });
     if (!gl) {
       console.warn("WebGL not supported; shader background skipped.");
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
       return;
     }
 
-    const program = createProgram(gl);
-    if (!program) return;
+    // A canvas hands back the same context object every time, lost or not, so
+    // a context killed by a previous mount arrives here already dead and every
+    // call against it silently no-ops. Ask for it back and let the restored
+    // handler do the building.
+    if (gl.isContextLost()) {
+      gl.getExtension("WEBGL_lose_context")?.restoreContext();
+    }
 
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW,
-    );
+    function build() {
+      if (!gl || gl.isContextLost()) return false;
 
-    const aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
-    const uResolution = gl.getUniformLocation(program, "iResolution");
-    const uTime = gl.getUniformLocation(program, "iTime");
+      program = createProgram(gl);
+      if (!program) return false;
 
-    // This is a per-pixel shader with 16 iterations, so cap the pixel ratio —
-    // a full 3x retina buffer costs ~9x the fragments for no visible gain.
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+        gl.STATIC_DRAW,
+      );
+
+      aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+      uResolution = gl.getUniformLocation(program, "iResolution");
+      uTime = gl.getUniformLocation(program, "iTime");
+      return true;
+    }
 
     // Size from the canvas's own box, NOT the viewport, so the effect stays
     // inside whatever section renders it.
-    const resize = () => {
-      const width = Math.max(1, Math.round(canvas.clientWidth * dpr));
-      const height = Math.max(1, Math.round(canvas.clientHeight * dpr));
-      if (canvas.width === width && canvas.height === height) return false;
-      canvas.width = width;
-      canvas.height = height;
+    function resize() {
+      if (!gl) return false;
+      const width = Math.max(1, Math.round(canvas!.clientWidth * dpr));
+      const height = Math.max(1, Math.round(canvas!.clientHeight * dpr));
+      if (canvas!.width === width && canvas!.height === height) return false;
+      canvas!.width = width;
+      canvas!.height = height;
       gl.viewport(0, 0, width, height);
       return true;
-    };
+    }
 
-    const draw = (seconds: number) => {
+    function draw(seconds: number) {
+      if (!gl || !program) return;
       gl.useProgram(program);
-      gl.uniform2f(uResolution, canvas.width, canvas.height);
+      gl.uniform2f(uResolution, canvas!.width, canvas!.height);
       gl.uniform1f(uTime, seconds);
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       gl.vertexAttribPointer(aVertexPosition, 2, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(aVertexPosition);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    };
+    }
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    resize();
-
-    let frame = 0;
-    const started = performance.now();
-
-    const loop = () => {
+    function loop() {
       resize();
       draw((performance.now() - started) / 1000);
       frame = requestAnimationFrame(loop);
-    };
+    }
+
+    function start() {
+      if (frame || reduced || disposed || !program) return;
+      frame = requestAnimationFrame(loop);
+    }
+    function stop() {
+      if (!frame) return;
+      cancelAnimationFrame(frame);
+      frame = 0;
+    }
+
+    const ready = build();
+    resize();
 
     const resizeObserver = new ResizeObserver(() => {
       if (!reduced) return; // the loop already resizes every frame
@@ -252,17 +304,14 @@ export default function ShaderBackground({
 
     if (reduced) {
       // Motion is off: paint one static frame and never start the loop.
-      draw(0);
+      if (ready) draw(0);
     } else {
       // Don't burn GPU on a section nobody is looking at.
       intersectionObserver = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting && !frame) {
-            frame = requestAnimationFrame(loop);
-          } else if (!entry.isIntersecting && frame) {
-            cancelAnimationFrame(frame);
-            frame = 0;
-          }
+          visible = entry.isIntersecting;
+          if (visible) start();
+          else stop();
         },
         { rootMargin: "120px" },
       );
@@ -270,12 +319,20 @@ export default function ShaderBackground({
     }
 
     return () => {
-      if (frame) cancelAnimationFrame(frame);
+      disposed = true;
+      stop();
       resizeObserver.disconnect();
       intersectionObserver?.disconnect();
-      gl.deleteBuffer(buffer);
-      gl.deleteProgram(program);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
+      if (!gl.isContextLost()) {
+        gl.deleteBuffer(buffer);
+        gl.deleteProgram(program);
+      }
+      // Deliberately NOT calling WEBGL_lose_context.loseContext() here. Strict
+      // Mode mounts, tears down, then mounts again against the same canvas —
+      // and a context killed on the way out comes back lost, so the shader
+      // never compiles on the second pass. The context dies with the canvas.
     };
   }, []);
 

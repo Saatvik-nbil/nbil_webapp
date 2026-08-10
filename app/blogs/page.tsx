@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import RecentBlogs from "@/app/components/blog/RecentBlogs";
+import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -16,16 +17,22 @@ export default function BlogsPage() {
       <NavBar />
       <main>
         {/* Hero */}
-        <section className="bg-[var(--color-canvas)] pt-32 pb-8 lg:pt-40 lg:pb-10">
-          <div className="max-w-7xl mx-auto px-6">
+        <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
+          <PhotoHeroBackdrop
+            src="/images/heroes/blogs-hero.webp"
+            objectPosition="65% center"
+            fadeTo="248,250,252"
+            fadeHeight="30%"
+          />
+          <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">
-              <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+              <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb]">
                 Blog
               </p>
-              <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.04]">
+              <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-white leading-[1.04]">
                 Insights from the lab
               </h1>
-              <p className="text-[16px] lg:text-[17px] text-[var(--color-ink-muted)] leading-relaxed">
+              <p className="text-[16px] lg:text-[17px] text-white/75 leading-relaxed">
                 Deep dives on bioprinting, biomaterials and biofabrication from
                 the NBIL team.
               </p>

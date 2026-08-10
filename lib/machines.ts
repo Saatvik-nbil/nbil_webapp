@@ -59,7 +59,6 @@ export const machines: Machine[] = [
     heroImage: { src: "/images/pro-1.webp", alt: "Trivima Pro six-extruder bioprinter" },
     images: [
       { src: "/images/pro-1.webp", alt: "Trivima Pro bioprinter with six extruders" },
-      { src: "/images/pro-2.png", alt: "Trivima Pro bioprinter, alternate view" },
     ],
     stats: [
       { label: "Build volume", value: "150×100×100", unit: "mm" },
@@ -83,7 +82,7 @@ export const machines: Machine[] = [
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "In-built sterility", value: "H14 HEPA & germicidal UV" },
       { label: "Control software", value: "Dhee by NBIL" },
-      { label: "Compatible file formats", value: ".stl, .obj, .gcode, .amf" },
+      { label: "Compatible file formats", value: ".stl, .gcode" },
     ],
     features: [
       "Swappable heads across all extruder slots",
@@ -138,7 +137,7 @@ export const machines: Machine[] = [
       { label: "Movement precision", value: "<10", unit: "µm" },
       { label: "Build volume", value: "120×70×50", unit: "mm" },
       { label: "Pressure", value: "0.02–8", unit: "Bar" },
-      { label: "Pellet temp", value: "RT–250", unit: "°C" },
+      { label: "Bed temp", value: "RT–80", unit: "°C" },
     ],
     specs: [
       { label: "Extruder slots", value: "2–3 slots (user-configurable)" },
@@ -153,7 +152,7 @@ export const machines: Machine[] = [
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "Standard wavelengths", value: "365 nm, 405 nm, 420 nm, 520 nm" },
       { label: "Print bed type", value: "Stationary" },
-      { label: "Compatible file formats", value: ".stl, .obj, .gcode, .amf" },
+      { label: "Compatible file formats", value: ".stl, .gcode" },
     ],
     features: [
       "Swappable heads with two to three extruders",
@@ -200,7 +199,8 @@ export const machines: Machine[] = [
     year: "2025",
     heroImage: { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA resin bioprinter" },
     images: [
-      { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA bioprinter, front view" },
+      { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA bioprinter, three-quarter view" },
+      { src: "/images/aura-dlp-front.png", alt: "Trivima Aura MSLA bioprinter, front view with the control screen and resin vat" },
     ],
     stats: [
       { label: "Print resolution", value: "≤40", unit: "µm" },
@@ -218,8 +218,8 @@ export const machines: Machine[] = [
       { label: "Motor-based extruder temperature", value: "Room temperature to 60 °C" },
       { label: "Optical intensity", value: "Adjustable based on light engine" },
       { label: "User interface", value: "Touch screen display & external system" },
-      { label: "Compatible file formats", value: ".stl, .obj, .gcode, .amf" },
-      { label: "Control software", value: "Hikari by NBIL" },
+      { label: "Compatible file formats", value: ".stl, .bmp" },
+      { label: "Control software", value: "Aura Slicer by NBIL" },
     ],
     features: [
       "Compatible with commercial biomaterials and user-defined polymers",
@@ -238,7 +238,7 @@ export const machines: Machine[] = [
       { title: "Organ-on-chip & microphysiological systems", description: "Microfluidic devices and compartmentalized tissue chambers." },
       { title: "Bioinspired materials & soft-matter physics", description: "Lattice structures, gradient materials and bio-inspired architectures." },
     ],
-    software: "Hikari by NBIL",
+    software: "Aura Slicer by NBIL",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivima-aura/",
   },
 ];
@@ -251,13 +251,32 @@ export const COMPANY = {
   name: "Next Big Innovation Labs",
   short: "NBIL",
   email: "support@nextbiginnovationlabs.com",
-  phone: "+91 6364 596 016",
-  phoneHref: "+916364596016",
   address: {
-    line1: "Jyothy Institute of Technology",
-    line2: "Kanakapura Main Road, Thataguni",
-    city: "Bengaluru, Karnataka 560082",
+    line1: "NTTF NEC, 1st Main",
+    line2: "Bengaluru – Chennai Hwy, Electronic City Phase I",
+    line3: "Electronic City, Konappana Agrahara",
+    city: "Bengaluru",
+    state: "Karnataka",
+    postalCode: "560100",
     country: "India",
   },
   site: "https://nextbiginnovationlabs.com",
 } as const;
+
+/**
+ * The postal address as one line. Every surface that prints the address should
+ * use this so the parts can't be reassembled differently in three places.
+ * Pass `country: false` where the country is redundant.
+ */
+export function formatAddress({ country = true } = {}) {
+  const a = COMPANY.address;
+  return [
+    a.line1,
+    a.line2,
+    a.line3,
+    `${a.state} ${a.postalCode}`,
+    country ? a.country : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
+}

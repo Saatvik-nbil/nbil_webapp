@@ -655,10 +655,6 @@ function CTA() {
 /* ─── TESTIMONIALS ───────────────────────────────────── */
 const TESTIMONIALS_DATA = [
   { id: 1, name: "Angel G C", role: "PhD Scholar", company: "MSLS", content: "Earlier, I had to juggle multiple applications for slicing, printer control, and printing, but now everything is available in one place. What I like most about the Trivima Advanced is the three-extruder setup and independent temperature control at both the print head and bed, which makes it really easy to work with a wide variety of biomaterials and polymers.", rating: 5, avatar: "/dhee/angel.jpg" },
-  { id: 2, name: "Prof. Marcus Bell", role: "Biomaterials Research Lead", company: "KJ Somaiya College of Engineering", content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem. Multi-extruder support and the G-code viewer meant zero surprises at the printer — exactly what a research environment demands.", rating: 5, avatar: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { id: 3, name: "Dr. Priya Kapoor", role: "Research Fellow", company: "IIT Hyderabad", content: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit. Variable layer heights per Z-range is a game-changer for gradient scaffolds. Slicing a 96-well plate used to take an afternoon.", rating: 5, avatar: "https://randomuser.me/api/portraits/women/22.jpg" },
-  { id: 4, name: "Rafael Domínguez", role: "Senior R&D", company: "CLRI", content: "At vero eos et accusamus et iusto odio dignissimos. The offline licensing model means our air-gapped lab machines stay productive, and the serial control panel replaced our secondary interface entirely.", rating: 5, avatar: "https://randomuser.me/api/portraits/men/78.jpg" },
-  { id: 5, name: "Dr. Mei-Ling Zhou", role: "Advanced Manufacturing Researcher", company: "IISc Banglore", content: "Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus. Real-time per-extruder temperature monitoring finally gives us the precision we need without a secondary dashboard.", rating: 5, avatar: "https://randomuser.me/api/portraits/women/57.jpg" },
 ];
 
 const TRUSTED_LABS = [
@@ -699,6 +695,7 @@ function Testimonials() {
   }, []);
 
   useEffect(() => {
+    if (TESTIMONIALS_DATA.length < 2) return;
     const t = setInterval(() => setActiveIndex(i => (i + 1) % TESTIMONIALS_DATA.length), 6000);
     return () => clearInterval(t);
   }, []);
@@ -717,19 +714,22 @@ function Testimonials() {
           <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 36, maxWidth: 400 }}>
             From tissue engineering labs to clinical research facilities — teams worldwide trust DHEE Slicer for precision bioprinting.
           </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {TESTIMONIALS_DATA.map((_, i) => (
-              <button key={i} onClick={() => setActiveIndex(i)} style={{ height: 10, borderRadius: 999, border: "none", cursor: "pointer", padding: 0, width: activeIndex === i ? 36 : 10, background: activeIndex === i ? "#6D28D9" : "rgba(109,40,217,0.2)", transition: "all 0.3s cubic-bezier(0.23,1,0.32,1)" }} />
-            ))}
-          </div>
+          {/* Dots only earn their place with something to page between. */}
+          {TESTIMONIALS_DATA.length > 1 && (
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              {TESTIMONIALS_DATA.map((_, i) => (
+                <button key={i} onClick={() => setActiveIndex(i)} style={{ height: 10, borderRadius: 999, border: "none", cursor: "pointer", padding: 0, width: activeIndex === i ? 36 : 10, background: activeIndex === i ? "#6D28D9" : "rgba(109,40,217,0.2)", transition: "all 0.3s cubic-bezier(0.23,1,0.32,1)" }} />
+              ))}
+            </div>
+          )}
           <div style={{ marginTop: 56 }}>
             <div style={{ fontSize: 10.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "#B8ACD8", marginBottom: 20 }}>Trusted by teams from</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px 20px", alignItems: "center" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "22px 28px", alignItems: "center" }}>
               {TRUSTED_LABS.map(lab => (
                 <div key={lab.name} style={{ display: "flex", alignItems: "center" }}>
-                  <img src={lab.logo} alt={lab.name} title={lab.name} style={{ height: 40, width: "auto", maxWidth: 120, objectFit: "contain", mixBlendMode: "multiply", opacity: 0.5, filter: "grayscale(100%)", transition: "opacity 0.3s ease, filter 0.3s ease" }}
+                  <img src={lab.logo} alt={lab.name} title={lab.name} style={{ height: 60, width: "auto", maxWidth: 170, objectFit: "contain", mixBlendMode: "multiply", opacity: 0.55, filter: "grayscale(100%)", transition: "opacity 0.3s ease, filter 0.3s ease" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.filter = "grayscale(0%)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.5"; e.currentTarget.style.filter = "grayscale(100%)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.55"; e.currentTarget.style.filter = "grayscale(100%)"; }}
                     onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "block"; }}
                   />
                   <span style={{ display: "none", fontSize: 13, fontWeight: 600, color: "rgba(109,40,217,0.35)", letterSpacing: "-0.01em" }}>{lab.name}</span>

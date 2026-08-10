@@ -131,6 +131,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     year: "2020",
     title: "Next Big Learning",
     body: "A process patent for bioprinting human tissue moves the platform toward clinical relevance.",
+    image: "/story_timeline/next-big-learning.webp",
     category: "Milestone",
     featured: true,
   },

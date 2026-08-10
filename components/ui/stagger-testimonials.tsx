@@ -6,93 +6,77 @@ import { cn } from "@/lib/utils";
 
 const SQRT_5000 = Math.sqrt(5000);
 
-// Bioprinting-lab testimonials for the Trivima range.
-const testimonials = [
+// Real customer reviews for the Trivima range. Quotes are verbatim; where no
+// institution was stated the entry is name-only rather than guessed.
+// `imgSrc` is optional — until headshots are supplied the card falls back to an
+// initials monogram, so adding a photo later is a one-line change per person.
+type Testimonial = {
+  tempId: number;
+  testimonial: string;
+  name: string;
+  org?: string;
+  imgSrc?: string;
+};
+
+const testimonials: Testimonial[] = [
   {
     tempId: 0,
     testimonial:
-      "We printed our first perfusable vascular graft on the NP within a week of install. The rotary spindle just works.",
-    by: "Dr. Aisha N., Principal Investigator, Vascular Tissue Lab",
-    imgSrc: "https://i.pravatar.cc/150?img=5",
+      "In our two years with the Trivima 3D bioprinter, it has proven user-friendly and integral to our research. The NBIL team’s consistent support, from technical specifications to troubleshooting, has been commendable. I strongly recommend Trivima for researchers interested in 3D bioprinting.",
+    name: "Dr. Janani Radhakrishnan",
+    org: "National Institute of Animal Biotechnology (NIAB)",
   },
   {
     tempId: 1,
     testimonial:
-      "Switching three bioinks mid-print used to mean three machines. The Pro does it in one run.",
-    by: "Marco R., Postdoctoral Researcher, Regenerative Medicine",
-    imgSrc: "https://i.pravatar.cc/150?img=12",
+      "The Next Big Innovation Labs® Trivima Bioprinter has proven to be a game-changer for us. From single to dual extruders, it excels in customized bioprinting. Its versatility allows us to optimize parameters for efficient results, making it highly valuable for applications from tissue engineering to tumor modeling.",
+    name: "Dr. Falguni Pati",
+    org: "Indian Institute of Technology Hyderabad (IITH)",
   },
   {
     tempId: 2,
     testimonial:
-      "Dhee's non-planar toolpaths saved my PhD. No more seam artifacts on tubular scaffolds.",
-    by: "Lena F., PhD Candidate, Biofabrication Group",
-    imgSrc: "https://i.pravatar.cc/150?img=9",
+      "Our experience with the TRIVIMA Advanced bioprinter by Next Big Innovation Labs has been enriching. We’ve successfully employed its capabilities in tissue engineering, printing custom biomaterial inks, and exploring microfluidic devices. The NBIL team’s assistance in customizations has been invaluable.",
+    name: "Dr. Bhisham Singh",
+    org: "Manipal School of Life Sciences (MSLS)",
   },
   {
     tempId: 3,
     testimonial:
-      "The Mini fit inside our existing biosafety cabinet and our budget. Teaching lab sorted.",
-    by: "Dr. Okoro A., Lab Director, Cell Biology",
-    imgSrc: "https://i.pravatar.cc/150?img=13",
+      "The Dhee software is very user-friendly, with an easy and efficient slicing process that makes 3D printing simple to operate. The pause-and-resume printing feature is especially useful and adds great flexibility during printing. Overall, it’s a reliable and well-designed software—great work by the team!",
+    name: "Mohan",
+    org: "CLRI Chennai",
   },
   {
     tempId: 4,
     testimonial:
-      "Sub-10 micron repeatability means our corneal constructs finally match between batches.",
-    by: "Hannah S., Research Scientist, Ocular Engineering",
-    imgSrc: "https://i.pravatar.cc/150?img=20",
+      "We have the NBIL TRIVIMA Advanced and it’s a very good 3D bioprinter as it is highly customisable and can be used for both extrusion & melt based printing. The NBIL team is also very supportive and have always helped us with any queries.",
+    name: "Parichita Mishra",
   },
   {
     tempId: 5,
     testimonial:
-      "Dhee runs our well-plate jobs unattended overnight. Throughput tripled.",
-    by: "Sofia M., Lab Manager, Organoid Core Facility",
-    imgSrc: "https://i.pravatar.cc/150?img=16",
+      "NBIL printers are highly customisable, therefore perfect for us to try variety of things. I was personally impressed by their tech team which is very responsive and helped us every step of the way.",
+    name: "Prof. Amit Nain",
   },
   {
     tempId: 6,
     testimonial:
-      "The Aura's 40 micron resolution let us print organ-on-chip features we couldn't extrude before.",
-    by: "Daniel K., Microfluidics Lead, Microphysiology Lab",
-    imgSrc: "https://i.pravatar.cc/150?img=3",
-  },
-  {
-    tempId: 7,
-    testimonial:
-      "With HEPA and germicidal UV in the chamber, we dropped contamination to near zero.",
-    by: "Priya V., Senior Technician, Tissue Engineering",
-    imgSrc: "https://i.pravatar.cc/150?img=24",
-  },
-  {
-    tempId: 8,
-    testimonial:
-      "Coaxial printing on the Advanced gave us hollow nerve conduits on the first attempt.",
-    by: "Tom B., Neural Tissue Researcher",
-    imgSrc: "https://i.pravatar.cc/150?img=15",
-  },
-  {
-    tempId: 9,
-    testimonial:
-      "Open materials. We run our own GelMA formulations with no vendor lock-in.",
-    by: "Elena P., Materials Scientist, Soft Matter Lab",
-    imgSrc: "https://i.pravatar.cc/150?img=32",
-  },
-  {
-    tempId: 10,
-    testimonial:
-      "Installation training was hands-on and thorough. We were printing cell-laden gels by day two.",
-    by: "Kenji T., Postdoc, Cardiac Tissue Lab",
-    imgSrc: "https://i.pravatar.cc/150?img=11",
-  },
-  {
-    tempId: 11,
-    testimonial:
-      "Pellet extrusion to 250 C means we print thermoplastics and hydrogels on one platform.",
-    by: "Grace L., Biomaterials PI",
-    imgSrc: "https://i.pravatar.cc/150?img=45",
+      "Our Lab has been using the NBIL Trivima 3D printer for over five years. The software is user-friendly, and the printing results are consistently good.",
+    name: "Mohandass PB",
   },
 ];
+
+/** "Dr. Janani Radhakrishnan" -> "JR". Honorifics are skipped. */
+function initialsOf(name: string) {
+  return name
+    .split(/\s+/)
+    .filter((w) => !/^(dr|prof|mr|mrs|ms)\.?$/i.test(w))
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
 
 interface TestimonialCardProps {
   position: number;
@@ -140,36 +124,64 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           height: 2,
         }}
       />
-      <img
-        src={testimonial.imgSrc}
-        alt={`${testimonial.by.split(",")[0]}`}
-        className="mb-4 h-14 w-12 bg-muted object-cover object-top"
-        style={{
-          boxShadow: "3px 3px 0px var(--background)",
-        }}
-      />
+      {/* These are real reviews and run long, so the quote gets the whole card
+          and the attribution sits inline at the foot, avatar included. */}
       <h3
         className={cn(
-          "text-base sm:text-xl font-medium leading-snug text-balance",
+          "pr-6 text-[15px] sm:text-[17px] font-medium leading-[1.45] text-pretty",
           isCenter ? "text-primary-foreground" : "text-foreground"
         )}
       >
         &ldquo;{testimonial.testimonial}&rdquo;
       </h3>
-      <p
-        className={cn(
-          "absolute bottom-8 left-8 right-8 mt-2 text-sm italic leading-snug text-pretty",
-          isCenter ? "text-primary-foreground/80" : "text-muted-foreground"
+      <div className="absolute bottom-7 left-8 right-8 flex items-center gap-3">
+        {testimonial.imgSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={testimonial.imgSrc}
+            alt=""
+            className="size-9 shrink-0 rounded-full bg-muted object-cover object-top"
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className={cn(
+              "grid size-9 shrink-0 place-items-center rounded-full text-[12px] font-semibold tracking-tight",
+              isCenter
+                ? "bg-primary-foreground/15 text-primary-foreground"
+                : "bg-muted text-muted-foreground"
+            )}
+          >
+            {initialsOf(testimonial.name)}
+          </span>
         )}
-      >
-        - {testimonial.by}
-      </p>
+        <div className="min-w-0">
+          <p
+            className={cn(
+              "truncate text-[14px] font-semibold leading-tight",
+              isCenter ? "text-primary-foreground" : "text-foreground"
+            )}
+          >
+            {testimonial.name}
+          </p>
+          {testimonial.org && (
+            <p
+              className={cn(
+                "truncate text-[12.5px] leading-tight",
+                isCenter ? "text-primary-foreground/70" : "text-muted-foreground"
+              )}
+            >
+              {testimonial.org}
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
 export const StaggerTestimonials: React.FC = () => {
-  const [cardSize, setCardSize] = useState(365);
+  const [cardSize, setCardSize] = useState(460);
   const [testimonialsList, setTestimonialsList] = useState(testimonials);
 
   const handleMove = (steps: number) => {
@@ -193,7 +205,9 @@ export const StaggerTestimonials: React.FC = () => {
   useEffect(() => {
     const updateSize = () => {
       const { matches } = window.matchMedia("(min-width: 640px)");
-      setCardSize(matches ? 365 : 290);
+      // Roomier than the placeholder copy needed — the real reviews run 150-310
+      // characters at 17px and have to clear the attribution row at the foot.
+      setCardSize(matches ? 460 : 330);
     };
 
     updateSize();

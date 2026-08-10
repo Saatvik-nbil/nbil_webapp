@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, EnvelopeSimple, Phone, MapPin, Flask, Handshake } from "@phosphor-icons/react";
-import { COMPANY } from "@/lib/machines";
+import { ArrowRight, EnvelopeSimple, MapPin, Flask, Handshake } from "@phosphor-icons/react";
+import { COMPANY, formatAddress } from "@/lib/machines";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { OriginButton } from "@/components/ui/origin-button";
 
@@ -115,15 +115,14 @@ export default function CompanyConnect() {
         {/* Contact line */}
         <motion.div
           {...rise(0.18)}
-          className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-[var(--color-dark-border)] pt-8"
+          className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-[var(--color-dark-border)] pt-8"
         >
           {[
             { icon: EnvelopeSimple, label: "Email", value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-            { icon: Phone, label: "Phone", value: COMPANY.phone, href: `tel:${COMPANY.phoneHref}` },
             {
               icon: MapPin,
               label: "Location",
-              value: `${COMPANY.address.line1}, ${COMPANY.address.city}`,
+              value: formatAddress({ country: false }),
               href: undefined as string | undefined,
             },
           ].map(({ icon: Icon, label, value, href }) => (

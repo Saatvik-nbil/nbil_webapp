@@ -1,26 +1,21 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
+import { EnvelopeSimple, MapPin } from "@phosphor-icons/react";
 import HubSpotForm from "@/components/ui/hubspot-form";
+import { COMPANY, formatAddress } from "@/lib/machines";
 
 const CONTACTS = [
   {
     icon: EnvelopeSimple,
     label: "Email",
-    value: "support@nextbiginnovationlabs.com",
-    href: "mailto:support@nextbiginnovationlabs.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 6364 596 016",
-    href: "tel:+916364596016",
+    value: COMPANY.email,
+    href: `mailto:${COMPANY.email}` as string | undefined,
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "Jyothy Institute of Technology, Bengaluru, Karnataka 560082, India",
+    value: formatAddress(),
     href: undefined,
   },
 ];

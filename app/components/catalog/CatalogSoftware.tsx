@@ -12,14 +12,14 @@ const SUITES = [
     body: "Generates non-planar, rotary and multi-extruder toolpaths, with per-extruder parameter control, coordinated temperature and pressure, and real-time crosslinking synchronization.",
   },
   {
-    name: "Hikari",
+    name: "Aura Slicer",
     on: "Aura",
     body: "Drives the light-based MSLA workflow with layer-by-layer mask generation, exposure timing and optical-intensity control.",
   },
 ];
 
 const CAPABILITIES = [
-  { icon: FileCode, title: "Multi-format import", body: "Load .stl, .obj, .gcode and .amf directly. No conversion step." },
+  { icon: FileCode, title: "Direct import", body: "Load .stl and .gcode directly — .stl and .bmp on Aura. No conversion step." },
   { icon: Sliders, title: "Per-extruder control", body: "Independent temperature, pressure and speed for every head." },
   { icon: GitBranch, title: "Non-planar paths", body: "Automatic toolpaths for rotary and curved scaffold geometries." },
   { icon: SealCheck, title: "Crosslinking sync", body: "UV exposure timed to extrusion for consistent gelation." },
@@ -58,8 +58,8 @@ export default function CatalogSoftware() {
               className="text-[0.9375rem] leading-relaxed max-w-[48ch]"
               style={{ color: "var(--color-dark-ink-muted)" }}
             >
-              Dhee powers the non-planar and multi-extruder extrusion systems; Hikari drives
-              the light-based MSLA range. Both handle slicing and machine control in
+              Dhee powers the non-planar and multi-extruder extrusion systems; Aura Slicer
+              drives the light-based MSLA range. Both handle slicing and machine control in
               one place.
             </motion.p>
 

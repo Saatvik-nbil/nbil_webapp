@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
-  ArrowUpRight,
   Check,
   CaretRight,
   Cube,
@@ -15,7 +14,7 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import ContactSection from "@/app/components/ContactSection";
 import MachineGallery from "@/app/components/machine/MachineGallery";
-import ExplodedScroll from "@/app/components/machine/ExplodedScroll";
+import AnatomyScroll from "@/app/components/machine/AnatomyScroll";
 import Reveal from "@/app/components/machine/Reveal";
 import { OriginButton } from "@/components/ui/origin-button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
@@ -60,6 +59,10 @@ export default async function MachinePage({
   if (!machine) notFound();
 
   const others = machines.filter((m) => m.slug !== machine.slug);
+
+  // Formats live in `specs` only — read them from there so the hero can't drift.
+  const fileFormats =
+    machine.specs.find((s) => s.label === "Compatible file formats")?.value.replaceAll(",", "") ?? "";
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -114,7 +117,11 @@ export default async function MachinePage({
 
         {/* Hero */}
         <section aria-labelledby="machine-heading" className="py-12 lg:py-16">
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          {/* Top-aligned, not centred: the gallery column is card + thumbnail
+              strip, so centring the copy against the whole column drops it
+              below the card's midpoint and leaves it level with nothing. Start
+              alignment puts the eyebrow flush with the card's top edge. */}
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <MachineGallery
               images={machine.images}
               name={machine.name}
@@ -122,7 +129,10 @@ export default async function MachinePage({
               year={machine.year}
             />
 
-            <div className="flex flex-col gap-6">
+            {/* pt-6 ≈ the card's top-5 badge inset plus its py-1, so the tier
+                eyebrow sits on the same line as the role pill and the year
+                chip inside the card. */}
+            <div className="flex flex-col gap-6 lg:pt-6">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
                   <span>{machine.tier}</span>
@@ -140,14 +150,29 @@ export default async function MachinePage({
                 </p>
               </div>
 
-              {/* Stat band */}
-              <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-5 border-y border-[var(--color-hairline)] py-6">
-                {machine.stats.map((s) => (
-                  <div key={s.label} className="flex flex-col gap-1">
-                    <dd className="font-display text-[1.4rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-none">
+              {/* Stat band. Above sm this is a flex row whose cells size to their
+                  own content and share the leftover space evenly, so a long value
+                  like 150×100×100 can never overrun its neighbour — the divider
+                  rule plus a fixed pl-4 keeps every gutter identical. */}
+              <dl className="grid grid-cols-2 gap-y-5 border-y border-[var(--color-hairline)] py-6 sm:flex sm:justify-between sm:gap-y-0">
+                {machine.stats.map((s, i) => (
+                  <div
+                    key={s.label}
+                    className={[
+                      "flex min-w-0 flex-col gap-1 border-[var(--color-hairline)]",
+                      // No rule where a row starts: always at 0, and at 2 while
+                      // the grid is still two columns wide.
+                      i === 0 && "pl-0 border-l-0",
+                      i === 2 && "pl-0 border-l-0 sm:pl-4 sm:border-l",
+                      i !== 0 && i !== 2 && "pl-4 border-l",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                  >
+                    <dd className="font-display text-[1.25rem] lg:text-[1.4rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-none whitespace-nowrap">
                       {s.value}
                       {s.unit ? (
-                        <span className="ml-0.5 text-[0.85rem] font-mono font-medium text-[var(--color-ink-muted)]">
+                        <span className="ml-1 text-[0.8rem] font-mono font-medium text-[var(--color-ink-muted)]">
                           {s.unit}
                         </span>
                       ) : null}
@@ -162,16 +187,6 @@ export default async function MachinePage({
                   Request a quote
                   <ArrowRight size={16} weight="bold" />
                 </OriginButton>
-                <OriginButton
-                  href={machine.sourceUrl}
-                  variant="outline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-11 px-6 text-[15px]"
-                >
-                  View on nbil.com
-                  <ArrowUpRight size={16} weight="bold" />
-                </OriginButton>
               </div>
 
               <div className="flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-[var(--color-ink-muted)]">
@@ -181,7 +196,7 @@ export default async function MachinePage({
                 </span>
                 <span>
                   <span className="text-[var(--color-ink-faint)]">File formats</span>{" "}
-                  <span className="font-mono text-[var(--color-ink)]">.stl .obj .gcode .amf</span>
+                  <span className="font-mono text-[var(--color-ink)]">{fileFormats}</span>
                 </span>
               </div>
             </div>
@@ -204,8 +219,8 @@ export default async function MachinePage({
           </div>
         </section>
 
-        {/* Exploded scroll sequence (NP only) */}
-        {machine.slug === "trivima-np" && <ExplodedScroll />}
+        {/* Guided part-by-part camera tour (NP only) */}
+        {machine.slug === "trivima-np" && <AnatomyScroll />}
 
         {/* Specifications */}
         <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
@@ -343,12 +358,16 @@ export default async function MachinePage({
                   href={`/machines/${m.slug}`}
                   className="group flex flex-col gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-all hover:border-[var(--color-brand)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
                 >
-                  <div className="flex aspect-square items-center justify-center rounded-lg bg-[var(--color-surface-raised)] p-3">
+                  {/* The image is absolutely positioned so its 100% height
+                      resolves against the square well. Left in flow, a portrait
+                      asset (Aura) would size itself from the width and stretch
+                      the card past the aspect ratio. */}
+                  <div className="relative aspect-square overflow-hidden rounded-lg bg-[var(--color-surface-raised)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={m.heroImage.src}
                       alt={m.heroImage.alt}
-                      className="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                   </div>

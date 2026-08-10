@@ -35,7 +35,6 @@ const orgSchema = {
   alternateName: COMPANY.short,
   url: COMPANY.site,
   email: COMPANY.email,
-  telephone: "+91-6364-596-016",
   foundingDate: "2016",
   description:
     "Next Big Innovation Labs develops bioprinting solutions for researchers and clinicians focused on drug development, regenerative medicine and bioengineered organ fabrication.",
@@ -47,10 +46,10 @@ const orgSchema = {
   award: "World Economic Forum Technology Pioneer 2023",
   address: {
     "@type": "PostalAddress",
-    streetAddress: `${COMPANY.address.line1}, ${COMPANY.address.line2}`,
-    addressLocality: "Bengaluru",
-    addressRegion: "Karnataka",
-    postalCode: "560082",
+    streetAddress: `${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.line3}`,
+    addressLocality: COMPANY.address.city,
+    addressRegion: COMPANY.address.state,
+    postalCode: COMPANY.address.postalCode,
     addressCountry: "IN",
   },
 };

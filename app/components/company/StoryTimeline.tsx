@@ -87,9 +87,11 @@ export default function StoryTimeline() {
                     alt={m.title}
                     loading="lazy"
                     className={
+                      // The zoom sits on the image, not the frame — the frame's
+                      // arbitrary [transform:…] tilt would swallow a scale.
                       m.fit === "contain"
-                        ? "h-full w-full object-contain p-5"
-                        : "h-full w-full object-cover"
+                        ? "h-full w-full object-contain p-5 transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]"
+                        : "h-full w-full object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.06]"
                     }
                   />
                 ) : (

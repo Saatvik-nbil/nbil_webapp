@@ -296,10 +296,10 @@ const TimelineCard = React.memo(function TimelineCard({
                     alt={event.title}
                     loading="lazy"
                     className={cn(
-                      "h-full w-full transition-transform duration-700 ease-out",
+                      "h-full w-full transition-transform duration-500 ease-out",
                       event.imageFit === "contain"
-                        ? "object-contain p-6"
-                        : "object-cover group-hover:scale-[1.04]"
+                        ? "object-contain p-6 group-hover:scale-[1.03]"
+                        : "object-cover group-hover:scale-[1.06]"
                     )}
                   />
                 ) : (
