@@ -11,7 +11,8 @@ const SQRT_5000 = Math.sqrt(5000);
 // `imgSrc` is optional — until headshots are supplied the card falls back to an
 // initials monogram, so adding a photo later is a one-line change per person.
 type Testimonial = {
-  tempId: number;
+  /** Stable across rotations — it is the React key, so it must never change. */
+  id: number;
   testimonial: string;
   name: string;
   org?: string;
@@ -20,47 +21,47 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    tempId: 0,
+    id: 0,
     testimonial:
       "In our two years with the Trivima 3D bioprinter, it has proven user-friendly and integral to our research. The NBIL team’s consistent support, from technical specifications to troubleshooting, has been commendable. I strongly recommend Trivima for researchers interested in 3D bioprinting.",
     name: "Dr. Janani Radhakrishnan",
     org: "National Institute of Animal Biotechnology (NIAB)",
   },
   {
-    tempId: 1,
+    id: 1,
     testimonial:
       "The Next Big Innovation Labs® Trivima Bioprinter has proven to be a game-changer for us. From single to dual extruders, it excels in customized bioprinting. Its versatility allows us to optimize parameters for efficient results, making it highly valuable for applications from tissue engineering to tumor modeling.",
     name: "Dr. Falguni Pati",
     org: "Indian Institute of Technology Hyderabad (IITH)",
   },
   {
-    tempId: 2,
+    id: 2,
     testimonial:
       "Our experience with the TRIVIMA Advanced bioprinter by Next Big Innovation Labs has been enriching. We’ve successfully employed its capabilities in tissue engineering, printing custom biomaterial inks, and exploring microfluidic devices. The NBIL team’s assistance in customizations has been invaluable.",
     name: "Dr. Bhisham Singh",
     org: "Manipal School of Life Sciences (MSLS)",
   },
   {
-    tempId: 3,
+    id: 3,
     testimonial:
       "The Dhee software is very user-friendly, with an easy and efficient slicing process that makes 3D printing simple to operate. The pause-and-resume printing feature is especially useful and adds great flexibility during printing. Overall, it’s a reliable and well-designed software—great work by the team!",
     name: "Mohan",
     org: "CLRI Chennai",
   },
   {
-    tempId: 4,
+    id: 4,
     testimonial:
       "We have the NBIL TRIVIMA Advanced and it’s a very good 3D bioprinter as it is highly customisable and can be used for both extrusion & melt based printing. The NBIL team is also very supportive and have always helped us with any queries.",
     name: "Parichita Mishra",
   },
   {
-    tempId: 5,
+    id: 5,
     testimonial:
       "NBIL printers are highly customisable, therefore perfect for us to try variety of things. I was personally impressed by their tech team which is very responsive and helped us every step of the way.",
     name: "Prof. Amit Nain",
   },
   {
-    tempId: 6,
+    id: 6,
     testimonial:
       "Our Lab has been using the NBIL Trivima 3D printer for over five years. The software is user-friendly, and the printing results are consistently good.",
     name: "Mohandass PB",
@@ -83,6 +84,12 @@ interface TestimonialCardProps {
   testimonial: (typeof testimonials)[0];
   handleMove: (steps: number) => void;
   cardSize: number;
+  /**
+   * This card just wrapped from one end of the fan to the other. Sliding it
+   * across the whole deck would be nonsense, so it is placed instantly and
+   * faded in at its new edge instead.
+   */
+  wrapping: boolean;
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
@@ -90,6 +97,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   testimonial,
   handleMove,
   cardSize,
+  wrapping,
 }) => {
   const isCenter = position === 0;
 
@@ -113,6 +121,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
         `,
         boxShadow: isCenter ? "0px 8px 0px 4px var(--border)" : "0px 0px 0px 0px transparent",
+        opacity: wrapping ? 0 : 1,
+        transition: wrapping ? "none" : undefined,
       }}
     >
       <span
@@ -184,23 +194,42 @@ export const StaggerTestimonials: React.FC = () => {
   const [cardSize, setCardSize] = useState(460);
   const [testimonialsList, setTestimonialsList] = useState(testimonials);
 
+  // Ids that changed ends on the last move. They are rendered once with no
+  // transition, then released on the following frame so they fade in.
+  const [wrapped, setWrapped] = useState<number[]>([]);
+
   const handleMove = (steps: number) => {
+    if (!steps) return;
     const newList = [...testimonialsList];
-    if (steps > 0) {
-      for (let i = steps; i > 0; i--) {
-        const item = newList.shift();
-        if (!item) return;
-        newList.push({ ...item, tempId: Math.random() });
-      }
-    } else {
-      for (let i = steps; i < 0; i++) {
-        const item = newList.pop();
-        if (!item) return;
-        newList.unshift({ ...item, tempId: Math.random() });
-      }
+    const moved: number[] = [];
+    const count = Math.min(Math.abs(steps), newList.length);
+
+    for (let i = 0; i < count; i++) {
+      const item = steps > 0 ? newList.shift() : newList.pop();
+      if (!item) return;
+      if (steps > 0) newList.push(item);
+      else newList.unshift(item);
+      moved.push(item.id);
     }
+
     setTestimonialsList(newList);
+    setWrapped(moved);
   };
+
+  // Two frames: the first lets the browser paint the wrapped cards at their new
+  // edge while transitions are off, the second turns transitions back on so the
+  // opacity change animates instead of snapping.
+  useEffect(() => {
+    if (!wrapped.length) return;
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setWrapped([]));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
+  }, [wrapped]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -244,17 +273,17 @@ export const StaggerTestimonials: React.FC = () => {
       onTouchEnd={onTouchEnd}
     >
       {testimonialsList.map((testimonial, index) => {
-        const position =
-          testimonialsList.length % 2
-            ? index - (testimonialsList.length + 1) / 2
-            : index - testimonialsList.length / 2;
+        // Centre the fan on the middle card. An odd count has a true middle at
+        // floor(n/2); an even one leans a card to the left, as it must.
+        const position = index - Math.floor(testimonialsList.length / 2);
         return (
           <TestimonialCard
-            key={testimonial.tempId}
+            key={testimonial.id}
             testimonial={testimonial}
             handleMove={handleMove}
             position={position}
             cardSize={cardSize}
+            wrapping={wrapped.includes(testimonial.id)}
           />
         );
       })}

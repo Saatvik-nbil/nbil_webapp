@@ -43,8 +43,12 @@ export default function CredibilityStrip() {
     <section aria-label="Company at a glance" className="border-y border-[var(--color-hairline)] bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-6">
         <dl className="grid grid-cols-2 lg:grid-cols-4 divide-y divide-[var(--color-hairline-subtle)] lg:divide-y-0 lg:divide-x lg:divide-[var(--color-hairline-subtle)]">
+          {/* Every cell is inset from its divider by the same amount; only the
+              cell that starts a row goes flush with the container edge. The
+              mobile rule is scoped `max-lg:` so it cannot leak into the
+              four-column layout, where cell 3 is mid-row, not row-start. */}
           {FACTS.map((f) => (
-            <div key={f.label} className="flex flex-col gap-2 px-2 py-8 lg:px-8 lg:py-10 first:pl-0 lg:[&:nth-child(3)]:pl-2">
+            <div key={f.label} className="flex flex-col gap-2 px-2 py-8 lg:px-8 lg:py-10 max-lg:[&:nth-child(odd)]:pl-0 lg:first:pl-0">
               <dd className="font-mono text-[1.9rem] lg:text-[2.4rem] font-medium tracking-tight text-[var(--color-ink)] leading-none tabular-nums">
                 <CountUp value={f.value} suffix={f.suffix} />
               </dd>
