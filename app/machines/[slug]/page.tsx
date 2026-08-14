@@ -127,6 +127,7 @@ export default async function MachinePage({
               name={machine.name}
               role={machine.role}
               year={machine.year}
+              maxWidth={machine.slug === "trivima-aura" ? 300 : undefined}
             />
 
             {/* pt-6 ≈ the card's top-5 badge inset plus its py-1, so the tier

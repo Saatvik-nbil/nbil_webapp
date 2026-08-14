@@ -12,11 +12,15 @@ export default function MachineGallery({
   name,
   role,
   year,
+  /** Cap on the hero render width. Tall, narrow assets (Aura) fill the card at
+      the default 440px and dwarf the copy column, so they pass a smaller one. */
+  maxWidth = 440,
 }: {
   images: MachineImage[];
   name: string;
   role: string;
   year: string;
+  maxWidth?: number;
 }) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
@@ -43,7 +47,8 @@ export default function MachineGallery({
           width={760}
           height={760}
           priority
-          className="mx-auto h-auto w-full max-w-[440px] object-contain drop-shadow-[0_24px_48px_rgba(15,23,42,0.18)]"
+          style={{ maxWidth }}
+          className="mx-auto h-auto w-full object-contain drop-shadow-[0_24px_48px_rgba(15,23,42,0.18)]"
           sizes="(max-width: 1024px) 90vw, 45vw"
         />
       </div>
