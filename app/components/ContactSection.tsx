@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { EnvelopeSimple, MapPin } from "@phosphor-icons/react";
-import HubSpotForm from "@/components/ui/hubspot-form";
+import QuoteForm from "@/app/components/forms/QuoteForm";
 import { COMPANY, formatAddress } from "@/lib/machines";
 
 const CONTACTS = [
@@ -20,7 +20,9 @@ const CONTACTS = [
   },
 ];
 
-export default function ContactSection() {
+/** `defaultModel` preselects a bioprinter in the form — machine pages pass
+ *  their own model so the enquiry arrives already scoped. */
+export default function ContactSection({ defaultModel }: { defaultModel?: string } = {}) {
   const reduce = useReducedMotion();
 
   return (
@@ -53,8 +55,9 @@ export default function ContactSection() {
               className="text-[1rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[44ch]"
             >
               Request a quote, schedule a live demo, or discuss a custom
-              configuration across any model in the Trivima range. Post-sales
-              installation training and technical support are included with every system.
+              configuration across any bioprinter in the Trivima range. Post-sales
+              installation training and technical support are included with every
+              bioprinter.
             </motion.p>
 
             {/* Contact details */}
@@ -104,15 +107,10 @@ export default function ContactSection() {
               Request a quote or demo
             </h3>
 
-            <HubSpotForm
-              portalId="43589364"
-              formId="0f3a8808-5c7d-4a76-9d32-b9af1e9e4c16"
-              region="na2"
-              targetId="hubspot-trivima-form"
-            />
+            <QuoteForm defaultModel={defaultModel} />
 
             <p className="text-[11px] text-[var(--color-ink-faint)] text-center leading-relaxed">
-              NBIL responds to all inquiries within 2 business days.
+              We respond to all inquiries within 2 business days.
             </p>
           </motion.div>
 

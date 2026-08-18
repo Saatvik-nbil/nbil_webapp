@@ -1,16 +1,24 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   EnvelopeSimple,
   CalendarCheck,
   Flask,
   Lightbulb,
-  CaretDown,
 } from "@phosphor-icons/react";
-import { COMPANY } from "@/lib/machines";
 import { OriginButton } from "@/components/ui/origin-button";
+import {
+  FIELD,
+  FormError,
+  FormSuccess,
+  Honeypot,
+  LABEL,
+  SelectCaret,
+  TEXTAREA,
+} from "@/app/components/forms/fields";
+import { readField, useFormSubmit } from "@/app/components/forms/useFormSubmit";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -54,35 +62,38 @@ const EXPECT = [
   },
 ];
 
-const LABEL = "text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)]";
-const FIELD =
-  "h-11 w-full rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)] px-3.5 text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] outline-none transition-colors focus:border-[var(--color-brand)] focus:ring-3 focus:ring-[var(--color-brand)]/15";
-
 export default function ProjectForm() {
   const reduce = useReducedMotion();
   const [timeline, setTimeline] = useState<(typeof TIMELINES)[number]>("Immediate");
+  const { status, error, submit, reset } = useFormSubmit("consultation");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const busy = status === "submitting";
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const get = (k: string) => (data.get(k) as string) || "—";
-    const body = [
-      `First name: ${get("firstName")}`,
-      `Last name: ${get("lastName")}`,
-      `Email: ${get("email")}`,
-      `Phone: ${get("phone")}`,
-      `Organization / Company: ${get("organization")}`,
-      `Job title: ${get("jobTitle")}`,
-      `Country: ${get("country")}`,
-      `Area of interest: ${get("areaOfInterest")}`,
-      `Expected project timeline: ${timeline}`,
-      "",
-      "Message:",
-      get("message"),
-    ].join("\n");
-    window.location.href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(
-      "Consultation request",
-    )}&body=${encodeURIComponent(body)}`;
+
+    const ok = await submit(
+      [
+        { label: "First Name", value: readField(data, "firstName") },
+        { label: "Last Name", value: readField(data, "lastName") },
+        { label: "Email", value: readField(data, "email") },
+        { label: "Phone", value: readField(data, "phone") },
+        { label: "Organization", value: readField(data, "organization") },
+        { label: "Job Title", value: readField(data, "jobTitle") },
+        { label: "Country", value: readField(data, "country") },
+        { label: "Area of Interest", value: readField(data, "areaOfInterest") },
+        { label: "Project Timeline", value: timeline },
+        { label: "Message", value: readField(data, "message") },
+      ],
+      readField(data, "company_website"),
+    );
+
+    if (ok) {
+      formRef.current?.reset();
+      setTimeline("Immediate");
+    }
   }
 
   return (
@@ -111,97 +122,117 @@ export default function ProjectForm() {
               Fields marked with <span aria-hidden="true">*</span> are required for our analysis.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="firstName" className={LABEL}>First name *</label>
-                  <input id="firstName" name="firstName" required placeholder="John" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="lastName" className={LABEL}>Last name *</label>
-                  <input id="lastName" name="lastName" required placeholder="Doe" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className={LABEL}>Email address *</label>
-                  <input id="email" name="email" type="email" required placeholder="john@university.edu" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="phone" className={LABEL}>Phone number</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="organization" className={LABEL}>Organization / Company *</label>
-                  <input id="organization" name="organization" required placeholder="IIT Delhi / Merck" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="jobTitle" className={LABEL}>Job title</label>
-                  <input id="jobTitle" name="jobTitle" placeholder="Lead Researcher" className={FIELD} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="country" className={LABEL}>Country *</label>
-                  <div className="relative">
-                    <select id="country" name="country" required defaultValue="India" className={`${FIELD} appearance-none pr-9`}>
-                      {COUNTRIES.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </select>
-                    <CaretDown size={15} weight="bold" className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-ink-faint)]" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="areaOfInterest" className={LABEL}>Area of interest</label>
-                  <div className="relative">
-                    <select id="areaOfInterest" name="areaOfInterest" defaultValue="Bone Tissue Engineering" className={`${FIELD} appearance-none pr-9`}>
-                      {AREAS.map((a) => (
-                        <option key={a} value={a}>{a}</option>
-                      ))}
-                    </select>
-                    <CaretDown size={15} weight="bold" className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-ink-faint)]" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Timeline segmented control */}
-              <div className="flex flex-col gap-2">
-                <span className={LABEL}>Expected project timeline</span>
-                <div className="inline-flex flex-wrap gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-1.5">
-                  {TIMELINES.map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setTimeline(t)}
-                      aria-pressed={timeline === t}
-                      className={[
-                        "h-9 rounded-lg px-4 text-[13.5px] font-medium transition-colors",
-                        timeline === t
-                          ? "bg-[var(--color-brand)] text-white"
-                          : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
-                      ].join(" ")}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="message" className={LABEL}>Detailed message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  placeholder="Briefly describe your research objectives and current challenges…"
-                  className={`${FIELD} h-auto resize-y py-3 leading-relaxed`}
-                />
-              </div>
-
-              <OriginButton
-                type="submit"
-                className="mt-2 h-13 px-6 py-3.5 font-semibold"
+            {status === "success" ? (
+              <FormSuccess
+                title="Request received"
+                body="Thanks for the detail. Our team will review your project and reply within 2 business days."
+                onReset={reset}
+                resetLabel="Submit another project"
+              />
+            ) : (
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="relative mt-8 flex flex-col gap-5"
               >
-                Send Consultation Request
-              </OriginButton>
-            </form>
+                <Honeypot />
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="firstName" className={LABEL}>First name *</label>
+                    <input id="firstName" name="firstName" required disabled={busy} placeholder="John" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="lastName" className={LABEL}>Last name *</label>
+                    <input id="lastName" name="lastName" required disabled={busy} placeholder="Doe" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="email" className={LABEL}>Email address *</label>
+                    <input id="email" name="email" type="email" required disabled={busy} placeholder="john@university.edu" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="phone" className={LABEL}>Phone number</label>
+                    <input id="phone" name="phone" type="tel" disabled={busy} placeholder="+91 98765 43210" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="organization" className={LABEL}>Organization / Company *</label>
+                    <input id="organization" name="organization" required disabled={busy} placeholder="IIT Delhi / Merck" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="jobTitle" className={LABEL}>Job title</label>
+                    <input id="jobTitle" name="jobTitle" disabled={busy} placeholder="Lead Researcher" className={FIELD} />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="country" className={LABEL}>Country *</label>
+                    <div className="relative">
+                      <select id="country" name="country" required defaultValue="India" disabled={busy} className={`${FIELD} appearance-none pr-9`}>
+                        {COUNTRIES.map((c) => (
+                          <option key={c} value={c}>{c}</option>
+                        ))}
+                      </select>
+                      <SelectCaret />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="areaOfInterest" className={LABEL}>Area of interest</label>
+                    <div className="relative">
+                      <select id="areaOfInterest" name="areaOfInterest" defaultValue="Bone Tissue Engineering" disabled={busy} className={`${FIELD} appearance-none pr-9`}>
+                        {AREAS.map((a) => (
+                          <option key={a} value={a}>{a}</option>
+                        ))}
+                      </select>
+                      <SelectCaret />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Timeline segmented control */}
+                <div className="flex flex-col gap-2">
+                  <span className={LABEL}>Expected project timeline</span>
+                  <div className="inline-flex flex-wrap gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-1.5">
+                    {TIMELINES.map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        disabled={busy}
+                        onClick={() => setTimeline(t)}
+                        aria-pressed={timeline === t}
+                        className={[
+                          "h-9 rounded-lg px-4 text-[13.5px] font-medium transition-colors disabled:opacity-60",
+                          timeline === t
+                            ? "bg-[var(--color-brand)] text-white"
+                            : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
+                        ].join(" ")}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="message" className={LABEL}>Detailed message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    disabled={busy}
+                    placeholder="Briefly describe your research objectives and current challenges…"
+                    className={TEXTAREA}
+                  />
+                </div>
+
+                {status === "error" && error ? <FormError message={error} /> : null}
+
+                <OriginButton
+                  type="submit"
+                  loading={busy}
+                  disabled={busy}
+                  className="mt-2 h-13 px-6 py-3.5 font-semibold"
+                >
+                  {busy ? "Sending…" : "Send Consultation Request"}
+                </OriginButton>
+              </form>
+            )}
           </motion.div>
 
           {/* What to Expect */}

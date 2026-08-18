@@ -33,6 +33,8 @@ There is no standalone ESLint config — `next lint` uses Next's built-in rulese
 
 **Routing** is the App Router under `app/`. Top-level routes each have a `page.tsx` (`/`, `/trivima`, `/consultancy`, `/team`, `/careers`, `/news`, `/blogs`, `/guides`, `/newsletter`, `/privacy-policy`). The company story is a section on the home page (`StoryTimeline`, anchor `/#story`), not a standalone route. Product detail is the dynamic route `app/machines/[slug]/page.tsx`, which is statically generated via `generateStaticParams()` from the `machines` array and builds per-model metadata + JSON-LD in `generateMetadata`.
 
+**Forms all share one pipeline.** Every lead-capture form posts to `/api/forms`, which validates the payload and forwards it to a Google Apps Script web app that appends a row to a Google Sheet and emails a notification. `lib/forms.ts` is the registry — add a `FormId` and a `FORMS` entry there, then build the component with `useFormSubmit()` and the primitives in `app/components/forms/fields.tsx`; no server or Apps Script change is needed. Field labels become sheet column headers, so treat them as stable. Requires `GOOGLE_SCRIPT_URL` (see `.env.example`). Full setup steps: `docs/FORMS.md`. HubSpot has been removed — don't reintroduce an embed.
+
 **Component layers:**
 
 - `components/ui/` — shadcn/ui primitives + vendored visual-effect components (liquid-glass, coordinate-cursor, timelines, etc.). shadcn is configured for the `radix-nova` style with the `lucide` icon library (`components.json`).
