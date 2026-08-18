@@ -97,8 +97,8 @@ export default function ProductsShowcase() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between mb-12">
           <div className="flex flex-col gap-4 max-w-2xl">
-            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
-              The product
+            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+              Our bioprinters
             </p>
             <h2
               id="products-heading"
@@ -107,8 +107,8 @@ export default function ProductsShowcase() {
               Trivima: one bioprinter family, three ways to build
             </h2>
             <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-              A non-planar rotary system, a six-extruder flagship and a light-based platform,
-              every machine shares one workflow.
+              A non-planar rotary bioprinter, a six-extruder flagship and a light-based
+              bioprinter. Every Trivima shares one bioprinting workflow.
             </p>
           </div>
           <OriginButton

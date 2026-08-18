@@ -69,7 +69,7 @@ export default function RecentBlogs() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-4 max-w-2xl mb-10 lg:mb-14">
-          <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
             Recent blogs
           </p>
           <h2

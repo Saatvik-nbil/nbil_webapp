@@ -227,6 +227,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     image: "/story_timeline/dell tech image.jpg",
     fit: "contain",
     category: "Award",
+    featured: true,
   },
   {
     id: "2024-suwon",

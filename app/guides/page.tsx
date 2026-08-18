@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import GuidesList from "@/app/components/blog/GuidesList";
@@ -26,7 +27,7 @@ export default function GuidesPage() {
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">
-              <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb]">
+              <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb]">
                 Guides
               </p>
               <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-white leading-[1.04]">
@@ -34,7 +35,14 @@ export default function GuidesPage() {
               </h1>
               <p className="text-[16px] lg:text-[17px] text-white/75 leading-relaxed">
                 Step-by-step guides to help you get the most out of Trivima
-                bioprinters and Dhee software.
+                bioprinters and{" "}
+                <Link
+                  href="/dhee-slicer"
+                  className="font-medium text-[#8fbdfb] underline underline-offset-4 hover:no-underline"
+                >
+                  Dhee
+                </Link>{" "}
+                software.
               </p>
             </div>
           </div>

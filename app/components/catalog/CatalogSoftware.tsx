@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { FileCode, Sliders, GitBranch, SealCheck } from "@phosphor-icons/react";
 
@@ -8,11 +9,13 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const SUITES = [
   {
     name: "Dhee",
+    href: "/dhee-slicer",
     on: "NP · Pro",
     body: "Generates non-planar, rotary and multi-extruder toolpaths, with per-extruder parameter control, coordinated temperature and pressure, and real-time crosslinking synchronization.",
   },
   {
     name: "Aura Slicer",
+    href: undefined,
     on: "Aura",
     body: "Drives the light-based MSLA workflow with layer-by-layer mask generation, exposure timing and optical-intensity control.",
   },
@@ -22,7 +25,7 @@ const CAPABILITIES = [
   { icon: FileCode, title: "Direct import", body: "Load .stl and .gcode directly — .stl and .bmp on Aura. No conversion step." },
   { icon: Sliders, title: "Per-extruder control", body: "Independent temperature, pressure and speed for every head." },
   { icon: GitBranch, title: "Non-planar paths", body: "Automatic toolpaths for rotary and curved scaffold geometries." },
-  { icon: SealCheck, title: "Crosslinking sync", body: "UV exposure timed to extrusion for consistent gelation." },
+  { icon: SealCheck, title: "Synchronized crosslinking", body: "UV exposure timed to extrusion for consistent gelation." },
 ];
 
 export default function CatalogSoftware() {
@@ -48,7 +51,7 @@ export default function CatalogSoftware() {
               className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] leading-[1.12]"
               style={{ color: "var(--color-dark-ink)" }}
             >
-              Every machine ships with its own control suite
+              Every bioprinter ships with its own bioprinting software
             </motion.h2>
             <motion.p
               initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -58,9 +61,16 @@ export default function CatalogSoftware() {
               className="text-[0.9375rem] leading-relaxed max-w-[48ch]"
               style={{ color: "var(--color-dark-ink-muted)" }}
             >
-              Dhee powers the non-planar and multi-extruder extrusion systems; Aura Slicer
-              drives the light-based MSLA range. Both handle slicing and machine control in
-              one place.
+              <Link
+                href="/dhee-slicer"
+                className="font-medium underline underline-offset-4 hover:no-underline"
+                style={{ color: "var(--color-dark-brand)" }}
+              >
+                Dhee
+              </Link>{" "}
+              powers the non-planar and multi-extruder extrusion bioprinters; Aura Slicer
+              drives the light-based MSLA range. Both handle bioprint slicing and bioprinter
+              control in one place.
             </motion.p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
@@ -74,9 +84,19 @@ export default function CatalogSoftware() {
                   className="p-5 rounded-2xl flex flex-col gap-2"
                   style={{ background: "var(--color-dark-surface)", border: "1px solid var(--color-dark-border)" }}
                 >
-                  <p className="font-display text-[19px] font-semibold" style={{ color: "var(--color-dark-ink)" }}>
-                    {s.name}
-                  </p>
+                  {s.href ? (
+                    <Link
+                      href={s.href}
+                      className="font-display text-[19px] font-semibold underline underline-offset-4 hover:no-underline w-fit"
+                      style={{ color: "var(--color-dark-ink)" }}
+                    >
+                      {s.name}
+                    </Link>
+                  ) : (
+                    <p className="font-display text-[19px] font-semibold" style={{ color: "var(--color-dark-ink)" }}>
+                      {s.name}
+                    </p>
+                  )}
                   <p className="text-[12px]" style={{ color: "var(--color-dark-brand)" }}>{s.on}</p>
                   <p className="text-[12px] leading-relaxed" style={{ color: "var(--color-dark-ink-muted)" }}>
                     {s.body}

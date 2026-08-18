@@ -43,7 +43,7 @@ export default function CaseStudies() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-4 max-w-2xl mb-14 lg:mb-20">
-          <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
             Selected work
           </p>
           <h2

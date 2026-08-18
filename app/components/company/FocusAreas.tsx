@@ -19,17 +19,17 @@ const AREAS = [
   {
     icon: Pill,
     title: "Drug development",
-    body: "Physiologically relevant tissue models that let researchers test compounds on human-like constructs instead of flat cell cultures.",
+    body: "Bioprinted, physiologically relevant tissue models that let researchers test compounds on human-like constructs instead of flat cell cultures.",
   },
   {
     icon: Heartbeat,
     title: "Regenerative medicine",
-    body: "Scaffolds and grafts that guide the body to repair, restore and rebuild damaged tissue.",
+    body: "Bioprinted scaffolds and grafts that guide the body to repair, restore and rebuild damaged tissue.",
   },
   {
     icon: Tree,
     title: "Bioengineered organs",
-    body: "The long horizon: vascularised, transplant-ready tissue, fabricated layer by layer to close the organ-donor gap.",
+    body: "The long horizon: vascularised, transplant-ready tissue, bioprinted layer by layer to close the organ-donor gap.",
   },
 ];
 
@@ -113,7 +113,7 @@ export default function FocusAreas() {
               >
                 <Image
                   src="/images/applications.png"
-                  alt="Tissue constructs and scaffolds bioprinted on NBIL systems"
+                  alt="Tissue constructs and scaffolds bioprinted on Trivima 3D bioprinters"
                   width={637}
                   height={333}
                   className="w-[128%] max-w-none h-auto object-contain -translate-y-[14%] drop-shadow-[0_46px_60px_rgba(2,12,27,0.48)]"
@@ -127,7 +127,7 @@ export default function FocusAreas() {
         {/* Copy */}
         <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-7">
           <div className="flex flex-col gap-4">
-            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
               What we enable
             </p>
             <h2
@@ -137,7 +137,7 @@ export default function FocusAreas() {
               Tools for the work that matters
             </h2>
             <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[52ch]">
-              NBIL builds bioprinting solutions for researchers and clinicians working at
+              We build bioprinting solutions for researchers and clinicians working at
               the edge of medicine. Three problems anchor everything we make.
             </p>
           </div>

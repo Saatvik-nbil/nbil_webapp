@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
-import { CompanyName } from "@/app/components/CompanyName";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -105,33 +104,26 @@ export default function CatalogHero() {
         <div className="mx-auto max-w-7xl px-6 pb-16 pt-40 lg:pb-24">
           {revealed && (
           <div className="flex max-w-[60ch] flex-col gap-6">
-            <motion.p
-              {...pop(0)}
-              className="text-[13px] font-semibold tracking-tight text-[#7db4ff] [text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_2px_14px_rgba(0,0,0,0.85)]"
-            >
-              The full Trivima range, by <CompanyName />
-            </motion.p>
-
             <motion.h1
               id="hero-heading"
-              {...pop(1)}
+              {...pop(0)}
               className="font-display text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.03em] text-white sm:text-[3.25rem] lg:text-[4.25rem]"
             >
               Bioprinters built to match the geometry of biology.
             </motion.h1>
 
             <motion.p
-              {...pop(2)}
+              {...pop(1)}
               className="max-w-[54ch] text-[1.0625rem] leading-relaxed text-white/75"
             >
-              From a non-planar rotary system to a six-extruder research flagship and
-              a light-based platform, the Trivima family spans extrusion, inkjet,
-              pellet and light-based bioprinting. Explore every machine, spec for spec.
+              From a non-planar rotary bioprinter to a six-extruder research flagship
+              and a light-based bioprinter, the Trivima range spans extrusion, inkjet,
+              pellet and light-based bioprinting. Explore every bioprinter, spec for spec.
             </motion.p>
 
-            <motion.div {...pop(3)} className="mt-1 flex flex-wrap items-center gap-3">
+            <motion.div {...pop(2)} className="mt-1 flex flex-wrap items-center gap-3">
               <OriginButton href="#models" className="h-11 px-6 text-[15px]">
-                Explore the models
+                Explore the bioprinters
                 <ArrowDown weight="bold" size={17} />
               </OriginButton>
               <OriginButton
@@ -145,16 +137,19 @@ export default function CatalogHero() {
 
             {/* Key facts */}
             <motion.p
-              {...pop(4)}
+              {...pop(3)}
               className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-white/15 pt-6 text-[14px] text-white/70"
             >
               <span><strong className="font-semibold text-white">Three models</strong></span>
               <span aria-hidden="true" className="text-white/35">·</span>
-              <span>extrusion, inkjet, pellet and light</span>
+              <span>
+                <strong className="font-semibold text-white">Four bioprinting technologies</strong>:
+                Extrusion, Inkjet, Pellet and Light
+              </span>
               <span aria-hidden="true" className="text-white/35">·</span>
-              <span>down to <strong className="font-semibold text-white">10&nbsp;µm</strong></span>
+              <span>Down to <strong className="font-semibold text-white">10&nbsp;µm</strong></span>
               <span aria-hidden="true" className="text-white/35">·</span>
-              <span>eight years in research labs</span>
+              <span>10 years of bioprinting in research labs</span>
             </motion.p>
           </div>
           )}

@@ -38,7 +38,7 @@ export default function CompanyConnect() {
       />
       <div className="relative max-w-7xl mx-auto px-6">
         <motion.div {...rise(0)} className="flex flex-col gap-4 max-w-3xl mb-14">
-          <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-dark-brand)]">
+          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-dark-brand)]">
             Get in touch
           </p>
           <h2
@@ -61,8 +61,9 @@ export default function CompanyConnect() {
                   For researchers & clinicians
                 </h3>
                 <p className="text-[15px] text-[var(--color-dark-ink-muted)] leading-relaxed max-w-[44ch]">
-                  Find the Trivima system that fits your work, compare specs, and request a
-                  quote or live demo. Installation, training and support are included.
+                  Find the Trivima bioprinter that fits your work, compare specs, and
+                  request a quote or live demo. Installation, training and support are
+                  included.
                 </p>
                 <div className="mt-1 flex flex-wrap gap-3">
                   <OriginButton

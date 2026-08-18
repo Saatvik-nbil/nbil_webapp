@@ -4,7 +4,13 @@
 
 export type SpecItem = { label: string; value: string };
 export type StatItem = { label: string; value: string; unit?: string };
-export type Application = { title: string; description: string };
+export type Application = {
+  title: string;
+  description: string;
+  /** Photo for the application card. Cards without one show the "image coming
+      soon" placeholder, so entries can ship before the photography does. */
+  image?: string;
+};
 export type MachineImage = { src: string; alt: string };
 
 export type Machine = {
@@ -37,6 +43,9 @@ export type Machine = {
   /** Compatible bed fixtures / substrates (where published) */
   fixtures?: string[];
   software: string;
+  /** The control suite's own page, where it has one. Render sites link the
+      software name through this so every Dhee mention reaches /dhee-slicer. */
+  softwareHref?: string;
   /** Notable institutions / validation, where published */
   validation?: string;
   sourceUrl: string;
@@ -52,7 +61,7 @@ export const machines: Machine[] = [
       "Six-slot, multi-technology flagship with quad-axial printing and 0.5 nL inkjet precision.",
     overview:
       "Unleash the full potential of bioprinting with Trivima Pro, crafted for the most demanding research applications. A high-end benchtop system with four to six configurable extruders spanning pneumatic, inkjet, pellet and motor-driven technologies, supporting well-plate, insert, triaxial and quad-axial printing alongside FRESH mode.",
-    tier: "Flagship",
+    tier: "Customisable",
     role: "Six-extruder research flagship",
     year: "2024",
     featured: true,
@@ -64,19 +73,19 @@ export const machines: Machine[] = [
       { label: "Build volume", value: "150×100×100", unit: "mm" },
       { label: "Extruder slots", value: "4–6" },
       { label: "Inkjet precision", value: "0.5", unit: "nL" },
-      { label: "Pellet temp", value: "RT–250", unit: "°C" },
+      { label: "Pellet temp", value: "Ambient–250", unit: "°C" },
     ],
     specs: [
       { label: "Extruder slots", value: "4 to 6 (user-configurable)" },
       { label: "Extruder volumes", value: "3CC, 5CC, 10CC, 30CC" },
       { label: "Extruder technologies", value: "Pneumatic, pellet-based, motor-driven, inkjet (DoD)" },
       { label: "Pneumatic temperature", value: "8 °C to 60 °C" },
-      { label: "Pellet extruder temperature", value: "Room temperature to 250 °C" },
-      { label: "Motor-based extruder temperature", value: "Room temperature to 60 °C" },
-      { label: "Inkjet extruder temperature", value: "Room temperature to 90 °C" },
+      { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
+      { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
+      { label: "Inkjet extruder temperature", value: "Ambient temperature to 90 °C" },
       { label: "Inkjet precision", value: "0.5 nL dispensation" },
       { label: "Bed temperature", value: "4 °C to 80 °C" },
-      { label: "Pressure range", value: "0.1 to 8 Bar" },
+      { label: "Pressure range", value: "0.02 to 8 Bar" },
       { label: "Build volume (L×B×H)", value: "150 × 100 × 100 mm (customizable)" },
       { label: "Outer dimensions (L×B×H)", value: "90 × 120 × 70 cm" },
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
@@ -113,6 +122,7 @@ export const machines: Machine[] = [
     ],
     fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
     software: "Dhee by NBIL",
+    softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",
   },
   {
@@ -124,8 +134,8 @@ export const machines: Machine[] = [
       "Non-planar system that prints on rotary scaffolds and curved geometries instead of flat layers.",
     overview:
       "A compact, precision-built system designed for adaptable, high-performance biofabrication. The NP replaces the stationary flat bed with a rotatory spindle module, letting the extruder traverse a revolving mandrel to deposit bioink along true cylindrical and helical paths. This eliminates the layer-seam stress of flat-bed approaches and enables tubular, curved and anatomically complex constructs in a body compact enough for a biosafety cabinet.",
-    tier: "Specialised",
-    role: "Non-planar / rotary",
+    tier: "Customisable",
+    role: "Non-planar",
     year: "2025",
     featured: true,
     heroImage: { src: "/images/np-side.png", alt: "Trivima NP non-planar bioprinter, side view" },
@@ -137,14 +147,14 @@ export const machines: Machine[] = [
       { label: "Movement precision", value: "<10", unit: "µm" },
       { label: "Build volume", value: "120×70×50", unit: "mm" },
       { label: "Pressure", value: "0.02–8", unit: "Bar" },
-      { label: "Bed temp", value: "RT–80", unit: "°C" },
+      { label: "Bed temp", value: "Ambient–80", unit: "°C" },
     ],
     specs: [
       { label: "Extruder slots", value: "2–3 slots (user-configurable)" },
       { label: "Pneumatic extruder volumes", value: "3CC, 5CC, 10CC" },
       { label: "Pneumatic extruder temperature", value: "8 °C to 65 °C" },
-      { label: "Pellet extruder temperature", value: "Room temperature to 250 °C" },
-      { label: "Motor-based extruder temperature", value: "Room temperature to 60 °C" },
+      { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
+      { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
       { label: "Bed temperature", value: "4 °C to 80 °C (liquid-based cooling)" },
       { label: "Pressure range", value: "0.02 to 8 Bar" },
       { label: "Build volume (L×B×H)", value: "120 × 70 × 50 mm (customizable)" },
@@ -183,6 +193,7 @@ export const machines: Machine[] = [
     ],
     fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
     software: "Dhee by NBIL",
+    softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivimanpbioprinter/",
   },
   {
@@ -214,7 +225,7 @@ export const machines: Machine[] = [
       { label: "Build volume (L×B×H)", value: "80 × 60 × 100 mm" },
       { label: "Machine build", value: "Metal (stainless steel or anodized aluminium)" },
       { label: "Print bed type", value: "Glass or metal based" },
-      { label: "Motor-based extruder temperature", value: "Room temperature to 60 °C" },
+      { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
       { label: "Optical intensity", value: "Adjustable based on light engine" },
       { label: "User interface", value: "Touch screen display & external system" },
       { label: "Compatible file formats", value: ".stl, .bmp" },
@@ -251,12 +262,11 @@ export const COMPANY = {
   short: "NBIL",
   email: "support@nextbiginnovationlabs.com",
   address: {
-    line1: "NTTF NEC, 1st Main",
-    line2: "Bengaluru – Chennai Hwy, Electronic City Phase I",
-    line3: "Electronic City, Konappana Agrahara",
+    line1: "No.22, 16th Cross",
+    line2: "5th Phase, J.P. Nagar",
     city: "Bengaluru",
     state: "Karnataka",
-    postalCode: "560100",
+    postalCode: "560078",
     country: "India",
   },
   site: "https://nextbiginnovationlabs.com",
@@ -272,8 +282,7 @@ export function formatAddress({ country = true } = {}) {
   return [
     a.line1,
     a.line2,
-    a.line3,
-    `${a.state} ${a.postalCode}`,
+    `${a.city} – ${a.postalCode}`,
     country ? a.country : null,
   ]
     .filter(Boolean)

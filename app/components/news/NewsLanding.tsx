@@ -109,7 +109,7 @@ export default function NewsLanding() {
       <section className="mx-auto max-w-7xl px-6 pt-32 pb-10 lg:pt-40 lg:pb-14">
         <motion.p
           {...rise(0)}
-          className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
+          className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
         >
           News
         </motion.p>
@@ -150,7 +150,7 @@ export default function NewsLanding() {
             className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
           >
             <div className="flex flex-col gap-4">
-              <span className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+              <span className="inline-flex items-center gap-2 text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
                 <YoutubeLogo size={18} weight="fill" />
                 Watch &amp; listen
               </span>
@@ -216,7 +216,7 @@ export default function NewsLanding() {
             className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
           >
             <div className="flex flex-col gap-4">
-              <span className="inline-flex items-center gap-2 text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+              <span className="inline-flex items-center gap-2 text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
                 <LinkedinLogo size={16} weight="fill" />
                 Recent from NBIL
               </span>

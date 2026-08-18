@@ -77,7 +77,7 @@ export default function ConsultancyHero() {
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
               <motion.p
                 {...rise(0)}
-                className="text-[12px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb] mb-6"
+                className="text-[14px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb] mb-6"
               >
                 Consultancy
               </motion.p>

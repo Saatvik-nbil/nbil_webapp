@@ -85,7 +85,7 @@ export default function IntegrationHero() {
 
       <div className="relative">
         <div className="max-w-7xl mx-auto px-6 mb-12 lg:mb-14 flex flex-col gap-4 max-w-2xl">
-          <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
             In good company
           </p>
           <h2
@@ -95,8 +95,8 @@ export default function IntegrationHero() {
             Recognised where it counts
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-            Featured across national media and built alongside leading research
-            institutions.
+            Our 3D bioprinters are featured across national media and developed
+            alongside leading research institutions.
           </p>
         </div>
 

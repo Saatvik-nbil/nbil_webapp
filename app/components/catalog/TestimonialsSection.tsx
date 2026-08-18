@@ -13,11 +13,11 @@ export default function TestimonialsSection() {
             id="testimonials-heading"
             className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1] text-balance"
           >
-            Trusted in labs that print living tissue
+            Trusted in labs that bioprint living tissue
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
             Principal investigators, postdocs and core-facility managers on what changed
-            after a Trivima joined the bench.
+            after a Trivima bioprinter joined the bench.
           </p>
         </div>
       </div>

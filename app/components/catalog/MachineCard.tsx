@@ -60,8 +60,6 @@ export function FeatureCard({ machine, index }: { machine: Machine; index: numbe
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
               <span>{machine.tier}</span>
-              <span aria-hidden="true">·</span>
-              <span>{machine.year}</span>
             </div>
             <h3 className="font-display text-[1.6rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-tight">
               {machine.name}

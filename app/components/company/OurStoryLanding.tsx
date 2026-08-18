@@ -63,7 +63,7 @@ export default function OurStoryLanding() {
         <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.p
             {...rise(0)}
-            className="mb-3 font-mono text-[12px] uppercase tracking-[0.18em] text-[#8fbdfb]"
+            className="mb-3 font-mono text-[14px] uppercase tracking-[0.18em] text-[#8fbdfb]"
           >
             Our story
           </motion.p>
@@ -72,13 +72,13 @@ export default function OurStoryLanding() {
             id="our-story-heading"
             className="max-w-[18ch] font-display text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.025em] text-white lg:text-[3.4rem]"
           >
-            Ten years from a bold idea to a working range
+            Ten years from a bold idea to a working bioprinter range
           </motion.h1>
           <motion.p
             {...rise(0.12)}
             className="mt-6 max-w-[58ch] text-[16px] leading-relaxed text-white/75 lg:text-[17px]"
           >
-            Next Big Innovation Labs began in 2016 with a single question: what
+            We began in 2016 with a single question: what
             would it take to print living tissue reliably enough for a lab to
             depend on it? What follows is the whole record — the patents, the
             grants, the partners who backed us early, and the recognitions that

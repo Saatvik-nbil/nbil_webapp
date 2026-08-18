@@ -13,8 +13,8 @@ export default function MachineGallery({
   role,
   year,
   /** Cap on the hero render width. Tall, narrow assets (Aura) fill the card at
-      the default 440px and dwarf the copy column, so they pass a smaller one. */
-  maxWidth = 440,
+      the default and dwarf the copy column, so they pass a smaller one. */
+  maxWidth = 540,
 }: {
   images: MachineImage[];
   name: string;
@@ -33,7 +33,7 @@ export default function MachineGallery({
       transition={{ duration: 0.7, ease: EASE }}
       className="flex flex-col gap-4"
     >
-      <div className="relative rounded-3xl border border-[var(--color-hairline)] bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-8 sm:p-10">
+      <div className="relative rounded-3xl border border-[var(--color-hairline)] bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-5 pt-14 sm:p-6 sm:pt-14">
         <span className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-3 py-1 text-[11px] font-medium text-white">
           {role}
         </span>

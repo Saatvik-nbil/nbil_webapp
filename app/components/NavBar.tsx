@@ -157,7 +157,7 @@ export default function NavBar() {
                             : openMenuAt(item.label, e.currentTarget)
                         }
                         onFocus={(e) => openMenuAt(item.label, e.currentTarget)}
-                        className="flex items-center gap-1 text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap cursor-pointer"
+                        className="flex items-center gap-1 text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors duration-150 whitespace-nowrap cursor-pointer"
                       >
                         {item.label}
                         <CaretDown
@@ -201,7 +201,7 @@ export default function NavBar() {
                                     href={child.href}
                                     {...extAttrs(child.external)}
                                     onClick={() => setOpenMenu(null)}
-                                    className="flex items-center rounded-lg px-3 py-2 text-[14px] text-[var(--color-ink-muted)] transition-colors hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-ink)]"
+                                    className="flex items-center rounded-lg px-3 py-2 text-[14px] text-[var(--color-ink-muted)] transition-colors hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-brand-strong)]"
                                   >
                                     {child.label}
                                   </Link>
@@ -217,7 +217,7 @@ export default function NavBar() {
                       key={item.label}
                       href={item.href ?? "#"}
                       {...extAttrs(item.external)}
-                      className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors duration-150 whitespace-nowrap"
+                      className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors duration-150 whitespace-nowrap"
                     >
                       {item.label}
                     </Link>
@@ -231,7 +231,7 @@ export default function NavBar() {
                 Get in touch
               </OriginButton>
               <button
-                className="md:hidden p-2 text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors rounded-lg cursor-pointer"
+                className="md:hidden p-2 text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors rounded-lg cursor-pointer"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
                 aria-expanded={mobileOpen}
@@ -291,7 +291,7 @@ export default function NavBar() {
                                 href={child.href}
                                 {...extAttrs(child.external)}
                                 onClick={closeMobile}
-                                className="py-2 pl-3 text-[15px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+                                className="py-2 pl-3 text-[15px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-brand-strong)]"
                               >
                                 {child.label}
                               </Link>
@@ -305,7 +305,7 @@ export default function NavBar() {
                         href={item.href ?? "#"}
                         {...extAttrs(item.external)}
                         onClick={closeMobile}
-                        className="border-b border-[var(--color-hairline-subtle)] py-3 text-[16px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+                        className="border-b border-[var(--color-hairline-subtle)] py-3 text-[16px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-brand-strong)]"
                       >
                         {item.label}
                       </Link>

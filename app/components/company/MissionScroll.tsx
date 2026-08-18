@@ -8,7 +8,7 @@ import ShaderBackground from "@/components/ui/shader-background";
 gsap.registerPlugin(ScrollTrigger);
 
 const STATEMENT =
-  "We advance the field of biofabrication with technologies that open new frontiers in research and medicine, bridging the gap between experimental work and the clinic.";
+  "We advance the field of biofabrication with bioprinting technology that opens new frontiers in research and medicine, bridging the gap between experimental work and the clinic.";
 
 export default function MissionScroll() {
   const root = useRef<HTMLDivElement>(null);
@@ -60,7 +60,7 @@ export default function MissionScroll() {
       <div className="relative max-w-5xl mx-auto px-6">
         <p
           id="mission-heading"
-          className="text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--color-dark-brand)] mb-8"
+          className="text-[14px] font-mono uppercase tracking-[0.2em] text-[var(--color-dark-brand)] mb-8"
         >
           Our mission
         </p>

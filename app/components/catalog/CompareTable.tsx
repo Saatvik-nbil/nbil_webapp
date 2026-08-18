@@ -7,11 +7,11 @@ function spec(m: Machine, keyword: string, fallback = "—"): string {
   return hit ? hit.value : fallback;
 }
 
-type Row = { label: string; get: (m: Machine) => string };
+type Row = { label: string; get: (m: Machine) => React.ReactNode };
 
 const ROWS: Row[] = [
   { label: "Tier", get: (m) => m.tier },
-  { label: "Build approach", get: (m) => m.role },
+  { label: "Bioprinting approach", get: (m) => m.role },
   {
     label: "Extruders",
     get: (m) => {
@@ -19,7 +19,7 @@ const ROWS: Row[] = [
       if (s) return s;
       const n = spec(m, "number of extruders", "");
       if (n) return n;
-      return m.slug === "trivima-aura" ? "Light engine (no extruder)" : "—";
+      return m.slug === "trivima-aura" ? "Light engine" : "—";
     },
   },
   { label: "Build volume (mm)", get: (m) => spec(m, "build volume").replace(" (customizable)", "") },
@@ -32,7 +32,20 @@ const ROWS: Row[] = [
     get: (m) => spec(m, "pressure range", m.slug === "trivima-aura" ? "Not applicable" : "—"),
   },
   { label: "Photo-crosslinking", get: (m) => spec(m, "photo-crosslinking") },
-  { label: "Software", get: (m) => m.software },
+  {
+    label: "Software",
+    get: (m) =>
+      m.softwareHref ? (
+        <Link
+          href={m.softwareHref}
+          className="font-medium text-[var(--color-brand-strong)] hover:underline underline-offset-4"
+        >
+          {m.software}
+        </Link>
+      ) : (
+        m.software
+      ),
+  },
   { label: "File formats", get: (m) => spec(m, "file formats") },
 ];
 
@@ -53,10 +66,11 @@ export default function CompareTable() {
             id="compare-heading"
             className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.12]"
           >
-            Compare the range
+            Compare the bioprinter range
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-            Side by side, where each system fits. Scroll horizontally on smaller screens.
+            Side by side, where each bioprinter fits. Scroll horizontally on smaller
+            screens.
           </p>
         </div>
 
@@ -80,9 +94,6 @@ export default function CompareTable() {
                     className="px-5 py-5 align-bottom border-b border-[var(--color-hairline)] border-l border-l-[var(--color-hairline-subtle)]"
                   >
                     <Link href={`/machines/${m.slug}`} className="group flex flex-col gap-1">
-                      <span className="text-[11px] font-mono uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
-                        {m.year}
-                      </span>
                       <span className="font-display text-[15px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-strong)] transition-colors whitespace-nowrap">
                         {m.name}
                       </span>

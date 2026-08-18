@@ -7,8 +7,8 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 const VALUES = [
   { icon: Lightbulb, title: "Innovation", body: "Our cornerstone. We keep pushing the boundary of what bioprinting hardware and software can do." },
-  { icon: Sliders, title: "Customization", body: "No two research projects are the same, so our systems and fixtures are built to be tailored." },
-  { icon: UsersThree, title: "Collaboration", body: "Progress in science is never made in silos. We work alongside the labs that use our machines." },
+  { icon: Sliders, title: "Customization", body: "No two research projects are the same, so our bioprinters and fixtures are built to be tailored." },
+  { icon: UsersThree, title: "Collaboration", body: "Progress in science is never made in silos. We work alongside the labs that bioprint on our systems." },
   { icon: HandHeart, title: "Empowerment", body: "We support users from first contact through years of operation, training and technical care." },
 ];
 
@@ -18,7 +18,7 @@ export default function ValuesSection() {
     <section aria-labelledby="values-heading" className="py-20 lg:py-28 bg-[var(--color-surface-raised)] border-y border-[var(--color-hairline)]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-4 max-w-2xl mb-12 lg:mb-16">
-          <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
             What we stand for
           </p>
           <h2

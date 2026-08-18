@@ -52,7 +52,7 @@ export default function TeamLanding() {
       >
         <motion.p
           {...rise(0)}
-          className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
+          className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
         >
           Our team
         </motion.p>
@@ -67,7 +67,7 @@ export default function TeamLanding() {
           {...rise(0.12)}
           className="mt-5 max-w-[56ch] text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]"
         >
-          NBIL pairs hard engineering with biomedical science. Meet the founders who
+          We pair hard engineering with biomedical science. Meet the founders who
           set the direction, and the team that builds the Trivima range every day.
         </motion.p>
 
@@ -136,7 +136,7 @@ export default function TeamLanding() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <motion.div {...rise(0)} className="flex flex-col gap-4">
-            <p className="text-[12px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
               The team
             </p>
             <h2

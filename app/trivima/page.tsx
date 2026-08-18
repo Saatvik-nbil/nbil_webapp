@@ -13,7 +13,7 @@ import { machines, COMPANY } from "@/lib/machines";
 export const metadata: Metadata = {
   title: "Trivima Bioprinters — The Full Range, Spec for Spec",
   description:
-    "Explore the Trivima bioprinter range by NBIL: the non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and MSLA systems spec for spec.",
+    "Explore the Trivima 3D bioprinter range by NBIL: the non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and light-based (MSLA) bioprinters spec for spec.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/trivima-bioprinter/" },
 };
 
@@ -23,7 +23,7 @@ const itemListSchema = {
   "@type": "ItemList",
   name: "Trivima Bioprinter Range",
   description:
-    "The full range of Trivima bioprinters by Next Big Innovation Labs, from compact benchtop extrusion systems to non-planar rotary and light-based platforms.",
+    "The full range of Trivima 3D bioprinters by Next Big Innovation Labs, from compact benchtop extrusion bioprinters to non-planar rotary and light-based bioprinting systems.",
   itemListElement: machines.map((m, i) => ({
     "@type": "ListItem",
     position: i + 1,

@@ -53,18 +53,14 @@ const testimonials: Testimonial[] = [
     testimonial:
       "We have the NBIL TRIVIMA Advanced and it’s a very good 3D bioprinter as it is highly customisable and can be used for both extrusion & melt based printing. The NBIL team is also very supportive and have always helped us with any queries.",
     name: "Parichita Mishra",
+    org: "Manipal Academy of Higher Education (MAHE)",
   },
   {
     id: 5,
     testimonial:
       "NBIL printers are highly customisable, therefore perfect for us to try variety of things. I was personally impressed by their tech team which is very responsive and helped us every step of the way.",
     name: "Prof. Amit Nain",
-  },
-  {
-    id: 6,
-    testimonial:
-      "Our Lab has been using the NBIL Trivima 3D printer for over five years. The software is user-friendly, and the printing results are consistently good.",
-    name: "Mohandass PB",
+    org: "Indian Institute of Technology Delhi (IIT Delhi)",
   },
 ];
 
