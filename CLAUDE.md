@@ -38,10 +38,10 @@ There is no standalone ESLint config — `next lint` uses Next's built-in rulese
 **Component layers:**
 
 - `components/ui/` — shadcn/ui primitives + vendored visual-effect components (liquid-glass, coordinate-cursor, timelines, etc.). shadcn is configured for the `radix-nova` style with the `lucide` icon library (`components.json`).
-- `app/components/` — page-specific sections, grouped by area (`company/`, `catalog/`, `consultancy/`, `machine/`, `blog/`, `careers/`, `news/`, `team/`) plus shared chrome (`NavBar`, `Footer`, `ContactSection`, `SmoothScroll`, `ScrollProgress`, `IntroGate`).
+- `app/components/` — page-specific sections, grouped by area (`company/`, `catalog/`, `consultancy/`, `machine/`, `blog/`, `careers/`, `news/`, `team/`) plus shared chrome (`NavBar`, `Footer`, `ContactSection`, `SmoothScroll`, `ScrollProgress`).
 - Pages compose these sections top-to-bottom (see `app/page.tsx`); most of the visual work is in the section components.
 
-**Global providers live in `app/layout.tsx`** and wrap every page: `SmoothScroll` (Lenis + GSAP), `ScrollProgress`, `IntroGate` (intro animation gate), `CoordinateCursor`, and the SVG filter defs for the liquid-glass surfaces. Fonts (Libre Franklin, Geist Mono) and the site-wide `Metadata`/`viewport` are also defined here.
+**Global providers live in `app/layout.tsx`** and wrap every page: `SmoothScroll` (Lenis + GSAP), `ScrollProgress`, `CoordinateCursor`, and the SVG filter defs for the liquid-glass surfaces. Fonts (Libre Franklin, Geist Mono) and the site-wide `Metadata`/`viewport` are also defined here. (There used to be an `IntroGate` intro-loader gate with a three.js/anime.js "exploding cube" animation — removed by request; `three` and `animejs` are no longer dependencies.)
 
 **SEO is a first-class concern.** Every page sets `Metadata` (title/description/canonical/OpenGraph) via the Next Metadata API, and key pages inject JSON-LD structured data as `<script type="application/ld+json">` (Organization on the home page, per-model `Product` schema on machine pages). Keep visible copy and structured data in sync when editing product facts.
 

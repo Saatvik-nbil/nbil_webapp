@@ -5,7 +5,6 @@ import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import { GlassFilter, SoftGlassFilter } from "@/components/ui/liquid-glass";
 import { CoordinateCursor } from "@/components/ui/coordinate-cursor";
-import IntroGate from "@/app/components/IntroGate";
 import "./globals.css";
 
 // Official NBIL brand typeface, used for both display and body.
@@ -101,11 +100,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${libreFranklin.variable} ${GeistMono.variable}`}
     >
-      <body>
+      <body className="overflow-x-clip">
         {/* SVG filter defs for the liquid-glass surfaces (rendered once) */}
         <GlassFilter />
         <SoftGlassFilter />
-        <IntroGate />
         <CoordinateCursor />
         <SmoothScroll>
           <ScrollProgress />

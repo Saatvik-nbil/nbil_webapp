@@ -142,6 +142,55 @@ p {
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
+/* ---- Application diagram icons (machine detail pages) ----
+   Small schematic SVGs standing in for photography that hasn't shipped yet
+   (see app/components/machine/ApplicationIcon.tsx). Each gets one
+   purposeful loop — flow, a breath, a pulse — never a decorative spinner.
+   The blanket prefers-reduced-motion rule below already neutralises all
+   of these, so no per-animation override is needed here. */
+@keyframes app-icon-flow {
+  to { stroke-dashoffset: -18; }
+}
+@keyframes app-icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: 0.7; }
+}
+@keyframes app-icon-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+@keyframes app-icon-expand {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.015); }
+}
+@keyframes app-icon-sweep {
+  0%, 15% { transform: translateX(-14px); opacity: 0; }
+  40%, 60% { opacity: 0.9; }
+  85%, 100% { transform: translateX(14px); opacity: 0; }
+}
+@keyframes app-icon-drop {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(16px); opacity: 1; }
+  100% { transform: translateY(18px); opacity: 0; }
+}
+@keyframes app-icon-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes app-icon-fade {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.app-icon-anim { transform-box: fill-box; transform-origin: center; }
+.app-icon-flow { stroke-dasharray: 4 5; animation: app-icon-flow 1.1s linear infinite; }
+.app-icon-pulse { animation: app-icon-pulse 2.6s ease-in-out infinite; }
+.app-icon-breathe { animation: app-icon-breathe 3.2s ease-in-out infinite; }
+.app-icon-expand { animation: app-icon-expand 2.8s ease-in-out infinite; }
+.app-icon-sweep { animation: app-icon-sweep 3.6s ease-in-out infinite; }
+.app-icon-drop { animation: app-icon-drop 1.8s ease-in infinite; }
+.app-icon-sway { animation: app-icon-sway 6s ease-in-out infinite; }
+.app-icon-fade { animation: app-icon-fade 3s ease-in-out infinite; }
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

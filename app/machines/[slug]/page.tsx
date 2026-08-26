@@ -20,6 +20,7 @@ import AnatomyScroll from "@/app/components/machine/AnatomyScroll";
 import Reveal from "@/app/components/machine/Reveal";
 import { OriginButton } from "@/components/ui/origin-button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
+import { getApplicationDiagram } from "@/app/components/machine/ApplicationIcon";
 
 export function generateStaticParams() {
   return machines.map((m) => ({ slug: m.slug }));
@@ -376,33 +377,50 @@ export default async function MachinePage({
                   className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] transition-all duration-300 hover:border-[var(--color-brand)] hover:shadow-[0_14px_38px_rgba(15,23,42,0.09)]"
                 >
                   {/* Photo well. Set `image` on the application in lib/machines.ts
-                      to swap the placeholder for the real shot. */}
-                  <div
-                    className={`relative aspect-[16/10] overflow-hidden bg-[var(--color-surface-raised)] ${
-                      app.image ? "" : "border-b border-dashed border-[var(--color-hairline)]"
-                    }`}
-                  >
-                    {app.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={app.image}
-                        alt={app.title}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05] motion-reduce:transform-none"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
-                        <Image
-                          size={20}
-                          weight="duotone"
-                          aria-hidden="true"
-                          className={`${ICON_MOTION} group-hover:scale-125`}
-                        />
-                        <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Image</span>
-                        <span className="text-[11px]">coming soon</span>
+                      to swap the schematic for the real shot. Applications
+                      without a photo yet fall back to a hand-drawn diagram
+                      (app/components/machine/ApplicationIcon.tsx) keyed off
+                      the title, then to the bare placeholder if neither exists. */}
+                  {(() => {
+                    const diagram = app.image ? null : getApplicationDiagram(app.title);
+                    return (
+                      <div
+                        className={`relative aspect-[16/10] overflow-hidden bg-[var(--color-surface-raised)] ${
+                          app.image ? "" : "border-b border-dashed border-[var(--color-hairline)]"
+                        }`}
+                      >
+                        {app.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={app.image}
+                            alt={app.title}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05] motion-reduce:transform-none"
+                          />
+                        ) : diagram ? (
+                          <div className="relative flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_38%,var(--color-brand-subtle),var(--color-surface-raised)_72%)]">
+                            <div className="h-[70%] w-[70%] max-w-[240px] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none">
+                              {diagram}
+                            </div>
+                            <span className="absolute bottom-3 left-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+                              Schematic
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
+                            <Image
+                              size={20}
+                              weight="duotone"
+                              aria-hidden="true"
+                              className={`${ICON_MOTION} group-hover:scale-125`}
+                            />
+                            <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Image</span>
+                            <span className="text-[11px]">coming soon</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    );
+                  })()}
 
                   <div className="flex flex-col gap-2.5 p-6">
                     <span
