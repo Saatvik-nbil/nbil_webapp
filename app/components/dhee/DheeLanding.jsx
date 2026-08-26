@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* Adapted from the standalone Vite build of the Dhee Slicer site.
    Removed on integration:
@@ -237,7 +238,7 @@ function MockGCodeHTML() {
 function MockMachineHTML() {
   return (
     <div style={{ position: "relative", width: "100%", height: "100%", background: "#F8F7FF" }}>
-      <img src="/dhee/machine.png" alt="G-Code Visualization" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+      <Image src="/dhee/machine.webp" alt="G-Code Visualization" fill sizes="(min-width: 1024px) 50vw, 100vw" style={{ objectFit: "cover", objectPosition: "center" }} />
     </div>
   );
 }
@@ -251,25 +252,25 @@ const WORKFLOW_STEPS = [
 
 /* ─── TAG CHIP WITH HOVER POPUP ─────────────────────── */
 const TAG_META = {
-  "3-Axis Rotation": { info: "Rotate models freely around X, Y, and Z axes with precision input or interactive handles.", media: "/dhee/3axis.png", mediaType: "image" },
-  "Planar Cut": { info: "Slice any STL at an arbitrary plane angle to split it into multiple printable parts.", media: "/dhee/planar.png", mediaType: "image" },
-  "Multi-Part Split": { info: "A single cut operation produces two independent mesh objects, each separately positionable.", media: "/dhee/multi.png", mediaType: "image" },
-  "Auto-Center All": { info: "Instantly center every loaded model on the substrate with one click.", media: "/dhee/auto.png", mediaType: "image" },
-  "Surface Paint for Custom Supports": { info: "Paint directly onto the STL surface to mark regions where custom supports should generate.", media: "/dhee/paint.png", mediaType: "image" },
-  "96-Well / Petri / Slide": { info: "Choose from built-in substrate presets — 96-well plate, petri dish, glass slide, or flat bed.", media: "/dhee/plat96.png", mediaType: "image" },
-  "7 Infill Patterns": { info: "Grid, honeycomb, concentric, gyroid, triangular, line, and rectilinear — per zone.", media: "/dhee/pattern.png", mediaType: "image" },
-  "Variable Heights": { info: "Define different layer heights for different Z-ranges within a single print job.", media: "/dhee/variable-layer.png", mediaType: "image" },
-  "Per-Zone Extruder Control": { info: "Assign a specific extruder channel to each Z-range — mix materials in one continuous print.", media: "/dhee/tempzone.png", mediaType: "image" },
-  "Per-Zone Temperature": { info: "Each Z-zone can run at a different nozzle temperature to match the material being extruded.", media: "/dhee/tempzonecontrol.png", mediaType: "image" },
-  "Per-Zone Infill Control": { info: "Apply a different infill pattern and density to each Z-range without splitting the file.", media: "/dhee/perzoneinfill.png", mediaType: "image" },
-  "Single Layer View": { info: "Isolate any single cross-section to verify infill, perimeters and supports.", media: "/dhee/singlelayer.png", mediaType: "image" },
+  "3-Axis Rotation": { info: "Rotate models freely around X, Y, and Z axes with precision input or interactive handles.", media: "/dhee/3axis.webp", mediaType: "image" },
+  "Planar Cut": { info: "Slice any STL at an arbitrary plane angle to split it into multiple printable parts.", media: "/dhee/planar.webp", mediaType: "image" },
+  "Multi-Part Split": { info: "A single cut operation produces two independent mesh objects, each separately positionable.", media: "/dhee/multi.webp", mediaType: "image" },
+  "Auto-Center All": { info: "Instantly center every loaded model on the substrate with one click.", media: "/dhee/auto.webp", mediaType: "image" },
+  "Surface Paint for Custom Supports": { info: "Paint directly onto the STL surface to mark regions where custom supports should generate.", media: "/dhee/paint.webp", mediaType: "image" },
+  "96-Well / Petri / Slide": { info: "Choose from built-in substrate presets — 96-well plate, petri dish, glass slide, or flat bed.", media: "/dhee/plat96.webp", mediaType: "image" },
+  "7 Infill Patterns": { info: "Grid, honeycomb, concentric, gyroid, triangular, line, and rectilinear — per zone.", media: "/dhee/pattern.webp", mediaType: "image" },
+  "Variable Heights": { info: "Define different layer heights for different Z-ranges within a single print job.", media: "/dhee/variable-layer.webp", mediaType: "image" },
+  "Per-Zone Extruder Control": { info: "Assign a specific extruder channel to each Z-range — mix materials in one continuous print.", media: "/dhee/tempzone.webp", mediaType: "image" },
+  "Per-Zone Temperature": { info: "Each Z-zone can run at a different nozzle temperature to match the material being extruded.", media: "/dhee/tempzonecontrol.webp", mediaType: "image" },
+  "Per-Zone Infill Control": { info: "Apply a different infill pattern and density to each Z-range without splitting the file.", media: "/dhee/perzoneinfill.webp", mediaType: "image" },
+  "Single Layer View": { info: "Isolate any single cross-section to verify infill, perimeters and supports.", media: "/dhee/singlelayer.webp", mediaType: "image" },
   "Full Print View": { info: "Complete top-down overview of all paths across the entire print.", media: "/dhee/fullprint.png", mediaType: "image" },
   "Scrub Forward & Back": { info: "Drag the playhead to any point in the toolpath — forward or backward.", media: "/dhee/scrub.png", mediaType: "image" },
-  "Color-Coded Moves": { info: "Perimeters, infill, supports, and travel moves each render in a distinct color.", media: "/dhee/colorcoded.png", mediaType: "image" },
-  "Serial Control": { info: "Direct USB-to-serial connection to your bioprinter and option for manual control of the printer via serial commands", media: "/dhee/serialcon.png", mediaType: "image" },
+  "Color-Coded Moves": { info: "Perimeters, infill, supports, and travel moves each render in a distinct color.", media: "/dhee/colorcoded.webp", mediaType: "image" },
+  "Serial Control": { info: "Direct USB-to-serial connection to your bioprinter and option for manual control of the printer via serial commands", media: "/dhee/serialcon.webp", mediaType: "image" },
   "Aux Output Toggle": { info: "Toggle HEPA, UV light sources, cooling fans, and other auxiliary outputs directly from the control panel.", media: "/dhee/auxil.png", mediaType: "image" },
   "Servo Control": { info: "Control attached rotary and linear servo actuators without leaving the application.", media: "/dhee/servo.png", mediaType: "image" },
-  "Temp Monitor": { info: "Real-time per-extruder and bed temperature monitoring with live progress bars.", media: "/dhee/tempo.png", mediaType: "image" },
+  "Temp Monitor": { info: "Real-time per-extruder and bed temperature monitoring with live progress bars.", media: "/dhee/tempo.webp", mediaType: "image" },
   "Pause & Resume": { info: "Pause mid-print for material swaps or inspection, then resume from exactly the same position.", media: "/dhee/startplay.png", mediaType: "image" },
 };
 
@@ -294,11 +295,11 @@ function TagChip({ label }) {
       </span>
       {hovered && (
         <div style={{ position: "absolute", zIndex: 999, ...(pos.top ? { bottom: "calc(100% + 10px)" } : { top: "calc(100% + 10px)" }), ...(pos.left ? { left: 0 } : { right: 0 }), width: 600, background: "#FFFFFF", border: "1px solid #EEE9FF", borderRadius: 14, boxShadow: "0 16px 48px rgba(109,40,217,0.16), 0 4px 12px rgba(0,0,0,0.08)", overflow: "hidden", pointerEvents: "none", animation: "tagPopIn 0.18s cubic-bezier(0.23,1,0.32,1)" }}>
-          <div style={{ width: "100%", height: 338, background: "linear-gradient(135deg, #EEE9FF 0%, #F0ECFF 100%)", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid #EEE9FF", overflow: "hidden" }}>
+          <div style={{ position: "relative", width: "100%", height: 338, background: "linear-gradient(135deg, #EEE9FF 0%, #F0ECFF 100%)", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid #EEE9FF", overflow: "hidden" }}>
             {meta.mediaType === "video" && meta.media ? (
               <video autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }}><source src={meta.media} type="video/mp4" /></video>
             ) : meta.mediaType === "image" && meta.media ? (
-              <img src={meta.media} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <Image src={meta.media} alt={label} fill sizes="600px" style={{ objectFit: "cover" }} />
             ) : (
               <div style={{ textAlign: "center" }}>
                 <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(109,40,217,0.1)", border: "1px dashed rgba(109,40,217,0.3)", margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -472,11 +473,11 @@ function Workflow() {
 
 /* ─── CAPABILITIES MOCKS ─────────────────────────────── */
 function CapMock96Well() {
-  return <img src="/dhee/wellear.png" alt="96-Well Plate" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />;
+  return <Image src="/dhee/wellear.webp" alt="96-Well Plate" fill sizes="(min-width: 1024px) 50vw, 100vw" style={{ objectFit: "cover" }} />;
 }
 
 function CapMockVarLayers() {
-  return <img src="/dhee/variable-layers.png" alt="Variable Layers" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />;
+  return <Image src="/dhee/variable-layers.webp" alt="Variable Layers" fill sizes="(min-width: 1024px) 50vw, 100vw" style={{ objectFit: "cover" }} />;
 }
 
 function CapMockGCode() {
@@ -517,7 +518,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
           className="cap-card"
           onMouseEnter={() => setCardHovered(true)}
           onMouseLeave={() => setCardHovered(false)}
-          style={{ border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
+          style={{ position: "relative", border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
         >
           <MockComponent />
         </div>
@@ -538,7 +539,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
           className="cap-card"
           onMouseEnter={() => setCardHovered(true)}
           onMouseLeave={() => setCardHovered(false)}
-          style={{ border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
+          style={{ position: "relative", border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
         >
           <MockComponent />
         </div>
@@ -658,12 +659,12 @@ const TESTIMONIALS_DATA = [
 ];
 
 const TRUSTED_LABS = [
-  { name: "IIT Hyderabad", logo: "/dhee/college/iithyd.png" },
+  { name: "IIT Hyderabad", logo: "/institute/iithyd.webp" },
   { name: "KJ Somaiya College of Engineering", logo: "/dhee/college/kjs.png" },
-  { name: "ARI Pune", logo: "/dhee/college/ari.png" },
-  { name: "IISc Bangalore", logo: "/dhee/college/iisc.png" },
+  { name: "ARI Pune", logo: "/dhee/college/ari.webp" },
+  { name: "IISc Bangalore", logo: "/dhee/college/iisc.webp" },
   { name: "MIT", logo: "/dhee/college/mit.png" },
-  { name: "CLRI", logo: "/dhee/college/clri.png" },
+  { name: "CLRI", logo: "/institute/csir-clri-logo.webp" },
 ];
 
 function StarIcon({ filled = true, size = 18 }) {
@@ -727,7 +728,7 @@ function Testimonials() {
             <div style={{ display: "flex", flexWrap: "wrap", gap: "22px 28px", alignItems: "center" }}>
               {TRUSTED_LABS.map(lab => (
                 <div key={lab.name} style={{ display: "flex", alignItems: "center" }}>
-                  <img src={lab.logo} alt={lab.name} title={lab.name} style={{ height: 60, width: "auto", maxWidth: 170, objectFit: "contain", mixBlendMode: "multiply", opacity: 0.55, filter: "grayscale(100%)", transition: "opacity 0.3s ease, filter 0.3s ease" }}
+                  <Image src={lab.logo} alt={lab.name} title={lab.name} width={170} height={60} style={{ height: 60, width: "auto", maxWidth: 170, objectFit: "contain", mixBlendMode: "multiply", opacity: 0.55, filter: "grayscale(100%)", transition: "opacity 0.3s ease, filter 0.3s ease" }}
                     onMouseEnter={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.filter = "grayscale(0%)"; }}
                     onMouseLeave={e => { e.currentTarget.style.opacity = "0.55"; e.currentTarget.style.filter = "grayscale(100%)"; }}
                     onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "block"; }}
@@ -753,7 +754,7 @@ function Testimonials() {
                 </div>
                 <div style={{ height: 1, background: "#EEE9FF", marginBottom: 20 }} />
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <img src={t.avatar} alt={t.name} width={48} height={48} style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid #EEE9FF", flexShrink: 0 }} />
+                  <Image src={t.avatar} alt={t.name} width={48} height={48} style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid #EEE9FF", flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 600, color: "#110820", letterSpacing: "-0.01em", lineHeight: 1.3 }}>{t.name}</div>
                     <div style={{ fontSize: 12, color: "#9B8DC4", marginTop: 3, letterSpacing: "0.01em" }}>{t.role}, {t.company}</div>

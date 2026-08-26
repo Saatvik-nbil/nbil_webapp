@@ -20,6 +20,9 @@ for validation, the honeypot check, and rate limiting.
 | File | Role |
 | --- | --- |
 | `lib/forms.ts` | Form registry (`FORMS`) and shared payload types |
+| `lib/countries.ts` | Dial codes and per-country phone length rules |
+| `lib/validation.ts` | Email + phone validators, shared by client and server |
+| `app/components/forms/PhoneField.tsx` | Phone input with country dial-code select |
 | `app/api/forms/route.ts` | Validates and forwards submissions |
 | `app/components/forms/useFormSubmit.ts` | Client hook: submit + status |
 | `app/components/forms/fields.tsx` | Shared field styles, honeypot, success/error UI |
@@ -118,6 +121,48 @@ Changes to the script are **not** live until you redeploy:
 
 Use *Manage deployments* rather than *New deployment* — it keeps the same
 `/exec` URL, so the env var stays valid.
+
+---
+
+## Validation
+
+`lib/validation.ts` holds the rules, and **both sides run them**: the browser for
+inline feedback as you type, and `app/api/forms/route.ts` again on arrival,
+because a client-side check is a courtesy to the user, not a control.
+
+Fields opt in by declaring a `type` when the form builds its payload:
+
+```ts
+{ label: "Work Email", value: email, type: "email", required: true }
+{ label: "Phone", value: formatPhone(iso, phone), type: "phone", country: iso }
+```
+
+Untyped fields are free text, checked only for length and — when marked
+`required: true` — for being non-empty.
+
+**Every field on both forms is required.** A row in the sheet is therefore
+never half-filled. The client blocks submission and focuses the first offending
+field; the server rejects with a 400 naming the field.
+
+**Email** is checked for shape, not deliverability — one `@`, a dotted domain, a
+2+ character TLD, no doubled or edge dots, sane length. It is deliberately not
+RFC 5322: that grammar admits addresses no mail provider accepts, and its regex
+is unmaintainable.
+
+**Phone** is checked against the selected country. `normalizeNational()` first
+strips formatting, the dial code, and any trunk `0`, so `+91 98765 43210`,
+`098765-43210` and `9876543210` all validate identically and store as
+`+91 9876543210`. Length ranges live in `lib/countries.ts` and lean generous —
+turning away a real customer costs more than accepting an odd number. A few
+countries also pin the leading digits (India 6-9, Singapore 6/8/9, NANP area
+codes) with a `prefixHint` explaining the rule.
+
+Phone defaults to **India (+91)**. On the consultancy form the Country select
+drives the dial code, so changing country updates it; picking "Other" leaves it
+untouched, since that entry has no dial code.
+
+To add a country, append to `COUNTRIES` in `lib/countries.ts`. Nothing else
+needs to change — both selects and the server rule read from that array.
 
 ---
 

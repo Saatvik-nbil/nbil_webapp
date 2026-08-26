@@ -18,7 +18,7 @@ export const metadata: Metadata = {
       "Ten years from a bold idea to a working range: the milestones, patents, grants and collaborations behind the Trivima bioprinter range.",
     images: [
       {
-        url: "/images/np-side.png",
+        url: "/images/np-side.webp",
         width: 1200,
         height: 630,
         alt: "Next Big Innovation Labs bioprinter",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 /* ─── FADE-IN (local copy, same behaviour as App) ────── */
 function Fade({ children, delay = 0, style = {} }) {
@@ -49,7 +50,7 @@ function MediaFrame({ src, type = "image", label, hint, height = 340 }) {
             <source src={src} type="video/mp4" />
           </video>
         ) : src ? (
-          <img src={src} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <Image src={src} alt={label} fill sizes="(min-width: 1024px) 50vw, 100vw" style={{ objectFit: "cover" }} />
         ) : (
           <div style={{ textAlign: "center", padding: 24 }}>
             <div style={{ width: 52, height: 52, borderRadius: 12, background: "rgba(109,40,217,0.09)", border: "1px dashed rgba(109,40,217,0.32)", margin: "0 auto 14px", display: "flex", alignItems: "center", justifyContent: "center" }}>

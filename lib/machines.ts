@@ -138,10 +138,10 @@ export const machines: Machine[] = [
     role: "Non-planar",
     year: "2025",
     featured: true,
-    heroImage: { src: "/images/np-side.png", alt: "Trivima NP non-planar bioprinter, side view" },
+    heroImage: { src: "/images/np-side.webp", alt: "Trivima NP non-planar bioprinter, side view" },
     images: [
-      { src: "/images/np-side.png", alt: "Trivima NP non-planar bioprinter, side view" },
-      { src: "/images/np-front.png", alt: "Trivima NP non-planar bioprinter, front view" },
+      { src: "/images/np-side.webp", alt: "Trivima NP non-planar bioprinter, side view" },
+      { src: "/images/np-front.webp", alt: "Trivima NP non-planar bioprinter, front view" },
     ],
     stats: [
       { label: "Movement precision", value: "<10", unit: "µm" },
@@ -208,9 +208,9 @@ export const machines: Machine[] = [
     tier: "Specialised",
     role: "Light-based / MSLA",
     year: "2025",
-    heroImage: { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA resin bioprinter" },
+    heroImage: { src: "/images/aura-dlp-iso.webp", alt: "Trivima Aura MSLA resin bioprinter" },
     images: [
-      { src: "/images/aura-dlp-iso.png", alt: "Trivima Aura MSLA bioprinter, front view" },
+      { src: "/images/aura-dlp-iso.webp", alt: "Trivima Aura MSLA bioprinter, front view" },
     ],
     stats: [
       { label: "Print resolution", value: "≤40", unit: "µm" },

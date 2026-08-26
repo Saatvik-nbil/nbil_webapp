@@ -17,12 +17,12 @@ const HEADLINE = ["We", "set", "out", "to", "print", "a", "better", "future."];
    `pos` sets each shot's focal point — the cards are portrait, so landscape
    sources lose roughly half their width to the crop and need it. */
 const HERO_GALLERY: GalleryItem[] = [
-  { src: "/images/1.png", alt: "A bioprinted human ear held on a print disc", pos: "45% 50%" },
-  { src: "/images/5.JPG", alt: "A printed hydrogel lattice in a petri dish, held in front of a Trivima printer", pos: "70% 50%" },
+  { src: "/images/1.webp", alt: "A bioprinted human ear held on a print disc", pos: "45% 50%" },
+  { src: "/images/5.webp", alt: "A printed hydrogel lattice in a petri dish, held in front of a Trivima printer", pos: "70% 50%" },
   { src: "/images/2.jpeg", alt: "A Trivima extruder printing bioink into a petri dish" },
-  { src: "/images/3.JPG", alt: "The NBIL mark bioprinted inside a clear hydrogel cube", pos: "55% 50%" },
-  { src: "/images/6.JPG", alt: "Close-up of a Trivima nozzle drawing a single filament", pos: "42% 45%" },
-  { src: "/images/7.png", alt: "A bioprinted human ear on a grey print disc", pos: "50% 48%" },
+  { src: "/images/3.webp", alt: "The NBIL mark bioprinted inside a clear hydrogel cube", pos: "55% 50%" },
+  { src: "/images/6.webp", alt: "Close-up of a Trivima nozzle drawing a single filament", pos: "42% 45%" },
+  { src: "/images/7.webp", alt: "A bioprinted human ear on a grey print disc", pos: "50% 48%" },
 ];
 
 export default function CompanyHero() {

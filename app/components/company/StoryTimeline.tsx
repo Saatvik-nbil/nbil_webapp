@@ -73,10 +73,10 @@ export default function StoryTimeline() {
             className="relative shrink-0 lg:w-[26rem] rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-7 lg:p-9 flex flex-col gap-4"
           >
             {/* Photo — replace `image` in MILESTONES to swap this placeholder.
-                Tilted in 3D at rest, flattens and lifts on hover. */}
-            <div className="group/photo [perspective:1000px]">
+                Straight at rest, lifts slightly on hover. */}
+            <div className="group/photo">
               <div
-                className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_38px_-16px_rgba(2,12,27,0.45)] transition-transform duration-500 ease-out will-change-transform [transform:rotateX(9deg)_rotateY(-8deg)] group-hover/photo:[transform:rotateX(0deg)_rotateY(0deg)_translateY(-4px)_scale(1.02)] ${
+                className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_38px_-16px_rgba(2,12,27,0.45)] transition-transform duration-500 ease-out will-change-transform group-hover/photo:-translate-y-1 ${
                   m.image ? "" : "border-dashed"
                 }`}
               >
@@ -86,13 +86,7 @@ export default function StoryTimeline() {
                     src={m.image}
                     alt={m.title}
                     loading="lazy"
-                    className={
-                      // The zoom sits on the image, not the frame — the frame's
-                      // arbitrary [transform:…] tilt would swallow a scale.
-                      m.fit === "contain"
-                        ? "h-full w-full object-contain p-5 transition-transform duration-500 ease-out group-hover/photo:scale-[1.03]"
-                        : "h-full w-full object-cover transition-transform duration-500 ease-out group-hover/photo:scale-[1.06]"
-                    }
+                    className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover/photo:scale-[1.06]"
                   />
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">

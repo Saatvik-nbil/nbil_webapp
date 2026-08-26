@@ -10,23 +10,23 @@ type Item = { name: string; logo?: string };
 const FEATURED: Item[] = [
   { name: "World Economic Forum", logo: "/images/recognition/wef.png" },
   { name: "CNBC", logo: "/images/recognition/cnbc.png" },
-  { name: "The Hindu", logo: "/images/recognition/the-hindu.png" },
+  { name: "The Hindu", logo: "/images/recognition/the-hindu.webp" },
   { name: "LiveMint", logo: "/images/recognition/livemint.png" },
-  { name: "Times Now", logo: "/images/recognition/times-now.png" },
+  { name: "Times Now", logo: "/images/recognition/times-now.webp" },
   { name: "YourStory", logo: "/images/recognition/yourstory.png" },
   { name: "Hans India", logo: "/images/recognition/hans-india.png" },
 ];
 
 const PARTNERS: Item[] = [
-  { name: "Microsoft for Startups", logo: "/institute/msft.png" },
-  { name: "IISc Bengaluru", logo: "/institute/IISc_Master_Seal_Transparent.png" },
+  { name: "Microsoft for Startups", logo: "/institute/msft.webp" },
+  { name: "IISc Bengaluru", logo: "/institute/IISc_Master_Seal_Transparent.webp" },
   { name: "AIIMS New Delhi", logo: "/institute/All_India_Institute_of_Medical_Sciences,_Delhi.svg.webp" },
-  { name: "IIT Hyderabad", logo: "/institute/iithyd.png" },
-  { name: "CSIR-CLRI", logo: "/institute/csir-clri-logo.png" },
+  { name: "IIT Hyderabad", logo: "/institute/iithyd.webp" },
+  { name: "CSIR-CLRI", logo: "/institute/csir-clri-logo.webp" },
   { name: "HiMedia Laboratories", logo: "/institute/HiMedia_Logo_-1.png" },
   { name: "Manipal University", logo: "/institute/Manipal_University_logo.png" },
   { name: "Govt. of Karnataka", logo: "/institute/the-karnataka-government-kannada-logo-png_seeklogo-407164.png" },
-  { name: "AIC-JITF", logo: "/institute/aic-jitf-logo.png" },
+  { name: "AIC-JITF", logo: "/institute/aic-jitf-logo.webp" },
 ];
 
 function Chip({ item }: { item: Item }) {

@@ -66,7 +66,7 @@ export const metadata: Metadata = {
       "Trivima bioprinters spanning extrusion, inkjet, pellet, non-planar rotary and light-based MSLA. Compare every model spec for spec. By NBIL.",
     images: [
       {
-        url: "/images/np-side.png",
+        url: "/images/np-side.webp",
         width: 1200,
         height: 630,
         alt: "The Trivima bioprinter range by Next Big Innovation Labs",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     title: "Trivima Bioprinters — The Full Range by NBIL",
     description:
       "The non-planar NP, the six-extruder Pro and the light-based Aura. Compare spec for spec.",
-    images: ["/images/np-side.png"],
+    images: ["/images/np-side.webp"],
   },
   alternates: {
     canonical: "https://nextbiginnovationlabs.com/trivima-bioprinter/",

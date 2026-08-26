@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Next Big Innovation Labs — Bioprinting for a Better Future",
     description:
       "We set out to print a better future, building 3D bioprinters and bioprinting software for research, regenerative medicine and bioengineered organs.",
-    images: [{ url: "/images/np-side.png", width: 1200, height: 630, alt: "Next Big Innovation Labs bioprinter" }],
+    images: [{ url: "/images/np-side.webp", width: 1200, height: 630, alt: "Next Big Innovation Labs bioprinter" }],
   },
 };
 

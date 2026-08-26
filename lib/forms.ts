@@ -35,6 +35,13 @@ export const FORMS: Record<FormId, FormDefinition> = {
 export type FormField = {
   label: string;
   value: string;
+  /** Tells the API route how to validate. Untyped fields are free text. */
+  type?: "email" | "phone";
+  /** ISO country code for `type: "phone"`, so the server can apply the same
+   *  per-country rule the client used. */
+  country?: string;
+  /** Whether an empty value should be rejected. */
+  required?: boolean;
 };
 
 export type FormSubmission = {

@@ -1,6 +1,7 @@
 "use client";
 
 import { CaretDown, CheckCircle, WarningCircle } from "@phosphor-icons/react";
+import { cn } from "@/lib/utils";
 
 /**
  * Shared form primitives. Every form on the site pulls its label and field
@@ -14,6 +15,34 @@ export const FIELD =
   "h-11 w-full rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)] px-3.5 text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] outline-none transition-colors focus:border-[var(--color-brand)] focus:ring-3 focus:ring-[var(--color-brand)]/15 disabled:opacity-60";
 
 export const TEXTAREA = `${FIELD} h-auto resize-y py-3 leading-relaxed`;
+
+/** Red border + focus ring for a field that failed validation. */
+export const FIELD_INVALID =
+  "border-red-400 focus:border-red-500 focus:ring-red-500/15";
+
+/**
+ * `FIELD`, switched to the invalid treatment when `error` is set. Uses `cn` so
+ * the red border actually replaces the default one — both are border-colour
+ * utilities, and plain concatenation would leave the winner up to stylesheet
+ * order rather than intent.
+ */
+export function fieldClass(error?: string, extra = "") {
+  return cn(FIELD, error && FIELD_INVALID, extra);
+}
+
+/** `TEXTAREA`, with the same invalid treatment. */
+export function textareaClass(error?: string, extra = "") {
+  return cn(TEXTAREA, error && FIELD_INVALID, extra);
+}
+
+/** Message shown directly beneath the field it belongs to. */
+export function FieldError({ id, message }: { id?: string; message: string }) {
+  return (
+    <p id={id} role="alert" className="text-[12.5px] leading-snug text-red-700">
+      {message}
+    </p>
+  );
+}
 
 /**
  * Off-screen decoy input. Bots fill every field they find; the API route drops

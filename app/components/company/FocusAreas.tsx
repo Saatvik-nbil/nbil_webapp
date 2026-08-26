@@ -112,7 +112,7 @@ export default function FocusAreas() {
                 className="pointer-events-none absolute inset-0 grid place-items-center will-change-transform"
               >
                 <Image
-                  src="/images/applications.png"
+                  src="/images/applications.webp"
                   alt="Tissue constructs and scaffolds bioprinted on Trivima 3D bioprinters"
                   width={637}
                   height={333}

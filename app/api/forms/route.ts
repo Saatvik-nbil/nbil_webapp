@@ -6,6 +6,7 @@ import {
   type FormField,
   type FormForwardPayload,
 } from "@/lib/forms";
+import { validateEmail, validatePhone } from "@/lib/validation";
 
 /**
  * Server-side proxy between the site's forms and the Google Apps Script web
@@ -50,20 +51,61 @@ function clientIp(req: Request) {
   return req.headers.get("x-real-ip") ?? "unknown";
 }
 
-function sanitizeFields(input: unknown): FormField[] | null {
-  if (!Array.isArray(input) || input.length === 0) return null;
-  if (input.length > LIMITS.maxFields) return null;
+type SanitizeResult =
+  | { ok: true; fields: FormField[] }
+  | { ok: false; error: string };
+
+function sanitizeFields(input: unknown): SanitizeResult {
+  if (!Array.isArray(input) || input.length === 0) {
+    return { ok: false, error: "Invalid form data." };
+  }
+  if (input.length > LIMITS.maxFields) {
+    return { ok: false, error: "Invalid form data." };
+  }
 
   const fields: FormField[] = [];
+
   for (const raw of input) {
-    if (typeof raw !== "object" || raw === null) return null;
-    const { label, value } = raw as Record<string, unknown>;
-    if (typeof label !== "string" || !label.trim()) return null;
-    if (typeof value !== "string") return null;
-    if (label.length > LIMITS.maxLabel || value.length > LIMITS.maxValue) return null;
-    fields.push({ label: label.trim(), value: value.trim() });
+    if (typeof raw !== "object" || raw === null) {
+      return { ok: false, error: "Invalid form data." };
+    }
+
+    const { label, value, type, country, required } = raw as Record<string, unknown>;
+
+    if (typeof label !== "string" || !label.trim()) {
+      return { ok: false, error: "Invalid form data." };
+    }
+    if (typeof value !== "string") {
+      return { ok: false, error: "Invalid form data." };
+    }
+    if (label.length > LIMITS.maxLabel || value.length > LIMITS.maxValue) {
+      return { ok: false, error: "Invalid form data." };
+    }
+
+    const trimmed = value.trim();
+    const isRequired = required === true;
+
+    // The browser already checked these; re-check here because a client-side
+    // validator is a courtesy to the user, not a guarantee to the server.
+    if (type === "email") {
+      const error = validateEmail(trimmed, { required: isRequired });
+      if (error) return { ok: false, error };
+    }
+
+    if (type === "phone") {
+      const iso = typeof country === "string" ? country : "";
+      const error = validatePhone(iso, trimmed, { required: isRequired });
+      if (error) return { ok: false, error };
+    }
+
+    if (isRequired && !trimmed) {
+      return { ok: false, error: `${label.trim()} is required.` };
+    }
+
+    fields.push({ label: label.trim(), value: trimmed });
   }
-  return fields;
+
+  return { ok: true, fields };
 }
 
 export async function POST(req: Request) {
@@ -101,10 +143,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Unknown form." }, { status: 400 });
   }
 
-  const cleanFields = sanitizeFields(fields);
-  if (!cleanFields) {
-    return NextResponse.json({ ok: false, error: "Invalid form data." }, { status: 400 });
+  const sanitized = sanitizeFields(fields);
+  if (!sanitized.ok) {
+    return NextResponse.json({ ok: false, error: sanitized.error }, { status: 400 });
   }
+  const cleanFields = sanitized.fields;
 
   const definition = FORMS[formId];
   const payload: FormForwardPayload = {

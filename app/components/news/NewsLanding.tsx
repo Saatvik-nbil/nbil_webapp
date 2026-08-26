@@ -12,21 +12,21 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 type Slot = { aspect: string; src: string; alt?: string };
 
 const ROW_TOP: Slot[] = [
-  { aspect: "4 / 5", src: "/events/1.JPG" },
-  { aspect: "16 / 10", src: "/events/2.jpg" },
-  { aspect: "3 / 4", src: "/events/3.jpg" },
-  { aspect: "4 / 3", src: "/events/4.jpg" },
-  { aspect: "5 / 6", src: "/events/5.JPG" },
-  { aspect: "16 / 9", src: "/events/6.JPG" },
+  { aspect: "4 / 5", src: "/events/1.webp" },
+  { aspect: "16 / 10", src: "/events/2.webp" },
+  { aspect: "3 / 4", src: "/events/3.webp" },
+  { aspect: "4 / 3", src: "/events/4.webp" },
+  { aspect: "5 / 6", src: "/events/5.webp" },
+  { aspect: "16 / 9", src: "/events/6.webp" },
 ];
 
 const ROW_BOTTOM: Slot[] = [
-  { aspect: "16 / 10", src: "/events/7.JPG" },
-  { aspect: "3 / 4", src: "/events/8.JPG" },
-  { aspect: "4 / 3", src: "/events/2.jpg" },
-  { aspect: "4 / 5", src: "/events/4.jpg" },
-  { aspect: "16 / 9", src: "/events/6.JPG" },
-  { aspect: "3 / 4", src: "/events/5.JPG" },
+  { aspect: "16 / 10", src: "/events/7.webp" },
+  { aspect: "3 / 4", src: "/events/8.webp" },
+  { aspect: "4 / 3", src: "/events/2.webp" },
+  { aspect: "4 / 5", src: "/events/4.webp" },
+  { aspect: "16 / 9", src: "/events/6.webp" },
+  { aspect: "3 / 4", src: "/events/5.webp" },
 ];
 
 /* ── YouTube — podcast features & talks (channel: @nextbiglearning6504) ── */
