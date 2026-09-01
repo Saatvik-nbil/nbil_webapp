@@ -3,6 +3,7 @@ import { Libre_Franklin } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollProgress from "@/app/components/ScrollProgress";
+import Analytics from "@/app/components/Analytics";
 import { GlassFilter, SoftGlassFilter } from "@/components/ui/liquid-glass";
 import { CoordinateCursor } from "@/components/ui/coordinate-cursor";
 import "./globals.css";
@@ -105,6 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GlassFilter />
         <SoftGlassFilter />
         <CoordinateCursor />
+        <Analytics />
         <SmoothScroll>
           <ScrollProgress />
           {children}

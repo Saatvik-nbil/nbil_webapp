@@ -27,7 +27,7 @@ export default function GuidesPage() {
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">
-              <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb]">
+              <p className="eyebrow text-[var(--color-dark-brand)]">
                 Guides
               </p>
               <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-white leading-[1.04]">
@@ -38,7 +38,7 @@ export default function GuidesPage() {
                 bioprinters and{" "}
                 <Link
                   href="/dhee-slicer"
-                  className="font-medium text-[#8fbdfb] underline underline-offset-4 hover:no-underline"
+                  className="font-medium text-[var(--color-dark-brand)] underline underline-offset-4 hover:no-underline"
                 >
                   Dhee
                 </Link>{" "}

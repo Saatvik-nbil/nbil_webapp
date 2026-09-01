@@ -118,9 +118,9 @@ export default function NavBar() {
                   // property, not `transform` — transition that, or it snaps.
                   // The transparent base shadow gives the glow something to
                   // interpolate from; filter:none is not animatable.
-                  "drop-shadow-[0_0_0_rgba(45,129,228,0)]",
+                  "drop-shadow-[0_0_0_rgba(37,114,253,0)]",
                   "transition-[scale,filter] duration-700 ease-in-out",
-                  "group-hover:scale-[1.05] group-hover:drop-shadow-[0_2px_12px_rgba(45,129,228,0.38)]",
+                  "group-hover:scale-[1.05] group-hover:drop-shadow-[0_2px_12px_rgba(37,114,253,0.38)]",
                   "group-active:scale-[0.985] group-active:duration-200",
                   "motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100",
                 ].join(" ")}

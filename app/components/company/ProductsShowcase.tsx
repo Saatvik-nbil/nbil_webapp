@@ -97,7 +97,7 @@ export default function ProductsShowcase() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between mb-12">
           <div className="flex flex-col gap-4 max-w-2xl">
-            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="eyebrow text-[var(--color-brand-strong)]">
               Our bioprinters
             </p>
             <h2

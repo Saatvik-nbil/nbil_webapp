@@ -21,12 +21,12 @@
   --color-hairline: #e2e8f0;         /* slate-200, structural borders */
   --color-hairline-subtle: #eef2f7;  /* section dividers */
 
-  /* Brand — electric blue (#2D81E4), single accent */
-  --color-brand: #2d81e4;            /* primary brand blue — fills, hero, CTA */
-  --color-brand-strong: #1763c9;     /* deeper blue for text/links on light (≥4.5:1) */
-  --color-brand-hover: #1f6fd0;      /* button hover */
-  --color-brand-surface: #e8f1fd;    /* tinted accent bg */
-  --color-brand-subtle: #f3f8fe;     /* faint hover tint */
+  /* Brand — electric blue (#2572FD), single accent */
+  --color-brand: #2572fd;            /* primary brand blue — fills, hero, CTA */
+  --color-brand-strong: #1d4ed8;     /* deeper blue for text/links on light (≥4.5:1) */
+  --color-brand-hover: #2563eb;      /* button hover */
+  --color-brand-surface: #e7effe;    /* tinted accent bg */
+  --color-brand-subtle: #f3f7fe;     /* faint hover tint */
 
   /* Dark surface (software / scroll sections) — deep navy */
   --color-dark-bg: #0a1422;
@@ -34,7 +34,7 @@
   --color-dark-ink: #e9f0f8;
   --color-dark-ink-muted: #9fb2c8;
   --color-dark-border: #1c2c40;
-  --color-dark-brand: #5ea2f5;       /* lighter blue for dark bg */
+  --color-dark-brand: #5b93fb;       /* lighter blue for dark bg */
 }
 
 /* ---- Base ---- */
@@ -96,6 +96,19 @@ p {
 /* Utility to hide scrollbar on horizontal scroll tracks */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Eyebrow / kicker labels ("secondary titles" above section headings,
+   e.g. "In good company", "Our mission") — Libre Franklin, not Geist Mono.
+   Mono stays reserved for technical spec/measurement data. Pair with a
+   color + spacing utility at the call site (text-[var(--color-brand-strong)],
+   mb-*, etc.) — this only sets the type treatment. ---- */
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 14px;
+}
 
 /* ---- Selection ---- */
 ::selection {
@@ -251,31 +264,31 @@ p {
   --card-foreground: #0c1626;
   --popover: #ffffff;
   --popover-foreground: #0c1626;
-  --primary: #2d81e4;               /* brand blue */
+  --primary: #2572fd;               /* brand blue */
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;             /* surface-raised */
   --secondary-foreground: #0c1626;
   --muted: #f1f5f9;
   --muted-foreground: #475569;      /* ink-muted */
-  --accent: #e8f1fd;                /* brand-surface */
-  --accent-foreground: #1763c9;     /* brand-strong */
+  --accent: #e7effe;                /* brand-surface */
+  --accent-foreground: #1d4ed8;     /* brand-strong */
   --destructive: #dc2626;
   --border: #e2e8f0;                /* hairline */
   --input: #e2e8f0;
-  --ring: #2d81e4;                  /* blue focus ring */
-  --chart-1: #2d81e4;
-  --chart-2: #1f6fd0;
-  --chart-3: #5ea2f5;
-  --chart-4: #1763c9;
-  --chart-5: #93c0f7;
+  --ring: #2572fd;                  /* blue focus ring */
+  --chart-1: #2572fd;
+  --chart-2: #2563eb;
+  --chart-3: #5b93fb;
+  --chart-4: #1d4ed8;
+  --chart-5: #90b5f9;
   --sidebar: #f8fafc;
   --sidebar-foreground: #0c1626;
-  --sidebar-primary: #2d81e4;
+  --sidebar-primary: #2572fd;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f1f5f9;
   --sidebar-accent-foreground: #0c1626;
   --sidebar-border: #e2e8f0;
-  --sidebar-ring: #2d81e4;
+  --sidebar-ring: #2572fd;
 }
 
 .dark {
@@ -285,31 +298,31 @@ p {
   --card-foreground: #e9f0f8;
   --popover: #0f1e30;
   --popover-foreground: #e9f0f8;
-  --primary: #5ea2f5;
+  --primary: #5b93fb;
   --primary-foreground: #0a1422;
   --secondary: #0f1e30;
   --secondary-foreground: #e9f0f8;
   --muted: #0f1e30;
   --muted-foreground: #9fb2c8;
   --accent: #1c2c40;
-  --accent-foreground: #bcd4f4;
+  --accent-foreground: #bcd0f5;
   --destructive: #dc2626;
   --border: #1c2c40;
   --input: #ffffff26;
-  --ring: #5ea2f5;
-  --chart-1: #5ea2f5;
-  --chart-2: #2d81e4;
-  --chart-3: #93c0f7;
-  --chart-4: #1f6fd0;
-  --chart-5: #1763c9;
+  --ring: #5b93fb;
+  --chart-1: #5b93fb;
+  --chart-2: #2572fd;
+  --chart-3: #90b5f9;
+  --chart-4: #2563eb;
+  --chart-5: #1d4ed8;
   --sidebar: #0f1e30;
   --sidebar-foreground: #e9f0f8;
-  --sidebar-primary: #5ea2f5;
+  --sidebar-primary: #5b93fb;
   --sidebar-primary-foreground: #0a1422;
   --sidebar-accent: #1c2c40;
   --sidebar-accent-foreground: #e9f0f8;
   --sidebar-border: #1c2c40;
-  --sidebar-ring: #5ea2f5;
+  --sidebar-ring: #5b93fb;
 }
 
 @layer base {

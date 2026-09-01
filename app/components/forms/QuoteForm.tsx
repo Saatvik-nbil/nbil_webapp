@@ -120,8 +120,8 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
   if (status === "success") {
     return (
       <FormSuccess
-        title="Request received"
-        body="Our team will get back to you within 2 business days with pricing and next steps."
+        title="Thanks, request received"
+        body="Someone from the NBIL team will follow up within 2 business days with pricing and next steps for your lab."
         onReset={reset}
         resetLabel="Send another request"
       />

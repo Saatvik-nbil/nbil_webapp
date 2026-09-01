@@ -1,55 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function CatalogHero() {
   const reduce = useReducedMotion();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [blurred, setBlurred] = useState(false); // freeze + blur on the end frame
   const [revealed, setRevealed] = useState(false); // overlay copy visible
 
-  // Orchestrate the intro: play once → blur end frame → pop the copy.
+  // The old video hero played once, then popped the copy on "ended". A static
+  // photo has no playback to wait on — reduced motion reveals instantly,
+  // otherwise a short beat lets the image settle before the copy pops in.
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
     if (reduce) {
-      video.pause();
       setRevealed(true);
       return;
     }
-
-    const onEnded = () => {
-      setBlurred(true);
-      setRevealed(true);
-    };
-    video.addEventListener("ended", onEnded);
-
-    // The clip may already have finished before hydration attached the listener.
-    if (video.ended) {
-      onEnded();
-    } else {
-      // If autoplay is blocked, don't trap the copy behind a clip that never plays.
-      video.play().catch(() => {
-        setRevealed(true);
-      });
-    }
-
-    // Safety net in case the 'ended' event never fires.
-    const fallback = setTimeout(() => setRevealed(true), 9000);
-
-    return () => {
-      video.removeEventListener("ended", onEnded);
-      clearTimeout(fallback);
-    };
+    const t = setTimeout(() => setRevealed(true), 350);
+    return () => clearTimeout(t);
   }, [reduce]);
 
-  // The copy mounts only after the intro clip finishes, so each line animates
+  // The copy mounts only once `revealed` flips true, so each line animates
   // from its initial state to visible on mount — a reliable staggered pop.
   const pop = (i: number) =>
     reduce
@@ -65,30 +41,38 @@ export default function CatalogHero() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[100svh] items-end overflow-hidden bg-[var(--color-dark-bg)]"
     >
-      {/* Background video, inset below the navbar so the two never overlap */}
-      <video
-        ref={videoRef}
-        className="absolute inset-x-0 bottom-0 top-[84px] object-cover sm:top-[92px]"
-        style={{
-          filter: blurred ? "blur(18px)" : "blur(0px)",
-          transform: blurred ? "scale(1.08)" : "scale(1)",
-          transformOrigin: "center top",
-          transition: "filter 900ms ease, transform 900ms ease",
-        }}
-        src="/images/explore.mp4"
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
+      {/* Background photo, inset below the navbar so the two never overlap.
+          Full-bleed, but never cropping the actual product shot: a blurred,
+          scaled-up copy fills every edge of the stage (so the section never
+          shows bare background), while the sharp copy on top sits at
+          object-contain — always the complete photo, all three machines,
+          whatever the viewport's aspect ratio. */}
+      <div className="absolute inset-x-0 bottom-0 top-[84px] sm:top-[92px]">
+        <Image
+          src="/images/trivima-lineup.jpg"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          sizes="100vw"
+          className="scale-110 object-cover object-center opacity-70 blur-3xl"
+        />
+        <Image
+          src="/images/trivima-lineup.jpg"
+          alt="The Trivima Pro, NP and Aura bioprinters lined up on a lab bench"
+          fill
+          priority
+          sizes="100vw"
+          className="object-contain"
+        />
+      </div>
 
-      {/* Solid dark cap keeps the strip behind the navbar black — as at the
-          start — even once the end frame blurs and scales up */}
+      {/* Solid dark cap keeps the strip behind the navbar black */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[84px] bg-[var(--color-dark-bg)] sm:h-[92px]"
       />
-      {/* Seam blend softens the video's top edge below the cap */}
+      {/* Seam blend softens the photo's top edge below the cap */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-[84px] z-[1] h-24 bg-gradient-to-b from-[var(--color-dark-bg)] to-transparent sm:top-[92px]"
@@ -99,11 +83,17 @@ export default function CatalogHero() {
         className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
       />
 
-      {/* Overlay copy */}
+      {/* Overlay copy — glass-blended over the photo, same treatment as the
+          consultancy hero's photo-backed copy panel. */}
       <div className="relative w-full">
         <div className="mx-auto max-w-7xl px-6 pb-16 pt-40 lg:pb-24">
           {revealed && (
-          <div className="flex max-w-[60ch] flex-col gap-6">
+          <LiquidGlass
+            tint="light"
+            distort={false}
+            className="max-w-[42rem] rounded-[2rem] border border-white/15 shadow-[0_24px_70px_rgba(2,8,20,0.45)]"
+          >
+          <div className="flex flex-col gap-6 p-8 sm:p-10 lg:p-12">
             <motion.h1
               id="hero-heading"
               {...pop(0)}
@@ -152,6 +142,7 @@ export default function CatalogHero() {
               <span>10 years of bioprinting in research labs</span>
             </motion.p>
           </div>
+          </LiquidGlass>
           )}
         </div>
       </div>

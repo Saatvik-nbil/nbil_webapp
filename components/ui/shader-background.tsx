@@ -39,8 +39,8 @@ const FRAGMENT_SRC = `
   const float minorLineFrequency = 1.0;
   const vec4 gridColor = vec4(0.5);
   const float scale = 5.0;
-  // --color-brand #2d81e4
-  const vec4 lineColor = vec4(0.176, 0.506, 0.894, 1.0);
+  // --color-brand #2572fd (37/255, 114/255, 253/255)
+  const vec4 lineColor = vec4(0.145, 0.447, 0.992, 1.0);
   const float minLineWidth = 0.01;
   const float maxLineWidth = 0.2;
   const float lineSpeed = 1.0 * overallSpeed;

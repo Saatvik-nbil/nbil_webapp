@@ -268,7 +268,7 @@ export default function DheeQuickStartPage() {
           <div className="mx-auto max-w-3xl px-6">
             <Link
               href="/guides"
-              className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)] transition-colors hover:text-[var(--color-ink)]"
+              className="eyebrow text-[var(--color-brand-strong)] transition-colors hover:text-[var(--color-ink)]"
             >
               &larr; Guides
             </Link>

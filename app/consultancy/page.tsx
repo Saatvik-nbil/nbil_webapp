@@ -12,7 +12,7 @@ import ConsultancyProcess from "@/app/components/consultancy/ConsultancyProcess"
 export const metadata: Metadata = {
   title: "Bioprinting Consultancy",
   description:
-    "3D bioprinting consultancy from Next Big Innovation Labs — get matched with a specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
+    "Bioprinting consultancy from Next Big Innovation Labs — get matched with a specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/consultancy" },
 };
 

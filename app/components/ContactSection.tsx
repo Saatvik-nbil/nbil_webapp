@@ -110,7 +110,7 @@ export default function ContactSection({ defaultModel }: { defaultModel?: string
             <QuoteForm defaultModel={defaultModel} />
 
             <p className="text-[11px] text-[var(--color-ink-faint)] text-center leading-relaxed">
-              We respond to all inquiries within 2 business days.
+              Expect a reply from our team within 2 business days.
             </p>
           </motion.div>
 

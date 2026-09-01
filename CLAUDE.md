@@ -58,7 +58,7 @@ Motion is layered and intentional — several libraries coexist by role:
 
 Tailwind v4 is **CSS-first**: there is no `tailwind.config.*`. Design tokens are declared as CSS custom properties in the `@theme` block of `app/globals.css` (`--color-brand`, `--color-ink`, `--color-canvas`, dark-surface tokens, fonts). Reference them as `var(--color-...)` / Tailwind `bg-[var(--color-brand)]`. To change the palette or type, edit `globals.css`.
 
-Current live design: **electric-blue accent `#2D81E4`** on a cool-slate neutral scale, **Libre Franklin** as the display + body face with **Geist Mono** reserved for technical spec data.
+Current live design: **electric-blue accent `#2572FD`** on a cool-slate neutral scale, **Libre Franklin** as the display + body face with **Geist Mono** reserved for technical spec data.
 
 > **Note:** `DESIGN.md` documents an earlier design direction (Outfit / Geist Sans fonts, a "Precision Teal" accent) that does **not** match the shipped implementation. Treat `globals.css` as the source of truth for tokens; `DESIGN.md` is still useful for its layout principles, motion values, and anti-patterns (banned centered heroes, em dashes, 3-equal-card grids, AI clichés, `h-screen`, etc.).
 

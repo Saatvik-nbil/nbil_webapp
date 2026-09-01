@@ -125,7 +125,7 @@ export default function CompanyHero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Copy — left, 7 cols */}
           <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
-            <p className="hero-fade inline-flex items-center gap-2 text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="hero-fade eyebrow inline-flex items-center gap-2 text-[var(--color-brand-strong)]">
               <CompanyName symbolClassName="text-[0.95em]" />
             </p>
 
@@ -150,7 +150,7 @@ export default function CompanyHero() {
             </h1>
 
             <p className="hero-fade text-[1.0625rem] lg:text-[1.15rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[52ch]">
-              Since 2016, we have built the 3D bioprinters and bioprinting software
+              Since 2016, we have built the bioprinters and bioprinting software
               researchers and clinicians rely on to model disease, develop drugs, and
               engineer living tissue. One mission, bioprinted one layer at a time.
             </p>

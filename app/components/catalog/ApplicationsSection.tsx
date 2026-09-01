@@ -226,14 +226,16 @@ export default function ApplicationsSection() {
         <div className="lg:col-span-8 flex flex-col gap-14">
           {APPLICATION_GROUPS.map(({ group, blurb, icon: Icon, hover, items }) => (
             <div key={group} className="flex flex-col">
-              <div className="group flex flex-col gap-1.5 pb-4">
-                <h3 className="flex items-center gap-2.5 text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
-                  <Icon
-                    size={20}
-                    weight="duotone"
-                    aria-hidden="true"
-                    className={`${ICON_MOTION} ${hover}`}
-                  />
+              <div className="group flex flex-col gap-2 pb-5">
+                <h3 className="flex items-center gap-3 font-display text-[1.375rem] lg:text-[1.5rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand-surface)]">
+                    <Icon
+                      size={20}
+                      weight="duotone"
+                      aria-hidden="true"
+                      className={`text-[var(--color-brand-strong)] ${ICON_MOTION} ${hover}`}
+                    />
+                  </span>
                   {group}
                 </h3>
                 <p className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[56ch]">

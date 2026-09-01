@@ -77,7 +77,7 @@ export default function ConsultancyHero() {
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
               <motion.p
                 {...rise(0)}
-                className="text-[14px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb] mb-6"
+                className="eyebrow text-[var(--color-dark-brand)] mb-6"
               >
                 Consultancy
               </motion.p>
@@ -86,7 +86,7 @@ export default function ConsultancyHero() {
                 id="consultancy-hero-heading"
                 className="font-display text-[clamp(2.4rem,5.5vw,4rem)] font-bold tracking-[-0.035em] text-white leading-[0.98]"
               >
-                3D Bioprinting
+                Bioprinting
                 <br />
                 Services
               </motion.h1>

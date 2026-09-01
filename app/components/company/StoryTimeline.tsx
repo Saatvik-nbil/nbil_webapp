@@ -51,7 +51,7 @@ export default function StoryTimeline() {
       className="relative bg-[var(--color-surface)] border-y border-[var(--color-hairline)] overflow-hidden py-20 lg:py-0 lg:min-h-[100dvh] lg:flex lg:flex-col lg:justify-center"
     >
       <div className="max-w-7xl mx-auto px-6 w-full mb-10 lg:mb-12">
-        <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)] mb-3">
+        <p className="eyebrow text-[var(--color-brand-strong)] mb-3">
           Our story
         </p>
         <h2
@@ -120,7 +120,7 @@ export default function StoryTimeline() {
           className="group relative shrink-0 lg:w-[26rem] rounded-2xl border border-[var(--color-brand)] bg-[var(--color-brand)] p-7 lg:p-9 flex flex-col justify-between gap-8 text-white transition-transform duration-300 ease-out hover:-translate-y-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
         >
           <div>
-            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-white/70 mb-4">
+            <p className="eyebrow text-white/70 mb-4">
               The full record
             </p>
             <h3 className="font-display text-[1.9rem] lg:text-[2.2rem] font-semibold tracking-[-0.025em] leading-[1.1]">

@@ -46,7 +46,7 @@ export default function ConsultancyProcess() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 right-[-6%] h-[420px] w-[420px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(closest-side, #2d81e4, transparent)" }}
+        style={{ background: "radial-gradient(closest-side, #2572fd, transparent)" }}
       />
 
       <div className="relative max-w-7xl mx-auto px-6">

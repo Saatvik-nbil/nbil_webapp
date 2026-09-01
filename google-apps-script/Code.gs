@@ -165,7 +165,7 @@ function syncHeaders(sheet, fields) {
 function formatHeaderRow(sheet, width) {
   var range = sheet.getRange(1, 1, 1, width);
   range.setFontWeight('bold');
-  range.setBackground('#e8f1fd');
+  range.setBackground('#e7effe');
   sheet.setFrozenRows(1);
 }
 
@@ -211,7 +211,7 @@ function sendNotification(payload, fields, meta, sheetName) {
   var html =
     '<div style="background:#f8fafc;padding:24px">' +
     '<div style="max-width:620px;margin:0 auto;background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden">' +
-    '<div style="background:#2d81e4;padding:18px 22px">' +
+    '<div style="background:#2572fd;padding:18px 22px">' +
     '<p style="margin:0;color:#fff;font:600 16px/1.3 system-ui,sans-serif">' +
     escapeHtml(payload.subject || 'New form submission') +
     '</p>' +

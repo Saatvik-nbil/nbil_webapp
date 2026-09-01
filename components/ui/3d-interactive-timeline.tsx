@@ -63,8 +63,8 @@ export interface Timeline3DProps {
 /** Half the width of a node, used to sit it exactly on the rail. */
 const RAIL_LEFT = "left-[1.125rem]";
 
-/** #2d81e4 — --color-brand, spelled out where a filter needs an alpha. */
-const BRAND_RGB = "45, 129, 228";
+/** #2572fd — --color-brand, spelled out where a filter needs an alpha. */
+const BRAND_RGB = "37, 114, 253";
 
 /* -------------------------------------------------------------------------
  * Connector

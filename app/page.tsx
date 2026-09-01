@@ -16,14 +16,14 @@ import { COMPANY } from "@/lib/machines";
 export const metadata: Metadata = {
   title: "Next Big Innovation Labs — Bioprinting for a Better Future",
   description:
-    "We build the 3D bioprinters and bioprinting software researchers and clinicians use to model disease, develop drugs, and engineer living tissue. Founded 2016 in Bengaluru. World Economic Forum Technology Pioneer 2023.",
+    "We build the bioprinters and bioprinting software researchers and clinicians use to model disease, develop drugs, and engineer living tissue. Founded 2016 in Bengaluru. World Economic Forum Technology Pioneer 2023.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/",
     title: "Next Big Innovation Labs — Bioprinting for a Better Future",
     description:
-      "We set out to print a better future, building 3D bioprinters and bioprinting software for research, regenerative medicine and bioengineered organs.",
+      "We set out to print a better future, building bioprinters and bioprinting software for research, regenerative medicine and bioengineered organs.",
     images: [{ url: "/images/np-side.webp", width: 1200, height: 630, alt: "Next Big Innovation Labs bioprinter" }],
   },
 };

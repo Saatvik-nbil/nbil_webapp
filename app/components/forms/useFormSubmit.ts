@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import type { FormField, FormId } from "@/lib/forms";
+import { captureInquirySubmitted } from "@/lib/analytics";
 
 export type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -39,6 +40,7 @@ export function useFormSubmit(formId: FormId) {
         }
 
         setStatus("success");
+        captureInquirySubmitted(formId);
         return true;
       } catch {
         setError("Network error. Please check your connection and try again.");

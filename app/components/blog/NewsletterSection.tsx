@@ -101,7 +101,7 @@ export default function NewsletterSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: (i % 3) * 0.06, duration: 0.5, ease: EASE }}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] shadow-[0_10px_30px_rgba(2,12,27,0.05)] transition-all duration-300 hover:border-[var(--color-brand)]/60 hover:shadow-[0_18px_50px_rgba(45,129,228,0.12)]"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] shadow-[0_10px_30px_rgba(2,12,27,0.05)] transition-all duration-300 hover:border-[var(--color-brand)]/60 hover:shadow-[0_18px_50px_rgba(37,114,253,0.12)]"
             >
               <div className="relative aspect-[16/9] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

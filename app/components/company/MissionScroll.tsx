@@ -60,7 +60,7 @@ export default function MissionScroll() {
       <div className="relative max-w-5xl mx-auto px-6">
         <p
           id="mission-heading"
-          className="text-[14px] font-mono uppercase tracking-[0.2em] text-[var(--color-dark-brand)] mb-8"
+          className="eyebrow text-[var(--color-dark-brand)] mb-8"
         >
           Our mission
         </p>

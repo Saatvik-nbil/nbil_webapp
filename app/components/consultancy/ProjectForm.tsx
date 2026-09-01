@@ -180,8 +180,8 @@ export default function ProjectForm() {
 
             {status === "success" ? (
               <FormSuccess
-                title="Request received"
-                body="Thanks for the detail. Our team will review your project and reply within 2 business days."
+                title="Thanks for the details"
+                body="We're reviewing your project now and will reach out within 2 business days to schedule your consultation."
                 onReset={reset}
                 resetLabel="Submit another project"
               />

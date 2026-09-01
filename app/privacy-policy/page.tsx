@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
         <article className="max-w-3xl mx-auto px-6 pt-32 pb-24">
           {/* Header */}
           <header className="mb-12 border-b border-[var(--color-hairline)] pb-10">
-            <p className="text-[14px] font-mono uppercase tracking-[0.14em] text-[var(--color-ink-faint)] mb-4">
+            <p className="eyebrow text-[var(--color-ink-faint)] mb-4">
               Legal
             </p>
             <h1 className="text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-[var(--color-ink)] leading-[1.05]">

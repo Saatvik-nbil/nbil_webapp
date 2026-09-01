@@ -29,7 +29,7 @@ export default function NewsletterPage() {
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col items-start gap-5 max-w-3xl">
-              <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[#8fbdfb]">
+              <p className="eyebrow text-[var(--color-dark-brand)]">
                 Newsletter
               </p>
               <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-white leading-[1.04]">

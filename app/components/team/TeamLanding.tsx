@@ -52,7 +52,7 @@ export default function TeamLanding() {
       >
         <motion.p
           {...rise(0)}
-          className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]"
+          className="eyebrow text-[var(--color-brand-strong)]"
         >
           Our team
         </motion.p>
@@ -136,7 +136,7 @@ export default function TeamLanding() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <motion.div {...rise(0)} className="flex flex-col gap-4">
-            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="eyebrow text-[var(--color-brand-strong)]">
               The team
             </p>
             <h2

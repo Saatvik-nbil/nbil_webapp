@@ -63,7 +63,7 @@ export default function OurStoryLanding() {
         <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.p
             {...rise(0)}
-            className="mb-3 font-mono text-[14px] uppercase tracking-[0.18em] text-[#8fbdfb]"
+            className="eyebrow mb-3 text-[var(--color-dark-brand)]"
           >
             Our story
           </motion.p>

@@ -18,7 +18,7 @@ const POINTS = [
   },
   {
     icon: TestTube,
-    text: "Selecting biomaterials tailored for your specific cell type or 3D model",
+    text: "Selecting biomaterials tailored for your specific cell type or tissue model",
   },
   {
     icon: Cube,
@@ -45,7 +45,7 @@ export default function ConsultationExpectations() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[420px] w-[720px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(closest-side, #2d81e4, transparent)" }}
+        style={{ background: "radial-gradient(closest-side, #2572fd, transparent)" }}
       />
 
       <div className="relative max-w-5xl mx-auto px-6">

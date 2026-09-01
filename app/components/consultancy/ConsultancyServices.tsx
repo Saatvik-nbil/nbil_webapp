@@ -62,7 +62,7 @@ const SERVICES: Service[] = [
     name: "Advisory Consultancy",
     icon: Lightbulb,
     description:
-      "Expert advice on 3D bioprinters, materials, protocols and workflows.",
+      "Expert advice on bioprinters, materials, protocols and workflows.",
     features: [
       "Hardware & printhead selection",
       "Protocol troubleshooting",
@@ -113,7 +113,7 @@ export default function ConsultancyServices() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center gap-4 max-w-2xl mx-auto mb-14 lg:mb-16">
-          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+          <p className="eyebrow text-[var(--color-brand-strong)]">
             How we can help
           </p>
           <h2
@@ -215,7 +215,7 @@ export default function ConsultancyServices() {
         <div className="mt-14 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-7 lg:p-9">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
-              <p className="text-[14px] font-mono uppercase tracking-[0.16em] text-[var(--color-brand-strong)]">
+              <p className="eyebrow text-[var(--color-brand-strong)]">
                 One ecosystem, end to end
               </p>
               <p className="text-[14.5px] text-[var(--color-ink-muted)] leading-relaxed max-w-[70ch]">

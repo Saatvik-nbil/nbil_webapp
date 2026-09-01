@@ -34,11 +34,11 @@ export default function CompanyConnect() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-[-6%] h-[420px] w-[420px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(closest-side, #2d81e4, transparent)" }}
+        style={{ background: "radial-gradient(closest-side, #2572fd, transparent)" }}
       />
       <div className="relative max-w-7xl mx-auto px-6">
         <motion.div {...rise(0)} className="flex flex-col gap-4 max-w-3xl mb-14">
-          <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-dark-brand)]">
+          <p className="eyebrow text-[var(--color-dark-brand)]">
             Get in touch
           </p>
           <h2

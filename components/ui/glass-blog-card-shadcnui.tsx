@@ -62,7 +62,7 @@ export function GlassBlogCard({
         href={href ?? "#"}
         {...externalAttrs}
         aria-label={title}
-        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/70 backdrop-blur-md shadow-[0_10px_30px_rgba(2,12,27,0.06)] transition-all duration-300 hover:border-[var(--color-brand)]/60 hover:shadow-[0_18px_50px_rgba(45,129,228,0.14)]"
+        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/70 backdrop-blur-md shadow-[0_10px_30px_rgba(2,12,27,0.06)] transition-all duration-300 hover:border-[var(--color-brand)]/60 hover:shadow-[0_18px_50px_rgba(37,114,253,0.14)]"
       >
         {/* Image Section */}
         <div className="relative aspect-[16/9] overflow-hidden">

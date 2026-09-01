@@ -113,7 +113,7 @@ export default function FocusAreas() {
               >
                 <Image
                   src="/images/applications.webp"
-                  alt="Tissue constructs and scaffolds bioprinted on Trivima 3D bioprinters"
+                  alt="Tissue constructs and scaffolds bioprinted on Trivima bioprinters"
                   width={637}
                   height={333}
                   className="w-[128%] max-w-none h-auto object-contain -translate-y-[14%] drop-shadow-[0_46px_60px_rgba(2,12,27,0.48)]"
@@ -127,7 +127,7 @@ export default function FocusAreas() {
         {/* Copy */}
         <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-7">
           <div className="flex flex-col gap-4">
-            <p className="text-[14px] font-mono uppercase tracking-[0.18em] text-[var(--color-brand-strong)]">
+            <p className="eyebrow text-[var(--color-brand-strong)]">
               What we enable
             </p>
             <h2

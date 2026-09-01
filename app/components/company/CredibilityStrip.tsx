@@ -8,7 +8,7 @@ type Fact = { value: number; suffix: string; unit?: string; label: string };
 const FACTS: Fact[] = [
   { value: 2016, suffix: "", label: "Founded in Bengaluru by engineers and biomedical scientists" },
   { value: 10, suffix: "+", unit: "years", label: "Designing and shipping research bioprinters" },
-  { value: 600, suffix: "+", label: "Researchers trained in 3D bioprinting through Next Big Learning" },
+  { value: 600, suffix: "+", label: "Researchers trained in bioprinting through Next Big Learning" },
   { value: 2023, suffix: "", label: "World Economic Forum Technology Pioneer" },
 ];
 
