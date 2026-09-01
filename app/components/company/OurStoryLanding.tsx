@@ -61,12 +61,6 @@ export default function OurStoryLanding() {
           fadeHeight="30%"
         />
         <div className="relative mx-auto w-full max-w-7xl px-6">
-          <motion.p
-            {...rise(0)}
-            className="eyebrow mb-3 text-[var(--color-dark-brand)]"
-          >
-            Our story
-          </motion.p>
           <motion.h1
             {...rise(0.06)}
             id="our-story-heading"

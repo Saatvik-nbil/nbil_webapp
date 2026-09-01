@@ -4,6 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import Analytics from "@/app/components/Analytics";
+import CookieConsent from "@/app/components/CookieConsent";
+import BackToTop from "@/app/components/BackToTop";
 import { GlassFilter, SoftGlassFilter } from "@/components/ui/liquid-glass";
 import { CoordinateCursor } from "@/components/ui/coordinate-cursor";
 import "./globals.css";
@@ -110,7 +112,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll>
           <ScrollProgress />
           {children}
+          <BackToTop />
         </SmoothScroll>
+        <CookieConsent />
       </body>
     </html>
   );

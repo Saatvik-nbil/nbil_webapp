@@ -50,12 +50,6 @@ export default function TeamLanding() {
         aria-labelledby="team-heading"
         className="relative mx-auto max-w-6xl px-6 pt-32 pb-16 lg:pt-40 lg:pb-24"
       >
-        <motion.p
-          {...rise(0)}
-          className="eyebrow text-[var(--color-brand-strong)]"
-        >
-          Our team
-        </motion.p>
         <motion.h1
           id="team-heading"
           {...rise(0.06)}
@@ -136,9 +130,6 @@ export default function TeamLanding() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <motion.div {...rise(0)} className="flex flex-col gap-4">
-            <p className="eyebrow text-[var(--color-brand-strong)]">
-              The team
-            </p>
             <h2
               id="wider-team-heading"
               className="max-w-[24ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"

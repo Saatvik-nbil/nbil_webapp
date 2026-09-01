@@ -20,9 +20,6 @@ export default function PrivacyPolicyPage() {
         <article className="max-w-3xl mx-auto px-6 pt-32 pb-24">
           {/* Header */}
           <header className="mb-12 border-b border-[var(--color-hairline)] pb-10">
-            <p className="eyebrow text-[var(--color-ink-faint)] mb-4">
-              Legal
-            </p>
             <h1 className="text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-[var(--color-ink)] leading-[1.05]">
               Privacy Policy
             </h1>
@@ -484,7 +481,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="Cookies">
+            <Section title="Cookies" id="cookies">
               <p>
                 Next Big Innovation Labs uses &ldquo;Cookies&rdquo; to identify the
                 areas of our website that you have visited. A Cookie is a small piece
@@ -796,13 +793,15 @@ function Term({ children }: { children: React.ReactNode }) {
 
 function Section({
   title,
+  id,
   children,
 }: {
   title: string;
+  id?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <section id={id} className={id ? "scroll-mt-24" : undefined}>
       <h2 className="text-[20px] font-semibold tracking-tight text-[var(--color-ink)] mb-3">
         {title}
       </h2>

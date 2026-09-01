@@ -45,10 +45,26 @@ function rateLimited(ip: string) {
   return recent.length > RATE_LIMIT.max;
 }
 
+/**
+ * Best-effort client IP for the throttle below. `X-Forwarded-For` can carry a
+ * chain of hops (`client, proxy1, proxy2, ...`); the entry that matters is the
+ * *last* one added by our own edge proxy, since anything to its left is
+ * whatever the connecting client chose to send and is trivially spoofable —
+ * keying the rate limit on the first entry would let an attacker rotate a
+ * fake value per request and bypass it entirely. `X-Real-IP`, when present,
+ * is set by the proxy itself and not attacker-controlled.
+ */
 function clientIp(req: Request) {
+  const realIp = req.headers.get("x-real-ip");
+  if (realIp) return realIp.trim();
+
   const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return req.headers.get("x-real-ip") ?? "unknown";
+  if (forwarded) {
+    const hops = forwarded.split(",").map((h) => h.trim()).filter(Boolean);
+    if (hops.length) return hops[hops.length - 1];
+  }
+
+  return "unknown";
 }
 
 type SanitizeResult =

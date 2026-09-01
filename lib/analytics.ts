@@ -7,7 +7,9 @@
  * heatmaps toggled in the PostHog project dashboard), and time-to-inquiry
  * (a landing timestamp compared against the moment a lead form succeeds).
  *
- * No-ops entirely when NEXT_PUBLIC_POSTHOG_KEY isn't set, so local dev
+ * Consent-gated: loads with `opt_out_capturing_by_default`, so nothing is
+ * sent until CookieConsent.tsx calls `setAnalyticsConsent(true)`. Also
+ * no-ops entirely when NEXT_PUBLIC_POSTHOG_KEY isn't set, so local dev
  * without a key never touches the network.
  */
 
@@ -33,9 +35,20 @@ export function initAnalytics() {
       // are masked in replays regardless of which form they show up in.
       maskInputOptions: { email: true, tel: true },
     },
+    // Holds all capture until the visitor accepts the cookie banner.
+    // PostHog remembers the decision itself (its own persisted flag), so
+    // CookieConsent.tsx only needs to call opt_in/opt_out once per choice.
+    opt_out_capturing_by_default: true,
   });
   initialized = true;
   markLanding();
+}
+
+/** Called by CookieConsent.tsx once the visitor accepts or rejects. */
+export function setAnalyticsConsent(granted: boolean) {
+  if (!initialized) return;
+  if (granted) posthog.opt_in_capturing();
+  else posthog.opt_out_capturing();
 }
 
 function markLanding() {

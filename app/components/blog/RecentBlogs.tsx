@@ -69,9 +69,6 @@ export default function RecentBlogs() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-4 max-w-2xl mb-10 lg:mb-14">
-          <p className="eyebrow text-[var(--color-brand-strong)]">
-            Recent blogs
-          </p>
           <h2
             id="recent-heading"
             className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"

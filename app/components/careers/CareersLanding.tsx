@@ -56,9 +56,6 @@ export default function CareersLanding() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-6 pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="flex flex-col gap-5 max-w-3xl">
-          <p className="eyebrow text-[var(--color-brand-strong)]">
-            Careers
-          </p>
           <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.04]">
             Build your career with NBIL
           </h1>
@@ -110,9 +107,6 @@ export default function CareersLanding() {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col gap-4 max-w-2xl mb-12 lg:mb-16">
-            <p className="eyebrow text-[var(--color-brand-strong)]">
-              Why join us?
-            </p>
             <h2
               id="why-join-heading"
               className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
@@ -160,9 +154,6 @@ export default function CareersLanding() {
         className="max-w-7xl mx-auto px-6 py-20 lg:py-28"
       >
         <div className="flex flex-col gap-4 max-w-2xl mb-10">
-          <p className="eyebrow text-[var(--color-brand-strong)]">
-            Openings at NBIL
-          </p>
           <h2
             id="openings-heading"
             className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"

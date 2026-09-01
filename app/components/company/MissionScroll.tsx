@@ -58,12 +58,10 @@ export default function MissionScroll() {
       />
 
       <div className="relative max-w-5xl mx-auto px-6">
-        <p
-          id="mission-heading"
-          className="eyebrow text-[var(--color-dark-brand)] mb-8"
-        >
-          Our mission
-        </p>
+        {/* Visually-hidden — the section's accessible name now that the
+            visible "Our mission" eyebrow is gone; nothing else in this
+            section carries a heading. */}
+        <span id="mission-heading" className="sr-only">Our mission</span>
         <p className="font-display font-semibold tracking-[-0.02em] leading-[1.22] text-[1.9rem] sm:text-[2.6rem] lg:text-[3.1rem] max-w-[20ch] sm:max-w-[24ch]">
           {words.map((w, i) => (
             <span

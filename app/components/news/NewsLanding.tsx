@@ -107,12 +107,6 @@ export default function NewsLanding() {
     <main id="main-content" className="bg-[var(--color-canvas)]">
       {/* ── Header ── */}
       <section className="mx-auto max-w-7xl px-6 pt-32 pb-10 lg:pt-40 lg:pb-14">
-        <motion.p
-          {...rise(0)}
-          className="eyebrow text-[var(--color-brand-strong)]"
-        >
-          News
-        </motion.p>
         <motion.h1
           {...rise(0.06)}
           className="mt-4 max-w-[18ch] font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)] sm:text-[3.25rem] lg:text-[3.75rem]"
@@ -150,10 +144,6 @@ export default function NewsLanding() {
             className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
           >
             <div className="flex flex-col gap-4">
-              <span className="eyebrow inline-flex items-center gap-2 text-[var(--color-brand-strong)]">
-                <YoutubeLogo size={18} weight="fill" />
-                Watch &amp; listen
-              </span>
               <h2
                 id="watch-heading"
                 className="max-w-[22ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"
@@ -216,10 +206,6 @@ export default function NewsLanding() {
             className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
           >
             <div className="flex flex-col gap-4">
-              <span className="eyebrow inline-flex items-center gap-2 text-[var(--color-brand-strong)]">
-                <LinkedinLogo size={16} weight="fill" />
-                Recent from NBIL
-              </span>
               <h2
                 id="recent-heading"
                 className="max-w-[20ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"

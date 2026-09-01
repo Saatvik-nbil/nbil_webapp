@@ -38,9 +38,6 @@ export default function CompanyConnect() {
       />
       <div className="relative max-w-7xl mx-auto px-6">
         <motion.div {...rise(0)} className="flex flex-col gap-4 max-w-3xl mb-14">
-          <p className="eyebrow text-[var(--color-dark-brand)]">
-            Get in touch
-          </p>
           <h2
             id="connect-heading"
             className="font-display text-[2.2rem] lg:text-[3.2rem] font-semibold tracking-[-0.025em] text-[var(--color-dark-ink)] leading-[1.08]"

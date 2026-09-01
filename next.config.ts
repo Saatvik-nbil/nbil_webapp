@@ -15,6 +15,29 @@ const nextConfig: NextConfig = {
     config.cache = false;
     return config;
   },
+  // Baseline hardening headers on every response. No inline CSP here yet —
+  // the animation stack (GSAP/Motion/inline JSON-LD `<script>` tags) hasn't
+  // been audited for nonce compatibility, so start with the headers that are
+  // safe to add without touching markup.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          // No legitimate reason for this site to be framed by another origin.
+          { key: "X-Frame-Options", value: "DENY" },
+          // Belt-and-braces alongside X-Frame-Options for browsers that honor CSP.
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

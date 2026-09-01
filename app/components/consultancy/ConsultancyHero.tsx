@@ -75,12 +75,6 @@ export default function ConsultancyHero() {
             className="rounded-[2rem] border border-white/15 shadow-[0_24px_70px_rgba(2,8,20,0.45)]"
           >
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
-              <motion.p
-                {...rise(0)}
-                className="eyebrow text-[var(--color-dark-brand)] mb-6"
-              >
-                Consultancy
-              </motion.p>
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"

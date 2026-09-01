@@ -85,9 +85,6 @@ export default function IntegrationHero() {
 
       <div className="relative">
         <div className="max-w-7xl mx-auto px-6 mb-12 lg:mb-14 flex flex-col gap-4 max-w-2xl">
-          <p className="eyebrow text-[var(--color-brand-strong)]">
-            In good company
-          </p>
           <h2
             id="recognition-heading"
             className="font-display text-[2rem] lg:text-[2.6rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"

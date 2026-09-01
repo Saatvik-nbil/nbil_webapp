@@ -195,9 +195,6 @@ export default function AnatomyScroll() {
     <section aria-labelledby="anatomy-heading" className="relative bg-[var(--color-surface)]">
       <div ref={pinRef} className="relative h-[100dvh] overflow-hidden flex flex-col">
         <div className="max-w-7xl mx-auto w-full px-6 pt-24 lg:pt-28 shrink-0">
-          <p className="eyebrow text-[var(--color-brand-strong)] mb-2">
-            Inside the NP
-          </p>
           <h2
             id="anatomy-heading"
             className="font-display text-[1.6rem] lg:text-[2.4rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.08] max-w-[22ch]"

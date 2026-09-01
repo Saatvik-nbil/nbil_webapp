@@ -127,9 +127,6 @@ export default function FocusAreas() {
         {/* Copy */}
         <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col gap-7">
           <div className="flex flex-col gap-4">
-            <p className="eyebrow text-[var(--color-brand-strong)]">
-              What we enable
-            </p>
             <h2
               id="focus-heading"
               className="font-display text-[2rem] lg:text-[2.6rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
