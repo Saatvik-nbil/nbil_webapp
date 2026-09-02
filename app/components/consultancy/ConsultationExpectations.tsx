@@ -8,6 +8,7 @@ import {
   Flask,
   GearSix,
 } from "@phosphor-icons/react";
+import ShaderBackground from "@/components/ui/shader-background";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -42,11 +43,10 @@ export default function ConsultationExpectations() {
       aria-labelledby="expect-heading"
       className="relative overflow-hidden bg-[var(--color-dark-bg)] py-24 lg:py-32"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[420px] w-[720px] rounded-full blur-3xl opacity-25"
-        style={{ background: "radial-gradient(closest-side, #2572fd, transparent)" }}
-      />
+      {/* Animated shader background — the same plasma waves used behind the
+          mission statement on the homepage. Held at 50% so the copy and
+          icons stay legible over it. */}
+      <ShaderBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-50" />
 
       <div className="relative max-w-5xl mx-auto px-6">
         <motion.div

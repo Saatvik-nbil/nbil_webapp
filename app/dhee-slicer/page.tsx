@@ -14,6 +14,14 @@ export const metadata: Metadata = {
       "One application for model preparation, slicing and machine control, built for bioprinting.",
     url: "https://nextbiginnovationlabs.com/dhee-slicer",
     type: "website",
+    images: [
+      {
+        url: "/dhee/machine.webp",
+        width: 1200,
+        height: 630,
+        alt: "Dhee Slicer's G-code visualization of a bioprinting toolpath",
+      },
+    ],
   },
 };
 

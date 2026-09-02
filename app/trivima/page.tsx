@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import NavBar from "@/app/components/NavBar";
 import CatalogHero from "@/app/components/catalog/CatalogHero";
+import InstallationsMap from "@/app/components/catalog/InstallationsMap";
 import ModelsSection from "@/app/components/catalog/ModelsSection";
 import CompareTable from "@/app/components/catalog/CompareTable";
 import ApplicationsSection from "@/app/components/catalog/ApplicationsSection";
@@ -15,6 +16,21 @@ export const metadata: Metadata = {
   description:
     "Explore the Trivima bioprinter range by NBIL: the non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and light-based (MSLA) bioprinters spec for spec.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/trivima-bioprinter/" },
+  openGraph: {
+    type: "website",
+    url: "https://nextbiginnovationlabs.com/trivima-bioprinter/",
+    title: "Trivima Bioprinters — The Full Range, Spec for Spec",
+    description:
+      "The non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and light-based (MSLA) bioprinters spec for spec.",
+    images: [
+      {
+        url: "/images/np-side.webp",
+        width: 1200,
+        height: 630,
+        alt: "The Trivima bioprinter range by Next Big Innovation Labs",
+      },
+    ],
+  },
 };
 
 /* ---- Structured data: ItemList of all products ---- */
@@ -46,11 +62,12 @@ export default function TrivimaCatalogPage() {
       <NavBar />
       <main id="main-content">
         <CatalogHero />
-        <ModelsSection />
-        <CompareTable />
-        <ApplicationsSection />
-        <CatalogSoftware />
+        <InstallationsMap />
         <TestimonialsSection />
+        <ApplicationsSection />
+        <CompareTable />
+        <ModelsSection />
+        <CatalogSoftware />
         <ContactSection />
       </main>
       <Footer />

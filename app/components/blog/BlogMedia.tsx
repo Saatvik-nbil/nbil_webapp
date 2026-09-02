@@ -51,7 +51,7 @@ export default function BlogMedia({
             strokeWidth={1.5}
             aria-hidden="true"
           />
-          <p className="text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
+          <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
             {label}
           </p>
         </div>

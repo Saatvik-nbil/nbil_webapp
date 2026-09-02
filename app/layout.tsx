@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Libre_Franklin } from "next/font/google";
-import { GeistMono } from "geist/font/mono";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import Analytics from "@/app/components/Analytics";
 import CookieConsent from "@/app/components/CookieConsent";
 import BackToTop from "@/app/components/BackToTop";
+import MobileStickyCTA from "@/app/components/MobileStickyCTA";
+import NBILBot from "@/app/components/chatbot/NBILBot";
 import { GlassFilter, SoftGlassFilter } from "@/components/ui/liquid-glass";
 import { CoordinateCursor } from "@/components/ui/coordinate-cursor";
 import "./globals.css";
@@ -101,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${libreFranklin.variable} ${GeistMono.variable}`}
+      className={libreFranklin.variable}
     >
       <body className="overflow-x-clip">
         {/* SVG filter defs for the liquid-glass surfaces (rendered once) */}
@@ -113,7 +114,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollProgress />
           {children}
           <BackToTop />
+          <MobileStickyCTA />
         </SmoothScroll>
+        <NBILBot />
         <CookieConsent />
       </body>
     </html>

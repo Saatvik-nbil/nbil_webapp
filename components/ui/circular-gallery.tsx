@@ -302,7 +302,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center">
-          <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-[var(--color-ink-faint)]">
+          <span className="text-[9px] uppercase tracking-[0.18em] text-[var(--color-ink-faint)]">
             Image
           </span>
         </div>

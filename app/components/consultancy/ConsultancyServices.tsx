@@ -8,11 +8,6 @@ import {
   Boxes,
   BadgeCheck,
   ArrowRight,
-  Cpu,
-  Package,
-  Beaker,
-  Users,
-  GraduationCap,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -84,15 +79,6 @@ const SERVICES: Service[] = [
     cta: "Contact us",
     highlighted: true,
   },
-];
-
-const ECOSYSTEM = [
-  { icon: Printer, label: "Trivima Bioprinter" },
-  { icon: Cpu, label: "DHEE software & support" },
-  { icon: Package, label: "Consumables — extruders, syringes" },
-  { icon: Beaker, label: "In-house bioinks — Pluronic & GelMA" },
-  { icon: Users, label: "Consulting" },
-  { icon: GraduationCap, label: "Microcourses" },
 ];
 
 const HighlightedBackground = () => (
@@ -206,30 +192,6 @@ export default function ConsultancyServices() {
               </motion.div>
             );
           })}
-        </div>
-
-        {/* Ecosystem strip */}
-        <div className="mt-14 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-7 lg:p-9">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-1.5">
-              <p className="text-[14.5px] text-[var(--color-ink-muted)] leading-relaxed max-w-[70ch]">
-                Everything you need to run a bioprinting programme — hardware,
-                software, consumables, materials, guidance and learning — from a
-                single team.
-              </p>
-            </div>
-            <ul className="flex flex-wrap gap-2.5">
-              {ECOSYSTEM.map(({ icon: Icon, label }) => (
-                <li
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] px-3.5 py-2 text-[13px] font-medium text-[var(--color-ink)]"
-                >
-                  <Icon className="size-4 text-[var(--color-brand-strong)]" />
-                  {label}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </section>

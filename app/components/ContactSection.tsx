@@ -74,7 +74,7 @@ export default function ContactSection({ defaultModel }: { defaultModel?: string
                     <Icon size={15} weight="duotone" className="text-[var(--color-brand)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)] mb-0.5">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] mb-0.5">
                       {label}
                     </p>
                     {href ? (

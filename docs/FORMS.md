@@ -28,6 +28,7 @@ for validation, the honeypot check, and rate limiting.
 | `app/components/forms/fields.tsx` | Shared field styles, honeypot, success/error UI |
 | `app/components/forms/QuoteForm.tsx` | Quote / demo form (in `ContactSection`) |
 | `app/components/consultancy/ProjectForm.tsx` | Consultation form |
+| `app/components/chatbot/NBILBot.tsx` | NBIL Assistant chat widget (nav helper + conversational lead form) |
 | `google-apps-script/Code.gs` | The script to paste into Apps Script |
 
 ## Current forms
@@ -36,6 +37,7 @@ for validation, the honeypot check, and rate limiting.
 | --- | --- | --- |
 | `quote` | `Quote Requests` | Home, `/trivima`, `/machines/[slug]` (via `ContactSection`) |
 | `consultation` | `Consultation Requests` | `/consultancy` |
+| `chatbot` | `Chatbot Leads` | Every page (via `NBILBot`, the bottom-right chat widget in the root layout) |
 
 ---
 

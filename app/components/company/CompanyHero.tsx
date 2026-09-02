@@ -198,7 +198,7 @@ export default function CompanyHero() {
 
       {/* Scroll cue */}
       <div className="hero-fade absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-[var(--color-ink-faint)]">
-        <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Scroll</span>
+        <span className="text-[11px] uppercase tracking-[0.16em]">Scroll</span>
         <ArrowDown size={16} weight="bold" className="animate-bounce" />
       </div>
     </section>

@@ -8,7 +8,7 @@
  * Apps Script change required.
  */
 
-export const FORM_IDS = ["quote", "consultation"] as const;
+export const FORM_IDS = ["quote", "consultation", "chatbot"] as const;
 
 export type FormId = (typeof FORM_IDS)[number];
 
@@ -28,6 +28,10 @@ export const FORMS: Record<FormId, FormDefinition> = {
   consultation: {
     sheet: "Consultation Requests",
     subject: "New consultation request",
+  },
+  chatbot: {
+    sheet: "Chatbot Leads",
+    subject: "New chatbot lead",
   },
 };
 

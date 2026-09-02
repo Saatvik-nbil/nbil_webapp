@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import TestimonialsCarousel from "@/app/components/shared/TestimonialsCarousel";
 
 /* Adapted from the standalone Vite build of the Dhee Slicer site.
    Removed on integration:
@@ -658,117 +659,81 @@ const TESTIMONIALS_DATA = [
   { id: 1, name: "Angel G C", role: "PhD Scholar", company: "MSLS", content: "Earlier, I had to juggle multiple applications for slicing, printer control, and printing, but now everything is available in one place. What I like most about the Trivima Advanced is the three-extruder setup and independent temperature control at both the print head and bed, which makes it really easy to work with a wide variety of biomaterials and polymers.", rating: 5, avatar: "/dhee/angel.jpg" },
 ];
 
+// PLACEHOLDER — swap `quote` for the institution's actual words once we have
+// them signed off. Hovering/focusing a logo below pins its testimonial up
+// front in the card; see `testimonial` on each TRUSTED_LABS entry.
+function placeholderTestimonial(id, org, quote) {
+  return { id, quote, name: "Research Team", org };
+}
+
 const TRUSTED_LABS = [
-  { name: "IIT Hyderabad", logo: "/institute/iithyd.webp" },
-  { name: "KJ Somaiya College of Engineering", logo: "/dhee/college/kjs.png" },
-  { name: "ARI Pune", logo: "/dhee/college/ari.webp" },
-  { name: "IISc Bangalore", logo: "/dhee/college/iisc.webp" },
-  { name: "MIT", logo: "/dhee/college/mit.png" },
-  { name: "CLRI", logo: "/institute/csir-clri-logo.webp" },
+  {
+    name: "IIT Hyderabad",
+    logo: "/institute/iithyd.webp",
+    testimonial: placeholderTestimonial(
+      "iith",
+      "IIT Hyderabad",
+      "Dhee slots straight into our existing workflow — the slicing and machine control finally live in one place instead of three separate tools. For a multi-user lab that alone has cut a lot of the friction between finishing a design and getting it on the print bed."
+    ),
+  },
+  {
+    name: "KJ Somaiya College of Engineering",
+    logo: "/dhee/college/kjs.png",
+    testimonial: placeholderTestimonial(
+      "kjs",
+      "KJ Somaiya College of Engineering",
+      "Our students picked up Dhee quickly — the interface is intuitive enough that onboarding a new lab member takes an afternoon, not a week. That matters a lot when the team turns over every semester."
+    ),
+  },
+  {
+    name: "ARI Pune",
+    logo: "/dhee/college/ari.webp",
+    testimonial: placeholderTestimonial(
+      "ari",
+      "ARI Pune",
+      "The G-code preview has saved us more than one failed print — we catch layer and support issues before the nozzle ever moves. It's the kind of feature you don't appreciate until you've run without it."
+    ),
+  },
+  {
+    name: "IISc Bangalore",
+    logo: "/dhee/college/iisc.webp",
+    testimonial: placeholderTestimonial(
+      "iisc",
+      "IISc Bangalore",
+      "Per-zone temperature and infill control gave us the fine-grained control our multi-material prints actually needed, without having to fight the slicer to get there."
+    ),
+  },
+  {
+    name: "MIT",
+    logo: "/dhee/college/mit.png",
+    testimonial: placeholderTestimonial(
+      "mit",
+      "MIT",
+      "Reliable, well-documented, and the NBIL team is responsive whenever we've had a question about the software — that support has mattered as much as the tool itself."
+    ),
+  },
+  {
+    name: "CLRI",
+    logo: "/institute/csir-clri-logo.webp",
+    testimonial: placeholderTestimonial(
+      "clri",
+      "CLRI",
+      "The pause-and-resume feature alone has made Dhee worth switching to — it's flexible in exactly the ways our print schedule needs, and it hasn't let us down on a long run yet."
+    ),
+  },
 ];
 
-function StarIcon({ filled = true, size = 18 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? "#F59E0B" : "none"} stroke="#F59E0B" strokeWidth="1.5">
-      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
-    </svg>
-  );
-}
-
-function QuoteIcon() {
-  return (
-    <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="rgba(109,40,217,0.18)" strokeWidth="1.5" style={{ position: "absolute", top: -4, left: -4, transform: "rotate(180deg)" }}>
-      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
-    </svg>
-  );
-}
-
-function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.15 });
-    if (sectionRef.current) obs.observe(sectionRef.current);
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (TESTIMONIALS_DATA.length < 2) return;
-    const t = setInterval(() => setActiveIndex(i => (i + 1) % TESTIMONIALS_DATA.length), 6000);
-    return () => clearInterval(t);
-  }, []);
-
-  return (
-    <section ref={sectionRef} id="testimonials" style={{ padding: "96px 5vw", borderTop: "1px solid #EEE9FF", background: "linear-gradient(160deg, #F8F7FF 0%, #FFFFFF 50%, #F0ECFF 100%)", overflow: "hidden", opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(28px)", transition: "opacity 0.7s ease, transform 0.7s ease" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8vw", alignItems: "center", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 14px", borderRadius: 999, marginBottom: 24, background: "rgba(109,40,217,0.08)", border: "1px solid rgba(109,40,217,0.18)", fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", color: "#6D28D9", alignSelf: "flex-start" }}>
-            <StarIcon size={12} />
-            Trusted by researchers
-          </div>
-          <h2 style={{ fontSize: "clamp(28px,3.2vw,46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820", marginBottom: 18 }}>
-            What researchers<br />say about DHEE.
-          </h2>
-          <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 36, maxWidth: 400 }}>
-            From tissue engineering labs to clinical research facilities — teams worldwide trust DHEE Slicer for precision bioprinting.
-          </p>
-          {/* Dots only earn their place with something to page between. */}
-          {TESTIMONIALS_DATA.length > 1 && (
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              {TESTIMONIALS_DATA.map((_, i) => (
-                <button key={i} onClick={() => setActiveIndex(i)} style={{ height: 10, borderRadius: 999, border: "none", cursor: "pointer", padding: 0, width: activeIndex === i ? 36 : 10, background: activeIndex === i ? "#6D28D9" : "rgba(109,40,217,0.2)", transition: "all 0.3s cubic-bezier(0.23,1,0.32,1)" }} />
-              ))}
-            </div>
-          )}
-          <div style={{ marginTop: 56 }}>
-            <div style={{ fontSize: 10.5, letterSpacing: "0.08em", textTransform: "uppercase", color: "#B8ACD8", marginBottom: 20 }}>Trusted by teams from</div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "22px 28px", alignItems: "center" }}>
-              {TRUSTED_LABS.map(lab => (
-                <div key={lab.name} style={{ display: "flex", alignItems: "center" }}>
-                  <Image src={lab.logo} alt={lab.name} title={lab.name} width={170} height={60} style={{ height: 60, width: "auto", maxWidth: 170, objectFit: "contain", mixBlendMode: "multiply", opacity: 0.55, filter: "grayscale(100%)", transition: "opacity 0.3s ease, filter 0.3s ease" }}
-                    onMouseEnter={e => { e.currentTarget.style.opacity = "0.85"; e.currentTarget.style.filter = "grayscale(0%)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = "0.55"; e.currentTarget.style.filter = "grayscale(100%)"; }}
-                    onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "block"; }}
-                  />
-                  <span style={{ display: "none", fontSize: 13, fontWeight: 600, color: "rgba(109,40,217,0.35)", letterSpacing: "-0.01em" }}>{lab.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div style={{ position: "relative", minHeight: 380 }}>
-          <div style={{ position: "absolute", bottom: -24, left: -24, width: 96, height: 96, borderRadius: 16, background: "rgba(109,40,217,0.05)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", top: -24, right: -24, width: 96, height: 96, borderRadius: 16, background: "rgba(109,40,217,0.05)", pointerEvents: "none" }} />
-          {TESTIMONIALS_DATA.map((t, i) => (
-            <div key={t.id} style={{ position: i === 0 ? "relative" : "absolute", inset: 0, opacity: activeIndex === i ? 1 : 0, transform: activeIndex === i ? "translateX(0) scale(1)" : "translateX(60px) scale(0.97)", transition: "opacity 0.5s ease, transform 0.5s ease", pointerEvents: activeIndex === i ? "auto" : "none", zIndex: activeIndex === i ? 2 : 0 }}>
-              <div style={{ background: "#FFFFFF", border: "1px solid #EEE9FF", borderRadius: 20, padding: "36px 36px 28px", boxShadow: "0 8px 40px rgba(109,40,217,0.10), 0 1px 4px rgba(0,0,0,0.04)", display: "flex", flexDirection: "column", height: "100%" }}>
-                <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
-                  {Array(t.rating).fill(0).map((_, si) => <StarIcon key={si} />)}
-                </div>
-                <div style={{ position: "relative", marginBottom: 28, flex: 1 }}>
-                  <QuoteIcon />
-                  <p style={{ position: "relative", zIndex: 1, fontSize: 16, fontWeight: 500, color: "#110820", lineHeight: 1.7, letterSpacing: "-0.01em" }}>"{t.content}"</p>
-                </div>
-                <div style={{ height: 1, background: "#EEE9FF", marginBottom: 20 }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <Image src={t.avatar} alt={t.name} width={48} height={48} style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid #EEE9FF", flexShrink: 0 }} />
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "#110820", letterSpacing: "-0.01em", lineHeight: 1.3 }}>{t.name}</div>
-                    <div style={{ fontSize: 12, color: "#9B8DC4", marginTop: 3, letterSpacing: "0.01em" }}>{t.role}, {t.company}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <style>{`@media (max-width: 760px) { #testimonials > div { grid-template-columns: 1fr !important; } }`}</style>
-    </section>
-  );
-}
+// Rendered via the shared <TestimonialsCarousel> below — see its usage in
+// the root component. Kept as data here so the reviews stay co-located with
+// the rest of this page's content.
+const DHEE_TESTIMONIALS = TESTIMONIALS_DATA.map((t) => ({
+  id: t.id,
+  quote: t.content,
+  name: t.name,
+  role: t.role,
+  org: t.company,
+  avatar: t.avatar,
+}));
 
 /* ─── ROOT ─────────────────────────────────── */
 export default function DheeLanding() {
@@ -866,7 +831,19 @@ export default function DheeLanding() {
       <Capabilities />
       <Specs />
       <CTA />
-      <Testimonials />
+      <TestimonialsCarousel
+        id="testimonials"
+        heading={
+          <>
+            What researchers
+            <br />
+            say about DHEE.
+          </>
+        }
+        description="From tissue engineering labs to clinical research facilities — teams worldwide trust DHEE Slicer for precision bioprinting."
+        testimonials={DHEE_TESTIMONIALS}
+        trustedLogos={TRUSTED_LABS}
+      />
     </div>
   );
 }

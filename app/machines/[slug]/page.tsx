@@ -143,7 +143,7 @@ export default async function MachinePage({
                 chip inside the card. */}
             <div className="flex flex-col gap-6 lg:pt-6">
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+                <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
                   <span>{machine.tier}</span>
                   <span aria-hidden="true">·</span>
                   <span>{machine.role}</span>
@@ -181,7 +181,7 @@ export default async function MachinePage({
                     <dd className="font-display text-[1.25rem] lg:text-[1.4rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-none whitespace-nowrap">
                       {s.value}
                       {s.unit ? (
-                        <span className="ml-1 text-[0.8rem] font-mono font-medium text-[var(--color-ink-muted)]">
+                        <span className="ml-1 text-[0.8rem] font-medium text-[var(--color-ink-muted)]">
                           {s.unit}
                         </span>
                       ) : null}
@@ -214,7 +214,7 @@ export default async function MachinePage({
                 </span>
                 <span>
                   <span className="text-[var(--color-ink-faint)]">File formats</span>{" "}
-                  <span className="font-mono text-[var(--color-ink)]">{fileFormats}</span>
+                  <span className="text-[var(--color-ink)]">{fileFormats}</span>
                 </span>
               </div>
             </div>
@@ -262,7 +262,7 @@ export default async function MachinePage({
                   delay={(i % 2) * 0.05}
                   className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 transition-colors hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)]"
                 >
-                  <span className="text-[11px] font-mono uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+                  <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
                     {s.label}
                   </span>
                   <span className="text-[15px] font-medium text-[var(--color-ink)] leading-snug">
@@ -331,7 +331,7 @@ export default async function MachinePage({
 
               {machine.fixtures && machine.fixtures.length > 0 && (
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-[13px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
+                  <h3 className="text-[13px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
                     Compatible bed fixtures
                   </h3>
                   <div className="flex flex-wrap gap-2.5">
@@ -402,7 +402,7 @@ export default async function MachinePage({
                             <div className="h-[70%] w-[70%] max-w-[240px] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none">
                               {diagram}
                             </div>
-                            <span className="absolute bottom-3 left-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+                            <span className="absolute bottom-3 left-3.5 text-[10px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
                               Schematic
                             </span>
                           </div>
@@ -414,7 +414,7 @@ export default async function MachinePage({
                               aria-hidden="true"
                               className={`${ICON_MOTION} group-hover:scale-125`}
                             />
-                            <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Image</span>
+                            <span className="text-[11px] uppercase tracking-[0.16em]">Image</span>
                             <span className="text-[11px]">coming soon</span>
                           </div>
                         )}

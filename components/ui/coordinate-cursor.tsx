@@ -7,6 +7,12 @@ import { useEffect, useRef, useState } from "react";
  * circle, a dot in its center, and a live readout of the current x / y
  * coordinates. Everything tracks the pointer exactly (no trailing / easing).
  * Renders nothing on touch devices, where there is no cursor to follow.
+ *
+ * Listens for a `nbil:cursor-merge` window event ({ detail: { active } }) so
+ * an interactive shape elsewhere on the page (e.g. a hovered state on the
+ * installations map) can hide this cursor for as long as the pointer sits
+ * over it — the shape's own outline takes over as the pointer feedback,
+ * rather than the two competing for attention.
  */
 export function CoordinateCursor() {
   const [enabled, setEnabled] = useState(false);
@@ -27,6 +33,7 @@ export function CoordinateCursor() {
     let x = 0;
     let y = 0;
     let shown = false;
+    let merged = false;
 
     const render = () => {
       raf = 0;
@@ -50,17 +57,23 @@ export function CoordinateCursor() {
     const move = (e: PointerEvent) => {
       x = e.clientX;
       y = e.clientY;
-      show(true);
+      if (!merged) show(true);
       if (!raf) raf = requestAnimationFrame(render);
     };
     const leave = () => show(false);
+    const merge = (e: Event) => {
+      merged = Boolean((e as CustomEvent<{ active: boolean }>).detail?.active);
+      if (merged) show(false);
+    };
 
     window.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("mouseleave", leave);
+    window.addEventListener("nbil:cursor-merge", merge);
 
     return () => {
       window.removeEventListener("pointermove", move);
       document.removeEventListener("mouseleave", leave);
+      window.removeEventListener("nbil:cursor-merge", merge);
       root.classList.remove("custom-cursor-active");
       if (raf) cancelAnimationFrame(raf);
     };
@@ -84,7 +97,7 @@ export function CoordinateCursor() {
       <div ref={labelRef} className="fixed left-0 top-0">
         <span
           ref={textRef}
-          className="absolute left-5 top-5 whitespace-nowrap rounded-md border border-white/15 bg-[#081235] px-2 py-1 font-mono text-[11px] tracking-tight text-white shadow-lg"
+          className="absolute left-5 top-5 whitespace-nowrap rounded-md border border-white/15 bg-[#081235] px-2 py-1 text-[11px] tracking-tight text-white shadow-lg"
         />
       </div>
     </div>

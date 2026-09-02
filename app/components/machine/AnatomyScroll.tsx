@@ -271,7 +271,7 @@ export default function AnatomyScroll() {
                         }}
                       >
                         <span
-                          className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.12em]"
+                          className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em]"
                           style={{ color: accent }}
                         >
                           {s.title}
@@ -288,7 +288,7 @@ export default function AnatomyScroll() {
         </div>
 
         <div className="shrink-0 pb-6 flex justify-center">
-          <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+          <span className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
             {reduced ? "The parts, in order" : "Keep scrolling"}
           </span>
         </div>
@@ -303,7 +303,7 @@ export default function AnatomyScroll() {
               key={s.title}
               className="flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5"
             >
-              <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+              <span className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
                 {s.title}
               </span>
               <span className="text-[13.5px] text-[var(--color-ink-muted)] leading-snug">{s.value}</span>

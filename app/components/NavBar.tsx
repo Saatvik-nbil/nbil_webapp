@@ -33,11 +33,8 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "Resources",
     children: [
-      { label: "Blog", href: "/blogs" },
+      { label: "Next Big Blogs", href: "/blogs" },
       { label: "Newsletter", href: "/newsletter" },
-      { label: "Microcourses", comingSoon: true },
-      { label: "Guides", href: "/guides" },
-      { label: "Brochure", comingSoon: true },
     ],
   },
   {

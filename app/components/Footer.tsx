@@ -11,6 +11,7 @@ const QUICK_LINKS = [
   { label: "Blogs", href: "/blogs" },
   { label: "Careers", href: "/careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Service", href: "/terms" },
 ];
 
 const RESOURCES = [
@@ -31,7 +32,8 @@ const Footer: FC = () => (
     role="contentinfo"
     className="border-t border-[var(--color-hairline)] bg-[var(--color-surface)]"
   >
-    <div className="max-w-7xl mx-auto px-6 pt-12 pb-8 lg:pt-14">
+    {/* pb-24 clears MobileStickyCTA, which is fixed to the bottom on phones. */}
+    <div className="max-w-7xl mx-auto px-6 pt-12 pb-24 sm:pb-8 lg:pt-14">
       {/* Main content: three equal columns —
           Quick Links · Resources · brand + Follow Us */}
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-12">
@@ -85,20 +87,28 @@ const Footer: FC = () => (
 
       {/* Bottom bar */}
       <div className="mt-14 pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
+        <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
           Copyright &copy;{new Date().getFullYear()} {COMPANY.short} — All rights reserved
         </p>
-        <Link
-          href="/privacy-policy"
-          className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
-        >
-          Privacy Policy
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/privacy-policy"
+            className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms"
+            className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
+          >
+            Terms of Service
+          </Link>
+        </div>
         <a
           href={COMPANY.site}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
+          className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
         >
           <CompanyName />
         </a>

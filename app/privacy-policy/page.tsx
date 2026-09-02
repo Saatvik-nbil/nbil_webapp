@@ -8,6 +8,21 @@ export const metadata: Metadata = {
     "How Next Big Innovation Labs collects, uses, stores, and discloses your personal information across our website, subdomains, and application.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/privacy-policy" },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: "https://nextbiginnovationlabs.com/privacy-policy",
+    title: "Privacy Policy — Next Big Innovation Labs",
+    description:
+      "How Next Big Innovation Labs collects, uses, stores, and discloses your personal information across our website, subdomains, and application.",
+    images: [
+      {
+        url: "/images/np-side.webp",
+        width: 1200,
+        height: 630,
+        alt: "Next Big Innovation Labs bioprinter",
+      },
+    ],
+  },
 };
 
 const EFFECTIVE_DATE = "September 7, 2023";

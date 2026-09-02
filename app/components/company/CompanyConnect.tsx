@@ -127,7 +127,7 @@ export default function CompanyConnect() {
             <div key={label} className="flex items-start gap-3">
               <Icon size={18} weight="duotone" className="mt-0.5 shrink-0 text-[var(--color-dark-brand)]" aria-hidden="true" />
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#6f87a3]">{label}</span>
+                <span className="text-[11px] uppercase tracking-[0.12em] text-[#6f87a3]">{label}</span>
                 {href ? (
                   <a href={href} className="text-[14px] text-[var(--color-dark-ink)] hover:text-[var(--color-dark-brand)] transition-colors leading-relaxed">
                     {value}

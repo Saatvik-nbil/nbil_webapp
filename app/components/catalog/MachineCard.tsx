@@ -13,7 +13,7 @@ function StatRow({ stats }: { stats: Machine["stats"] }) {
     <dl className="grid grid-cols-2 gap-x-5 gap-y-3">
       {stats.map((s) => (
         <div key={s.label} className="flex flex-col gap-0.5">
-          <dd className="font-mono text-[15px] font-medium text-[var(--color-ink)] leading-none">
+          <dd className="text-[15px] font-medium text-[var(--color-ink)] leading-none">
             {s.value}
             {s.unit ? (
               <span className="ml-0.5 text-[12px] text-[var(--color-ink-muted)]">{s.unit}</span>
@@ -58,7 +58,7 @@ export function FeatureCard({ machine, index }: { machine: Machine; index: numbe
         {/* Content */}
         <div className="flex flex-col gap-5 p-7 lg:p-8">
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
+            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
               <span>{machine.tier}</span>
             </div>
             <h3 className="font-display text-[1.6rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-tight">

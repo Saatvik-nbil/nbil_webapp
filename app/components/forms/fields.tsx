@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  */
 
 export const LABEL =
-  "text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)]";
+  "text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]";
 
 export const FIELD =
   "h-11 w-full rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)] px-3.5 text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-faint)] outline-none transition-colors focus:border-[var(--color-brand)] focus:ring-3 focus:ring-[var(--color-brand)]/15 disabled:opacity-60";

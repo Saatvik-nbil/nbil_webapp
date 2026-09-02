@@ -66,7 +66,7 @@ export default function CredibilityStrip() {
               four-column layout, where cell 3 is mid-row, not row-start. */}
           {FACTS.map((f) => (
             <div key={f.label} className="flex flex-col gap-2 px-2 py-8 lg:px-8 lg:py-10 max-lg:[&:nth-child(odd)]:pl-0 lg:first:pl-0">
-              <dd className="font-mono text-[1.9rem] lg:text-[2.4rem] font-medium tracking-tight text-[var(--color-ink)] leading-none tabular-nums">
+              <dd className="text-[1.9rem] lg:text-[2.4rem] font-medium tracking-tight text-[var(--color-ink)] leading-none tabular-nums">
                 <CountUp value={f.value} suffix={f.suffix} unit={f.unit} />
               </dd>
               <dt className="text-[13px] text-[var(--color-ink-muted)] leading-relaxed max-w-[26ch]">

@@ -23,6 +23,14 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     publishedTime: PUBLISHED,
+    images: [
+      {
+        url: "/images/blog/dhee-quick-start-cover.svg",
+        width: 1200,
+        height: 630,
+        alt: "Dhee Slicer quick-start guide cover",
+      },
+    ],
   },
 };
 
@@ -209,7 +217,7 @@ function RichText({ text }: { text: string }) {
           return (
             <code
               key={i}
-              className="rounded-md bg-[var(--color-surface-raised)] px-1.5 py-0.5 font-mono text-[0.9em] text-[var(--color-ink)]"
+              className="rounded-md bg-[var(--color-surface-raised)] px-1.5 py-0.5 text-[0.9em] text-[var(--color-ink)]"
             >
               {part.slice(1, -1)}
             </code>
@@ -231,7 +239,7 @@ function Callout({ type, text }: { type: "check" | "important"; text: string }) 
           : "border-[#c7992d] bg-[#fff8e8] text-[#5f4a17]"
       }`}
     >
-      <span className="mr-1.5 text-[11px] font-mono uppercase tracking-[0.14em]">
+      <span className="mr-1.5 text-[11px] uppercase tracking-[0.14em]">
         {isCheck ? "Check" : "Important"}
       </span>
       {text}
@@ -267,10 +275,10 @@ export default function DheeQuickStartPage() {
         <header className="pt-32 pb-12 lg:pt-40 lg:pb-16">
           <div className="mx-auto max-w-3xl px-6">
             <Link
-              href="/guides"
+              href="/blogs"
               className="eyebrow text-[var(--color-brand-strong)] transition-colors hover:text-[var(--color-ink)]"
             >
-              &larr; Guides
+              &larr; Next Big Blogs
             </Link>
             <h1 className="mt-6 font-display text-[clamp(2.1rem,5.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)]">
               {TITLE}
@@ -312,7 +320,7 @@ export default function DheeQuickStartPage() {
               ))}
             </ul>
             <p className="mt-5 rounded-xl border-l-[3px] border-[var(--color-brand)] bg-[var(--color-brand-surface)] px-4 py-3 text-[14px] leading-relaxed text-[var(--color-ink)]">
-              <span className="mr-1.5 text-[11px] font-mono uppercase tracking-[0.14em]">
+              <span className="mr-1.5 text-[11px] uppercase tracking-[0.14em]">
                 Recommended
               </span>
               Use the default NBIL profile for your first slice, then adjust once

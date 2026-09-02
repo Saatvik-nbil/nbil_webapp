@@ -83,7 +83,7 @@ export default function CompareTable() {
               <tr>
                 <th
                   scope="col"
-                  className="sticky left-0 z-10 bg-[var(--color-surface)] px-5 py-5 align-bottom text-[12px] font-mono uppercase tracking-[0.12em] text-[var(--color-ink-faint)] border-b border-[var(--color-hairline)]"
+                  className="sticky left-0 z-10 bg-[var(--color-surface)] px-5 py-5 align-bottom text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] border-b border-[var(--color-hairline)]"
                 >
                   Specification
                 </th>

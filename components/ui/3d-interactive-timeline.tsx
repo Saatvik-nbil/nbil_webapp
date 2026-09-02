@@ -245,7 +245,7 @@ const TimelineCard = React.memo(function TimelineCard({
       >
         <span
           className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-full border-4 border-[var(--color-canvas)] bg-[var(--color-brand)] font-mono text-[11px] font-medium text-white transition-shadow duration-300",
+            "flex h-9 w-9 items-center justify-center rounded-full border-4 border-[var(--color-canvas)] bg-[var(--color-brand)] text-[11px] font-medium text-white transition-shadow duration-300",
             active
               ? "shadow-[0_0_0_6px_var(--color-brand-surface)]"
               : "shadow-[0_0_0_0_var(--color-brand-surface)]"
@@ -283,7 +283,7 @@ const TimelineCard = React.memo(function TimelineCard({
                 />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.16em]">
+                  <span className="text-[11px] uppercase tracking-[0.16em]">
                     Photo
                   </span>
                   <span className="text-[11px]">coming soon</span>
@@ -291,7 +291,7 @@ const TimelineCard = React.memo(function TimelineCard({
               )}
 
               {event.category && (
-                <span className="absolute right-3 top-3 rounded-full bg-[var(--color-brand-surface)] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+                <span className="absolute right-3 top-3 rounded-full bg-[var(--color-brand-surface)] px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
                   {event.category}
                 </span>
               )}
@@ -300,10 +300,10 @@ const TimelineCard = React.memo(function TimelineCard({
 
           <div className="p-6 lg:p-7">
             <div className="mb-3 flex items-baseline gap-3">
-              <span className="font-mono text-[1.75rem] font-medium leading-none tracking-tight text-[var(--color-brand)]">
+              <span className="text-[1.75rem] font-medium leading-none tracking-tight text-[var(--color-brand)]">
                 {event.date}
               </span>
-              <span className="font-mono text-[11px] text-[var(--color-ink-faint)]">
+              <span className="text-[11px] text-[var(--color-ink-faint)]">
                 {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
               </span>
             </div>

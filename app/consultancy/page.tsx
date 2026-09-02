@@ -14,6 +14,21 @@ export const metadata: Metadata = {
   description:
     "Bioprinting consultancy from Next Big Innovation Labs — get matched with a specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/consultancy" },
+  openGraph: {
+    type: "website",
+    url: "https://nextbiginnovationlabs.com/consultancy",
+    title: "Bioprinting Consultancy — Next Big Innovation Labs",
+    description:
+      "Get matched with a bioprinting specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
+    images: [
+      {
+        url: "/images/np-side.webp",
+        width: 1200,
+        height: 630,
+        alt: "Next Big Innovation Labs bioprinter",
+      },
+    ],
+  },
 };
 
 export default function ConsultancyPage() {

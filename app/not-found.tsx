@@ -33,7 +33,7 @@ export default function NotFound() {
             </span>
 
             <div className="flex flex-col gap-3">
-              <p className="font-mono text-[13px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
+              <p className="font-display text-[clamp(4.5rem,14vw,8rem)] font-bold leading-none tracking-[-0.03em] text-[var(--color-brand)]">
                 404
               </p>
               <h1 className="font-display text-[2.25rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] sm:text-[2.75rem]">

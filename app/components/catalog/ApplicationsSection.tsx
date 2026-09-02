@@ -261,7 +261,7 @@ export default function ApplicationsSection() {
                         {app.body}
                       </dd>
                     </div>
-                    <span className="font-mono text-[12px] text-[var(--color-brand-strong)] sm:text-right sm:pt-1 whitespace-nowrap">
+                    <span className="text-[12px] text-[var(--color-brand-strong)] sm:text-right sm:pt-1 whitespace-nowrap">
                       {app.models}
                     </span>
                   </motion.div>

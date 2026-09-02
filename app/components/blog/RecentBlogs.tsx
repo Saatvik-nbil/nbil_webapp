@@ -58,6 +58,66 @@ const POSTS: Post[] = [
     date: "Apr 22, 2024",
     tags: ["Guide"],
   },
+  {
+    title: "Bioprinting 101: Troubleshooting Common Challenges and Solutions",
+    excerpt:
+      "Practical fixes for the most common bioprinting problems — from needle collisions and air bubbles to cell viability and scaffold integrity.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/04/Troubleshooting-Common-Bioprinting-Challenges-and-Solutions.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/bioprinting-101-troubleshooting-common-challenges-and-solutions/",
+    date: "Apr 15, 2024",
+    tags: ["Troubleshooting"],
+  },
+  {
+    title: "Trivima Mini and Prime Minister Modi",
+    excerpt:
+      "How Next Big Innovation Labs' Trivima Mini bioprinter was showcased to Prime Minister Narendra Modi at India's National Technology Week.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/03/Bioprinting-in-Space-Bioprinting-in-Zero-G-2.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/trivima-mini-and-prime-minister-modi/",
+    date: "Mar 21, 2024",
+    tags: ["News"],
+  },
+  {
+    title: "Bioprinting in Space: Bioprinting in Zero G",
+    excerpt:
+      "Exploring how bioprinting operates in microgravity, and the collaborations shaping tissue engineering beyond Earth.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/03/Bioprinting-in-Space-Bioprinting-in-Zero-G.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/bioprinting-in-space-zero-g/",
+    date: "Mar 11, 2024",
+    tags: ["Research"],
+  },
+  {
+    title: "Biomaterials for Bioprinting: Top 5 Materials!",
+    excerpt:
+      "Five biomaterials reshaping tissue engineering, from GelMA and sodium alginate to collagen and Pluronic F127.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/03/Biomaterials-for-Bioprinting-TOP-5-MATERIALS-.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/biomaterials-for-bioprinting-top-5-materials/",
+    date: "Mar 11, 2024",
+    tags: ["Biomaterials"],
+  },
+  {
+    title: "3D Printing or Bioprinting? Navigating the Difference",
+    excerpt:
+      "How bioprinting builds on conventional 3D printing by using living cells and biocompatible materials to create functional tissue.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/02/3D-Printing-or-3D-Bioprinting-by-NBIL.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/3d-printing-or-bioprinting-navigating-the-difference/",
+    date: "Feb 7, 2024",
+    tags: ["Guide"],
+  },
+  {
+    title: "Bioinks: The Secret Sauce of Bioprinting, for Building Your Tissues",
+    excerpt:
+      "Why bioinks — the formulated blend of cells, biomaterials and nutrients — sit at the heart of every successful bioprint.",
+    image:
+      "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2023/11/Bioink-Next-Big-Innovation-Labs.png?fit=1200%2C628&ssl=1",
+    href: "https://nextbiginnovationlabs.com/bioinks-the-secret-sauce-of-bioprinting-for-building-your-tissues/",
+    date: "Nov 20, 2023",
+    tags: ["Bioinks"],
+  },
 ];
 
 export default function RecentBlogs() {

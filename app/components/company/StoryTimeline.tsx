@@ -87,17 +87,17 @@ export default function StoryTimeline() {
                   />
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
-                    <span className="text-[11px] font-mono uppercase tracking-[0.16em]">Photo</span>
+                    <span className="text-[11px] uppercase tracking-[0.16em]">Photo</span>
                     <span className="text-[11px]">coming soon</span>
                   </div>
                 )}
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[2rem] lg:text-[2.6rem] font-medium tracking-tight text-[var(--color-brand)] leading-none">
+              <span className="text-[2rem] lg:text-[2.6rem] font-medium tracking-tight text-[var(--color-brand)] leading-none">
                 {m.year}
               </span>
-              <span className="text-[12px] font-mono text-[var(--color-ink-faint)]">
+              <span className="text-[12px] text-[var(--color-ink-faint)]">
                 {String(i + 1).padStart(2, "0")} / {String(MILESTONES.length).padStart(2, "0")}
               </span>
             </div>
