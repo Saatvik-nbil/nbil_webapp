@@ -7,7 +7,9 @@
  * and describes the machine in its own methods section. Nothing is inferred.
  *
  * `thumb` is a render of the paper's own first page, generated from the PDF.
- * `url` is the DOI, which is the stable link to the published version.
+ * `url` is the DOI, which is the stable link to the published version and the
+ * only link the page offers: papers are read at the publisher, not as PDFs
+ * served from here.
  */
 
 export type Publication = {
@@ -30,7 +32,8 @@ export type Publication = {
   topics: string[];
   /** First-page render, in public/publications/thumbs. */
   thumb: string;
-  /** The PDF itself, in public/publications. */
+  /** Where the record came from. Provenance only: the site links readers to
+   *  the publisher, never to a PDF of the paper. */
   pdf: string;
 };
 

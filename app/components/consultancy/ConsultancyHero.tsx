@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Star, ArrowRight, CalendarCheck } from "@phosphor-icons/react";
+import { ArrowRight, CalendarCheck } from "@phosphor-icons/react";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { OriginButton } from "@/components/ui/origin-button";
 
@@ -106,22 +106,6 @@ export default function ConsultancyHero() {
                 </OriginButton>
               </motion.div>
 
-              {/* Trust line, folded into the same glass panel */}
-              <motion.div
-                {...rise(0.3)}
-                className="mt-8 flex items-center gap-3 border-t border-white/15 pt-6"
-              >
-                <div className="flex items-center gap-0.5 text-[var(--color-brand)]">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={15} weight="fill" />
-                  ))}
-                </div>
-                <p className="text-[13px] text-white/70 leading-relaxed">
-                  <span className="font-semibold text-white">Trusted by IIT Roorkee</span>
-                  &nbsp;&middot; &ldquo;Developed complex cortical bone architecture
-                  using Trivima.&rdquo;
-                </p>
-              </motion.div>
             </div>
           </LiquidGlass>
 

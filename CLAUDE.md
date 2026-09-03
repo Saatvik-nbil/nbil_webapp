@@ -41,7 +41,7 @@ There is no standalone ESLint config: `next lint` uses Next's built-in ruleset. 
 - `app/components/`: page-specific sections, grouped by area (`company/`, `catalog/`, `consultancy/`, `machine/`, `blog/`, `careers/`, `news/`, `team/`) plus shared chrome (`NavBar`, `Footer`, `ContactSection`, `SmoothScroll`, `ScrollProgress`).
 - Pages compose these sections top-to-bottom (see `app/page.tsx`); most of the visual work is in the section components.
 
-**Global providers live in `app/layout.tsx`** and wrap every page: `SmoothScroll` (Lenis + GSAP), `ScrollProgress`, `CoordinateCursor`, and the SVG filter defs for the liquid-glass surfaces. Fonts (Libre Franklin, Geist Mono) and the site-wide `Metadata`/`viewport` are also defined here. (There used to be an `IntroGate` intro-loader gate with a three.js/anime.js "exploding cube" animation, removed by request; `three` and `animejs` are no longer dependencies.)
+**Global providers live in `app/layout.tsx`** and wrap every page: `SmoothScroll` (Lenis + GSAP), `ScrollProgress`, `CoordinateCursor`, and the SVG filter defs for the liquid-glass surfaces. The font (Libre Franklin, the only one) and the site-wide `Metadata`/`viewport` are also defined here. (There used to be an `IntroGate` intro-loader gate with a three.js/anime.js "exploding cube" animation, removed by request; `three` and `animejs` are no longer dependencies.)
 
 **SEO is a first-class concern.** Every page sets `Metadata` (title/description/canonical/OpenGraph) via the Next Metadata API, and key pages inject JSON-LD structured data as `<script type="application/ld+json">` (Organization on the home page, per-model `Product` schema on machine pages). Keep visible copy and structured data in sync when editing product facts.
 
@@ -58,7 +58,7 @@ Motion is layered and intentional, and several libraries coexist by role:
 
 Tailwind v4 is **CSS-first**: there is no `tailwind.config.*`. Design tokens are declared as CSS custom properties in the `@theme` block of `app/globals.css` (`--color-brand`, `--color-ink`, `--color-canvas`, dark-surface tokens, fonts). Reference them as `var(--color-...)` / Tailwind `bg-[var(--color-brand)]`. To change the palette or type, edit `globals.css`.
 
-Current live design: **electric-blue accent `#2572FD`** on a cool-slate neutral scale, **Libre Franklin** as the display + body face with **Geist Mono** reserved for technical spec data.
+Current live design: **electric-blue accent `#2572FD`** on a cool-slate neutral scale, with **Libre Franklin as the only typeface on the site**: display, body, spec data, everything. There is no monospace font anywhere, and none may be reintroduced (`--font-mono` in `globals.css` deliberately points at Libre Franklin). If a second face is ever wanted, the only approved alternatives are Poppins or Helvetica.
 
 > **Note:** `DESIGN.md` documents an earlier design direction (Outfit / Geist Sans fonts, a "Precision Teal" accent) that does **not** match the shipped implementation. Treat `globals.css` as the source of truth for tokens; `DESIGN.md` is still useful for its layout principles, motion values, and anti-patterns (banned centered heroes, em dashes, 3-equal-card grids, AI clichés, `h-screen`, etc.).
 

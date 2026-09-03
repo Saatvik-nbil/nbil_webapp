@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowDown } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
 import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery";
 
@@ -196,11 +196,6 @@ export default function CompanyHero() {
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div className="hero-fade absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-[var(--color-ink-faint)]">
-        <span className="text-[11px] uppercase tracking-[0.16em]">Scroll</span>
-        <ArrowDown size={16} weight="bold" className="animate-bounce" />
-      </div>
     </section>
   );
 }

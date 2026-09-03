@@ -60,12 +60,12 @@ function MediaFrame({ src, type = "image", label, hint, height = 340 }) {
                 <path d="M1 11l4-3 3 2.5 3-4 4 4.5" stroke="rgba(109,40,217,0.45)" strokeWidth="1" fill="none" />
               </svg>
             </div>
-            <div style={{ fontSize: 9.5, color: "#9B8DC4", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em", marginBottom: 8 }}>MEDIA PLACEHOLDER</div>
+            <div style={{ fontSize: 9.5, color: "#9B8DC4", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em", marginBottom: 8 }}>MEDIA PLACEHOLDER</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: "#110820", letterSpacing: "-0.01em", maxWidth: 280, margin: "0 auto", lineHeight: 1.45 }}>{label}</div>
             {hint && <div style={{ fontSize: 11.5, color: "#9B8DC4", lineHeight: 1.55, maxWidth: 280, margin: "8px auto 0" }}>{hint}</div>}
             <div style={{ display: "inline-flex", gap: 6, marginTop: 14 }}>
               {["IMAGE", "GIF", "VIDEO"].map(t => (
-                <span key={t} style={{ fontSize: 8.5, fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", color: "#B8ACD8", border: "1px solid #E4DDF8", borderRadius: 3, padding: "2px 6px" }}>{t}</span>
+                <span key={t} style={{ fontSize: 8.5, fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", color: "#B8ACD8", border: "1px solid #E4DDF8", borderRadius: 3, padding: "2px 6px" }}>{t}</span>
               ))}
             </div>
           </div>
@@ -85,7 +85,7 @@ function Callout({ kind = "check", children }) {
   const c = map[kind];
   return (
     <div style={{ display: "flex", gap: 10, marginTop: 16, padding: "11px 14px", borderRadius: 8, background: c.bg, borderLeft: `3px solid ${c.line}` }}>
-      <span style={{ fontSize: 9.5, fontFamily: "'DM Mono',monospace", letterSpacing: "0.09em", textTransform: "uppercase", color: c.line, fontWeight: 500, flexShrink: 0, paddingTop: 2 }}>{c.title}</span>
+      <span style={{ fontSize: 9.5, fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.09em", textTransform: "uppercase", color: c.line, fontWeight: 500, flexShrink: 0, paddingTop: 2 }}>{c.title}</span>
       <span style={{ fontSize: 13.5, color: c.text, lineHeight: 1.65 }}>{children}</span>
     </div>
   );
@@ -230,7 +230,7 @@ function GuideStep({ step, index, registerRef }) {
               boxShadow: "0 4px 14px rgba(109,40,217,0.28)",
             }}>{step.n}</span>
             <div style={{ height: 1, width: 24, background: "#D8D0F5" }} />
-            <span style={{ fontSize: 10.5, color: "#6D5A8E", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em", textTransform: "uppercase" }}>{step.label}</span>
+            <span style={{ fontSize: 10.5, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>{step.label}</span>
           </div>
 
           <h3 style={{ fontSize: "clamp(22px,2.5vw,34px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: "#110820", marginBottom: 14 }}>
@@ -334,7 +334,7 @@ export default function DheeGuide() {
                 ["Version", "v1.0"],
               ].map(([k, v], i) => (
                 <div key={k} style={{ flex: "1 1 120px", padding: "16px 20px", borderRight: i < 3 ? "1px solid rgba(196,184,255,0.14)" : "none" }}>
-                  <div style={{ fontSize: 9.5, color: "rgba(196,184,255,0.6)", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6 }}>{k}</div>
+                  <div style={{ fontSize: 9.5, color: "rgba(196,184,255,0.6)", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6 }}>{k}</div>
                   <div style={{ fontSize: 17, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em" }}>{v}</div>
                 </div>
               ))}
@@ -365,7 +365,7 @@ export default function DheeGuide() {
         borderBottom: "1px solid #EEE9FF",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, padding: "0 5vw", height: 52, overflowX: "auto" }}>
-          <span className="guide-rail-label" style={{ fontSize: 9.5, color: "#B8ACD8", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0 }}>Steps</span>
+          <span className="guide-rail-label" style={{ fontSize: 9.5, color: "#B8ACD8", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0 }}>Steps</span>
           <div style={{ display: "flex", gap: 6 }}>
             {GUIDE_STEPS.map((s, i) => {
               const active = activeStep === i;
@@ -379,7 +379,7 @@ export default function DheeGuide() {
                     borderRadius: 7, border: `1px solid ${active ? "#6D28D9" : "#EEE9FF"}`,
                     background: active ? "#6D28D9" : "#FFFFFF",
                     color: active ? "#FFFFFF" : "#9B8DC4",
-                    fontSize: 11, fontWeight: 600, fontFamily: "'DM Mono',monospace",
+                    fontSize: 11, fontWeight: 600, fontFamily: "var(--font-libre-franklin), sans-serif",
                     cursor: "pointer",
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 7, whiteSpace: "nowrap",
                     transition: "all 0.25s cubic-bezier(0.23,1,0.32,1)",
@@ -409,7 +409,7 @@ export default function DheeGuide() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.borderColor = "#D8D0F5"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(109,40,217,0.09)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "#F8F7FF"; e.currentTarget.style.borderColor = "#EEE9FF"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}
               >
-                <div style={{ fontSize: 10.5, color: "#B8ACD8", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em", marginBottom: 12 }}>{r.k}</div>
+                <div style={{ fontSize: 10.5, color: "#B8ACD8", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em", marginBottom: 12 }}>{r.k}</div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: "#110820", letterSpacing: "-0.015em", marginBottom: 7 }}>{r.t}</div>
                 <div style={{ fontSize: 13, color: "#6D5A8E", lineHeight: 1.65 }}>{r.d}</div>
               </div>
@@ -440,7 +440,7 @@ export default function DheeGuide() {
                 <div style={{ width: 130, height: 5, borderRadius: 999, background: "#EEE9FF", overflow: "hidden" }}>
                   <div style={{ width: `${(completed / CHECKLIST.length) * 100}%`, height: "100%", background: "#6D28D9", borderRadius: 999, transition: "width 0.35s cubic-bezier(0.23,1,0.32,1)" }} />
                 </div>
-                <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "'DM Mono',monospace", letterSpacing: "0.06em", flexShrink: 0 }}>{completed}/{CHECKLIST.length}</span>
+                <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.06em", flexShrink: 0 }}>{completed}/{CHECKLIST.length}</span>
               </div>
             </div>
           </Fade>

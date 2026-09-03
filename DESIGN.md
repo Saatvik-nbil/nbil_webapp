@@ -46,7 +46,7 @@ Software section (one deliberate switch, not random alternation).
 
 - **Display:** `Outfit` (weights 300–700). Geometric sans for all headings, tight tracking, controlled scale
 - **Body:** `Geist Sans`. Clean, precise, 65ch max-width, muted secondary color
-- **Mono:** `Geist Mono`. All technical specifications, measurements, timestamps, labels
+- **No mono face:** technical specifications, measurements, timestamps and labels all use the body face. A monospace font must never appear on this site.
 - **Banned:** `Inter` as default, any generic serif (Times, Georgia, Garamond), `Fraunces`, `Instrument Serif`
 - **Scale:**
   - Hero H1: `clamp(2.75rem, 5vw, 4rem)`, max 2 lines desktop

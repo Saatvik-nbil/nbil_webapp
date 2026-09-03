@@ -5,14 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Fonts :  Libre Franklin is the ONLY typeface across the site (display,
+  /* Fonts: Libre Franklin is the ONLY typeface across the site (display,
      body, and anything that would otherwise default to a monospace font).
      Do not reintroduce Geist Mono or any other mono stack anywhere. */
   --font-display: var(--font-libre-franklin);
   --font-sans: var(--font-libre-franklin);
   --font-mono: var(--font-libre-franklin);
 
-  /* Neutrals :  cool slate, calibrated to sit under an electric-blue accent */
+  /* Neutrals: cool slate, calibrated to sit under an electric-blue accent */
   --color-canvas: #f8fafc;           /* slate-50, page bg */
   --color-surface: #ffffff;          /* card fills */
   --color-surface-raised: #f1f5f9;   /* slate-100 panels */
@@ -22,14 +22,14 @@
   --color-hairline: #e2e8f0;         /* slate-200, structural borders */
   --color-hairline-subtle: #eef2f7;  /* section dividers */
 
-  /* Brand :  electric blue (#2572FD), single accent */
-  --color-brand: #2572fd;            /* primary brand blue :  fills, hero, CTA */
+  /* Brand: electric blue (#2572FD), single accent */
+  --color-brand: #2572fd;            /* primary brand blue: fills, hero, CTA */
   --color-brand-strong: #1d4ed8;     /* deeper blue for text/links on light (≥4.5:1) */
   --color-brand-hover: #2563eb;      /* button hover */
   --color-brand-surface: #e7effe;    /* tinted accent bg */
   --color-brand-subtle: #f3f7fe;     /* faint hover tint */
 
-  /* Dark surface (software / scroll sections) :  deep navy */
+  /* Dark surface (software / scroll sections): deep navy */
   --color-dark-bg: #0a1422;
   --color-dark-surface: #0f1e30;
   --color-dark-ink: #e9f0f8;
@@ -99,10 +99,11 @@ p {
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ---- Eyebrow / kicker labels ("secondary titles" above section headings,
-   e.g. "In good company", "Our mission") :  Libre Franklin, not Geist Mono.
-   Mono stays reserved for technical spec/measurement data. Pair with a
+   e.g. "In good company", "Our mission"): Libre Franklin, not Geist Mono.
+   There is no mono face on this site; spec and measurement data uses the
+   same family. Pair with a
    color + spacing utility at the call site (text-[var(--color-brand-strong)],
-   mb-*, etc.) ,  this only sets the type treatment. ---- */
+   mb-*, etc.), this only sets the type treatment. ---- */
 .eyebrow {
   font-family: var(--font-display);
   font-weight: 600;

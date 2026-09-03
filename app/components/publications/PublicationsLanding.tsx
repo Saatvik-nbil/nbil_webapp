@@ -1,26 +1,23 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ArrowUpRight, X, FilePdf, Quotes, Sliders } from "@phosphor-icons/react";
+import { ArrowUpRight, X, Quotes, Sliders } from "@phosphor-icons/react";
+import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 import { publications, type Publication } from "@/lib/publications";
+import PublicationsCarousel from "./PublicationsCarousel";
 
 /**
  * Papers published off the back of work done on a Trivima.
  *
  * Each card is the paper's own first page, rendered from the PDF, so the grid
  * reads as a shelf of reprints rather than a list of links. Opening one shows
- * how the machine was used and the abstract exactly as published; the two
- * links out go to the DOI and to the PDF we hold.
+ * how the machine was used and the abstract exactly as published, with the
+ * single link out going to the publisher via the DOI. We deliberately do not
+ * offer the PDF: readers should land on the published article.
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-function authorLine(authors: string[]) {
-  if (authors.length <= 3) return authors.join(", ");
-  return `${authors[0]} and ${authors.length - 1} others`;
-}
 
 function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => void }) {
   const reduce = useReducedMotion();
@@ -162,16 +159,7 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
             Read the full paper
             <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
           </a>
-          <a
-            href={pub.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-hairline)] px-5 py-2.5 text-[14px] font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)]"
-          >
-            <FilePdf size={15} weight="duotone" aria-hidden="true" />
-            Open the PDF
-          </a>
-          <span className="ml-auto hidden text-[11.5px] text-[var(--color-ink-faint)] sm:block">
+          <span className="ml-auto text-[11.5px] text-[var(--color-ink-faint)]">
             DOI {pub.doi}
           </span>
         </div>
@@ -186,111 +174,56 @@ export default function PublicationsLanding() {
   const close = useCallback(() => setOpen(null), []);
 
   const years = Array.from(new Set(publications.map((p) => p.year)));
+  const stats = [
+    { value: String(publications.length), label: "Papers" },
+    { value: String(new Set(publications.map((p) => p.journal)).size), label: "Journals" },
+    { value: `${years[years.length - 1]} to ${years[0]}`, label: "Published" },
+  ];
 
   return (
     <main id="main-content" className="bg-[var(--color-canvas)]">
-      {/* Header */}
-      <section className="mx-auto max-w-7xl px-6 pt-32 pb-12 lg:pt-40 lg:pb-16">
-        <div className="flex max-w-3xl flex-col gap-5">
-          <span className="eyebrow text-[var(--color-brand-strong)]">Publications</span>
-          <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-[var(--color-ink)]">
-            Research published on a Trivima
-          </h1>
-          <p className="text-[16px] leading-relaxed text-[var(--color-ink-muted)] lg:text-[17px]">
-            Peer-reviewed work from labs running our bioprinters: cardiac patches,
-            bone scaffolds, breast cancer models, hemostatic hydrogels. Open a paper
-            to see how the machine was used and read the abstract as published.
-          </p>
-          <dl className="mt-2 flex flex-wrap gap-x-10 gap-y-4 border-t border-[var(--color-hairline)] pt-6">
-            <div className="flex flex-col gap-1">
-              <dd className="font-display text-[1.5rem] font-semibold text-[var(--color-ink)]">
-                {publications.length}
-              </dd>
-              <dt className="text-[12px] text-[var(--color-ink-faint)]">Papers</dt>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dd className="font-display text-[1.5rem] font-semibold text-[var(--color-ink)]">
-                {new Set(publications.map((p) => p.journal)).size}
-              </dd>
-              <dt className="text-[12px] text-[var(--color-ink-faint)]">Journals</dt>
-            </div>
-            <div className="flex flex-col gap-1">
-              <dd className="font-display text-[1.5rem] font-semibold text-[var(--color-ink)]">
-                {years[years.length - 1]}
-                <span className="mx-1 text-[var(--color-ink-faint)]">to</span>
-                {years[0]}
-              </dd>
-              <dt className="text-[12px] text-[var(--color-ink-faint)]">Published</dt>
-            </div>
-          </dl>
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden bg-[var(--color-dark-bg)]">
+        <PhotoHeroBackdrop
+          src="/images/publications-hero.webp"
+          objectPosition="58% 30%"
+          fadeTo="248, 250, 252"
+          fadeHeight="32%"
+        />
+        <div className="relative mx-auto max-w-7xl px-6 pt-36 pb-20 lg:pt-44 lg:pb-24">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="flex max-w-2xl flex-col gap-5"
+          >
+            <span className="eyebrow text-[var(--color-dark-brand)]">Publications</span>
+            <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white">
+              Research published on a Trivima
+            </h1>
+            <p className="text-[16px] leading-relaxed text-white/75 lg:text-[17px]">
+              Peer-reviewed work from labs running our bioprinters: cardiac patches,
+              bone scaffolds, breast cancer models and hemostatic hydrogels, each
+              printed on a machine configured for that lab.
+            </p>
+            <dl className="mt-3 flex flex-wrap gap-x-12 gap-y-5 border-t border-white/20 pt-6">
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col gap-1">
+                  <dd className="font-display text-[1.6rem] font-semibold leading-none text-white">
+                    {s.value}
+                  </dd>
+                  <dt className="text-[12px] text-white/60">{s.label}</dt>
+                </div>
+              ))}
+            </dl>
+          </motion.div>
         </div>
       </section>
 
-      {/* Grid */}
-      <section aria-label="Publications" className="mx-auto max-w-7xl px-6 pb-24 lg:pb-32">
-        <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {publications.map((pub, i) => (
-            <motion.li
-              key={pub.slug}
-              initial={reduce ? false : { opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: (i % 3) * 0.06, duration: 0.55, ease: EASE }}
-            >
-              <button
-                type="button"
-                onClick={() => setOpen(pub)}
-                aria-haspopup="dialog"
-                className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] text-left transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-brand)] hover:shadow-[0_18px_50px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] motion-reduce:hover:translate-y-0"
-              >
-                {/* First page of the paper, cropped to its top so the title
-                    block is what shows in the card. */}
-                <div className="relative h-[240px] overflow-hidden border-b border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
-                  <Image
-                    src={pub.thumb}
-                    alt={`First page of ${pub.title}`}
-                    width={760}
-                    height={983}
-                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-                    className="absolute inset-x-0 top-0 w-full transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
-                  />
-                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[var(--color-surface)] to-transparent" />
-                  <span className="absolute left-3.5 top-3.5 rounded-full bg-[var(--color-brand)] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-white">
-                    {pub.machine}
-                  </span>
-                </div>
-
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <div className="flex flex-wrap items-center gap-x-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
-                    <span className="text-[var(--color-brand-strong)]">{pub.journal}</span>
-                    <span aria-hidden="true">·</span>
-                    <span>{pub.year}</span>
-                  </div>
-                  <h2 className="font-display text-[15.5px] font-semibold leading-snug tracking-[-0.015em] text-[var(--color-ink)]">
-                    {pub.title}
-                  </h2>
-                  <p className="text-[12.5px] text-[var(--color-ink-faint)]">
-                    {authorLine(pub.authors)}
-                  </p>
-                  <p className="text-[13px] leading-relaxed text-[var(--color-ink-muted)] line-clamp-3">
-                    {pub.trivimaUse}
-                  </p>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-1 text-[13px] font-medium text-[var(--color-brand-strong)]">
-                    Read the abstract
-                    <ArrowUpRight
-                      size={14}
-                      weight="bold"
-                      aria-hidden="true"
-                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
-                    />
-                  </span>
-                </div>
-              </button>
-            </motion.li>
-          ))}
-        </ul>
-
-        <p className="mt-10 max-w-[70ch] text-[13.5px] leading-relaxed text-[var(--color-ink-faint)]">
+      {/* The shelf */}
+      <section aria-label="Publications" className="mx-auto max-w-7xl py-16 lg:py-24">
+        <PublicationsCarousel publications={publications} onOpen={setOpen} />
+        <p className="mt-10 max-w-[70ch] px-6 text-[13.5px] leading-relaxed text-[var(--color-ink-faint)]">
           Published on a Trivima and not listed here? Send us the DOI and we will add
           it.
         </p>

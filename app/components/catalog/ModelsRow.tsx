@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Sliders } from "@phosphor-icons/react";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Machine } from "@/lib/machines";
 
 const EASE_IN_OUT = "cubic-bezier(0.65, 0, 0.35, 1)";
@@ -65,7 +65,7 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
 
   return (
     <div
-      className="flex flex-col gap-5 lg:h-[620px] lg:flex-row lg:gap-4"
+      className="flex flex-col gap-5 lg:h-[660px] lg:flex-row lg:gap-4"
       onPointerLeave={() => setActive(null)}
     >
       {machines.map((machine, i) => {
@@ -74,7 +74,6 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
         // row and drops the other two to ~23% each.
         const flexGrow = active === null ? 1 : isActive ? 1.9 : 0.8;
         const specs = keySpecs(machine);
-        const restStats = machine.stats.slice(2);
 
         return (
           <motion.article
@@ -93,10 +92,10 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
               href={`/machines/${machine.slug}`}
               className="flex h-full flex-col outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2"
             >
-              {/* Image well. `min-h-0` lets it give space back to the content
-                  when a card opens, so the taller expanded body never spills
-                  past the fixed row height. */}
-              <div className="relative flex min-h-[150px] flex-1 items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 lg:min-h-0">
+              {/* Image well. It gives space back to the body as a card opens,
+                  but never below `min-h`: the printer is the point of the card,
+                  and an earlier version let it collapse to a few pixels. */}
+              <div className="relative flex min-h-[150px] flex-1 items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 lg:min-h-[230px]">
                 <span className="absolute left-4 top-4 z-[1] rounded-full bg-[var(--color-brand)] px-2.5 py-1 text-[11px] font-medium text-white">
                   {machine.role}
                 </span>
@@ -114,21 +113,13 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
               {/* Body */}
               <div className="flex flex-col gap-3.5 border-t border-[var(--color-hairline)] p-5 lg:p-6">
                 <div className="flex flex-col gap-1.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    {machine.customisation ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--color-brand-surface)] px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-[var(--color-brand-strong)]">
-                        <Sliders size={11} weight="bold" aria-hidden="true" />
-                        Customisable
-                      </span>
-                    ) : null}
-                    <span className="text-[10.5px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
-                      {machine.tier}
-                    </span>
-                  </div>
+                  <span className="text-[10.5px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
+                    {machine.tier}
+                  </span>
                   <h3 className="font-display text-[1.3rem] font-semibold tracking-[-0.02em] leading-tight text-[var(--color-ink)]">
                     {machine.name}
                   </h3>
-                  <p className="text-[13px] leading-relaxed text-[var(--color-ink-muted)]">
+                  <p className="text-[13px] leading-relaxed text-[var(--color-ink-muted)] line-clamp-2">
                     {machine.tagline}
                   </p>
                 </div>
@@ -154,13 +145,6 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
                 >
                   <div className="flex min-h-0 flex-col gap-3.5 overflow-hidden">
                     <dl className="flex flex-col gap-1.5">
-                      {restStats.map((s) => (
-                        <DataRow
-                          key={s.label}
-                          label={s.label}
-                          value={`${s.value}${s.unit ? ` ${s.unit}` : ""}`}
-                        />
-                      ))}
                       {specs.map((s) => (
                         <DataRow key={s.label} label={s.label} value={s.value} />
                       ))}

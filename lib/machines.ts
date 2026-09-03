@@ -154,7 +154,7 @@ export const machines: Machine[] = [
     slug: "trivima-np",
     name: "Trivima NP",
     fullName: "Trivima Non-Planar (NP) Bioprinter",
-    tagline: "Finally, a bioprinter that matches the geometry of biology.",
+    tagline: "Finally, a bioprinter that matches the geometry of biology. With a 4th axis",
     blurb:
       "Non-planar system that prints on rotary scaffolds and curved geometries instead of flat layers.",
     overview:

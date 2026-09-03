@@ -31,10 +31,6 @@ export default function ModelsSection() {
           </p>
         </div>
 
-        <p className="mb-4 hidden text-[12.5px] text-[var(--color-ink-faint)] lg:block">
-          Hover a model to open its specification.
-        </p>
-
         <ModelsRow machines={ordered} />
       </div>
     </section>

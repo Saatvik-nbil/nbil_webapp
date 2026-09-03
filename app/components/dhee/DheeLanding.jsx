@@ -151,7 +151,7 @@ function Problem() {
               <div key={step}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                   <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(109,40,217,0.07)", border: "1px solid rgba(109,40,217,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: "#6D28D9", fontFamily: "'DM Mono',monospace" }}>{String(i + 1).padStart(2, "0")}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: "#6D28D9", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <span style={{ fontSize: 15, fontWeight: 500, color: "#110820", letterSpacing: "-0.01em", padding: "10px 0" }}>{step}</span>
                 </div>
@@ -183,7 +183,7 @@ function MockSlicingHTML() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div style={{ width: "100%", height: "100%", background: "#F8F7FF", fontFamily: "'DM Mono',monospace", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: "100%", background: "#F8F7FF", fontFamily: "var(--font-libre-franklin), sans-serif", overflow: "hidden" }}>
       <div style={{ height: 34, background: "#EEE9FF", borderBottom: "1px solid #D8D0F5", display: "flex", alignItems: "center", gap: 6, padding: "0 14px" }}>
         {["#FF5F57", "#FFBD2E", "#28CA41"].map(c => <div key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c }} />)}
         <span style={{ fontSize: 9, color: "#9B8DC4", marginLeft: 10 }}>Slice Configuration</span>
@@ -291,7 +291,7 @@ function TagChip({ label }) {
 
   return (
     <span ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={() => setHovered(false)} style={{ position: "relative", display: "inline-block" }}>
-      <span style={{ display: "inline-block", fontSize: 11, fontFamily: "'DM Mono', monospace", color: hovered ? "#5B21B6" : "#6D28D9", background: hovered ? "rgba(109,40,217,0.13)" : "rgba(109,40,217,0.07)", border: `1px solid ${hovered ? "rgba(109,40,217,0.4)" : "rgba(109,40,217,0.18)"}`, borderRadius: 4, padding: "2px 8px", letterSpacing: "0.02em", whiteSpace: "nowrap", cursor: "default", transition: "all 0.15s", transform: hovered ? "translateY(-2px)" : "none", boxShadow: hovered ? "0 4px 12px rgba(109,40,217,0.15)" : "none" }}>
+      <span style={{ display: "inline-block", fontSize: 11, fontFamily: "var(--font-libre-franklin), sans-serif", color: hovered ? "#5B21B6" : "#6D28D9", background: hovered ? "rgba(109,40,217,0.13)" : "rgba(109,40,217,0.07)", border: `1px solid ${hovered ? "rgba(109,40,217,0.4)" : "rgba(109,40,217,0.18)"}`, borderRadius: 4, padding: "2px 8px", letterSpacing: "0.02em", whiteSpace: "nowrap", cursor: "default", transition: "all 0.15s", transform: hovered ? "translateY(-2px)" : "none", boxShadow: hovered ? "0 4px 12px rgba(109,40,217,0.15)" : "none" }}>
         {label}
       </span>
       {hovered && (
@@ -306,7 +306,7 @@ function TagChip({ label }) {
                 <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(109,40,217,0.1)", border: "1px dashed rgba(109,40,217,0.3)", margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <svg viewBox="0 0 16 16" width="18" height="18" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="rgba(109,40,217,0.4)" strokeWidth="1.2" strokeDasharray="2 2" /><circle cx="5.5" cy="5.5" r="1.5" fill="rgba(109,40,217,0.3)" /><path d="M1 11l4-3 3 2.5 3-4 4 4.5" stroke="rgba(109,40,217,0.4)" strokeWidth="1" fill="none" /></svg>
                 </div>
-                <span style={{ fontSize: 9, color: "#B8ACD8", fontFamily: "'DM Mono',monospace", letterSpacing: "0.06em" }}>MEDIA PLACEHOLDER</span>
+                <span style={{ fontSize: 9, color: "#B8ACD8", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.06em" }}>MEDIA PLACEHOLDER</span>
               </div>
             )}
           </div>
@@ -397,7 +397,7 @@ function Workflow() {
                   >
                     <div style={{ width: activeStep === i ? 28 : 8, height: 8, borderRadius: 999, background: activeStep === i ? "#6D28D9" : "#DDD5F5", transition: "all 0.25s cubic-bezier(0.23,1,0.32,1)" }} />
                     {activeStep === i && (
-                      <span style={{ fontSize: 9, fontFamily: "'DM Mono',monospace", color: "#6D28D9", letterSpacing: "0.06em", lineHeight: 1 }}>
+                      <span style={{ fontSize: 9, fontFamily: "var(--font-libre-franklin), sans-serif", color: "#6D28D9", letterSpacing: "0.06em", lineHeight: 1 }}>
                         {step.id}
                       </span>
                     )}
@@ -419,7 +419,7 @@ function Workflow() {
           {WORKFLOW_STEPS.map((step, i) => (
             <div key={step.id} style={{ display: activeStep === i ? "block" : "none", paddingTop: 24, borderTop: "1px solid #EEE9FF" }}>
               <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 14 }}>
-                <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", paddingTop: 3, flexShrink: 0 }}>{step.id}</span>
+                <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 3, flexShrink: 0 }}>{step.id}</span>
                 <h3 style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#110820" }}>{step.title}</h3>
               </div>
               <p style={{ fontSize: 14.5, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 18 }}>{step.body}</p>
@@ -441,7 +441,7 @@ function Workflow() {
                 style={{ minHeight: "58vh", padding: "48px 0", borderBottom: i < WORKFLOW_STEPS.length - 1 ? "1px solid #EEE9FF" : "none" }}>
                 <Fade delay={0.05}>
                   <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-                    <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "'DM Mono',monospace", letterSpacing: "0.08em", paddingTop: 4, flexShrink: 0 }}>{step.id}</span>
+                    <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 4, flexShrink: 0 }}>{step.id}</span>
                     <div>
                       <h3 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em", color: "#110820", marginBottom: 14 }}>{step.title}</h3>
                       <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 20 }}>{step.body}</p>
@@ -527,7 +527,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
 
       <div className="cap-text">
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-          <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "'DM Mono',monospace", letterSpacing: "0.1em" }}>{number}</span>
+          <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em" }}>{number}</span>
           <div style={{ height: 1, width: 28, background: "#D8D0F5" }} />
           <span style={{ fontSize: 11, color: "#6D5A8E", letterSpacing: "0.06em", textTransform: "uppercase" }}>{label}</span>
         </div>
@@ -556,8 +556,8 @@ function Capabilities() {
         <Fade><h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820" }}>Why labs choose DHEE.</h2></Fade>
       </div>
       <CapRow number="01" label="96-Well Plate Support" headline="High-throughput placement, precisely mapped." body="12-, 24-, and 96-well presets with coordinate-mapped placement and per-well auto-scaling. Run multiple scaffold geometries across a single plate without repositioning by hand." reversed={false} MockComponent={CapMock96Well} />
-      <CapRow number="02" label="Variable Layer Heights" headline="Different geometry, different parameters, same print." body="Define multiple parameter zones within a single print. Dense outer shells, lighter infill cores, gradated support structures ,  all controlled per Z-range without splitting the file." reversed={true} MockComponent={CapMockVarLayers} />
-      <CapRow number="03" label="Layer Validation" headline="Verify every path before it touches material." body="Inspect every layer in four playback modes before committing to hardware. Line-by-line, layer range, single layer, or full view ,  with speed control and PDF export for lab records." reversed={false} MockComponent={CapMockGCode} />
+      <CapRow number="02" label="Variable Layer Heights" headline="Different geometry, different parameters, same print." body="Define multiple parameter zones within a single print. Dense outer shells, lighter infill cores, gradated support structures, all controlled per Z-range without splitting the file." reversed={true} MockComponent={CapMockVarLayers} />
+      <CapRow number="03" label="Layer Validation" headline="Verify every path before it touches material." body="Inspect every layer in four playback modes before committing to hardware. Line-by-line, layer range, single layer, or full view, with speed control and PDF export for lab records." reversed={false} MockComponent={CapMockGCode} />
 
       <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: "1px solid #EEE9FF" }}>
         {[
@@ -605,7 +605,7 @@ function Specs() {
           <div style={{ border: "1px solid #EEE9FF", borderRadius: 10, overflow: "hidden", padding: "4px 28px" }}>
             {SPECS.map(([label, value], i) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "14px 0", borderBottom: i < SPECS.length - 1 ? "1px solid #EEE9FF" : "none" }}>
-                <span style={{ fontSize: 10.5, letterSpacing: "0.07em", textTransform: "uppercase", color: "#6D5A8E", fontFamily: "'DM Mono',monospace" }}>{label}</span>
+                <span style={{ fontSize: 10.5, letterSpacing: "0.07em", textTransform: "uppercase", color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{label}</span>
                 <span style={{ fontSize: 14, color: "#110820" }}>{value}</span>
               </div>
             ))}
