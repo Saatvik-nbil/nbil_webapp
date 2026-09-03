@@ -3,7 +3,7 @@
  * `stateId` must match an id in `india-map-paths.ts`.
  *
  * Where the source list didn't name a city, the institution was placed by
- * its known campus location — flag any correction to Marketing before the
+ * its known campus location. Flag flag any correction to Marketing before the
  * next content pass.
  */
 
@@ -81,7 +81,7 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
   },
   {
     // NIAB, IIT Hyderabad and BITS Hyderabad are all in Hyderabad, which is
-    // Telangana (split from Andhra Pradesh in 2014) — the map's state IDs
+    // Telangana (split from Andhra Pradesh in 2014): the map's state IDs
     // now follow that split too, see india-map-paths.ts.
     stateId: "telangana",
     installations: [
@@ -110,7 +110,7 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
   },
 ];
 
-/** Not on the India map — shown as a separate international line beneath it. */
+/** Not on the India map, shown as a separate international line beneath it. */
 export const INTERNATIONAL_INSTALLATIONS: Installation[] = [
   { name: "Suwon University", city: "Incheon, South Korea", model: "Trivima Basic" },
 ];

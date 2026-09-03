@@ -1,5 +1,6 @@
 import TestimonialsCarousel, {
   type Testimonial,
+  type TrustedLogo,
 } from "@/app/components/shared/TestimonialsCarousel";
 
 const TESTIMONIALS: Testimonial[] = [
@@ -21,17 +22,28 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+/**
+ * Same interaction as the bioprinter and Dhee pages: each client in the row
+ * pins its own quote in the card on hover, focus or tap.
+ */
+const CLIENTS: TrustedLogo[] = [
+  {
+    name: "BioSystems Lab",
+    logo: "/placeholders/biosystem-diagnostics-logo2.webp",
+    testimonial: TESTIMONIALS[0],
+  },
+  { name: "Regenova", logo: "/placeholders/regenova.svg", testimonial: TESTIMONIALS[1] },
+];
+
 export default function ConsultancyTestimonials() {
   return (
     <TestimonialsCarousel
       id="testimonials"
       heading="What our consultancy clients say."
-      description="Researchers and scaling teams on the difference a dedicated bioprinting consultancy made to their project."
+      description="Researchers and scaling teams on the difference a dedicated bioprinting consultancy made to their project. Pick a client to read its own words."
       testimonials={TESTIMONIALS}
-      // These are one-sentence pull quotes, not full reviews — the shared
-      // component's 380px default (tuned for Trivima's longer reviews and
-      // Dhee's copy column) left a dead gap between the quote and the name.
-      minCardHeight={260}
+      trustedByLabel="Projects we have run"
+      trustedLogos={CLIENTS}
     />
   );
 }

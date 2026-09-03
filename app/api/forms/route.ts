@@ -25,7 +25,7 @@ export const dynamic = "force-dynamic";
 const FORWARD_TIMEOUT_MS = 20_000;
 
 /** Naive per-IP throttle. Single-instance only; it resets on redeploy, which is
- *  fine — it exists to blunt floods, not to be an audit trail. */
+ *  fine. It exists to blunt floods, not to be an audit trail. */
 const RATE_LIMIT = { windowMs: 60_000, max: 5 };
 const hits = new Map<string, number[]>();
 
@@ -49,7 +49,7 @@ function rateLimited(ip: string) {
  * Best-effort client IP for the throttle below. `X-Forwarded-For` can carry a
  * chain of hops (`client, proxy1, proxy2, ...`); the entry that matters is the
  * *last* one added by our own edge proxy, since anything to its left is
- * whatever the connecting client chose to send and is trivially spoofable —
+ * whatever the connecting client chose to send and is trivially spoofable:
  * keying the rate limit on the first entry would let an attacker rotate a
  * fake value per request and bypass it entirely. `X-Real-IP`, when present,
  * is set by the proxy itself and not attacker-controlled.

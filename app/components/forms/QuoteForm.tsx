@@ -24,7 +24,7 @@ type Errors = Record<string, string>;
 
 /**
  * Quote / demo request form used by `ContactSection`. Replaces the former
- * HubSpot embed — submissions go to `/api/forms` → Google Sheets.
+ * HubSpot embed: submissions go to `/api/forms` → Google Sheets.
  *
  * Every field is required, so a row in the sheet is never half-filled.
  *
@@ -235,7 +235,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
             disabled={busy}
             className={`${fieldClass()} appearance-none pr-9`}
           >
-            {/* A deliberate answer, not a blank — "not sure" is useful to know. */}
+            {/* A deliberate answer, not a blank: "not sure" is useful to know. */}
             <option value="Not sure yet">Not sure yet</option>
             {machines.map((m) => (
               <option key={m.slug} value={m.name}>

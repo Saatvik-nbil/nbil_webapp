@@ -1,5 +1,5 @@
 /**
- * Geometry for the timeline connector — the ribbon that snakes between the
+ * Geometry for the timeline connector: the ribbon that snakes between the
  * nodes of `3d-interactive-timeline`.
  *
  * The timeline alternates cards left/right of a centre rail, so at any given
@@ -36,7 +36,7 @@ export type NodeBox = {
 
 /**
  * Control-point strength. Exactly 0.5 puts both control points at the same
- * height, which makes the vertical component provably monotonic — required so
+ * height, which makes the vertical component provably monotonic, required so
  * scroll depth can be mapped onto the path (see `sampleVerticalToLength`).
  */
 const K = 0.5;
@@ -131,7 +131,7 @@ export type ConnectorSample = {
  * Two problems solved at once:
  *
  * 1. Scroll progress is vertical, but stroke drawing and point lookup are by
- *    arc length — and the bows make those diverge badly. Without the mapping
+ *    arc length, and the bows make those diverge badly. Without the mapping
  *    the arrow runs ahead of the card the reader is actually looking at.
  *
  * 2. `getTotalLength` / `getPointAtLength` re-flatten the whole path on every
@@ -151,7 +151,7 @@ export type ConnectorSample = {
  */
 // 480 samples over a ~20,000px path resolves the vertical mapping exactly
 // (measured: 0.000px error). Going higher only raises the one-time resample
-// cost — the arrow's rotation rate is set by the curve, not by this number.
+// cost, the arrow's rotation rate is set by the curve, not by this number.
 export function sampleConnector(path: SVGPathElement, samples = 480) {
   const total = path.getTotalLength();
   const xs = new Float64Array(samples + 1);
@@ -165,7 +165,7 @@ export function sampleConnector(path: SVGPathElement, samples = 480) {
 
   // Central differences give a smoother tangent than sampling two points a
   // couple of pixels apart, and cost nothing at lookup time. The path always
-  // descends, so the angle stays within (0deg, 180deg) and never wraps —
+  // descends, so the angle stays within (0deg, 180deg) and never wraps,
   // which is what makes interpolating it safe.
   const angles = new Float64Array(samples + 1);
   for (let i = 0; i <= samples; i++) {

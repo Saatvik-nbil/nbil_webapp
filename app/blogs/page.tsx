@@ -7,14 +7,14 @@ import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Bioprinting insights and research breakdowns from Next Big Innovation Labs — deep dives on bioprinting, biomaterials and biofabrication.",
+    "Bioprinting insights and research breakdowns from Next Big Innovation Labs, with deep dives on bioprinting, biomaterials and biofabrication.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/blogs" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/blogs",
-    title: "Blog — Next Big Innovation Labs",
+    title: "Blog | Next Big Innovation Labs",
     description:
-      "Bioprinting insights and research breakdowns from Next Big Innovation Labs — deep dives on bioprinting, biomaterials and biofabrication.",
+      "Bioprinting insights and research breakdowns from Next Big Innovation Labs, with deep dives on bioprinting, biomaterials and biofabrication.",
     images: [
       {
         url: "/images/heroes/blogs-hero.webp",

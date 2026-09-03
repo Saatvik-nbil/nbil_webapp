@@ -31,7 +31,7 @@ export function initAnalytics() {
     capture_pageleave: true, // required for accurate session-duration-per-page
     autocapture: true, // clicks/inputs + the built-in $rageclick friction signal
     session_recording: {
-      // QuoteForm / ProjectForm collect email + phone — those input types
+      // QuoteForm / ProjectForm collect email + phone, so those input types
       // are masked in replays regardless of which form they show up in.
       maskInputOptions: { email: true, tel: true },
     },
@@ -57,7 +57,7 @@ function markLanding() {
       sessionStorage.setItem(LANDING_KEY, String(Date.now()));
     }
   } catch {
-    // sessionStorage can throw in locked-down browser contexts — landing
+    // sessionStorage can throw in locked-down browser contexts, so landing
     // time just goes unmeasured for that visit, nothing else depends on it.
   }
 }
@@ -71,7 +71,7 @@ function secondsSinceLanding(): number | null {
   }
 }
 
-/** Fired on successful form submit — the landing-to-inquiry funnel metric. */
+/** Fired on successful form submit: the landing-to-inquiry funnel metric. */
 export function captureInquirySubmitted(formId: string) {
   if (!initialized) return;
   posthog.capture("inquiry_submitted", {

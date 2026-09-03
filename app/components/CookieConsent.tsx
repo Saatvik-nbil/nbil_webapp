@@ -12,7 +12,7 @@ const CONSENT_KEY = "nbil-cookie-consent"; // "accepted" | "rejected"
  * Gates PostHog on an explicit choice rather than a cosmetic banner: analytics
  * loads opted-out by default (see lib/analytics.ts), and this is the only
  * place that ever calls setAnalyticsConsent. A stored decision from a past
- * visit is applied silently on mount — the banner only shows once, ever,
+ * visit is applied silently on mount: the banner only shows once, ever,
  * per browser (until localStorage is cleared).
  */
 export default function CookieConsent() {
@@ -24,7 +24,7 @@ export default function CookieConsent() {
     try {
       stored = localStorage.getItem(CONSENT_KEY);
     } catch {
-      // localStorage unavailable (private mode, locked-down browser) — skip
+      // localStorage unavailable (private mode, locked-down browser), so skip
       // the banner rather than nag on every load with no way to persist.
       return;
     }
@@ -42,7 +42,7 @@ export default function CookieConsent() {
     try {
       localStorage.setItem(CONSENT_KEY, accepted ? "accepted" : "rejected");
     } catch {
-      // Decision just won't persist — still honour it for this page view.
+      // Decision just won't persist, but still honour it for this page view.
     }
     setAnalyticsConsent(accepted);
     setVisible(false);

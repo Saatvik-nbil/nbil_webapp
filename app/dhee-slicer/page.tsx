@@ -4,12 +4,12 @@ import Footer from "@/app/components/Footer";
 import DheeLanding from "@/app/components/dhee/DheeLanding";
 
 export const metadata: Metadata = {
-  title: "Dhee Slicer — Bioprinting Software by NBIL",
+  title: "Dhee Slicer: Bioprinting Software by NBIL",
   description:
     "Dhee Slicer replaces model preparation, slicing and machine control with one application. Built in-house by Next Big Innovation Labs for the Trivima bioprinter range.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/dhee-slicer" },
   openGraph: {
-    title: "Dhee Slicer — Bioprinting Software by NBIL",
+    title: "Dhee Slicer: Bioprinting Software by NBIL",
     description:
       "One application for model preparation, slicing and machine control, built for bioprinting.",
     url: "https://nextbiginnovationlabs.com/dhee-slicer",

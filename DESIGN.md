@@ -8,9 +8,9 @@ noise. White space is structural, not filler. Asymmetric layouts communicate con
 disorder. Think: high-end scientific instrument documentation crossed with Vercel-level engineering
 product pages.
 
-- **Density:** 5/10 — enough breathing room to feel premium, enough density for technical substance
-- **Variance:** 7/10 — asymmetric hero, bento applications, horizontal product scroll
-- **Motion:** 5/10 — intentional scroll reveals, precise hover states; not cinematic, not static
+- **Density:** 5/10, enough breathing room to feel premium, enough density for technical substance
+- **Variance:** 7/10, asymmetric hero, bento applications, horizontal product scroll
+- **Motion:** 5/10, intentional scroll reveals, precise hover states; not cinematic, not static
 
 ---
 
@@ -44,12 +44,12 @@ Software section (one deliberate switch, not random alternation).
 
 ## 3. Typography Rules
 
-- **Display:** `Outfit` (weights 300–700) — Geometric sans for all headings, tight tracking, controlled scale
-- **Body:** `Geist Sans` — Clean, precise, 65ch max-width, muted secondary color
-- **Mono:** `Geist Mono` — All technical specifications, measurements, timestamps, labels
+- **Display:** `Outfit` (weights 300–700). Geometric sans for all headings, tight tracking, controlled scale
+- **Body:** `Geist Sans`. Clean, precise, 65ch max-width, muted secondary color
+- **Mono:** `Geist Mono`. All technical specifications, measurements, timestamps, labels
 - **Banned:** `Inter` as default, any generic serif (Times, Georgia, Garamond), `Fraunces`, `Instrument Serif`
 - **Scale:**
-  - Hero H1: `clamp(2.75rem, 5vw, 4rem)` — max 2 lines desktop
+  - Hero H1: `clamp(2.75rem, 5vw, 4rem)`, max 2 lines desktop
   - Section H2: `clamp(2rem, 4vw, 2.5rem)`
   - Feature H3: `clamp(1.625rem, 3vw, 2rem)`
   - Body: `1rem` / `0.9375rem` depending on context
@@ -60,7 +60,7 @@ Software section (one deliberate switch, not random alternation).
 ## 4. Component Stylings
 
 - **Buttons:** Flat fill, Precision Teal background, white text. Active: `scale(0.98)` + `-1px` translate.
-  No outer glows. Shadow: `0 2px 12px oklch(52% 0.195 210 / 0.22)` — tinted to accent.
+  No outer glows. Shadow: `0 2px 12px oklch(52% 0.195 210 / 0.22)`, tinted to accent.
 - **Cards:** `1rem` radius (16px) consistently across ALL components. 1px Whisper Border.
   Used selectively: product cards, spec cards, contact form. Key Metrics section uses NO card boxes.
 - **Inputs:** Label above, placeholder in faint color, error below. Accent focus ring (2px, 20% opacity).
@@ -91,9 +91,9 @@ spec tiles; `rounded-2xl` (16px) for image containers and feature cards. Never m
 
 ## 6. Motion & Interaction
 
-- **Engine:** Motion (`motion/react`) — import from `motion/react`
+- **Engine:** Motion (`motion/react`), import from `motion/react`
 - **Spring physics:** `stiffness: 100, damping: 20` for interactive elements. No linear easing.
-- **Easing for reveals:** `[0.16, 1, 0.3, 1]` (expo out) — premium, weighty
+- **Easing for reveals:** `[0.16, 1, 0.3, 1]` (expo out), premium, weighty
 - **Hero stagger:** 0.07s delay per element (0 through 4 elements)
 - **Scroll reveals:** `whileInView` with `once: true`, `amount: 0.25-0.4`
 - **Hover:** Cards `scale(1.02)` or border color change; CTAs `-1px translate` on active
@@ -111,7 +111,7 @@ spec tiles; `rounded-2xl` (16px) for image containers and feature cards. Never m
 - No centered hero section (variance > 4)
 - No 3-equal-card feature grids
 - No warm beige/brass/cream backgrounds (banned family)
-- No em dashes (`—` or `–`) anywhere on the page
+- No em dashes or en dashes anywhere on the page (use commas, colons or parentheses instead)
 - No eyebrow above every section (max 3 across 9 sections)
 - No spec table with `border-b` on every row
 - No scroll cues or bouncing chevrons
@@ -123,7 +123,7 @@ spec tiles; `rounded-2xl` (16px) for image containers and feature cards. Never m
 - No AI copywriting clichés (Seamless, Unleash, Elevate, Next-Gen)
 - No pure black (`#000000`) or pure white body text on colored backgrounds without contrast check
 - No `h-screen` (use `min-h-[100dvh]`)
-- No `window.addEventListener('scroll')` — use Motion `useScroll()` or passive listener
+- No `window.addEventListener('scroll')`: use Motion `useScroll()` or passive listener
 
 ---
 
@@ -147,13 +147,13 @@ spec tiles; `rounded-2xl` (16px) for image containers and feature cards. Never m
 ### Structured Data (JSON-LD)
 Two schemas injected as `<script type="application/ld+json">`:
 
-1. **`Product` schema** — complete with:
+1. **`Product` schema**, complete with:
    - `name`, `description`, `alternateName`
    - `brand`, `manufacturer` (with address + contactPoint)
    - `additionalProperty` array for all 13 technical specs
    - `offers` with `availability`, `seller`, `areaServed`
 
-2. **`FAQPage` schema** — 7 Q&A pairs covering:
+2. **`FAQPage` schema**, 7 Q&A pairs covering:
    - Product differentiation (non-planar vs flat-bed)
    - Material compatibility
    - Build volume and customization

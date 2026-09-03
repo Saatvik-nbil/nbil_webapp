@@ -9,7 +9,7 @@ import { machines, type Machine } from "@/lib/machines";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const ORDER = ["trivima-np", "trivima-aura", "trivima-pro"];
-// Softer than the FocusAreas tilt it's modelled on — these cards are small, so
+// Softer than the FocusAreas tilt it's modelled on: these cards are small, so
 // the same angles would read as a wobble rather than a nudge.
 const TILT_SPRING = { stiffness: 150, damping: 18, mass: 0.4 } as const;
 

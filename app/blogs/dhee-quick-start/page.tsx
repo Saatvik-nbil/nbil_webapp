@@ -8,7 +8,7 @@ import { OriginButton } from "@/components/ui/origin-button";
 
 const TITLE = "Getting Started with Dhee: A Quick-Start Guide";
 const DESCRIPTION =
-  "Import your model, configure the basic settings, review the toolpath and export a sliced file — a nine-step walkthrough of your first print with Dhee, the control suite for Trivima NP and Pro bioprinters.";
+  "Import your model, configure the basic settings, review the toolpath and export a sliced file. A nine-step walkthrough of your first print with Dhee, the control suite for Trivima NP and Pro bioprinters.";
 const PUBLISHED = "2026-07-31";
 const PUBLISHED_LABEL = "July 31, 2026";
 const URL = "https://nextbiginnovationlabs.com/blogs/dhee-quick-start";
@@ -73,7 +73,7 @@ const STEPS: Step[] = [
     title: "Check the orientation",
     body: [
       "Rotate the model so it rests on a stable base. For simple geometries, put the largest flat surface against the platform.",
-      "On the NP, remember that the rotary spindle prints along a revolving mandrel rather than a flat bed — orient tubular parts along the spindle axis.",
+      "On the NP, remember that the rotary spindle prints along a revolving mandrel rather than a flat bed, so orient tubular parts along the spindle axis.",
     ],
     callout: {
       type: "check",
@@ -129,7 +129,7 @@ const STEPS: Step[] = [
     media: {
       kind: "video",
       caption:
-        "A clip running from the click through to the completion state — capture the finished result, not just the loading bar.",
+        "A clip running from the click through to the completion state. Capture the finished result, not just the loading bar.",
     },
   },
   {
@@ -139,7 +139,7 @@ const STEPS: Step[] = [
     ],
     callout: {
       type: "important",
-      text: "Always inspect the first layer before exporting — that is where adhesion problems show up first.",
+      text: "Always inspect the first layer before exporting. That is where adhesion problems show up first.",
     },
     media: {
       kind: "gif",
@@ -160,7 +160,7 @@ const STEPS: Step[] = [
     media: {
       kind: "screenshot",
       caption:
-        "The warning or status panel — use an example free of confidential project data.",
+        "The warning or status panel. Use an example free of confidential project data.",
     },
   },
   {
@@ -292,7 +292,7 @@ export default function DheeQuickStartPage() {
               <span aria-hidden="true">&middot;</span>
               <span>6 min read</span>
               <span aria-hidden="true">&middot;</span>
-              <span>Dhee &mdash; Trivima NP &amp; Pro</span>
+              <span>Dhee for Trivima NP &amp; Pro</span>
             </p>
           </div>
         </header>
@@ -337,7 +337,7 @@ export default function DheeQuickStartPage() {
                 key={step.title}
                 className="grid items-center gap-8 border-t border-[var(--color-hairline)] py-14 lg:grid-cols-2 lg:gap-14 lg:py-16"
               >
-                {/* Copy — alternates side with the media on wide screens */}
+                {/* Copy: alternates side with the media on wide screens */}
                 <div className={i % 2 === 1 ? "lg:order-2" : undefined}>
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-brand)] text-[14px] font-semibold text-white">
                     {i + 1}

@@ -14,7 +14,7 @@ type Post = {
   readTime?: string;
 };
 
-// Seeded from nextbiginnovationlabs.com/blogs — new posts can be prepended here.
+// Seeded from nextbiginnovationlabs.com/blogs. New posts can be prepended here.
 const POSTS: Post[] = [
   {
     title:
@@ -39,7 +39,7 @@ const POSTS: Post[] = [
     tags: ["Cancer Research"],
   },
   {
-    title: "GelMA — 5 Reasons to Choose it as Your Next Bioink for Bioprinting",
+    title: "GelMA: 5 Reasons to Choose it as Your Next Bioink for Bioprinting",
     excerpt:
       "Why Gelatin Methacryloyl (GelMA) has become one of the most versatile and widely used bioprinting materials.",
     image:
@@ -61,7 +61,7 @@ const POSTS: Post[] = [
   {
     title: "Bioprinting 101: Troubleshooting Common Challenges and Solutions",
     excerpt:
-      "Practical fixes for the most common bioprinting problems — from needle collisions and air bubbles to cell viability and scaffold integrity.",
+      "Practical fixes for the most common bioprinting problems, from needle collisions and air bubbles to cell viability and scaffold integrity.",
     image:
       "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2024/04/Troubleshooting-Common-Bioprinting-Challenges-and-Solutions.png?fit=1200%2C628&ssl=1",
     href: "https://nextbiginnovationlabs.com/bioprinting-101-troubleshooting-common-challenges-and-solutions/",
@@ -111,7 +111,7 @@ const POSTS: Post[] = [
   {
     title: "Bioinks: The Secret Sauce of Bioprinting, for Building Your Tissues",
     excerpt:
-      "Why bioinks — the formulated blend of cells, biomaterials and nutrients — sit at the heart of every successful bioprint.",
+      "Why bioinks (the formulated blend of cells, biomaterials and nutrients) sit at the heart of every successful bioprint.",
     image:
       "https://i0.wp.com/nextbiginnovationlabs.com/wp-content/uploads/2023/11/Bioink-Next-Big-Innovation-Labs.png?fit=1200%2C628&ssl=1",
     href: "https://nextbiginnovationlabs.com/bioinks-the-secret-sauce-of-bioprinting-for-building-your-tissues/",

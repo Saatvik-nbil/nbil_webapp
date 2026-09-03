@@ -22,7 +22,7 @@ const SUITES = [
 ];
 
 const CAPABILITIES = [
-  { icon: FileCode, title: "Direct import", body: "Load .stl and .gcode directly — .stl and .bmp on Aura. No conversion step." },
+  { icon: FileCode, title: "Direct import", body: "Load .stl and .gcode directly (.stl and .bmp on Aura). No conversion step." },
   { icon: Sliders, title: "Per-extruder control", body: "Independent temperature, pressure and speed for every head." },
   { icon: GitBranch, title: "Non-planar paths", body: "Automatic toolpaths for rotary and curved scaffold geometries." },
   { icon: SealCheck, title: "Synchronized crosslinking", body: "UV exposure timed to extrusion for consistent gelation." },

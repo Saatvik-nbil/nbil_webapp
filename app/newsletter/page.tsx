@@ -10,14 +10,14 @@ import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 export const metadata: Metadata = {
   title: "Newsletter",
   description:
-    "The NBIL bioprinting newsletter — research breakdowns and biofabrication news, published on Substack. Subscribe or read recent issues.",
+    "The NBIL bioprinting newsletter: research breakdowns and biofabrication news, published on Substack. Subscribe or read recent issues.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/newsletter" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/newsletter",
-    title: "Newsletter — Next Big Innovation Labs",
+    title: "Newsletter | Next Big Innovation Labs",
     description:
-      "The NBIL bioprinting newsletter — research breakdowns and biofabrication news, published on Substack. Subscribe or read recent issues.",
+      "The NBIL bioprinting newsletter: research breakdowns and biofabrication news, published on Substack. Subscribe or read recent issues.",
     images: [
       {
         url: "/images/heroes/newsletter-hero.webp",

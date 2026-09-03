@@ -43,7 +43,7 @@ export default function ConsultationExpectations() {
       aria-labelledby="expect-heading"
       className="relative overflow-hidden bg-[var(--color-dark-bg)] py-24 lg:py-32"
     >
-      {/* Animated shader background — the same plasma waves used behind the
+      {/* Animated shader background: the same plasma waves used behind the
           mission statement on the homepage. Held at 50% so the copy and
           icons stay legible over it. */}
       <ShaderBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-50" />

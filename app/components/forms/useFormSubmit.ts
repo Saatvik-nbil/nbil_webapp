@@ -10,7 +10,7 @@ export type SubmitStatus = "idle" | "submitting" | "success" | "error";
  * Posts a form to `/api/forms` and tracks the request state.
  *
  * Every form on the site shares this hook so the loading / success / error
- * behaviour — and the honeypot contract — stays identical everywhere.
+ * behaviour (and the honeypot contract) stays identical everywhere.
  */
 export function useFormSubmit(formId: FormId) {
   const [status, setStatus] = useState<SubmitStatus>("idle");

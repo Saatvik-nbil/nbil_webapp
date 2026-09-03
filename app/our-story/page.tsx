@@ -8,12 +8,12 @@ import { COMPANY } from "@/lib/machines";
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "The full record of Next Big Innovation Labs, from a Bengaluru startup in 2016 to a World Economic Forum Technology Pioneer and Engineering Product of the Year — every patent, grant, collaboration and recognition along the way.",
+    "The full record of Next Big Innovation Labs, from a Bengaluru startup in 2016 to a World Economic Forum Technology Pioneer and Engineering Product of the Year: every patent, grant, collaboration and recognition along the way.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/our-story" },
   openGraph: {
     type: "article",
     url: "https://nextbiginnovationlabs.com/our-story",
-    title: "Our Story — Next Big Innovation Labs",
+    title: "Our Story | Next Big Innovation Labs",
     description:
       "Ten years from a bold idea to a working range: the milestones, patents, grants and collaborations behind the Trivima bioprinter range.",
     images: [

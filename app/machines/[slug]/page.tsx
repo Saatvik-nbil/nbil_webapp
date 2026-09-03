@@ -11,6 +11,7 @@ import {
   Buildings,
   Microscope,
   Image,
+  Sliders,
 } from "@phosphor-icons/react/dist/ssr";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
@@ -68,7 +69,7 @@ export default async function MachinePage({
 
   const others = machines.filter((m) => m.slug !== machine.slug);
 
-  // Formats live in `specs` only — read them from there so the hero can't drift.
+  // Formats live in `specs` only. Read them from there so the hero can't drift.
   const fileFormats =
     machine.specs.find((s) => s.label === "Compatible file formats")?.value.replaceAll(",", "") ?? "";
 
@@ -161,7 +162,7 @@ export default async function MachinePage({
 
               {/* Stat band. Above sm this is a flex row whose cells size to their
                   own content and share the leftover space evenly, so a long value
-                  like 150×100×100 can never overrun its neighbour — the divider
+                  like 150×100×100 can never overrun its neighbour: the divider
                   rule plus a fixed pl-4 keeps every gutter identical. */}
               <dl className="grid grid-cols-2 gap-y-5 border-y border-[var(--color-hairline)] py-6 sm:flex sm:justify-between sm:gap-y-0">
                 {machine.stats.map((s, i) => (
@@ -192,7 +193,7 @@ export default async function MachinePage({
               </dl>
 
               <div className="flex flex-wrap items-center gap-3">
-                <OriginButton href="/#contact" className="h-11 px-6 text-[15px]">
+                <OriginButton href="#contact" className="h-11 px-6 text-[15px]">
                   Request a quote
                   <ArrowRight size={16} weight="bold" />
                 </OriginButton>
@@ -356,6 +357,58 @@ export default async function MachinePage({
             </div>
           </div>
         </section>
+
+        {/* What can be configured. Sits directly after the fixed specs, so a
+            reader who has just seen the numbers learns which of them move. */}
+        {machine.customisation && (
+          <section
+            aria-labelledby="customisation-heading"
+            className="py-20 lg:py-28 bg-[var(--color-brand-subtle)] border-b border-[var(--color-hairline)]"
+          >
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-10">
+              <div className="lg:col-span-5 flex flex-col gap-4">
+                <Reveal className="group flex w-fit items-center gap-3">
+                  <Sliders
+                    size={22}
+                    weight="duotone"
+                    aria-hidden="true"
+                    className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:rotate-[14deg] group-hover:scale-110`}
+                  />
+                  <SectionHeading>
+                    <span id="customisation-heading">Built to your spec</span>
+                  </SectionHeading>
+                </Reveal>
+                <Reveal>
+                  <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[46ch]">
+                    {machine.customisation.summary}
+                  </p>
+                </Reveal>
+                <Reveal>
+                  <OriginButton href="#contact" className="mt-2 h-11 w-fit px-6 text-[15px]">
+                    Discuss a configuration
+                    <ArrowRight size={16} weight="bold" />
+                  </OriginButton>
+                </Reveal>
+              </div>
+
+              <ul className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3" role="list">
+                {machine.customisation.options.map((option, i) => (
+                  <Reveal
+                    as="li"
+                    key={option}
+                    delay={(i % 2) * 0.05}
+                    className="flex items-start gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-4"
+                  >
+                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-surface)]">
+                      <Check size={12} weight="bold" aria-hidden="true" className="text-[var(--color-brand)]" />
+                    </span>
+                    <span className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed">{option}</span>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         {/* Applications */}
         <section aria-labelledby="apps-heading" className="py-20 lg:py-28">

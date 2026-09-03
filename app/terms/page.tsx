@@ -5,15 +5,15 @@ import Footer from "@/app/components/Footer";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "The terms that govern your use of the Next Big Innovation Labs website and Services — acceptable use, intellectual property, liability and governing law.",
+    "The terms that govern your use of the Next Big Innovation Labs website and Services: acceptable use, intellectual property, liability and governing law.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/terms" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/terms",
-    title: "Terms of Service — Next Big Innovation Labs",
+    title: "Terms of Service | Next Big Innovation Labs",
     description:
-      "The terms that govern your use of the Next Big Innovation Labs website and Services — acceptable use, intellectual property, liability and governing law.",
+      "The terms that govern your use of the Next Big Innovation Labs website and Services: acceptable use, intellectual property, liability and governing law.",
     images: [
       {
         url: "/images/np-side.webp",
@@ -65,7 +65,7 @@ export default function TermsPage() {
               <p>
                 Next Big Innovation Labs&reg; is a bioprinting hardware and
                 software company headquartered at No.22, 16th Cross, 5th Phase,
-                J.P. Nagar, Bengaluru &ndash; 560078, Karnataka, India.
+                J.P. Nagar, Bengaluru - 560078, Karnataka, India.
               </p>
             </Section>
 
@@ -108,9 +108,9 @@ export default function TermsPage() {
 
             <Section title="Intellectual property">
               <p>
-                The Service and its entire contents, features, and functionality
-                &mdash; including all text, graphics, logos, product names
-                (Trivima, Dhee, and related marks), images, and software &mdash;
+                The Service and its entire contents, features, and functionality,
+                including all text, graphics, logos, product names
+                (Trivima, Dhee, and related marks), images, and software,
                 are owned by Next Big Innovation Labs, its licensors, or other
                 providers of such material, and are protected by Indian and
                 international copyright, trademark, patent, and other
@@ -134,8 +134,8 @@ export default function TermsPage() {
             <Section title="Third-party links and services">
               <p>
                 The Service may contain links to third-party websites or
-                services &mdash; including our newsletter on Substack and social
-                platforms &mdash; that are not owned or controlled by Next Big
+                services, including our newsletter on Substack and social
+                platforms, that are not owned or controlled by Next Big
                 Innovation Labs. We have no control over, and assume no
                 responsibility for, the content, privacy policies, or practices
                 of any third-party websites or services. Your use of those
@@ -222,7 +222,7 @@ export default function TermsPage() {
                 </li>
                 <li>
                   By mail: No.22, 16th Cross, 5th Phase, J.P. Nagar, Bengaluru
-                  &ndash; 560078, Karnataka, India
+                  560078, Karnataka, India
                 </li>
               </ul>
             </Section>

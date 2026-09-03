@@ -34,6 +34,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "Resources",
     children: [
       { label: "Next Big Blogs", href: "/blogs" },
+      { label: "Publications", href: "/publications" },
       { label: "Newsletter", href: "/newsletter" },
     ],
   },
@@ -43,7 +44,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Our Story", href: "/our-story" },
       { label: "Team", href: "/team" },
       { label: "News", href: "/news" },
-      { label: "Careers", href: "/careers" },
+      { label: "Careers", href: "/team#careers" },
       { label: "Contact", href: "/#connect" },
     ],
   },
@@ -103,7 +104,7 @@ export default function NavBar() {
             <Link
               href="/"
               className="group flex items-center shrink-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60"
-              aria-label="Next Big Innovation Labs — home"
+              aria-label="Next Big Innovation Labs, home"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -112,7 +113,7 @@ export default function NavBar() {
                 className={[
                   "h-7 w-auto origin-left will-change-[scale,filter]",
                   // Tailwind v4 compiles scale-* to the standalone `scale`
-                  // property, not `transform` — transition that, or it snaps.
+                  // property, not `transform`: transition that, or it snaps.
                   // The transparent base shadow gives the glow something to
                   // interpolate from; filter:none is not animatable.
                   "drop-shadow-[0_0_0_rgba(37,114,253,0)]",

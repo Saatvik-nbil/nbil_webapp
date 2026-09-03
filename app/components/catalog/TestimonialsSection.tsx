@@ -1,5 +1,6 @@
 import TestimonialsCarousel, {
   type Testimonial,
+  type TrustedLogo,
 } from "@/app/components/shared/TestimonialsCarousel";
 
 // Real customer reviews for the Trivima range. Quotes are verbatim; where no
@@ -29,7 +30,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: 3,
     quote:
-      "The Dhee software is very user-friendly, with an easy and efficient slicing process that makes 3D printing simple to operate. The pause-and-resume printing feature is especially useful and adds great flexibility during printing. Overall, it’s a reliable and well-designed software—great work by the team!",
+      "The Dhee software is very user-friendly, with an easy and efficient slicing process that makes 3D printing simple to operate. The pause-and-resume printing feature is especially useful and adds great flexibility during printing. Overall, it’s a reliable and well-designed software. Great work by the team!",
     name: "Mohan",
     org: "CLRI Chennai",
   },
@@ -49,13 +50,40 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+/**
+ * The trusted-by row, wired the way the Dhee Slicer page does it: hovering,
+ * focusing or tapping an institution pins that lab's own review in the card.
+ * Each entry points at a real quote above, so nothing here is invented.
+ *
+ * Manipal appears once, under MAHE: MSLS is part of the same university and
+ * shares its mark, so a second identical logo would read as a bug. Dr. Bhisham
+ * Singh's MSLS review still comes round in the rotation.
+ */
+const TRUSTED_LABS: TrustedLogo[] = [
+  { name: "IIT Hyderabad", logo: "/institute/iithyd.webp", testimonial: TESTIMONIALS[1] },
+  { name: "CSIR CLRI Chennai", logo: "/institute/csir-clri-logo.webp", testimonial: TESTIMONIALS[3] },
+  { name: "NIAB Hyderabad", logo: "/placeholders/niab_logo.png", testimonial: TESTIMONIALS[0] },
+  {
+    name: "Manipal Academy of Higher Education",
+    logo: "/placeholders/Manipal_University_logo.png",
+    testimonial: TESTIMONIALS[4],
+  },
+  {
+    name: "IIT Delhi",
+    logo: "/placeholders/Indian_Institute_of_Technology_Delhi_Logo.svg",
+    testimonial: TESTIMONIALS[5],
+  },
+];
+
 export default function TestimonialsSection() {
   return (
     <TestimonialsCarousel
       id="testimonials"
       heading="Trusted in labs that bioprint living tissue."
-      description="Principal investigators, postdocs and core-facility managers on what changed after a Trivima bioprinter joined the bench."
+      description="Principal investigators, postdocs and core-facility managers on what changed after a Trivima bioprinter joined the bench. Pick a lab to read its review."
       testimonials={TESTIMONIALS}
+      trustedByLabel="Bioprinting with Trivima"
+      trustedLogos={TRUSTED_LABS}
     />
   );
 }

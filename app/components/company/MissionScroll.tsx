@@ -45,7 +45,7 @@ export default function MissionScroll() {
       aria-labelledby="mission-heading"
       className="relative bg-[var(--color-dark-bg)] py-28 lg:py-40 overflow-hidden"
     >
-      {/* Animated shader background — scoped to this section by the `relative`
+      {/* Animated shader background: scoped to this section by the `relative`
           + `overflow-hidden` on the <section> above. Held at 50% so the plasma
           reads as atmosphere and the mission copy stays legible over it; this
           replaces the separate scrim that used to sit on top. */}
@@ -58,7 +58,7 @@ export default function MissionScroll() {
       />
 
       <div className="relative max-w-5xl mx-auto px-6">
-        {/* Visually-hidden — the section's accessible name now that the
+        {/* Visually-hidden: the section's accessible name now that the
             visible "Our mission" eyebrow is gone; nothing else in this
             section carries a heading. */}
         <span id="mission-heading" className="sr-only">Our mission</span>

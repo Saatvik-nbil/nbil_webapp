@@ -9,7 +9,8 @@ const QUICK_LINKS = [
   { label: "Learn Bioprinting", href: "/consultancy" },
   { label: "About Us", href: "/our-story" },
   { label: "Blogs", href: "/blogs" },
-  { label: "Careers", href: "/careers" },
+  { label: "Publications", href: "/publications" },
+  { label: "Careers", href: "/team#careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Service", href: "/terms" },
 ];
@@ -34,7 +35,7 @@ const Footer: FC = () => (
   >
     {/* pb-24 clears MobileStickyCTA, which is fixed to the bottom on phones. */}
     <div className="max-w-7xl mx-auto px-6 pt-12 pb-24 sm:pb-8 lg:pt-14">
-      {/* Main content: three equal columns —
+      {/* Main content: three equal columns,
           Quick Links · Resources · brand + Follow Us */}
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-12">
         {/* Columns 1 & 2: Quick Links + Resources */}
@@ -88,7 +89,7 @@ const Footer: FC = () => (
       {/* Bottom bar */}
       <div className="mt-14 pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
-          Copyright &copy;{new Date().getFullYear()} {COMPANY.short} — All rights reserved
+          Copyright &copy;{new Date().getFullYear()} {COMPANY.short}. All rights reserved
         </p>
         <div className="flex items-center gap-4">
           <Link

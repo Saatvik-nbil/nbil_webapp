@@ -17,7 +17,7 @@ const SUGGESTED_LINKS = [
   { label: "Our story", href: "/our-story" },
 ];
 
-/** App Router's not-found UI — rendered for any unmatched route, or wherever
+/** App Router's not-found UI: rendered for any unmatched route, or wherever
     `notFound()` is called (e.g. an unknown machine slug). Full site chrome
     stays intact so a lost visitor can navigate out normally, rather than
     hitting a dead end. */

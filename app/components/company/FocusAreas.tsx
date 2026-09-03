@@ -47,7 +47,7 @@ export default function FocusAreas() {
   // ...and enlarges as it scrolls into view, growing past the frame edges.
   const imgScale = useTransform(scrollYProgress, [0, 0.55, 1], [0.92, 1.18, 1.3]);
 
-  // Pointer-driven 3D tilt — like the depth you get through 3D glasses. We map
+  // Pointer-driven 3D tilt, like the depth you get through 3D glasses. We map
   // the cursor position over the frame to a rotateX/rotateY, spring-smoothed.
   const px = useMotionValue(0);
   const py = useMotionValue(0);

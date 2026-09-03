@@ -6,14 +6,14 @@ import NewsLanding from "@/app/components/news/NewsLanding";
 export const metadata: Metadata = {
   title: "News",
   description:
-    "Press, milestones and the latest from Next Big Innovation Labs — including recent posts straight from our LinkedIn feed.",
+    "Press, milestones and the latest from Next Big Innovation Labs, including recent posts straight from our LinkedIn feed.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/news" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/news",
-    title: "News — Next Big Innovation Labs",
+    title: "News | Next Big Innovation Labs",
     description:
-      "Press, milestones and the latest from Next Big Innovation Labs — including recent posts straight from our LinkedIn feed.",
+      "Press, milestones and the latest from Next Big Innovation Labs, including recent posts straight from our LinkedIn feed.",
     images: [
       {
         url: "/images/np-side.webp",

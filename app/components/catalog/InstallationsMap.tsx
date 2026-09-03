@@ -20,13 +20,23 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const POPUP_W = 288; // matches the w-72 card below
 const MARGIN = 14;
 
-type Popup = { stateId: string; x: number; y: number; pinned: boolean };
+type Popup = {
+  stateId: string;
+  /** The state's centre in SVG units, kept so the card can be re-anchored
+   *  when the page scrolls or resizes under it. */
+  cx: number;
+  cy: number;
+  /** Viewport position of the anchor, derived from cx/cy. */
+  x: number;
+  y: number;
+  pinned: boolean;
+};
 
 /**
  * Interactive India map on /trivima: hover (or tap) a state that has a
  * Trivima installation to see who's running one there. Hovering an installed
  * state dispatches `nbil:cursor-merge` so the site's replacement cursor
- * (coordinate-cursor.tsx) hides itself — the state's own glowing outline
+ * (coordinate-cursor.tsx) hides itself: the state's own glowing outline
  * becomes the pointer feedback instead of the two overlapping.
  */
 export default function InstallationsMap() {
@@ -47,8 +57,8 @@ export default function InstallationsMap() {
     return {
       x: Math.min(Math.max(raw.x, half + MARGIN), window.innerWidth - half - MARGIN),
       // The card renders above this point and can run tall (five-item
-      // states), so keep well clear of bottom-docked chrome — the cookie
-      // banner, the mobile sticky CTA — not just the viewport edge.
+      // states), so keep well clear of bottom-docked chrome: the cookie
+      // banner, the mobile sticky CTA, not just the viewport edge.
       y: Math.min(Math.max(raw.y, 140), window.innerHeight - 110),
     };
   }, []);
@@ -56,7 +66,7 @@ export default function InstallationsMap() {
   const openFor = useCallback(
     (stateId: string, cx: number, cy: number, pinned: boolean) => {
       const { x, y } = screenPointFor(cx, cy);
-      setPopup({ stateId, x, y, pinned });
+      setPopup({ stateId, cx, cy, x, y, pinned });
     },
     [screenPointFor]
   );
@@ -91,8 +101,7 @@ export default function InstallationsMap() {
     if (e.key === "Escape") setPopup(null);
   }
 
-  // Dismiss a pinned card on Escape, an outside click, scroll, or resize —
-  // its position is computed once at open time and would otherwise go stale.
+  // Dismiss a pinned card on Escape or an outside click.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setPopup(null);
@@ -103,20 +112,49 @@ export default function InstallationsMap() {
         setPopup(null);
       }
     }
-    function onDismiss() {
-      setPopup(null);
-    }
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointerDown);
-    window.addEventListener("scroll", onDismiss, { passive: true });
-    window.addEventListener("resize", onDismiss);
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onPointerDown);
-      window.removeEventListener("scroll", onDismiss);
-      window.removeEventListener("resize", onDismiss);
     };
   }, []);
+
+  // The card is anchored in viewport coordinates, so it has to follow the map
+  // when the page moves under it. This used to close the card instead, which
+  // made the section look broken at random: Lenis carries on emitting scroll
+  // events through its momentum, so a card opened moments after a scroll was
+  // dismissed before it had finished animating in.
+  useEffect(() => {
+    let raf = 0;
+    const reposition = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        setPopup((p) => {
+          if (!p) return p;
+          const { x, y } = screenPointFor(p.cx, p.cy);
+          return x === p.x && y === p.y ? p : { ...p, x, y };
+        });
+      });
+    };
+    window.addEventListener("scroll", reposition, { passive: true });
+    window.addEventListener("resize", reposition);
+    return () => {
+      window.removeEventListener("scroll", reposition);
+      window.removeEventListener("resize", reposition);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [screenPointFor]);
+
+  // Unmounting mid-hover (a route change, say) would otherwise strand the
+  // global cursor hidden.
+  useEffect(
+    () => () => {
+      window.dispatchEvent(new CustomEvent("nbil:cursor-merge", { detail: { active: false } }));
+    },
+    [],
+  );
 
   const activeState = popup
     ? INDIA_STATE_PATHS.find((s) => s.id === popup.stateId)
@@ -161,6 +199,7 @@ export default function InstallationsMap() {
                 <path
                   key={s.id}
                   data-state-path
+                  {...(installed ? { "data-cursor-merge": "" } : {})}
                   d={s.d}
                   tabIndex={installed ? 0 : -1}
                   role={installed ? "button" : undefined}
@@ -204,73 +243,79 @@ export default function InstallationsMap() {
 
           <AnimatePresence>
             {popup && activeState && (
-              // Plain (non-motion) wrapper owns the fixed anchor offset —
-              // Motion writes its own `transform` for the animated scale/y
-              // below, so that offset has to live one level up or the two
-              // would fight over the same CSS property.
-              <div
+              // The anchor offset rides on the CSS `translate` property
+              // rather than `transform`, which Motion owns for the scale/y
+              // below. That keeps the card a single motion element and a
+              // direct child of AnimatePresence, which is what lets the exit
+              // animation run at all: with a plain wrapper in between, the
+              // card vanished instantly instead of animating out.
+              //
+              // A hover card is inert (`pointer-events-none`). It overlaps the
+              // map, so a card that could take the pointer pulled it off the
+              // state underneath, which closed the card, which handed the
+              // pointer back: the flicker loop that made hovering feel
+              // unreliable. A pinned card stays interactive for its close
+              // button and its scrollbar.
+              <motion.div
                 key={popup.stateId}
                 data-installations-popup
+                initial={reduce ? false : { opacity: 0, scale: 0.95, y: 6 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 6 }}
+                transition={{ duration: 0.18, ease: EASE }}
                 style={{
                   position: "fixed",
                   left: popup.x,
                   top: popup.y,
-                  transform: "translate(-50%, -100%) translateY(-14px)",
+                  translate: "-50% calc(-100% - 14px)",
                   width: POPUP_W,
+                  pointerEvents: popup.pinned ? "auto" : "none",
                 }}
-                className="z-50"
+                className="z-50 max-h-[min(60vh,380px)] overflow-y-auto rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 shadow-[0_20px_50px_rgba(2,12,27,0.28)]"
               >
-                <motion.div
-                  initial={reduce ? false : { opacity: 0, scale: 0.95, y: 6 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 6 }}
-                  transition={{ duration: 0.18, ease: EASE }}
-                  className="max-h-[min(60vh,380px)] overflow-y-auto rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 shadow-[0_20px_50px_rgba(2,12,27,0.28)]"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <MapPin
-                        size={16}
-                        weight="fill"
-                        className="text-[var(--color-brand)]"
-                        aria-hidden="true"
-                      />
-                      <h3 className="font-display text-[15px] font-semibold text-[var(--color-ink)]">
-                        {activeState.name}
-                      </h3>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setPopup(null)}
-                      aria-label="Close"
-                      className="-mr-1 -mt-1 flex size-6 shrink-0 items-center justify-center rounded-full text-[var(--color-ink-faint)] transition-colors hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-ink)]"
-                    >
-                      <X size={13} weight="bold" />
-                    </button>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <MapPin
+                      size={16}
+                      weight="fill"
+                      className="text-[var(--color-brand)]"
+                      aria-hidden="true"
+                    />
+                    <h3 className="font-display text-[15px] font-semibold text-[var(--color-ink)]">
+                      {activeState.name}
+                    </h3>
                   </div>
-                  <ul className="mt-3 flex flex-col gap-2.5" role="list">
-                    {activeInstallations.map((inst) => (
-                      <li
-                        key={`${inst.name}-${inst.city ?? ""}`}
-                        className="border-t border-[var(--color-hairline)] pt-2.5 first:border-t-0 first:pt-0"
-                      >
-                        <p className="text-[13.5px] font-medium leading-snug text-[var(--color-ink)]">
-                          {inst.name}
-                          {inst.city ? (
-                            <span className="font-normal text-[var(--color-ink-faint)]">
-                              {" "}
-                              &middot; {inst.city}
-                            </span>
-                          ) : null}
-                        </p>
-                        <p className="mt-0.5 text-[12px] text-[var(--color-brand-strong)]">
-                          {inst.model}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </div>
+                  <button
+                    type="button"
+                    onClick={() => setPopup(null)}
+                    aria-label="Close"
+                    className="-mr-1 -mt-1 flex size-6 shrink-0 items-center justify-center rounded-full text-[var(--color-ink-faint)] transition-colors hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-ink)]"
+                  >
+                    <X size={13} weight="bold" />
+                  </button>
+                </div>
+                <ul className="mt-3 flex flex-col gap-2.5" role="list">
+                  {activeInstallations.map((inst) => (
+                    <li
+                      key={`${inst.name}-${inst.city ?? ""}`}
+                      className="border-t border-[var(--color-hairline)] pt-2.5 first:border-t-0 first:pt-0"
+                    >
+                      <p className="text-[13.5px] font-medium leading-snug text-[var(--color-ink)]">
+                        {inst.name}
+                        {inst.city ? (
+                          <span className="font-normal text-[var(--color-ink-faint)]">
+                            {" "}
+                            &middot; {inst.city}
+                          </span>
+                        ) : null}
+                      </p>
+                      <p className="mt-0.5 text-[12px] text-[var(--color-brand-strong)]">
+                        {inst.model}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
@@ -286,7 +331,7 @@ export default function InstallationsMap() {
                 className="rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] px-3 py-1 text-[13px] text-[var(--color-ink-muted)]"
               >
                 {inst.name}
-                {inst.city ? `, ${inst.city}` : ""} &mdash; {inst.model}
+                {inst.city ? `, ${inst.city}` : ""} &middot; {inst.model}
               </span>
             ))}
           </div>

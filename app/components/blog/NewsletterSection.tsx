@@ -17,7 +17,7 @@ type Issue = {
   date: string;
 };
 
-// Seeded from nextbiginnovationlabs.substack.com — links point to the specific posts.
+// Seeded from nextbiginnovationlabs.substack.com. Links point to the specific posts.
 const ISSUES: Issue[] = [
   {
     title: "3D Bioprinting Offers a Breakthrough for Corneal Diseases",
@@ -92,7 +92,7 @@ export default function NewsletterSection() {
           Recent issues
         </h2>
 
-        {/* Issues grid — preview + Learn more (no full embed) */}
+        {/* Issues grid: preview + Learn more (no full embed) */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {ISSUES.map((issue, i) => (
             <motion.article

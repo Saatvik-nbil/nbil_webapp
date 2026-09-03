@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/privacy-policy",
-    title: "Privacy Policy — Next Big Innovation Labs",
+    title: "Privacy Policy | Next Big Innovation Labs",
     description:
       "How Next Big Innovation Labs collects, uses, stores, and discloses your personal information across our website, subdomains, and application.",
     images: [
@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
                   <Term>Company:</Term> when this policy mentions
                   &ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or
                   &ldquo;our,&rdquo; it refers to Next Big Innovation Lab, No. 22,
-                  16th Cross, 5th Phase JP Nagar, Bengaluru &ndash; 560078 that is
+                  16th Cross, 5th Phase JP Nagar, Bengaluru - 560078 that is
                   responsible for your information under this Privacy Policy.
                 </li>
                 <li>
@@ -110,8 +110,8 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <Term>Personal Data:</Term> any information that directly,
-                  indirectly, or in connection with other information &mdash;
-                  including a personal identification number &mdash; allows for the
+                  indirectly, or in connection with other information
+                  (including a personal identification number) allows for the
                   identification or identifiability of a natural person.
                 </li>
                 <li>
@@ -670,7 +670,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="Individual Data Subject's Rights — Data Access, Portability and Deletion">
+            <Section title="Individual Data Subject's Rights: Data Access, Portability and Deletion">
               <p>
                 We are committed to helping our customers meet the data subject
                 rights requirements of GDPR. Next Big Innovation Labs processes or

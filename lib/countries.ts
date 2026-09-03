@@ -1,7 +1,7 @@
 /**
  * Country reference data for form phone fields.
  *
- * `min`/`max` are the digit counts of the *national* number — what's left after
+ * `min`/`max` are the digit counts of the *national* number: what's left after
  * the international dial code and any trunk prefix are stripped. Ranges are
  * deliberately a little generous: rejecting a real customer's number is far
  * worse than accepting a malformed one, since the row still reaches the sheet
@@ -22,7 +22,7 @@ export type Country = {
   max: number;
   /** Optional constraint on how the national number starts. */
   prefix?: RegExp;
-  /** Shown when `prefix` fails — says what a valid number looks like instead of
+  /** Shown when `prefix` fails. It says what a valid number looks like instead of
    *  just declaring the input wrong. */
   prefixHint?: string;
 };
@@ -138,7 +138,7 @@ export function getCountry(code: string): Country | undefined {
 
 /**
  * Country names for a plain "which country are you in" select. `Other` is kept
- * as an escape hatch — the list is broad but not exhaustive, and a lead from an
+ * as an escape hatch. The the list is broad but not exhaustive, and a lead from an
  * unlisted country shouldn't be blocked from submitting.
  */
 export const OTHER_COUNTRY = "Other";

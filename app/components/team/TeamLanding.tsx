@@ -8,14 +8,14 @@ import TeamShowcase, { type TeamMember } from "@/components/ui/team-showcase";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* The three founders — shown first, as the anchor of the page. */
+/* The three founders, shown first, as the anchor of the page. */
 const FOUNDERS = [
   { id: "f1", name: "Piyush Padmanabhan", role: "CEO · Co-Founder & Director", image: "/founders/Piyush.webp", linkedin: "https://www.linkedin.com/in/piyush-padmanabhan/" },
   { id: "f2", name: "Pooja Venkatesh", role: "Co-CEO · Co-Founder", image: "/founders/PoojaNew.webp", linkedin: "https://www.linkedin.com/in/pooja-venkatesh-5a8079153/" },
   { id: "f3", name: "Alok Medikepura Anil", role: "Co-Founder & Director", image: "/founders/AlokNew.webp", linkedin: "https://www.linkedin.com/in/alokanil/" },
 ];
 
-/* The wider team — revealed in the showcase as you scroll down. */
+/* The wider team, revealed in the showcase as you scroll down. */
 const TEAM: TeamMember[] = [
   { id: "t2", name: "Muthukumaran V", role: "Senior Software & R&D Engineer", image: "/team/Muthu.webp", social: { linkedin: "https://www.linkedin.com/in/muthukumaran-v-48a411224/" } },
   { id: "t1", name: "Gowthaman S P", role: "Senior R&D Engineer", image: "/team/Gowthaman-Photoroom.jpeg", social: { linkedin: "https://www.linkedin.com/in/gowthaman2/" } },

@@ -4,7 +4,7 @@
  * Forms post to `/api/forms`, which validates the payload and forwards it to a
  * Google Apps Script web app. The script appends a row to a Google Sheet tab
  * (one tab per form) and emails a notification. Adding a new form is a matter
- * of adding an entry to `FORMS` below and rendering the fields — no server or
+ * of adding an entry to `FORMS` below and rendering the fields, with no server or
  * Apps Script change required.
  */
 
@@ -13,7 +13,7 @@ export const FORM_IDS = ["quote", "consultation", "chatbot"] as const;
 export type FormId = (typeof FORM_IDS)[number];
 
 export type FormDefinition = {
-  /** Sheet tab name the Apps Script writes into. Keep stable — renaming it
+  /** Sheet tab name the Apps Script writes into. Keep stable: renaming it
    *  makes the script create a fresh, empty tab. */
   sheet: string;
   /** Used as the notification email subject. */
@@ -51,7 +51,7 @@ export type FormField = {
 export type FormSubmission = {
   formId: FormId;
   fields: FormField[];
-  /** Honeypot. Bots fill it, humans never see it — a non-empty value is dropped. */
+  /** Honeypot. Bots fill it, humans never see it, and a non-empty value is dropped. */
   company_website?: string;
 };
 

@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Global smooth-scroll provider (animejs.com-style momentum scrolling).
  * Lenis interpolates the native scroll, and we drive GSAP's ticker from it so
  * every ScrollTrigger (e.g. the HeroScrub pass-through) stays perfectly in sync.
- * Disabled entirely under prefers-reduced-motion — native scroll, no smoothing.
+ * Disabled entirely under prefers-reduced-motion: native scroll, no smoothing.
  */
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {

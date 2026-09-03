@@ -6,7 +6,7 @@ import { LinkedinLogo, YoutubeLogo, ArrowUpRight } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* ── Editorial carousel — event photos from /public/events ───────────────
+/* ── Editorial carousel: event photos from /public/events ───────────────
    Add or swap images by editing these arrays; mixed aspect ratios echo an
    editorial wall. */
 type Slot = { aspect: string; src: string; alt?: string };
@@ -29,15 +29,15 @@ const ROW_BOTTOM: Slot[] = [
   { aspect: "3 / 4", src: "/events/5.webp" },
 ];
 
-/* ── YouTube — podcast features & talks (channel: @nextbiglearning6504) ── */
+/* ── YouTube: podcast features & talks (channel: @nextbiglearning6504) ── */
 const VIDEOS: { id: string; title: string }[] = [
-  { id: "90fK44sd-yQ", title: "NBIL feature — podcast 1" },
-  { id: "YxpZTNFlVAQ", title: "NBIL feature — podcast 2" },
-  { id: "IK8dIz7xxGg", title: "NBIL feature — podcast 3" },
-  { id: "7rTGcRriepI", title: "NBIL feature — podcast 4" },
+  { id: "90fK44sd-yQ", title: "NBIL feature: podcast 1" },
+  { id: "YxpZTNFlVAQ", title: "NBIL feature: podcast 2" },
+  { id: "IK8dIz7xxGg", title: "NBIL feature: podcast 3" },
+  { id: "7rTGcRriepI", title: "NBIL feature: podcast 4" },
 ];
 
-/* ── LinkedIn embeds — heights match LinkedIn's published embed sizes ──── */
+/* ── LinkedIn embeds: heights match LinkedIn's published embed sizes ──── */
 const POSTS: { id: string; height: number }[] = [
   { id: "7472211153843048448", height: 1049 },
   { id: "7459948340193951745", height: 1259 },
@@ -162,7 +162,7 @@ export default function NewsLanding() {
             </a>
           </motion.div>
 
-          {/* Scroll feed — reveals more than 4 by scrolling */}
+          {/* Scroll feed: reveals more than 4 by scrolling */}
           <div className="relative mt-10">
             <div
               data-lenis-prevent
@@ -224,7 +224,7 @@ export default function NewsLanding() {
             </a>
           </motion.div>
 
-          {/* Scroll feed — masonry that scrolls once past the first few posts */}
+          {/* Scroll feed: masonry that scrolls once past the first few posts */}
           <div className="relative mt-10">
             <div
               data-lenis-prevent

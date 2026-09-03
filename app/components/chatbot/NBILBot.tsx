@@ -9,12 +9,12 @@ import { useFormSubmit } from "@/app/components/forms/useFormSubmit";
 import { machines } from "@/lib/machines";
 
 /**
- * NBIL Assistant — a small, always-there chat widget (bottom-right, every
+ * NBIL Assistant: a small, always-there chat widget (bottom-right, every
  * page). Two jobs, chosen up front like a HubSpot-style bot:
  *
  * 1. Point visitors at the right page (bioprinters, software, consultancy,
  *    careers, etc.) without them hunting through the nav.
- * 2. Collect a lead conversationally — name, email, phone, what they want —
+ * 2. Collect a lead conversationally (name, email, phone, what they want),
  *    one question at a time, then post it to `/api/forms` (formId
  *    "chatbot") exactly like every other form on the site: same pipeline,
  *    same Google Sheet, own tab ("Chatbot Leads").
@@ -48,12 +48,12 @@ const EMPTY_DRAFT: LeadDraft = { name: "", email: "", phone: "", intent: "", mes
 const INPUT_STEPS: Step[] = ["lead_name", "lead_email", "lead_phone", "lead_message"];
 
 const MAIN_MENU_OPTIONS: QuickReply[] = [
-  { id: "nav", label: "🧭 Explore the site" },
-  { id: "lead", label: "💬 Talk to our team" },
+  { id: "nav", label: "Explore the site" },
+  { id: "lead", label: "Talk to our team" },
 ];
 
 /** Pulled from the same catalog every other page uses, so a new model shows
- *  up here automatically — nothing to keep in sync by hand. */
+ *  up here automatically, nothing to keep in sync by hand. */
 const DESTINATIONS: QuickReply[] = [
   { id: "/trivima", label: "Bioprinter range" },
   ...machines.map((m) => ({ id: `/machines/${m.slug}`, label: m.name })),
@@ -61,11 +61,12 @@ const DESTINATIONS: QuickReply[] = [
   { id: "/consultancy", label: "Consultancy services" },
   { id: "/our-story", label: "Our story" },
   { id: "/team", label: "Team" },
-  { id: "/careers", label: "Careers" },
+  { id: "/team#careers", label: "Careers" },
   { id: "/news", label: "News" },
   { id: "/blogs", label: "Blogs" },
+  { id: "/publications", label: "Publications" },
   { id: "/newsletter", label: "Newsletter" },
-  { id: "/#contact", label: "Contact us" },
+  { id: "/#connect", label: "Contact us" },
 ];
 
 const INTENT_LABELS: Record<string, string> = {
@@ -79,7 +80,7 @@ const PLACEHOLDERS: Partial<Record<Step, string>> = {
   lead_name: "Your full name",
   lead_email: "you@organization.com",
   lead_phone: "+91 98765 43210",
-  lead_message: "Tell us more (optional) — Enter to skip",
+  lead_message: "Tell us more (optional), or press Enter to skip",
 };
 
 const INPUT_TYPE: Partial<Record<Step, string>> = {
@@ -93,7 +94,7 @@ const AUTOCOMPLETE: Partial<Record<Step, string>> = {
   lead_phone: "tel",
 };
 
-// Legal pages get a chat prompt that's just noise, not conversions — same
+// Legal pages get a chat prompt that's just noise, not conversions. Same
 // call MobileStickyCTA.tsx makes.
 const HIDDEN_ON = ["/privacy-policy", "/terms"];
 
@@ -101,15 +102,15 @@ const firstName = (full: string) => full.trim().split(/\s+/)[0] ?? full;
 
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-/** Loose, worldwide phone check — the bot doesn't ask for a country, so it
+/** Loose, worldwide phone check. The bot doesn't ask for a country, so it
  *  only rules out obvious typos rather than enforcing a per-country rule. */
 function validatePhoneLoose(raw: string): string | null {
   const value = raw.trim();
-  if (!value) return "A phone number would help — mind adding one?";
-  if (/[A-Za-z]/.test(value)) return "That doesn't look like a phone number — no letters, please.";
+  if (!value) return "A phone number would help. Mind adding one?";
+  if (/[A-Za-z]/.test(value)) return "That doesn't look like a phone number. No letters, please.";
   const digits = value.replace(/\D/g, "");
   if (digits.length < 7 || digits.length > 15) {
-    return "That doesn't look like a complete phone number — could you double-check it?";
+    return "That doesn't look like a complete phone number. Could you double-check it?";
   }
   return null;
 }
@@ -141,7 +142,7 @@ export default function NBILBot() {
     try {
       if (!localStorage.getItem("nbil_bot_seen")) setShowPulse(true);
     } catch {
-      // Locked-down storage — just skip the pulse, nothing depends on it.
+      // Locked-down storage, so just skip the pulse. Nothing depends on it.
     }
   }, []);
 
@@ -187,15 +188,15 @@ export default function NBILBot() {
     setStep("nav");
     await say("Where would you like to go?", [
       ...DESTINATIONS,
-      { id: "lead", label: "💬 Talk to our team" },
-      { id: "__back", label: "⬅ Back" },
+      { id: "lead", label: "Talk to our team" },
+      { id: "__back", label: "Back" },
     ]);
   }, [say]);
 
   const startLeadFlow = useCallback(async () => {
     draftRef.current = { ...EMPTY_DRAFT };
     setStep("lead_name");
-    await say("Great — let's get you connected. It takes less than a minute.");
+    await say("Great, let's get you connected. It takes less than a minute.");
     await say("What's your name?");
   }, [say]);
 
@@ -215,21 +216,21 @@ export default function NBILBot() {
 
     if (ok) {
       await say(
-        `Thanks, ${firstName(d.name)} — that's everything I need. Someone from the NBIL team will reach out to ${d.email} within 2 business days.`,
+        `Thanks, ${firstName(d.name)}. That's everything I need, and someone from the NBIL team will reach out to ${d.email} within 2 business days.`,
       );
       await say("Anything else I can help with?", MAIN_MENU_OPTIONS);
       setStep("menu");
     } else {
       await say("Hmm, that didn't go through. Want to try again?", [
-        { id: "retry", label: "🔁 Try again" },
-        { id: "nav", label: "🧭 Explore the site instead" },
+        { id: "retry", label: "Try again" },
+        { id: "nav", label: "Explore the site instead" },
       ]);
       setStep("lead_retry");
     }
   }, [submit, say]);
 
   const start = useCallback(async () => {
-    await say("Hi! 👋 I'm the NBIL Assistant.");
+    await say("Hi, I'm the NBIL Assistant.");
     setStep("menu");
     await say(
       "I can help you find your way around, or connect you with our team for a quote or consultation. What would you like to do?",
@@ -239,7 +240,7 @@ export default function NBILBot() {
 
   useEffect(() => {
     if (panelOpen && messages.length === 0) void start();
-    // Only re-run when a fresh conversation is needed — `start` itself is
+    // Only re-run when a fresh conversation is needed. `start` itself is
     // stable in practice (its own deps rarely change) and re-including it
     // would refire on every render of `say`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -260,18 +261,18 @@ export default function NBILBot() {
       if (step === "nav") {
         if (id === "__back") {
           setStep("menu");
-          await say("Sure — what would you like to do?", MAIN_MENU_OPTIONS);
+          await say("Sure, what would you like to do?", MAIN_MENU_OPTIONS);
           return;
         }
         if (id === "lead") return void startLeadFlow();
 
         const dest = DESTINATIONS.find((d) => d.id === id);
         if (dest) {
-          await say(`On it — heading to ${dest.label}.`);
+          await say(`On it, heading to ${dest.label}.`);
           router.push(dest.id);
           await say("Anything else?", [
-            { id: "nav", label: "🧭 Keep exploring" },
-            { id: "lead", label: "💬 Talk to our team" },
+            { id: "nav", label: "Keep exploring" },
+            { id: "lead", label: "Talk to our team" },
           ]);
           setStep("menu");
         }
@@ -283,7 +284,7 @@ export default function NBILBot() {
         if (chosen) {
           draftRef.current.intent = chosen;
           setStep("lead_message");
-          await say("Got it. Anything specific I should pass along — application, timeline, questions?", [
+          await say("Got it. Anything specific I should pass along, like application, timeline or questions?", [
             { id: "__skip", label: "Skip for now" },
           ]);
         }

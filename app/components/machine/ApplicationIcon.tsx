@@ -4,7 +4,7 @@
 // `Application` in lib/machines.ts). Until then, a card falls back here
 // instead of the bare "image coming soon" glyph. Each diagram is a small,
 // technically accurate line drawing of the structure the application text
-// describes — a vessel cross-section, a branching airway, a stent lattice —
+// describes (a vessel cross-section, a branching airway, a stent lattice)
 // rendered in the brand line-art style and given one purposeful animation
 // (flow, breathing, a pulse) rather than a decorative flourish. Pure CSS
 // animation (keyframes in app/globals.css under "Application diagram
@@ -19,7 +19,7 @@ const VOID = "var(--color-surface)";
 
 const VIEWBOX = "0 0 120 75";
 
-/** Faint corner registration marks — a shared motif that ties the 12
+/** Faint corner registration marks, a shared motif that ties the 12
     diagrams together as one "technical schematic" family. */
 function CornerMarks() {
   return (
@@ -48,7 +48,7 @@ function Diagram({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Vascular tissue engineering — concentric-wall cross-section beside a
+/** Vascular tissue engineering: concentric-wall cross-section beside a
     perfusable longitudinal graft, flow animated along the lumen. */
 function VascularIcon() {
   return (
@@ -63,7 +63,7 @@ function VascularIcon() {
   );
 }
 
-/** Respiratory & airway models — trachea with cartilage-ring ticks
+/** Respiratory & airway models: trachea with cartilage-ring ticks
     branching into two bronchi, uniform lumens, gently breathing. */
 function AirwayIcon() {
   const rings = [11, 16, 21, 26, 31];
@@ -81,7 +81,7 @@ function AirwayIcon() {
   );
 }
 
-/** Cardiovascular stents & implants — a tubular graft with a diamond
+/** Cardiovascular stents & implants: a tubular graft with a diamond
     stent lattice, expanding and settling on loop. */
 function StentIcon() {
   return (
@@ -108,7 +108,7 @@ function StentIcon() {
   );
 }
 
-/** Organoid & disease modeling — a multiwell array of uniform organoids,
+/** Organoid & disease modeling: a multiwell array of uniform organoids,
     a pulse sweeping across the plate. */
 function OrganoidArrayIcon() {
   const cols = [27, 50, 73, 96];
@@ -138,13 +138,13 @@ function OrganoidArrayIcon() {
   );
 }
 
-/** Ocular & corneal constructs — a thin lens shell curved over the
+/** Ocular & corneal constructs: a thin lens shell curved over the
     globe, a soft glint sweeping across the hydrogel surface. */
 function CornealIcon() {
   return (
     <Diagram>
       <circle cx={60} cy={44} r={20} fill="var(--color-surface-raised)" stroke={NEUTRAL} strokeWidth={1.2} opacity={0.5} />
-      {/* Thin lens shell floating just outside the globe surface — a real
+      {/* Thin lens shell floating just outside the globe surface, a real
           gap between the two radii, so it reads as an applied cap rather
           than a second concentric ring. */}
       <path
@@ -160,7 +160,7 @@ function CornealIcon() {
   );
 }
 
-/** Organoid & spheroid printing — a nozzle depositing droplets that
+/** Organoid & spheroid printing: a nozzle depositing droplets that
     build into layered spheroids. */
 function OrganoidPrintIcon() {
   return (
@@ -179,7 +179,7 @@ function OrganoidPrintIcon() {
   );
 }
 
-/** Multi-material scaffolds — a woodpile lattice of graded struts,
+/** Multi-material scaffolds: a woodpile lattice of graded struts,
     the two material passes breathing in alternation. */
 function ScaffoldIcon() {
   const horizontals = [
@@ -205,7 +205,7 @@ function ScaffoldIcon() {
   );
 }
 
-/** Complex tissue engineering — three distinct cell morphologies (round,
+/** Complex tissue engineering: three distinct cell morphologies (round,
     spindle, stellate) sharing one construct, pulsing on staggered beats. */
 function ComplexTissueIcon() {
   return (
@@ -230,7 +230,7 @@ function ComplexTissueIcon() {
   );
 }
 
-/** Research-driven applications — a hub radiating into the surrounding
+/** Research-driven applications: a hub radiating into the surrounding
     fields it serves, the signal travelling outward on a loop. */
 function ResearchNetworkIcon() {
   const angles = [-90, -18, 54, 126, 198];
@@ -265,7 +265,7 @@ function ResearchNetworkIcon() {
   );
 }
 
-/** Tissue engineering & regenerative medicine — a cell-laden hydrogel
+/** Tissue engineering & regenerative medicine: a cell-laden hydrogel
     block with a physiologic branching mesh, cells pulsing asynchronously. */
 function HydrogelIcon() {
   const cells: [number, number][] = [
@@ -291,7 +291,7 @@ function HydrogelIcon() {
   );
 }
 
-/** Organ-on-chip & microphysiological systems — two tissue chambers
+/** Organ-on-chip & microphysiological systems: two tissue chambers
     joined by a winding microfluidic channel, fluid flowing between. */
 function OrganOnChipIcon() {
   return (
@@ -321,7 +321,7 @@ function hexPath(cx: number, cy: number, r: number) {
   return `M${pts.join(" L")} Z`;
 }
 
-/** Bioinspired materials & soft-matter physics — a honeycomb lattice
+/** Bioinspired materials & soft-matter physics: a honeycomb lattice
     graded from small to large cells, swaying like a soft structure. */
 function LatticeIcon() {
   const hexes = [

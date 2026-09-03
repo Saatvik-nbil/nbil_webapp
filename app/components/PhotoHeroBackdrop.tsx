@@ -29,7 +29,7 @@ export default function PhotoHeroBackdrop({
    * eats the half of the photograph you made the hero tall to show.
    */
   fadeHeight = "45%",
-  /** Alt is empty by default — this is decoration, not content. */
+  /** Alt is empty by default: this is decoration, not content. */
   alt = "",
 }: {
   src: string;
@@ -49,7 +49,7 @@ export default function PhotoHeroBackdrop({
         className="object-cover"
         style={{ objectPosition, filter: "brightness(0.72) saturate(0.98)" }}
       />
-      {/* Readability scrim — heavy where the copy starts, clearing toward the
+      {/* Readability scrim: heavy where the copy starts, clearing toward the
           right so the photograph is still legible. */}
       <div
         aria-hidden="true"
@@ -76,7 +76,7 @@ export default function PhotoHeroBackdrop({
           height: fadeHeight,
           // Weighted late: the ramp stays faint through most of its height and
           // only commits near the bottom, so the photograph survives the fade.
-          // It still lands on a full-opacity stop — anything less leaves a
+          // It still lands on a full-opacity stop: anything less leaves a
           // visible edge where the hero meets the section below.
           background: `linear-gradient(180deg, rgba(${fadeTo},0) 0%, rgba(${fadeTo},0.18) 52%, rgba(${fadeTo},0.6) 82%, rgba(${fadeTo},1) 100%)`,
         }}

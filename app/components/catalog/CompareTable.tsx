@@ -2,7 +2,7 @@ import Link from "next/link";
 import { machines, type Machine } from "@/lib/machines";
 
 // Pull a spec value by fuzzy label match, with a fallback.
-function spec(m: Machine, keyword: string, fallback = "—"): string {
+function spec(m: Machine, keyword: string, fallback = "N/A"): string {
   const hit = m.specs.find((s) => s.label.toLowerCase().includes(keyword.toLowerCase()));
   return hit ? hit.value : fallback;
 }
@@ -19,17 +19,17 @@ const ROWS: Row[] = [
       if (s) return s;
       const n = spec(m, "number of extruders", "");
       if (n) return n;
-      return m.slug === "trivima-aura" ? "Light engine" : "—";
+      return m.slug === "trivima-aura" ? "Light engine" : "N/A";
     },
   },
   { label: "Build volume (mm)", get: (m) => spec(m, "build volume").replace(" (customizable)", "") },
   {
     label: "Bed temperature",
-    get: (m) => spec(m, "bed temperature", "—"),
+    get: (m) => spec(m, "bed temperature", "N/A"),
   },
   {
     label: "Pressure range",
-    get: (m) => spec(m, "pressure range", m.slug === "trivima-aura" ? "Not applicable" : "—"),
+    get: (m) => spec(m, "pressure range", m.slug === "trivima-aura" ? "Not applicable" : "N/A"),
   },
   { label: "Photo-crosslinking", get: (m) => spec(m, "photo-crosslinking") },
   {
@@ -47,6 +47,20 @@ const ROWS: Row[] = [
       ),
   },
   { label: "File formats", get: (m) => spec(m, "file formats") },
+  {
+    // Configurability is the range's main selling point, so it belongs in the
+    // comparison rather than buried in each model page. Copy comes from the
+    // machine's own `customisation` entry in lib/machines.ts.
+    label: "Configured to your lab",
+    get: (m) =>
+      m.customisation ? (
+        <span className="text-[var(--color-ink)]">
+          {m.customisation.options.length} options specified with you
+        </span>
+      ) : (
+        "N/A"
+      ),
+  },
 ];
 
 const ORDER = ["trivima-np", "trivima-pro", "trivima-aura"];

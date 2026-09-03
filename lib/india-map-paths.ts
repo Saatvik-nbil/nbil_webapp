@@ -1,9 +1,9 @@
-// AUTO-GENERATED — do not hand-edit. Dissolved from district-level
+// AUTO-GENERATED: do not hand-edit. Dissolved from district-level
 // boundaries (udit-001/india-maps-data, 2011 census + modern state/UT
 // splits), simplified and projected to a flat 760-wide viewBox. This
 // source draws Jammu & Kashmir and Ladakh to India's full claimed
 // extent (including Pakistan-occupied Kashmir and Aksai Chin), not the
-// Line of Control — the boundary Indian maps are required to show.
+// Line of Control, the boundary Indian maps are required to show.
 // Precision is stylised, not survey-grade.
 
 export type IndiaStatePath = { id: string; name: string; d: string; cx: number; cy: number };

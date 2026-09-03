@@ -133,7 +133,7 @@ const GUIDE_STEPS = [
     n: "05", label: "Settings",
     title: "Review the basic settings",
     body: "Before slicing, confirm the handful of parameters that most affect the result.",
-    points: ["Layer height and model scale", "Infill density and pattern — seven strategies including grid, honeycomb and concentric", "Wall thickness and perimeter count", "Nozzle and extruder assignment across channels E0 to E5"],
+    points: ["Layer height and model scale", "Infill density and pattern, seven strategies including grid, honeycomb and concentric", "Wall thickness and perimeter count", "Nozzle and extruder assignment across channels E0 to E5"],
     check: "Every required field holds a valid value for your material.",
     media: { src: null, type: "image", label: "Basic settings panel", hint: "Number or outline the fields a user should verify." },
   },
@@ -341,7 +341,7 @@ export default function DheeGuide() {
             </div>
           </div>
 
-          {/* Splash video — muted, looping, rounded corners */}
+          {/* Splash video: muted, looping, rounded corners */}
           <div className="guide-hero-video" style={{ position: "relative", justifySelf: "end", width: "100%" }}>
             <div style={{ position: "absolute", inset: -2, background: "linear-gradient(135deg,rgba(139,92,246,0.4),rgba(109,40,217,0.12))", borderRadius: 22, filter: "blur(26px)", opacity: 0.6, pointerEvents: "none" }} />
             <video
@@ -399,7 +399,7 @@ export default function DheeGuide() {
         <Fade>
           <h2 style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: "#110820", marginBottom: 10 }}>Before you start.</h2>
           <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.8, maxWidth: 520, marginBottom: 32 }}>
-            Three things to have ready. Use the default NBIL profile for your first slice — it removes most of the variables.
+            Three things to have ready. Use the default NBIL profile for your first slice, since it it removes most of the variables.
           </p>
         </Fade>
         <div className="guide-req" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>

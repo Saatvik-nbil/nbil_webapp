@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Timeline3D — alternating vertical timeline, joined by a scroll-drawn
+ * Timeline3D: alternating vertical timeline, joined by a scroll-drawn
  * connector that bows through the empty half of the layout and points an
  * arrow at the card you are reading.
  *
@@ -63,7 +63,7 @@ export interface Timeline3DProps {
 /** Half the width of a node, used to sit it exactly on the rail. */
 const RAIL_LEFT = "left-[1.125rem]";
 
-/** #2572fd — --color-brand, spelled out where a filter needs an alpha. */
+/** #2572fd: --color-brand, spelled out where a filter needs an alpha. */
 const BRAND_RGB = "37, 114, 253";
 
 /* -------------------------------------------------------------------------
@@ -106,14 +106,14 @@ function TimelineConnector({
       }
 
       // `v` spans the whole list, so `v * height` is the y currently sitting on
-      // the scroll line. Hand the sampler that absolute y rather than `v` — the
+      // the scroll line. Hand the sampler that absolute y rather than `v`, since the
       // path is a card shorter than the list, and conflating the two makes the
       // arrow drift upward by a card's height by the end.
       const s = sampler(v * height);
       drawn.set(s.lengthFraction);
 
       if (tip && !reduced) {
-        // One attribute write per frame — no path measurement, no React render.
+        // One attribute write per frame, no path measurement, no React render.
         tip.setAttribute(
           "transform",
           `translate(${s.x.toFixed(1)} ${s.y.toFixed(1)}) rotate(${s.angle.toFixed(1)})`
@@ -146,7 +146,7 @@ function TimelineConnector({
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
     >
-      {/* Geometry probe — never painted, used for length/point lookups. */}
+      {/* Geometry probe, never painted, used for length/point lookups. */}
       <path ref={probeRef} d={d} stroke="none" fill="none" />
 
       {/* Unvisited track */}
@@ -429,12 +429,12 @@ export function Timeline3D({
   const { scrollYProgress } = useScroll({
     target: listRef,
     // 0 when the list top reaches 62% down the viewport, 1 when its bottom
-    // does — so the arrow sits just under the card being read.
+    // does, so the arrow sits just under the card being read.
     offset: ["start 62%", "end 62%"],
   });
 
   // Deliberately no spring here. Lenis already lerps the scroll position, so a
-  // spring on top is a second smoothing pass over an already-smooth signal —
+  // spring on top is a second smoothing pass over an already-smooth signal:
   // all trailing, no benefit. Raw progress locks the arrow to the scroll.
 
   if (events.length === 0) {
@@ -452,7 +452,7 @@ export function Timeline3D({
       ref={containerRef}
       className={cn("relative w-full overflow-hidden", className)}
     >
-      {/* Decorative depth — soft brand-tinted orbs drifting behind the rail. */}
+      {/* Decorative depth: soft brand-tinted orbs drifting behind the rail. */}
       {!reduced && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           {[...Array(6)].map((_, i) => (

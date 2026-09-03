@@ -41,7 +41,7 @@ interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
  *
  * Solving gives cardWidth = 2 * spread * s / (1 + gap + s), with
  * s = sin(PI / n). So card size scales directly with `spread` and shrinks as
- * items are added — the two levers for making the images bigger are a wider
+ * items are added. The two levers for making the images bigger are a wider
  * spread and a lower count.
  */
 function solveGeometry(count: number, gap: number, spread: number) {
@@ -79,18 +79,18 @@ type Snap = { from: number; to: number; elapsed: number; duration: number };
 /**
  * A ring of images rotating continuously about the Y axis.
  *
- * Every card stays fully opaque through the whole revolution — depth reads
+ * Every card stays fully opaque through the whole revolution. Depth reads
  * from perspective scaling alone, and cards on the far side are occluded by
  * nearer ones through `preserve-3d` z-sorting rather than by fading out. Each
  * card is double-sided so the far half shows a correctly oriented image
  * instead of a mirrored back.
  *
  * Pointing at a card takes over the rotation: the ring eases around the
- * shortest way — reversing if that is nearer — until the card faces the
+ * shortest way, reversing if that is nearer, until the card faces the
  * viewer, then the card pops forward. Leaving resumes the free spin from
  * whatever angle it was holding, so there is no jump back.
  *
- * The loop writes a single transform to the track per frame — no React state
+ * The loop writes a single transform to the track per frame, no React state
  * and no per-item style writes, so it stays smooth alongside the GSAP/Lenis
  * work already running on this page.
  */
@@ -102,7 +102,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
       speed = 12,
       gap = 0.14,
       // Above 0.5 the ring is wider than its container, but only a card at
-      // 90deg reaches that extreme and it is edge-on there — projected to
+      // 90deg reaches that extreme and it is edge-on there, projected to
       // nothing. The widest a card actually appears is around 55deg, well
       // inside this figure.
       spread = 0.7,
@@ -217,7 +217,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 
         // Card `index` sits at (360 / count) * index inside the track, so it
         // faces the viewer once the track is at the negation of that. Fold the
-        // difference into (-180, 180] to take the shorter way round — a
+        // difference into (-180, 180] to take the shorter way round. A
         // negative result means the ring visibly reverses, which is the point.
         const raw = -(360 / count) * index - rotation;
         const signed = (((raw % 360) + 540) % 360) - 180;

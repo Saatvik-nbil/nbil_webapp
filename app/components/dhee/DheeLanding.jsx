@@ -246,7 +246,7 @@ function MockMachineHTML() {
 
 const WORKFLOW_STEPS = [
   { id: "01", title: "Model Preparation", body: "Import multiple STL files via drag-and-drop and place them on any substrate: petri dish, well plate, glass slide, or flat bed. Rotate freely across all three axes, cut STLs at any desired plane to split models into multiple parts, and auto-center individual models or all objects at once. Paint directly onto the STL surface to define custom support regions with per-voxel control. Every action is fully reversible with a complete undo stack.", tags: ["3-Axis Rotation","Planar Cut","Multi-Part Split","Auto-Center All","Surface Paint for Custom Supports","96-Well / Petri / Slide"], Mock: MockModelPrepHTML },
-  { id: "02", title: "Intelligent Slicing", body: "Configure variable layer heights per Z-range: each zone can run a different extruder, nozzle temperature, and infill pattern independently. Map up to six extruder channels with per-channel temperature profiles, so a single print can transition from a dense hydrogel shell to a porous scaffold core without manual intervention. Seven infill strategies including grid, honeycomb, concentric, gyroid, and triangular — mix and match across Z-zones in one file. Parallel slicing via Mandoline keeps processing fast even on complex multi-body geometries, with full support generation and adhesion control baked in.", tags: ["7 Infill Patterns","Variable Heights","Per-Zone Extruder Control","Per-Zone Temperature","Per-Zone Infill Control"], Mock: MockSlicingHTML },
+  { id: "02", title: "Intelligent Slicing", body: "Configure variable layer heights per Z-range: each zone can run a different extruder, nozzle temperature, and infill pattern independently. Map up to six extruder channels with per-channel temperature profiles, so a single print can transition from a dense hydrogel shell to a porous scaffold core without manual intervention. Seven infill strategies including grid, honeycomb, concentric, gyroid, and triangular, mix and match across Z-zones in one file. Parallel slicing via Mandoline keeps processing fast even on complex multi-body geometries, with full support generation and adhesion control baked in.", tags: ["7 Infill Patterns","Variable Heights","Per-Zone Extruder Control","Per-Zone Temperature","Per-Zone Infill Control"], Mock: MockSlicingHTML },
   { id: "03", title: "G-Code Visualization", body: "Inspect every layer in complete detail before a single drop of material is extruded. Full view for a complete top-down overview of the entire print. Scrub forward and backward through extrusion moves, travel moves, and retractions independently, with variable speed playback so fast sections can be slowed down for scrutiny. Color-coded move types distinguish perimeters, infill, supports, and travel in a single glance. Export any layer or the full visualization as a PDF for lab records, peer review, or regulatory documentation.", tags: ["Single Layer View","Full Print View","Scrub Forward & Back","Color-Coded Moves"], Mock: MockGCodeHTML },
   { id: "04", title: "Machine Control", body: "Take direct command of your bioprinter over a USB-to-serial connection. Monitor all six extruder channels and the heated bed in real time, with live temperature graphs. Auxiliary output switching lets toggle UV sources, and cooling fans directly from the interface. Servo management handles any attached rotary or linear actuators without leaving the application. Start, pause, resume, and abort print jobs with full G-code streaming.", tags: ["Serial Control","Aux Output Toggle","Servo Control","Temp Monitor","Pause & Resume"], Mock: MockMachineHTML },
 ];
@@ -258,15 +258,15 @@ const TAG_META = {
   "Multi-Part Split": { info: "A single cut operation produces two independent mesh objects, each separately positionable.", media: "/dhee/multi.webp", mediaType: "image" },
   "Auto-Center All": { info: "Instantly center every loaded model on the substrate with one click.", media: "/dhee/auto.webp", mediaType: "image" },
   "Surface Paint for Custom Supports": { info: "Paint directly onto the STL surface to mark regions where custom supports should generate.", media: "/dhee/paint.webp", mediaType: "image" },
-  "96-Well / Petri / Slide": { info: "Choose from built-in substrate presets — 96-well plate, petri dish, glass slide, or flat bed.", media: "/dhee/plat96.webp", mediaType: "image" },
-  "7 Infill Patterns": { info: "Grid, honeycomb, concentric, gyroid, triangular, line, and rectilinear — per zone.", media: "/dhee/pattern.webp", mediaType: "image" },
+  "96-Well / Petri / Slide": { info: "Choose from built-in substrate presets: 96-well plate, petri dish, glass slide, or flat bed.", media: "/dhee/plat96.webp", mediaType: "image" },
+  "7 Infill Patterns": { info: "Grid, honeycomb, concentric, gyroid, triangular, line, and rectilinear, per zone.", media: "/dhee/pattern.webp", mediaType: "image" },
   "Variable Heights": { info: "Define different layer heights for different Z-ranges within a single print job.", media: "/dhee/variable-layer.webp", mediaType: "image" },
-  "Per-Zone Extruder Control": { info: "Assign a specific extruder channel to each Z-range — mix materials in one continuous print.", media: "/dhee/tempzone.webp", mediaType: "image" },
+  "Per-Zone Extruder Control": { info: "Assign a specific extruder channel to each Z-range, so you can mix materials in one continuous print.", media: "/dhee/tempzone.webp", mediaType: "image" },
   "Per-Zone Temperature": { info: "Each Z-zone can run at a different nozzle temperature to match the material being extruded.", media: "/dhee/tempzonecontrol.webp", mediaType: "image" },
   "Per-Zone Infill Control": { info: "Apply a different infill pattern and density to each Z-range without splitting the file.", media: "/dhee/perzoneinfill.webp", mediaType: "image" },
   "Single Layer View": { info: "Isolate any single cross-section to verify infill, perimeters and supports.", media: "/dhee/singlelayer.webp", mediaType: "image" },
   "Full Print View": { info: "Complete top-down overview of all paths across the entire print.", media: "/dhee/fullprint.png", mediaType: "image" },
-  "Scrub Forward & Back": { info: "Drag the playhead to any point in the toolpath — forward or backward.", media: "/dhee/scrub.png", mediaType: "image" },
+  "Scrub Forward & Back": { info: "Drag the playhead to any point in the toolpath, forward or backward.", media: "/dhee/scrub.png", mediaType: "image" },
   "Color-Coded Moves": { info: "Perimeters, infill, supports, and travel moves each render in a distinct color.", media: "/dhee/colorcoded.webp", mediaType: "image" },
   "Serial Control": { info: "Direct USB-to-serial connection to your bioprinter and option for manual control of the printer via serial commands", media: "/dhee/serialcon.webp", mediaType: "image" },
   "Aux Output Toggle": { info: "Toggle HEPA, UV light sources, cooling fans, and other auxiliary outputs directly from the control panel.", media: "/dhee/auxil.png", mediaType: "image" },
@@ -556,8 +556,8 @@ function Capabilities() {
         <Fade><h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820" }}>Why labs choose DHEE.</h2></Fade>
       </div>
       <CapRow number="01" label="96-Well Plate Support" headline="High-throughput placement, precisely mapped." body="12-, 24-, and 96-well presets with coordinate-mapped placement and per-well auto-scaling. Run multiple scaffold geometries across a single plate without repositioning by hand." reversed={false} MockComponent={CapMock96Well} />
-      <CapRow number="02" label="Variable Layer Heights" headline="Different geometry, different parameters — same print." body="Define multiple parameter zones within a single print. Dense outer shells, lighter infill cores, gradated support structures — all controlled per Z-range without splitting the file." reversed={true} MockComponent={CapMockVarLayers} />
-      <CapRow number="03" label="Layer Validation" headline="Verify every path before it touches material." body="Inspect every layer in four playback modes before committing to hardware. Line-by-line, layer range, single layer, or full view — with speed control and PDF export for lab records." reversed={false} MockComponent={CapMockGCode} />
+      <CapRow number="02" label="Variable Layer Heights" headline="Different geometry, different parameters, same print." body="Define multiple parameter zones within a single print. Dense outer shells, lighter infill cores, gradated support structures ,  all controlled per Z-range without splitting the file." reversed={true} MockComponent={CapMockVarLayers} />
+      <CapRow number="03" label="Layer Validation" headline="Verify every path before it touches material." body="Inspect every layer in four playback modes before committing to hardware. Line-by-line, layer range, single layer, or full view ,  with speed control and PDF export for lab records." reversed={false} MockComponent={CapMockGCode} />
 
       <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: "1px solid #EEE9FF" }}>
         {[
@@ -659,7 +659,7 @@ const TESTIMONIALS_DATA = [
   { id: 1, name: "Angel G C", role: "PhD Scholar", company: "MSLS", content: "Earlier, I had to juggle multiple applications for slicing, printer control, and printing, but now everything is available in one place. What I like most about the Trivima Advanced is the three-extruder setup and independent temperature control at both the print head and bed, which makes it really easy to work with a wide variety of biomaterials and polymers.", rating: 5, avatar: "/dhee/angel.jpg" },
 ];
 
-// PLACEHOLDER — swap `quote` for the institution's actual words once we have
+// PLACEHOLDER: swap `quote` for the institution's actual words once we have
 // them signed off. Hovering/focusing a logo below pins its testimonial up
 // front in the card; see `testimonial` on each TRUSTED_LABS entry.
 function placeholderTestimonial(id, org, quote) {
@@ -673,7 +673,7 @@ const TRUSTED_LABS = [
     testimonial: placeholderTestimonial(
       "iith",
       "IIT Hyderabad",
-      "Dhee slots straight into our existing workflow — the slicing and machine control finally live in one place instead of three separate tools. For a multi-user lab that alone has cut a lot of the friction between finishing a design and getting it on the print bed."
+      "Dhee slots straight into our existing workflow: the slicing and machine control finally live in one place instead of three separate tools. For a multi-user lab that alone has cut a lot of the friction between finishing a design and getting it on the print bed."
     ),
   },
   {
@@ -682,7 +682,7 @@ const TRUSTED_LABS = [
     testimonial: placeholderTestimonial(
       "kjs",
       "KJ Somaiya College of Engineering",
-      "Our students picked up Dhee quickly — the interface is intuitive enough that onboarding a new lab member takes an afternoon, not a week. That matters a lot when the team turns over every semester."
+      "Our students picked up Dhee quickly: the interface is intuitive enough that onboarding a new lab member takes an afternoon, not a week. That matters a lot when the team turns over every semester."
     ),
   },
   {
@@ -691,7 +691,7 @@ const TRUSTED_LABS = [
     testimonial: placeholderTestimonial(
       "ari",
       "ARI Pune",
-      "The G-code preview has saved us more than one failed print — we catch layer and support issues before the nozzle ever moves. It's the kind of feature you don't appreciate until you've run without it."
+      "The G-code preview has saved us more than one failed print: we catch layer and support issues before the nozzle ever moves. It's the kind of feature you don't appreciate until you've run without it."
     ),
   },
   {
@@ -709,7 +709,7 @@ const TRUSTED_LABS = [
     testimonial: placeholderTestimonial(
       "mit",
       "MIT",
-      "Reliable, well-documented, and the NBIL team is responsive whenever we've had a question about the software — that support has mattered as much as the tool itself."
+      "Reliable, well-documented, and the NBIL team is responsive whenever we've had a question about the software, and that support has mattered as much as the tool itself."
     ),
   },
   {
@@ -718,12 +718,12 @@ const TRUSTED_LABS = [
     testimonial: placeholderTestimonial(
       "clri",
       "CLRI",
-      "The pause-and-resume feature alone has made Dhee worth switching to — it's flexible in exactly the ways our print schedule needs, and it hasn't let us down on a long run yet."
+      "The pause-and-resume feature alone has made Dhee worth switching to: it's flexible in exactly the ways our print schedule needs, and it hasn't let us down on a long run yet."
     ),
   },
 ];
 
-// Rendered via the shared <TestimonialsCarousel> below — see its usage in
+// Rendered via the shared <TestimonialsCarousel> below, see its usage in
 // the root component. Kept as data here so the reviews stay co-located with
 // the rest of this page's content.
 const DHEE_TESTIMONIALS = TESTIMONIALS_DATA.map((t) => ({
@@ -750,7 +750,7 @@ export default function DheeLanding() {
       <style>{`
         /* Every rule below is scoped to [data-dhee]. The original build shipped
            a global reset plus html/body/scrollbar/cursor rules here; those are
-           deliberately gone — they broke Lenis and CoordinateCursor. */
+           deliberately gone, they broke Lenis and CoordinateCursor. */
         [data-dhee] .tag-chip-pop { animation: dheeTagPopIn 0.32s cubic-bezier(0.34,1.56,0.64,1) both; }
         @keyframes dheeTagPopIn {
           0%   { opacity: 0; transform: scale(0.7) translateY(6px); }
@@ -758,7 +758,7 @@ export default function DheeLanding() {
         }
 
         /* ══════════════════════════════════════════
-           MOBILE RESPONSIVE — 768px and below
+           MOBILE RESPONSIVE: 768px and below
            ══════════════════════════════════════════ */
         @media (max-width: 768px) {
 
@@ -840,7 +840,7 @@ export default function DheeLanding() {
             say about DHEE.
           </>
         }
-        description="From tissue engineering labs to clinical research facilities — teams worldwide trust DHEE Slicer for precision bioprinting."
+        description="From tissue engineering labs to clinical research facilities, teams worldwide trust DHEE Slicer for precision bioprinting."
         testimonials={DHEE_TESTIMONIALS}
         trustedLogos={TRUSTED_LABS}
       />

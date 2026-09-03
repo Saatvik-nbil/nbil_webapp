@@ -74,7 +74,7 @@ export default function OurStoryLanding() {
           >
             We began in 2016 with a single question: what
             would it take to print living tissue reliably enough for a lab to
-            depend on it? What follows is the whole record — the patents, the
+            depend on it? What follows is the whole record: the patents, the
             grants, the partners who backed us early, and the recognitions that
             came along the way.
           </motion.p>

@@ -118,7 +118,7 @@ export default function ConsultancyHero() {
                 </div>
                 <p className="text-[13px] text-white/70 leading-relaxed">
                   <span className="font-semibold text-white">Trusted by IIT Roorkee</span>
-                  &nbsp;&mdash; &ldquo;Developed complex cortical bone architecture
+                  &nbsp;&middot; &ldquo;Developed complex cortical bone architecture
                   using Trivima.&rdquo;
                 </p>
               </motion.div>

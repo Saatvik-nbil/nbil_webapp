@@ -13,7 +13,7 @@ const HEADLINE = ["We", "set", "out", "to", "print", "a", "better", "future."];
 
 /* Card size is solved from the item count, so fewer entries means larger
    cards: 6 is the sweet spot for this column, 8 the practical maximum.
-   `pos` sets each shot's focal point — the cards are portrait, so landscape
+   `pos` sets each shot's focal point: the cards are portrait, so landscape
    sources lose roughly half their width to the crop and need it. */
 const HERO_GALLERY: GalleryItem[] = [
   { src: "/images/1.webp", alt: "A bioprinted human ear held on a print disc", pos: "45% 50%" },
@@ -122,7 +122,7 @@ export default function CompanyHero() {
 
       <div className="relative max-w-7xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Copy — left, 7 cols */}
+          {/* Copy: left, 7 cols */}
           <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
             <h1
               id="company-hero-heading"
@@ -171,7 +171,7 @@ export default function CompanyHero() {
             </p>
           </div>
 
-          {/* Visual — right, 5 cols. No panel or frame: the ring sits directly
+          {/* Visual: right, 5 cols. No panel or frame: the ring sits directly
               on the hero's background field so it reads as part of the scene. */}
           <div className="hero-visual lg:col-span-5 relative">
             {/* Soft pool of light under the ring, so the cards have something
@@ -183,11 +183,11 @@ export default function CompanyHero() {
             />
             {/* The ring is wider than its column, so nudge it right: the
                 overhang lands in the page margin instead of the copy's gutter.
-                Its own div — GSAP owns the transform on .hero-visual and
+                Its own div: GSAP owns the transform on .hero-visual and
                 .hero-clip, and would overwrite a utility class there.
                 `relative` is load-bearing: the light pool above is positioned,
-                so without it that glow paints over the ring — positioned
-                descendants sit above in-flow ones whatever the DOM order — and
+                so without it that glow paints over the ring, positioned
+                descendants sit above in-flow ones whatever the DOM order, and
                 washes out whichever card is at front. */}
             <div className="relative lg:translate-x-[6%]">
               <CircularGallery items={HERO_GALLERY} className="hero-clip" />

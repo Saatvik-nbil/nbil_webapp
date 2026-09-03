@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Quotes } from "@phosphor-icons/react";
 
 /**
- * The site-wide testimonial pattern — a rotating quote card next to a copy
+ * The site-wide testimonial pattern: a rotating quote card next to a copy
  * column with dot pagination and (optionally) a trusted-by logo row. Design
  * is carried over from the Dhee Slicer page's original testimonial section;
  * this is the shared version every page with a testimonial should use, so
@@ -16,7 +16,7 @@ import { Quotes } from "@phosphor-icons/react";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export type Testimonial = {
-  /** Stable across rotations — used as the React key. */
+  /** Stable across rotations: used as the React key. */
   id: string | number;
   quote: string;
   name: string;
@@ -28,9 +28,11 @@ export type Testimonial = {
 
 export type TrustedLogo = {
   name: string;
-  logo: string;
-  /** Shown in the card when this logo is hovered/focused — swaps back to
-   *  the auto-rotating testimonials on mouse-leave/blur. */
+  /** Optional. Entries without artwork render a named placeholder tile, so a
+   *  lab can appear in the row before its logo file arrives. */
+  logo?: string;
+  /** Shown in the card when this logo is hovered, focused or tapped: hover
+   *  and focus revert on leave, a tap stays until it is tapped again. */
   testimonial?: Testimonial;
 };
 
@@ -43,12 +45,11 @@ type Props = {
   trustedLogos?: TrustedLogo[];
   className?: string;
   /**
-   * Floor height (px) for the card column. The quote block below fills
-   * whatever room is left with `flex-1`, so on a short quote a tall floor
-   * shows up as dead air between the quote and the name row — tune this
-   * down for sections whose quotes run short (e.g. one-sentence pull
-   * quotes), up for longer real reviews or a copy column with more in it
-   * (dots, a trusted-by logo row) that the card needs to visually match.
+   * Optional floor height (px) for the card column. Leave it unset: the
+   * slides are stacked in one grid cell, so the column already sizes itself
+   * to the longest quote and no shorter one leaves dead air beneath it.
+   * Only set this when a section genuinely needs the card to match a taller
+   * copy column beside it.
    */
   minCardHeight?: number;
 };
@@ -63,7 +64,7 @@ function initialsOf(name: string) {
     .join("");
 }
 
-/** The quote/avatar/name block shared by every card — the rotating slides
+/** The quote/avatar/name block shared by every card: the rotating slides
  *  and the one shown on hovering a trusted-by logo. */
 function TestimonialCardBody({ t }: { t: Testimonial }) {
   return (
@@ -110,6 +111,29 @@ function TestimonialCardBody({ t }: { t: Testimonial }) {
   );
 }
 
+/** A logo, or a named tile standing in for one that hasn't arrived yet. */
+function LogoMark({ lab }: { lab: TrustedLogo }) {
+  if (lab.logo) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={lab.logo}
+        alt={lab.name}
+        title={lab.name}
+        className="h-[60px] w-auto max-w-[170px] object-contain opacity-55 grayscale mix-blend-multiply transition-[opacity,filter] duration-300 ease-out group-hover:opacity-85 group-hover:grayscale-0"
+      />
+    );
+  }
+  return (
+    <span
+      title={lab.name}
+      className="flex h-[60px] max-w-[170px] items-center rounded-lg border border-dashed border-[var(--color-hairline)] px-3 text-left text-[11.5px] font-medium leading-tight text-[var(--color-ink-faint)] transition-colors duration-300 group-hover:border-[var(--color-brand)] group-hover:text-[var(--color-brand-strong)]"
+    >
+      {lab.name}
+    </span>
+  );
+}
+
 export default function TestimonialsCarousel({
   id = "testimonials",
   heading,
@@ -118,7 +142,7 @@ export default function TestimonialsCarousel({
   trustedByLabel = "Trusted by teams from",
   trustedLogos,
   className,
-  minCardHeight = 380,
+  minCardHeight,
 }: Props) {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
@@ -127,7 +151,7 @@ export default function TestimonialsCarousel({
 
   useEffect(() => {
     // Pause the rotation while a trusted-by logo's testimonial is pinned up
-    // front — cycling underneath it would just be wasted work.
+    // front: cycling underneath it would just be wasted work.
     if (!multiple || reduce || hoverTestimonial) return;
     const t = setInterval(
       () => setActive((i) => (i + 1) % testimonials.length),
@@ -183,7 +207,7 @@ export default function TestimonialsCarousel({
 
           {trustedLogos && trustedLogos.length > 0 && (
             // Without dots above it (a single testimonial), mt-14 read as a
-            // stray gap under the description with nothing to justify it —
+            // stray gap under the description with nothing to justify it:
             // mt-9 keeps the same rhythm the dots row uses in that case.
             <div className={multiple ? "mt-14" : "mt-9"}>
               <div className="mb-5 text-[10.5px] uppercase tracking-[0.08em] text-[var(--color-ink-faint)]">
@@ -192,6 +216,10 @@ export default function TestimonialsCarousel({
               <div className="flex flex-wrap items-center gap-x-7 gap-y-5">
                 {trustedLogos.map((lab) =>
                   lab.testimonial ? (
+                    // Hover and focus preview; a tap pins the quote and taps
+                    // again to release it, since a touch screen never sends
+                    // the mouse-leave that would otherwise restore the
+                    // rotation.
                     <button
                       key={lab.name}
                       type="button"
@@ -199,26 +227,21 @@ export default function TestimonialsCarousel({
                       onMouseLeave={() => setHoverTestimonial(null)}
                       onFocus={() => setHoverTestimonial(lab.testimonial!)}
                       onBlur={() => setHoverTestimonial(null)}
-                      aria-label={`Show ${lab.name}'s testimonial`}
-                      className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60"
+                      onClick={() =>
+                        setHoverTestimonial((prev) =>
+                          prev?.id === lab.testimonial!.id ? null : lab.testimonial!,
+                        )
+                      }
+                      aria-label={`Show the testimonial from ${lab.name}`}
+                      aria-pressed={hoverTestimonial?.id === lab.testimonial.id}
+                      className="group rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={lab.logo}
-                        alt={lab.name}
-                        title={lab.name}
-                        className="h-[60px] w-auto max-w-[170px] object-contain opacity-55 grayscale mix-blend-multiply transition-[opacity,filter] duration-300 ease-out hover:opacity-85 hover:grayscale-0"
-                      />
+                      <LogoMark lab={lab} />
                     </button>
                   ) : (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      key={lab.name}
-                      src={lab.logo}
-                      alt={lab.name}
-                      title={lab.name}
-                      className="h-[60px] w-auto max-w-[170px] object-contain opacity-55 grayscale mix-blend-multiply transition-[opacity,filter] duration-300 ease-out hover:opacity-85 hover:grayscale-0"
-                    />
+                    <span key={lab.name} className="group">
+                      <LogoMark lab={lab} />
+                    </span>
                   )
                 )}
               </div>
@@ -232,8 +255,11 @@ export default function TestimonialsCarousel({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
-          className="relative"
-          style={{ minHeight: minCardHeight }}
+          // Every slide sits in the same grid cell, so the column is exactly
+          // as tall as the longest quote: no fixed floor to leave dead air
+          // under a short one, and no absolute slide overflowing a tall one.
+          className="relative grid [grid-template-areas:'stack']"
+          style={minCardHeight ? { minHeight: minCardHeight } : undefined}
         >
           <span
             aria-hidden="true"
@@ -247,10 +273,8 @@ export default function TestimonialsCarousel({
           {testimonials.map((t, i) => (
             <div
               key={t.id}
-              className="transition-[opacity,transform] duration-500 ease-out"
+              className="[grid-area:stack] transition-[opacity,transform] duration-500 ease-out"
               style={{
-                position: i === 0 ? "relative" : "absolute",
-                inset: 0,
                 opacity: active === i && !hoverTestimonial ? 1 : 0,
                 transform:
                   active === i
@@ -264,13 +288,13 @@ export default function TestimonialsCarousel({
             </div>
           ))}
 
-          {/* Pinned up front on hovering/focusing a trusted-by logo — see
+          {/* Pinned up front on hovering/focusing a trusted-by logo: see
               the `trustedLogos` map above. */}
           <AnimatePresence>
             {hoverTestimonial && (
               <motion.div
                 key={hoverTestimonial.id}
-                className="absolute inset-0 z-10"
+                className="z-10 [grid-area:stack]"
                 initial={reduce ? false : { opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}

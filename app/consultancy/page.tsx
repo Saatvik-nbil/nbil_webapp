@@ -12,12 +12,12 @@ import ConsultancyProcess from "@/app/components/consultancy/ConsultancyProcess"
 export const metadata: Metadata = {
   title: "Bioprinting Consultancy",
   description:
-    "Bioprinting consultancy from Next Big Innovation Labs — get matched with a specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
+    "Bioprinting consultancy from Next Big Innovation Labs: get matched with a specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/consultancy" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/consultancy",
-    title: "Bioprinting Consultancy — Next Big Innovation Labs",
+    title: "Bioprinting Consultancy | Next Big Innovation Labs",
     description:
       "Get matched with a bioprinting specialist and a tailored roadmap covering hardware, bioinks and protocols for your specific tissue model.",
     images: [

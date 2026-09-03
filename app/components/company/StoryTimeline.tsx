@@ -9,8 +9,8 @@ import { FEATURED_MILESTONES, STORY_MILESTONES } from "@/lib/story";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// The curated arc shown here is a subset of `lib/story.ts`; the full record —
-// every award, grant, collaboration and incubation — lives on /our-story,
+// The curated arc shown here is a subset of `lib/story.ts`; the full record
+// (every award, grant, collaboration and incubation) lives on /our-story,
 // reached through the "Explore more" card at the end of the track.
 const MILESTONES = FEATURED_MILESTONES;
 
@@ -69,7 +69,7 @@ export default function StoryTimeline() {
             key={`${m.year}-${m.title}`}
             className="relative shrink-0 lg:w-[26rem] rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-7 lg:p-9 flex flex-col gap-4"
           >
-            {/* Photo — replace `image` in MILESTONES to swap this placeholder.
+            {/* Photo: replace `image` in MILESTONES to swap this placeholder.
                 Straight at rest, lifts slightly on hover. */}
             <div className="group/photo">
               <div
@@ -110,7 +110,7 @@ export default function StoryTimeline() {
           </article>
         ))}
 
-        {/* Terminal CTA — the full record continues on /our-story. Sized like
+        {/* Terminal CTA: the full record continues on /our-story. Sized like
             the article cards so the GSAP scrub width still resolves. */}
         <Link
           href="/our-story"
@@ -121,7 +121,7 @@ export default function StoryTimeline() {
               Explore more
             </h3>
             <p className="mt-4 text-[14.5px] leading-relaxed text-white/80">
-              Every award, grant, collaboration and milestone since 2016 — all{" "}
+              Every award, grant, collaboration and milestone since 2016, all{" "}
               {STORY_MILESTONES.length} of them, on one page.
             </p>
           </div>

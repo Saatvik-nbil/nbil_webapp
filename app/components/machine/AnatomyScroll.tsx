@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// The fully assembled NP, 2560×1440 — same 16:9 as the stage, so at scale 1 it
+// The fully assembled NP, 2560×1440, same 16:9 as the stage, so at scale 1 it
 // fills the canvas exactly. (First frame of the old sequence; the rest is unused.)
 const SRC = "/images/np-seq/np-001.jpg";
 
@@ -33,11 +33,11 @@ type Stop = {
 // scale is capped at ~2.2 because beyond that the 2560px source starts to soften
 // against a 2× DPR canvas.
 const STOPS: Stop[] = [
-  { side: "right", fx: 0.56, fy: 0.18, scale: 1.9, ay: 0.38, title: "Extruder", value: "Swappable head — 2 to 3 slots: pneumatic, pellet and motor-driven" },
+  { side: "right", fx: 0.56, fy: 0.18, scale: 1.9, ay: 0.38, title: "Extruder", value: "Swappable head, 2 to 3 slots: pneumatic, pellet and motor-driven" },
   { side: "left", fx: 0.56, fy: 0.34, scale: 2.0, title: "Syringe", value: "3CC, 5CC and 10CC barrels, temperature-controlled from 8 to 65 °C" },
   { side: "right", fx: 0.53, fy: 0.5, scale: 1.8, title: "4th axis", value: "Rotary spindle for true cylindrical and helical, non-planar paths", hero: true },
-  { side: "left", fx: 0.52, fy: 0.565, scale: 2.0, title: "Build platform", value: "Flat bed for conventional planar printing — 120 × 70 × 50 mm, 4 to 80 °C" },
-  { side: "right", fx: 0.41, fy: 0.67, scale: 2.2, title: "Pressure control knob", value: "Per-channel regulator with live readout — 0.02 to 8 Bar" },
+  { side: "left", fx: 0.52, fy: 0.565, scale: 2.0, title: "Build platform", value: "Flat bed for conventional planar printing, 120 × 70 × 50 mm, 4 to 80 °C" },
+  { side: "right", fx: 0.41, fy: 0.67, scale: 2.2, title: "Pressure control knob", value: "Per-channel regulator with live readout, 0.02 to 8 Bar" },
   { side: "left", fx: 0.818, fy: 0.575, scale: 2.2, title: "Emergency stop", value: "Latching e-stop cuts motion and pressure instantly" },
 ];
 
@@ -52,7 +52,7 @@ export default function AnatomyScroll() {
   const imgRef = useRef<HTMLImageElement | null>(null);
   // Camera: the focus point (fx,fy) in the frame is placed at stage anchor
   // (ax,ay) and magnified by `scale`. The zoom is rendered by scaling the source
-  // draw — not a CSS transform — so the full-res image stays sharp at every step.
+  // draw, not a CSS transform, so the full-res image stays sharp at every step.
   const camRef = useRef({ scale: 1, fx: 0.5, fy: 0.5, ax: 0.5, ay: 0.5 });
   // The frame is a JPEG, so its "white" backdrop isn't pure #fff. Sample it once
   // and fill uncovered canvas with that exact colour so there's no visible seam.
@@ -71,7 +71,7 @@ export default function AnatomyScroll() {
       const d = cx.getImageData(0, 0, 1, 1).data;
       bgRef.current = `rgb(${d[0]}, ${d[1]}, ${d[2]})`;
     } catch {
-      /* tainted canvas — keep default */
+      /* tainted canvas, keep default */
     }
   }
 
@@ -214,7 +214,7 @@ export default function AnatomyScroll() {
               aria-hidden="true"
             />
 
-            {/* Animated callouts. Hidden from assistive tech — the same content is
+            {/* Animated callouts. Hidden from assistive tech: the same content is
                 listed in the static list below, which screen readers get instead. */}
             {!reduced &&
               STOPS.map((s, i) => {

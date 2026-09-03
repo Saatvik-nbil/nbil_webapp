@@ -22,7 +22,7 @@ export const FIELD_INVALID =
 
 /**
  * `FIELD`, switched to the invalid treatment when `error` is set. Uses `cn` so
- * the red border actually replaces the default one — both are border-colour
+ * the red border actually replaces the default one: both are border-colour
  * utilities, and plain concatenation would leave the winner up to stylesheet
  * order rather than intent.
  */

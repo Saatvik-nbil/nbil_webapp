@@ -4,7 +4,7 @@ import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { initAnalytics, posthog } from "@/lib/analytics";
 
-/** Fires one $pageview per route change — App Router doesn't do full page
+/** Fires one $pageview per route change, since App Router doesn't do full page
     loads, so PostHog's own capture_pageview:false + this manual capture is
     what gives per-page session duration any data to work with. Needs a
     Suspense boundary: useSearchParams opts the tree into it. */

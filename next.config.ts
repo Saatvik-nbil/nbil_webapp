@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
     config.cache = false;
     return config;
   },
+  // Careers used to be its own route; it is now a section of the team page.
+  // The old URL was published, so it redirects rather than 404s.
+  async redirects() {
+    return [{ source: "/careers", destination: "/team#careers", permanent: true }];
+  },
   // Baseline hardening headers on every response. No inline CSP here yet —
   // the animation stack (GSAP/Motion/inline JSON-LD `<script>` tags) hasn't
   // been audited for nonce compatibility, so start with the headers that are

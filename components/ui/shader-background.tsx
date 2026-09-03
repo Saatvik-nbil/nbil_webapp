@@ -178,7 +178,7 @@ export default function ShaderBackground({
     if (!canvas) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // This is a per-pixel shader with 16 iterations, so cap the pixel ratio —
+    // This is a per-pixel shader with 16 iterations, so cap the pixel ratio:
     // a full 3x retina buffer costs ~9x the fragments for no visible gain.
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const started = performance.now();
@@ -330,7 +330,7 @@ export default function ShaderBackground({
         gl.deleteProgram(program);
       }
       // Deliberately NOT calling WEBGL_lose_context.loseContext() here. Strict
-      // Mode mounts, tears down, then mounts again against the same canvas —
+      // Mode mounts, tears down, then mounts again against the same canvas,
       // and a context killed on the way out comes back lost, so the shader
       // never compiles on the second pass. The context dies with the canvas.
     };

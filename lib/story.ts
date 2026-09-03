@@ -2,9 +2,9 @@
  * Single source of truth for the company story.
  *
  * Two surfaces read this list:
- *  - `app/components/company/StoryTimeline.tsx` — the home-page horizontal
+ *  - `app/components/company/StoryTimeline.tsx`: the home-page horizontal
  *    scrub, which shows only `featured` entries (a short, curated arc).
- *  - `app/components/company/OurStoryLanding.tsx` — the `/our-story` page,
+ *  - `app/components/company/OurStoryLanding.tsx`: the `/our-story` page,
  *    which shows every entry including the full recognitions-and-
  *    collaborations record.
  *
@@ -23,7 +23,7 @@ export type StoryCategory =
   | "Recognition";
 
 export type StoryMilestone = {
-  /** Stable key — also used as the timeline anchor id. */
+  /** Stable key, also used as the timeline anchor id. */
   id: string;
   year: string;
   title: string;
@@ -66,7 +66,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
   {
     id: "2017-birac",
     year: "2017",
-    title: "Grant winners — BIRAC",
+    title: "Grant winners: BIRAC",
     body: "Awarded a BIRAC grant by the Government of India, funding the first serious push on the extrusion platform.",
     image: "/story_timeline/BIRAC.webp",
     fit: "contain",
@@ -75,7 +75,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
   {
     id: "2017-iigp",
     year: "2017",
-    title: "Grant winners — IIGP 2.0",
+    title: "Grant winners: IIGP 2.0",
     body: "Selected as a grant winner in the India Innovation Growth Programme 2.0, run by the Department of Science & Technology with Lockheed Martin and Tata Trusts.",
     image: "/story_timeline/India Innovation.webp",
     fit: "contain",
@@ -84,7 +84,7 @@ export const STORY_MILESTONES: StoryMilestone[] = [
   {
     id: "2017-idea2poc",
     year: "2017",
-    title: "Grant winners — Idea2PoC",
+    title: "Grant winners: Idea2PoC",
     body: "Won an Idea2PoC grant from the Government of Karnataka to take the bioprinter from idea to proof of concept.",
     image: "/institute/the-karnataka-government-kannada-logo-png_seeklogo-407164.png",
     fit: "contain",

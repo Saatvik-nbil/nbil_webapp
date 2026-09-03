@@ -1,4 +1,4 @@
-// Trivima bioprinter catalog — full machine data scraped from
+// Trivima bioprinter catalog: full machine data scraped from
 // nextbiginnovationlabs.com (Next Big Innovation Labs / NBIL).
 // Each record mirrors the manufacturer's published specs verbatim.
 
@@ -46,6 +46,19 @@ export type Machine = {
   /** The control suite's own page, where it has one. Render sites link the
       software name through this so every Dhee mention reaches /dhee-slicer. */
   softwareHref?: string;
+  /** What a lab can specify before the machine is built.
+   *
+   *  Configurability is the range's main selling point, so every surface that
+   *  sells a model reads this instead of re-wording it: the catalog row, the
+   *  model page, the comparison table. Each entry below is drawn from the
+   *  machine's own published `specs` and `features` (the "user-configurable",
+   *  "customizable" and "user-defined" lines), not from anything new. */
+  customisation?: {
+    /** One line, used on cards and in section copy. */
+    summary: string;
+    /** The specific choices a lab makes with us. */
+    options: string[];
+  };
   /** Notable institutions / validation, where published */
   validation?: string;
   sourceUrl: string;
@@ -121,6 +134,18 @@ export const machines: Machine[] = [
       { title: "Research-driven applications", description: "From pioneering treatments to biological science and food technology." },
     ],
     fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
+    customisation: {
+      summary:
+        "Specified with you before it is built: how many extruders, which technologies sit in them, and how big the build volume needs to be.",
+      options: [
+        "Four to six extruder slots, user-configurable",
+        "Pneumatic, inkjet, pellet and motor-driven heads in any combination",
+        "Build volume beyond the standard 150 × 100 × 100 mm",
+        "Co-axial, tri-axial and quad-axial configurations",
+        "Crosslinking at user-defined UV and visible wavelengths",
+        "Well plate, petri dish, slide, insert and custom substrate fixtures",
+      ],
+    },
     software: "Dhee by NBIL",
     softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",
@@ -192,6 +217,18 @@ export const machines: Machine[] = [
       { title: "Ocular & corneal constructs", description: "Hydrogel contact-lens prototypes using mold-assisted workflows." },
     ],
     fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
+    customisation: {
+      summary:
+        "Configured around the geometry you print: two or three extruders, the heads that suit your bioink, and a build volume set with you.",
+      options: [
+        "Two to three extruder slots, user-configurable",
+        "Pneumatic, pellet and motor-driven heads",
+        "Build volume beyond the standard 120 × 70 × 50 mm",
+        "Coaxial and tri-axial heads, user-defined",
+        "Crosslinking at 365, 405, 420 or 520 nm",
+        "HEPA and germicidal UV chamber as an add-on",
+      ],
+    },
     software: "Dhee by NBIL",
     softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivimanpbioprinter/",
@@ -236,7 +273,7 @@ export const machines: Machine[] = [
       "In-built germicidal UV fixtures",
       "Sterilizable build platform with solvent-compatible surfaces",
       "40 µm XY resolution for precise extracellular-matrix replication",
-      "Open material system — no proprietary consumables",
+      "Open material system, no proprietary consumables",
       "Designed for laboratory integration and reproducibility",
     ],
     technologies: [
@@ -248,6 +285,17 @@ export const machines: Machine[] = [
       { title: "Organ-on-chip & microphysiological systems", description: "Microfluidic devices and compartmentalized tissue chambers." },
       { title: "Bioinspired materials & soft-matter physics", description: "Lattice structures, gradient materials and bio-inspired architectures." },
     ],
+    customisation: {
+      summary:
+        "Open by design: an unrestricted material system, adjustable optics and a bed material chosen to suit your chemistry.",
+      options: [
+        "Optical intensity adjustable to the light engine",
+        "Glass or metal print bed",
+        "Stainless steel or anodized aluminium build",
+        "Open material system with no proprietary consumables",
+        "Commercial biomaterials or your own user-defined polymers",
+      ],
+    },
     software: "Aura Slicer by NBIL",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivima-aura/",
   },

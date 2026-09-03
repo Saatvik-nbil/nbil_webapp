@@ -14,7 +14,7 @@ const SHOW_AFTER = 480;
  * fallback there is an instant native jump rather than a smooth one.
  *
  * Tracks scroll position via Motion's useScroll rather than a raw
- * `window.addEventListener("scroll")` — DESIGN.md's anti-pattern list
+ * `window.addEventListener("scroll")`: DESIGN.md's anti-pattern list
  * bans the latter in favour of this.
  */
 export default function BackToTop() {
@@ -50,7 +50,7 @@ export default function BackToTop() {
           // bottom-[9rem] clears both MobileStickyCTA and the NBILBot
           // launcher on phones; sm:bottom-[5.75rem] clears just the launcher
           // above sm, where MobileStickyCTA is hidden. See NBILBot.tsx for
-          // the launcher's own offsets — keep these in sync with it.
+          // the launcher's own offsets. Keep these in sync with it.
           className="fixed right-5 bottom-[9rem] z-40 flex size-11 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink)] shadow-[0_10px_30px_rgba(2,12,27,0.14)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)] sm:right-8 sm:bottom-[5.75rem]"
         >
           <ArrowUp size={18} weight="bold" />

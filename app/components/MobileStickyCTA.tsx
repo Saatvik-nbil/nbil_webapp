@@ -10,7 +10,7 @@ const HIDDEN_ON = ["/privacy-policy", "/terms"];
 /**
  * Persistent bottom action bar, phone screens only (`sm:hidden`). Sits above
  * the safe-area inset so it clears the home-indicator on notched devices.
- * BackToTop.tsx shifts its own mobile offset up to clear this bar — see the
+ * BackToTop.tsx shifts its own mobile offset up to clear this bar. See the
  * comment there.
  */
 export default function MobileStickyCTA() {

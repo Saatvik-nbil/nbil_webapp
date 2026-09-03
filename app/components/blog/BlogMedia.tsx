@@ -6,14 +6,14 @@ import { Image as ImageIcon, Film, PlayCircle } from "lucide-react";
 export type MediaKind = "screenshot" | "gif" | "video";
 
 type BlogMediaProps = {
-  /** What eventually goes in this slot — drives the placeholder wording + icon. */
+  /** What eventually goes in this slot: drives the placeholder wording + icon. */
   kind?: MediaKind;
   /** Drop the real asset path here later (e.g. "/images/blog/dhee/import.gif").
    *  While it's undefined the placeholder renders instead. */
   src?: string;
   /** Poster frame for `kind="video"`. */
   poster?: string;
-  /** Required once `src` is set — describes the media for screen readers. */
+  /** Required once `src` is set: describes the media for screen readers. */
   alt?: string;
   /** Short line describing what this slot should show. */
   caption: string;
@@ -38,7 +38,7 @@ export default function BlogMedia({
   const reduce = useReducedMotion();
   const { icon: Icon, label } = COPY[kind];
 
-  // Empty slot — a labelled dropzone so it's obvious what belongs here.
+  // Empty slot: a labelled dropzone so it's obvious what belongs here.
   if (!src) {
     return (
       <figure className="flex flex-col gap-3">

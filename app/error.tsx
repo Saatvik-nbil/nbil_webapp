@@ -6,10 +6,10 @@ import { WarningOctagon, ArrowClockwise } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
 
 /**
- * Root error boundary — catches any render/data error that escapes the page
+ * Root error boundary: catches any render/data error that escapes the page
  * tree. Deliberately self-contained: no NavBar/Footer/site chrome. If those
  * (or something they depend on) are what threw, re-rendering them here would
- * just crash again — this has to be the one component on the site that can't
+ * just crash again: this has to be the one component on the site that can't
  * itself fail.
  */
 export default function GlobalError({
@@ -39,7 +39,7 @@ export default function GlobalError({
           </h1>
           <p className="text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
             An unexpected error interrupted this page. Try again, or head back
-            to the homepage — if it keeps happening, let us know.
+            to the homepage. If it keeps happening, let us know.
           </p>
         </div>
 

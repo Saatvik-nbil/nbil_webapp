@@ -8,11 +8,17 @@ import { useEffect, useRef, useState } from "react";
  * coordinates. Everything tracks the pointer exactly (no trailing / easing).
  * Renders nothing on touch devices, where there is no cursor to follow.
  *
- * Listens for a `nbil:cursor-merge` window event ({ detail: { active } }) so
- * an interactive shape elsewhere on the page (e.g. a hovered state on the
- * installations map) can hide this cursor for as long as the pointer sits
- * over it — the shape's own outline takes over as the pointer feedback,
- * rather than the two competing for attention.
+ * Hides itself while the pointer sits over anything marked
+ * `data-cursor-merge` (e.g. an installed state on the installations map), so
+ * that shape's own outline takes over as the pointer feedback rather than the
+ * two competing for attention. A `nbil:cursor-merge` window event
+ * ({ detail: { active } }) does the same thing a frame sooner, on enter.
+ *
+ * The DOM is the source of truth here, re-checked on every pointer move. An
+ * event-only version stranded the cursor hidden whenever a pointerleave went
+ * missing (the shape re-rendering under the pointer, a card opening over it,
+ * the pointer leaving the window), which is why the merge used to work only
+ * some of the time.
  */
 export function CoordinateCursor() {
   const [enabled, setEnabled] = useState(false);
@@ -54,16 +60,21 @@ export function CoordinateCursor() {
       if (wrapRef.current) wrapRef.current.style.opacity = v ? "1" : "0";
     };
 
+    /** True while the pointer sits over a shape that opted into the merge. */
+    const overMergeZone = (target: EventTarget | null) => {
+      const el = target as Element | null;
+      return Boolean(el && typeof el.closest === "function" && el.closest("[data-cursor-merge]"));
+    };
+
     const move = (e: PointerEvent) => {
       x = e.clientX;
       y = e.clientY;
-      if (!merged) show(true);
+      show(!overMergeZone(e.target));
       if (!raf) raf = requestAnimationFrame(render);
     };
     const leave = () => show(false);
     const merge = (e: Event) => {
-      merged = Boolean((e as CustomEvent<{ active: boolean }>).detail?.active);
-      if (merged) show(false);
+      show(!(e as CustomEvent<{ active: boolean }>).detail?.active);
     };
 
     window.addEventListener("pointermove", move, { passive: true });

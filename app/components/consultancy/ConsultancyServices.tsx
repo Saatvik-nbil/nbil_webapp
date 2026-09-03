@@ -70,7 +70,7 @@ const SERVICES: Service[] = [
     name: "Complete Lab Ecosystem",
     icon: Boxes,
     description:
-      "We build your full bioprinting lab — biofabrication and setup, end to end.",
+      "We build your full bioprinting lab: biofabrication and setup, end to end.",
     features: [
       "Trivima bioprinter + DHEE software",
       "Consumables & in-house bioinks",
@@ -106,7 +106,7 @@ export default function ConsultancyServices() {
             Consultancy services
           </h2>
           <p className="text-[15.5px] text-[var(--color-ink-muted)] leading-relaxed">
-            From a single custom scaffold to a fully equipped bioprinting lab —
+            From a single custom scaffold to a fully equipped bioprinting lab.
             pick the support that fits your work.
           </p>
         </div>
@@ -180,7 +180,7 @@ export default function ConsultancyServices() {
                   ))}
                 </ul>
 
-                {/* Contact button placeholder — pricing intentionally omitted for now */}
+                {/* Contact button placeholder, pricing intentionally omitted for now */}
                 <OriginButton
                   href="#project-form"
                   variant={highlighted ? "outline" : "solid"}

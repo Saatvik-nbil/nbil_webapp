@@ -1,12 +1,12 @@
 /**
  * Route-level loading fallback (see app/loading.tsx). Shown by the App
  * Router during navigation, in place of the real page, whenever the target
- * route doesn't resolve instantly. Server-renderable — no animation logic
+ * route doesn't resolve instantly. Server-renderable, with no animation logic
  * of its own, it just leans on the `.skeleton` shimmer utility already
  * defined in app/globals.css (which the global prefers-reduced-motion rule
  * there already neutralises, so nothing extra is needed here for that).
  *
- * Shaped like a generic page — a nav strip, a hero block, a row of cards —
+ * Shaped like a generic page (a nav strip, a hero block, a row of cards)
  * rather than any one specific route, since it's the fallback for all of
  * them.
  */
