@@ -3,15 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
-  Check,
   CaretRight,
-  Cube,
-  Lightning,
-  Flask,
   Buildings,
-  Microscope,
-  Image,
-  Sliders,
 } from "@phosphor-icons/react/dist/ssr";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
@@ -19,9 +12,9 @@ import ContactSection from "@/app/components/ContactSection";
 import MachineGallery from "@/app/components/machine/MachineGallery";
 import AnatomyScroll from "@/app/components/machine/AnatomyScroll";
 import Reveal from "@/app/components/machine/Reveal";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 import { OriginButton } from "@/components/ui/origin-button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
-import { getApplicationDiagram } from "@/app/components/machine/ApplicationIcon";
 
 export function generateStaticParams() {
   return machines.map((m) => ({ slug: m.slug }));
@@ -47,8 +40,8 @@ export async function generateMetadata({
   };
 }
 
-/** Shared hover motion for the section icons. Sits on the icon; the heading
-    row above it carries `group`. */
+/** Shared hover motion for the inline icons that still sit inside list rows
+    and callouts. Sits on the icon; the row around it carries `group`. */
 const ICON_MOTION =
   "transition-transform duration-500 ease-out motion-reduce:transition-none motion-reduce:transform-none";
 
@@ -223,9 +216,9 @@ export default async function MachinePage({
         </section>
 
         {/* Overview */}
-        <section aria-labelledby="overview-heading" className="py-12 lg:py-16 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-4">
+        <section aria-labelledby="overview-heading" className="py-16 lg:py-24 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            <div className="lg:col-span-3">
               <h2
                 id="overview-heading"
                 className="font-display text-[1.625rem] lg:text-[2rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-tight"
@@ -233,8 +226,11 @@ export default async function MachinePage({
                 Overview
               </h2>
             </div>
-            <Reveal className="lg:col-span-8">
-              <p className="text-[1.0625rem] lg:text-[1.1875rem] text-[var(--color-ink-muted)] leading-relaxed">
+            {/* The overview is the page's lead paragraph, so it is set heavy and
+                large and given most of the row: the heading beside it only has
+                to label it. */}
+            <Reveal className="lg:col-span-9">
+              <p className="font-display text-[1.25rem] lg:text-[1.6rem] font-medium tracking-[-0.02em] text-[var(--color-ink)] leading-[1.45]">
                 {machine.overview}
               </p>
             </Reveal>
@@ -247,31 +243,34 @@ export default async function MachinePage({
         {/* Specifications */}
         <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6">
-            <Reveal className="group flex w-fit items-center gap-3 mb-10">
-              <Cube
-                size={22}
-                weight="duotone"
-                aria-hidden="true"
-                className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:rotate-[18deg] group-hover:scale-110`}
-              />
+            <Reveal className="mb-10 w-fit">
               <SectionHeading><span id="specs-heading">Technical specifications</span></SectionHeading>
             </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {machine.specs.map((s, i) => (
-                <Reveal
-                  key={s.label}
-                  delay={(i % 2) * 0.05}
-                  className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 transition-colors hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)]"
-                >
-                  <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
-                    {s.label}
-                  </span>
-                  <span className="text-[15px] font-medium text-[var(--color-ink)] leading-snug">
-                    {s.value}
-                  </span>
-                </Reveal>
-              ))}
-            </div>
+            {/* Twenty-odd specs are a single tall column on a phone, so the
+                list opens partly closed there. */}
+            <MobileCollapse
+              collapsedHeight={620}
+              moreLabel="Show all specifications"
+              lessLabel="Show fewer specifications"
+              fadeTo="var(--color-surface)"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {machine.specs.map((s, i) => (
+                  <Reveal
+                    key={s.label}
+                    delay={(i % 2) * 0.05}
+                    className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 transition-colors hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)]"
+                  >
+                    <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+                      {s.label}
+                    </span>
+                    <span className="text-[15px] font-medium text-[var(--color-ink)] leading-snug">
+                      {s.value}
+                    </span>
+                  </Reveal>
+                ))}
+              </div>
+            </MobileCollapse>
           </div>
         </section>
 
@@ -280,26 +279,16 @@ export default async function MachinePage({
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Features */}
             <div className="flex flex-col gap-8">
-              <Reveal className="group flex w-fit items-center gap-3">
-                <Lightning
-                  size={22}
-                  weight="duotone"
-                  aria-hidden="true"
-                  className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:-rotate-12 group-hover:scale-125`}
-                />
+              <Reveal className="w-fit">
                 <SectionHeading><span id="features-heading">Key features</span></SectionHeading>
               </Reveal>
               <ul className="flex flex-col gap-3.5" role="list">
                 {machine.features.map((f, i) => (
                   <Reveal as="li" key={f} delay={i * 0.04} className="group flex items-start gap-3">
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-surface)] transition-colors duration-300 group-hover:bg-[var(--color-brand)]">
-                      <Check
-                        size={12}
-                        weight="bold"
-                        aria-hidden="true"
-                        className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:scale-125 group-hover:text-white`}
-                      />
-                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.55rem] size-1.5 shrink-0 rounded-full bg-[var(--color-brand)] transition-transform duration-300 group-hover:scale-125 motion-reduce:transition-none motion-reduce:transform-none"
+                    />
                     <span className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed">{f}</span>
                   </Reveal>
                 ))}
@@ -308,13 +297,7 @@ export default async function MachinePage({
 
             {/* Technologies + fixtures */}
             <div className="flex flex-col gap-8">
-              <Reveal className="group flex w-fit items-center gap-3">
-                <Flask
-                  size={22}
-                  weight="duotone"
-                  aria-hidden="true"
-                  className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:-rotate-[25deg] group-hover:scale-110`}
-                />
+              <Reveal className="w-fit">
                 <h2 className="font-display text-[1.625rem] lg:text-[2rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-tight">
                   Printing technologies
                 </h2>
@@ -367,13 +350,7 @@ export default async function MachinePage({
           >
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-10">
               <div className="lg:col-span-5 flex flex-col gap-4">
-                <Reveal className="group flex w-fit items-center gap-3">
-                  <Sliders
-                    size={22}
-                    weight="duotone"
-                    aria-hidden="true"
-                    className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:rotate-[14deg] group-hover:scale-110`}
-                  />
+                <Reveal className="w-fit">
                   <SectionHeading>
                     <span id="customisation-heading">Built to your spec</span>
                   </SectionHeading>
@@ -399,9 +376,10 @@ export default async function MachinePage({
                     delay={(i % 2) * 0.05}
                     className="flex items-start gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-4"
                   >
-                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-surface)]">
-                      <Check size={12} weight="bold" aria-hidden="true" className="text-[var(--color-brand)]" />
-                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.55rem] size-1.5 shrink-0 rounded-full bg-[var(--color-brand)]"
+                    />
                     <span className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed">{option}</span>
                   </Reveal>
                 ))}
@@ -409,87 +387,6 @@ export default async function MachinePage({
             </div>
           </section>
         )}
-
-        {/* Applications */}
-        <section aria-labelledby="apps-heading" className="py-20 lg:py-28">
-          <div className="max-w-7xl mx-auto px-6">
-            <Reveal className="group mb-10 flex w-fit items-center gap-3">
-              <Microscope
-                size={22}
-                weight="duotone"
-                aria-hidden="true"
-                className={`text-[var(--color-brand)] ${ICON_MOTION} group-hover:rotate-[14deg] group-hover:scale-110`}
-              />
-              <SectionHeading><span id="apps-heading">Applications</span></SectionHeading>
-            </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {machine.applications.map((app, i) => (
-                <Reveal
-                  key={app.title}
-                  delay={(i % 3) * 0.05}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] transition-all duration-300 hover:border-[var(--color-brand)] hover:shadow-[0_14px_38px_rgba(15,23,42,0.09)]"
-                >
-                  {/* Photo well. Set `image` on the application in lib/machines.ts
-                      to swap the schematic for the real shot. Applications
-                      without a photo yet fall back to a hand-drawn diagram
-                      (app/components/machine/ApplicationIcon.tsx) keyed off
-                      the title, then to the bare placeholder if neither exists. */}
-                  {(() => {
-                    const diagram = app.image ? null : getApplicationDiagram(app.title);
-                    return (
-                      <div
-                        className={`relative aspect-[16/10] overflow-hidden bg-[var(--color-surface-raised)] ${
-                          app.image ? "" : "border-b border-dashed border-[var(--color-hairline)]"
-                        }`}
-                      >
-                        {app.image ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={app.image}
-                            alt={app.title}
-                            loading="lazy"
-                            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05] motion-reduce:transform-none"
-                          />
-                        ) : diagram ? (
-                          <div className="relative flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_38%,var(--color-brand-subtle),var(--color-surface-raised)_72%)]">
-                            <div className="h-[70%] w-[70%] max-w-[240px] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transform-none">
-                              {diagram}
-                            </div>
-                            <span className="absolute bottom-3 left-3.5 text-[10px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
-                              Schematic
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">
-                            <Image
-                              size={20}
-                              weight="duotone"
-                              aria-hidden="true"
-                              className={`${ICON_MOTION} group-hover:scale-125`}
-                            />
-                            <span className="text-[11px] uppercase tracking-[0.16em]">Image</span>
-                            <span className="text-[11px]">coming soon</span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })()}
-
-                  <div className="flex flex-col gap-2.5 p-6">
-                    <span
-                      className="h-1 w-8 rounded-full bg-[var(--color-brand)] transition-all duration-300 group-hover:w-14"
-                      aria-hidden="true"
-                    />
-                    <h3 className="font-display text-[16px] font-semibold tracking-[-0.015em] text-[var(--color-ink)] leading-snug">
-                      {app.title}
-                    </h3>
-                    <p className="text-[13px] text-[var(--color-ink-muted)] leading-relaxed">{app.description}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Explore the rest of the range */}
         <section aria-labelledby="others-heading" className="py-16 lg:py-20 bg-[var(--color-surface-raised)] border-t border-[var(--color-hairline)]">

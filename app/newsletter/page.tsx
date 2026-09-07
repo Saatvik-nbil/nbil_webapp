@@ -35,12 +35,10 @@ export default function NewsletterPage() {
       <NavBar />
       <main>
         {/* Hero */}
-        <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
+        <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
           <PhotoHeroBackdrop
             src="/images/heroes/newsletter-hero.webp"
             objectPosition="62% 58%"
-            fadeTo="255,255,255"
-            fadeHeight="30%"
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col items-start gap-5 max-w-3xl">

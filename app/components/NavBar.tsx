@@ -42,9 +42,8 @@ const NAV_ITEMS: NavItem[] = [
     label: "About Us",
     children: [
       { label: "Our Story", href: "/our-story" },
-      { label: "Team", href: "/team" },
+      { label: "Teams & Career", href: "/team" },
       { label: "News", href: "/news" },
-      { label: "Careers", href: "/team#careers" },
       { label: "Contact", href: "/#connect" },
     ],
   },

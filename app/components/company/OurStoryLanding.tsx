@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Timeline3D, { type TimelineEvent } from "@/components/ui/3d-interactive-timeline";
 import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 import { OriginButton } from "@/components/ui/origin-button";
 import {
   STORY_CATEGORIES,
@@ -52,13 +53,11 @@ export default function OurStoryLanding() {
       {/* Hero */}
       <section
         aria-labelledby="our-story-heading"
-        className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32"
+        className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32"
       >
         <PhotoHeroBackdrop
           src="/images/heroes/our-story-hero.webp"
           objectPosition="50% 58%"
-          fadeTo="248,250,252"
-          fadeHeight="30%"
         />
         <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.h1
@@ -122,11 +121,22 @@ export default function OurStoryLanding() {
           </div>
         </div>
 
-        <Timeline3D
-          events={events}
-          ariaLabel="Company milestones, 2016 to today"
+        {/* On a phone the full record is an enormous scroll, so it opens on
+            the first few entries with the rest a tap away. Desktop is
+            unaffected: the clamp and the control both stop at lg. */}
+        <MobileCollapse
+          collapsedHeight={1400}
+          moreLabel="Show the full timeline"
+          lessLabel="Collapse timeline"
+          fadeTo="var(--color-canvas)"
           className="mt-12 lg:mt-16"
-        />
+          controlClassName="mx-auto max-w-6xl px-6"
+        >
+          <Timeline3D
+            events={events}
+            ariaLabel="Company milestones, 2016 to today"
+          />
+        </MobileCollapse>
       </section>
 
       {/* Closing CTA */}

@@ -29,7 +29,9 @@ export default function LeadershipSection() {
           </p>
         </div>
 
-        <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+        {/* Two up on a phone: a single full-width column of 4:5 portraits ran
+            past three screens on its own. */}
+        <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-8">
           {LEADERS.map((p, i) => (
             <motion.div
               key={p.name}
@@ -49,10 +51,10 @@ export default function LeadershipSection() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <h3 className="font-display text-[1.15rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
+                <h3 className="font-display text-[1rem] sm:text-[1.15rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
                   {p.name}
                 </h3>
-                <p className="text-[13px] text-[var(--color-ink-muted)]">{p.role}</p>
+                <p className="text-[12.5px] text-[var(--color-ink-muted)]">{p.role}</p>
               </div>
             </motion.div>
           ))}

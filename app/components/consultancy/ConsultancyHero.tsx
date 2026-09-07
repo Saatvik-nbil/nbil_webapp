@@ -34,15 +34,15 @@ export default function ConsultancyHero() {
   return (
     <section
       aria-labelledby="consultancy-hero-heading"
-      className="relative isolate overflow-hidden bg-[var(--color-dark-bg)] min-h-[92svh] flex items-center pt-20"
+      className="relative isolate overflow-hidden bg-[var(--color-dark-bg)] min-h-svh flex items-center pt-20"
     >
-      {/* Cinematic bioprinter background, desaturated to a dark silhouette,
-          framed toward the right so it clears the copy panel on the left */}
+      {/* Work reel: a six-cell montage of prints and machines, played clean.
+          A very light wash sits over it, with the copy on its own light card
+          rather than relying on a heavy tint for contrast. */}
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover [object-position:78%_center] lg:[object-position:70%_center]"
-        style={{ filter: "grayscale(1) brightness(0.55) contrast(1.1)" }}
-        src="/videos/bioprinter-consultancy.mp4"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        src="/images/HeroSection.mp4"
         autoPlay
         muted
         loop
@@ -51,65 +51,65 @@ export default function ConsultancyHero() {
         aria-hidden="true"
       />
 
-      {/* Scrim: keeps the printer visible on the right, blends into a
-          readable dark field toward the left where the copy sits */}
+      {/* A very light wash: just enough to settle the brightest cells of the
+          reel, not enough to read as a dark overlay. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(10,20,34,0.94) 0%, rgba(10,20,34,0.82) 38%, rgba(10,20,34,0.35) 62%, rgba(10,20,34,0.15) 100%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--color-dark-bg)] via-transparent to-[var(--color-dark-bg)]/40"
+        className="pointer-events-none absolute inset-0 bg-[rgba(10,20,34,0.16)]"
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-20 lg:py-28 w-full">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
-          {/* Copy, glass-blended over the video */}
+      <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16 w-full">
+        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
+          {/* Copy sits on a light card: the reel underneath runs untinted, so
+              the panel supplies its own ground and the type stays black. */}
           <LiquidGlass
             tint="light"
             distort={false}
-            className="rounded-[2rem] border border-white/15 shadow-[0_24px_70px_rgba(2,8,20,0.45)]"
+            className="rounded-[2rem] border border-white/60 bg-white/85 shadow-[0_24px_70px_rgba(2,8,20,0.28)] backdrop-blur-xl"
           >
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"
-                className="font-display text-[clamp(2.4rem,5.5vw,4rem)] font-bold tracking-[-0.035em] text-white leading-[0.98]"
+                className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.04em] text-[var(--color-ink)] leading-[0.92]"
               >
                 Bioprinting
                 <br />
-                Services
+                <span className="block text-[0.62em] tracking-[-0.035em] leading-[1.02]">
+                  Engineered With You
+                </span>
               </motion.h1>
               <motion.p
                 {...rise(0.12)}
-                className="mt-6 text-[17px] lg:text-[18px] text-white/75 leading-relaxed max-w-[46ch]"
+                className="mt-5 font-display text-[17px] lg:text-[19px] font-semibold tracking-[-0.015em] text-[var(--color-ink)]"
               >
-                Thinking about getting started? Or still weighing your options?
-                Schedule a free session with our specialists.
+                From Protocol to Print. We Build It With You.
               </motion.p>
-              <motion.div {...rise(0.18)} className="mt-8 flex flex-wrap items-center gap-4">
+              <motion.p
+                {...rise(0.16)}
+                className="mt-5 text-[16px] lg:text-[17px] text-[var(--color-ink-muted)] leading-[1.65] max-w-[52ch]"
+              >
+                Every scaffold, every parameter, every decision, visible to you,
+                at every stage, from first sketch to final print.
+              </motion.p>
+              <motion.div {...rise(0.22)} className="mt-8 flex flex-wrap items-center gap-4">
                 <OriginButton href="#project-form" className="px-6 font-semibold">
                   <CalendarCheck size={18} weight="bold" />
-                  Book Now
+                  Schedule a call
                 </OriginButton>
                 <OriginButton
                   href="#process"
                   variant="outline"
-                  className="border-white/25 bg-white/5 px-6 font-semibold text-white"
+                  className="px-6 font-semibold"
                 >
                   How it works
                   <ArrowRight size={16} weight="bold" />
                 </OriginButton>
               </motion.div>
-
             </div>
           </LiquidGlass>
 
-          {/* Right slot stays clear so the printer reads through the video */}
+          {/* Right slot stays clear so the reel reads through the video */}
           <div aria-hidden="true" className="hidden lg:block" />
         </div>
       </div>

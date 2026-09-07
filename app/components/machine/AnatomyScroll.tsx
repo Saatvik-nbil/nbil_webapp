@@ -146,7 +146,12 @@ export default function AnatomyScroll() {
         scrollTrigger: {
           trigger: pinRef.current,
           start: "top top",
-          end: () => "+=" + window.innerHeight * 7,
+          // Seven viewports of scrub is right on a desktop, where the pinned
+          // tour is the whole screen and the camera has room to move. On a
+          // phone the same figure meant roughly six thousand pixels of
+          // scrolling for one section, so the tour is compressed there.
+          end: () =>
+            "+=" + window.innerHeight * (window.innerWidth < 1024 ? 3 : 7),
           pin: pinRef.current,
           scrub: 1.3,
           anticipatePin: 1,

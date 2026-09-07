@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -33,6 +34,25 @@ const CASES: CaseStudy[] = [
   },
 ];
 
+/** Anonymised engagements: institutions, individuals and commercial terms
+    are deliberately left out. */
+type Snapshot = { title: string; body: string };
+
+const SNAPSHOTS: Snapshot[] = [
+  {
+    title: "Two food-grade biomaterials, one printable protocol",
+    body: "A cultivated-food venture brought us two food-based biomaterials and a scaffold brief. We designed the geometry, optimised the print protocol for each material, then produced scaffolds on both single-extruder and dual-extruder configurations so the team could compare architectures side by side.",
+  },
+  {
+    title: "A drug-loaded biopolymer and four supporting blends",
+    body: "A doctoral research group needed printable parameters for a silk-based, drug-loaded biopolymer plus four simpler blends used across the same study. We took the lead material through design and optimisation, ran the supporting blends separately, and delivered a full scaffold batch with the protocol behind it.",
+  },
+  {
+    title: "Biomaterial optimisation under NDA",
+    body: "A device company shared a proprietary formulation under a mutual NDA. We optimised its printing behaviour on Trivima, established the parameter window, and kept scaffold production available on a per-print basis once the optimisation phase closed.",
+  },
+];
+
 export default function CaseStudies() {
   const reduce = useReducedMotion();
 
@@ -51,6 +71,12 @@ export default function CaseStudies() {
           </h2>
         </div>
 
+        <MobileCollapse
+          collapsedHeight={900}
+          moreLabel="Show more partner work"
+          lessLabel="Show less"
+          fadeTo="var(--color-surface)"
+        >
         <div className="flex flex-col gap-20 lg:gap-28">
           {CASES.map((c, i) => (
             <div
@@ -99,6 +125,41 @@ export default function CaseStudies() {
               </motion.div>
             </div>
           ))}
+        </div>
+
+        </MobileCollapse>
+
+        {/* Anonymised engagements */}
+        <div className="mt-20 lg:mt-28 border-t border-[var(--color-hairline)] pt-14 lg:pt-20">
+          <div className="flex flex-col gap-3 max-w-2xl mb-10 lg:mb-14">
+            <h3 className="font-display text-[1.5rem] lg:text-[1.9rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.15]">
+              And the work we cannot name
+            </h3>
+            <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
+              Most consultancy runs under NDA. These are real engagements with
+              the institution, the people and the commercial terms left out.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {SNAPSHOTS.map((s, i) => (
+              <motion.div
+                key={s.title}
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ delay: i * 0.08, duration: 0.55, ease: EASE }}
+                className="flex flex-col gap-3 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-7 lg:p-8"
+              >
+                <h4 className="font-display text-[1.15rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)] leading-[1.25]">
+                  {s.title}
+                </h4>
+                <p className="text-[14.5px] text-[var(--color-ink-muted)] leading-[1.7]">
+                  {s.body}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

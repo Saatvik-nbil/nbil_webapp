@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import { FEATURED_MILESTONES, STORY_MILESTONES } from "@/lib/story";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,7 +60,16 @@ export default function StoryTimeline() {
         </h2>
       </div>
 
-      {/* Track: vertical on mobile, horizontal scrubbed on desktop */}
+      {/* Track: vertical on mobile, horizontal scrubbed on desktop. The
+          collapse only bites below lg, where the track is a tall stack; the
+          desktop scrub still measures the same element. */}
+      <MobileCollapse
+        collapsedHeight={900}
+        moreLabel="Show more milestones"
+        lessLabel="Show fewer milestones"
+        fadeTo="var(--color-surface)"
+        controlClassName="px-6"
+      >
       <div
         ref={track}
         className="flex flex-col gap-6 px-6 lg:flex-row lg:gap-8 lg:px-[max(1.5rem,calc((100vw-80rem)/2))] lg:will-change-transform"
@@ -134,6 +144,7 @@ export default function StoryTimeline() {
           </span>
         </Link>
       </div>
+      </MobileCollapse>
     </section>
   );
 }

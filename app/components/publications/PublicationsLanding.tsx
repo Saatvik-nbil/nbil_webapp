@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { ArrowUpRight, X, Quotes, Sliders } from "@phosphor-icons/react";
 import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
+import { OriginButton } from "@/components/ui/origin-button";
 import { publications, type Publication } from "@/lib/publications";
 import PublicationsCarousel from "./PublicationsCarousel";
 
@@ -150,15 +151,15 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
 
         {/* Footer links */}
         <div className="flex flex-wrap items-center gap-3 border-t border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 sm:p-6">
-          <a
+          <OriginButton
             href={pub.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+            className="h-11 px-5 text-[14px] font-semibold"
           >
             Read the full paper
             <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
-          </a>
+          </OriginButton>
           <span className="ml-auto text-[11.5px] text-[var(--color-ink-faint)]">
             DOI {pub.doi}
           </span>
@@ -183,14 +184,12 @@ export default function PublicationsLanding() {
   return (
     <main id="main-content" className="bg-[var(--color-canvas)]">
       {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-[var(--color-dark-bg)]">
+      <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-24 lg:pt-40 lg:pb-28">
         <PhotoHeroBackdrop
           src="/images/publications-hero.webp"
           objectPosition="58% 30%"
-          fadeTo="248, 250, 252"
-          fadeHeight="32%"
         />
-        <div className="relative mx-auto max-w-7xl px-6 pt-36 pb-20 lg:pt-44 lg:pb-24">
+        <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}

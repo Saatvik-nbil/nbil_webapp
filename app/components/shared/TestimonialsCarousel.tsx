@@ -185,9 +185,11 @@ export default function TestimonialsCarousel({
             {description}
           </p>
 
-          {/* Dots only earn their place with something to page between. */}
+          {/* Dots only earn their place with something to page between. The
+              dot is the mark; the button around it is the touch target, so a
+              thumb has 36px to land on rather than 10. */}
           {multiple && (
-            <div className="mt-9 flex items-center gap-2.5">
+            <div className="mt-9 flex items-center">
               {testimonials.map((t, i) => (
                 <button
                   key={t.id}
@@ -195,12 +197,17 @@ export default function TestimonialsCarousel({
                   onClick={() => setActive(i)}
                   aria-label={`Show testimonial ${i + 1} of ${testimonials.length}`}
                   aria-current={active === i}
-                  className={`h-2.5 rounded-full transition-all duration-300 ease-out ${
-                    active === i
-                      ? "w-9 bg-[var(--color-brand)]"
-                      : "w-2.5 bg-[var(--color-brand)]/20 hover:bg-[var(--color-brand)]/35"
-                  }`}
-                />
+                  className="flex h-9 items-center justify-center px-1.5"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`block h-2.5 rounded-full transition-all duration-300 ease-out ${
+                      active === i
+                        ? "w-9 bg-[var(--color-brand)]"
+                        : "w-2.5 bg-[var(--color-brand)]/20 hover:bg-[var(--color-brand)]/35"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           )}

@@ -7,7 +7,7 @@ import MissionScroll from "@/app/components/company/MissionScroll";
 import FocusAreas from "@/app/components/company/FocusAreas";
 import StoryTimeline from "@/app/components/company/StoryTimeline";
 import ProductsShowcase from "@/app/components/company/ProductsShowcase";
-import ValuesSection from "@/app/components/company/ValuesSection";
+import PublicationsTeaser from "@/app/components/company/PublicationsTeaser";
 import LeadershipSection from "@/app/components/company/LeadershipSection";
 import CompanyConnect from "@/app/components/company/CompanyConnect";
 import Footer from "@/app/components/Footer";
@@ -68,7 +68,7 @@ export default function HomePage() {
         <FocusAreas />
         <StoryTimeline />
         <ProductsShowcase />
-        <ValuesSection />
+        <PublicationsTeaser />
         <LeadershipSection />
         <CompanyConnect />
       </main>

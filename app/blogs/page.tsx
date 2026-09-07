@@ -32,12 +32,10 @@ export default function BlogsPage() {
       <NavBar />
       <main>
         {/* Hero */}
-        <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
+        <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
           <PhotoHeroBackdrop
             src="/images/heroes/blogs-hero.webp"
             objectPosition="65% center"
-            fadeTo="248,250,252"
-            fadeHeight="30%"
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">

@@ -123,7 +123,7 @@ export default function CompanyHero() {
       <div className="relative max-w-7xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Copy: left, 7 cols */}
-          <div className="hero-copy lg:col-span-7 flex flex-col gap-7">
+          <div className="hero-copy lg:col-span-6 flex flex-col gap-7">
             <h1
               id="company-hero-heading"
               className="font-display font-semibold tracking-[-0.03em] leading-[0.94]! text-[var(--color-ink)] text-[2.85rem] sm:text-[3.6rem] lg:text-[4.5rem]"
@@ -171,9 +171,12 @@ export default function CompanyHero() {
             </p>
           </div>
 
-          {/* Visual: right, 5 cols. No panel or frame: the ring sits directly
-              on the hero's background field so it reads as part of the scene. */}
-          <div className="hero-visual lg:col-span-5 relative">
+          {/* Visual: right, 6 cols. No panel or frame: the ring sits directly
+              on the hero's background field so it reads as part of the scene.
+              It is square and fills its column, so the column width is what
+              sets how much of the hero's height it covers: at 5 cols the ring
+              sat in the middle of a tall empty band. */}
+          <div className="hero-visual lg:col-span-6 relative">
             {/* Soft pool of light under the ring, so the cards have something
                 to sit on without introducing a hard edge. */}
             <div
@@ -181,15 +184,15 @@ export default function CompanyHero() {
               className="pointer-events-none absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl opacity-60"
               style={{ background: "radial-gradient(closest-side, #dceafb, transparent)" }}
             />
-            {/* The ring is wider than its column, so nudge it right: the
-                overhang lands in the page margin instead of the copy's gutter.
-                Its own div: GSAP owns the transform on .hero-visual and
+            {/* Its own div: GSAP owns the transform on .hero-visual and
                 .hero-clip, and would overwrite a utility class there.
                 `relative` is load-bearing: the light pool above is positioned,
                 so without it that glow paints over the ring, positioned
                 descendants sit above in-flow ones whatever the DOM order, and
-                washes out whichever card is at front. */}
-            <div className="relative lg:translate-x-[6%]">
+                washes out whichever card is at front. No horizontal nudge:
+                the ring's cards swing past the square's edge, and any push
+                right clipped the front card against the viewport. */}
+            <div className="relative">
               <CircularGallery items={HERO_GALLERY} className="hero-clip" />
             </div>
           </div>

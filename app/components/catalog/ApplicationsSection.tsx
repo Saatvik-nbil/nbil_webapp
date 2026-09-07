@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { Drop, Bone, Heartbeat, Wind, Pill, Plant, Dna } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -222,8 +223,17 @@ export default function ApplicationsSection() {
           </div>
         </div>
 
-        {/* Application rows, grouped by field */}
-        <div className="lg:col-span-8 flex flex-col gap-14">
+        {/* Application rows, grouped by field. Every group is a full list of
+            rows, which on a phone is the longest single run on the site, so it
+            opens on the first field with the rest a tap away. */}
+        <MobileCollapse
+          collapsedHeight={900}
+          moreLabel="Show all applications"
+          lessLabel="Show fewer applications"
+          fadeTo="var(--color-canvas)"
+          className="lg:col-span-8"
+        >
+        <div className="flex flex-col gap-14">
           {APPLICATION_GROUPS.map(({ group, blurb, icon: Icon, hover, items }) => (
             <div key={group} className="flex flex-col">
               <div className="group flex flex-col gap-2 pb-5">
@@ -270,6 +280,7 @@ export default function ApplicationsSection() {
             </div>
           ))}
         </div>
+        </MobileCollapse>
       </div>
     </section>
   );

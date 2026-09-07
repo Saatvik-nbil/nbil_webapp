@@ -10,6 +10,7 @@ import {
   Sparkle,
   ArrowUpRight,
 } from "@phosphor-icons/react";
+import { OriginButton } from "@/components/ui/origin-button";
 import { COMPANY } from "@/lib/machines";
 import { CompanyName } from "@/app/components/CompanyName";
 
@@ -163,13 +164,14 @@ export default function CareersSection() {
               there&rsquo;s a fit.
             </p>
           </div>
-          <a
+          <OriginButton
             href={`mailto:${COMPANY.email}?subject=Open%20application%3A%20Careers%20at%20NBIL`}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[var(--color-brand-strong)] px-6 py-3 text-[14px] font-semibold text-[var(--color-brand-strong)] transition-colors hover:bg-[var(--color-brand-subtle)]"
+            variant="outline"
+            className="shrink-0 px-6 text-[14px] font-semibold"
           >
             Send your resume
             <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
-          </a>
+          </OriginButton>
         </motion.div>
       </div>
     </section>

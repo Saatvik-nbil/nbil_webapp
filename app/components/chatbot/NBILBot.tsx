@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChatCircleDots, X, PaperPlaneTilt, ArrowClockwise, Robot } from "@phosphor-icons/react";
 import { validateEmail } from "@/lib/validation";
 import { useFormSubmit } from "@/app/components/forms/useFormSubmit";
+import { Spinner, ThinkingIndicator } from "@/components/ui/spinner";
 import { machines } from "@/lib/machines";
 
 /**
@@ -149,7 +150,7 @@ export default function NBILBot() {
   /* ---- Always scroll to the newest message ---- */
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: reduce ? "auto" : "smooth" });
-  }, [messages, botTyping, reduce]);
+  }, [messages, botTyping, status, reduce]);
 
   /* ---- Focus the input the moment a step needs free text ---- */
   useEffect(() => {
@@ -499,19 +500,17 @@ export default function NBILBot() {
                 </div>
               ))}
 
-              {botTyping ? (
+              {/* One busy row for both waits: the bot composing a reply, and the
+                  round trip while a lead is written to the sheet. */}
+              {botTyping || status === "submitting" ? (
                 <div className="flex items-center gap-2">
                   <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-brand-subtle)] text-[var(--color-brand-strong)]">
                     <Robot size={13} weight="duotone" />
                   </span>
-                  <span className="flex items-center gap-1 rounded-2xl rounded-bl-sm bg-[var(--color-surface-raised)] px-3.5 py-3">
-                    {[0, 1, 2].map((i) => (
-                      <span
-                        key={i}
-                        className="size-1.5 rounded-full bg-[var(--color-ink-faint)] animate-bounce motion-reduce:animate-none"
-                        style={{ animationDelay: `${i * 0.12}s` }}
-                      />
-                    ))}
+                  <span className="flex items-center rounded-2xl rounded-bl-sm bg-[var(--color-surface-raised)] px-3.5 py-2.5">
+                    <ThinkingIndicator
+                      label={status === "submitting" ? "Sending your details" : "Thinking"}
+                    />
                   </span>
                 </div>
               ) : null}
@@ -537,7 +536,7 @@ export default function NBILBot() {
                   aria-label="Send"
                   className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand)] text-white transition-colors hover:bg-[var(--color-brand-hover)] disabled:opacity-40"
                 >
-                  <PaperPlaneTilt size={16} weight="fill" />
+                  {busy ? <Spinner size={16} /> : <PaperPlaneTilt size={16} weight="fill" />}
                 </button>
               </form>
             ) : (

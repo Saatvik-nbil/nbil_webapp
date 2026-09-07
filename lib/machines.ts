@@ -4,63 +4,35 @@
 
 export type SpecItem = { label: string; value: string };
 export type StatItem = { label: string; value: string; unit?: string };
-export type Application = {
-  title: string;
-  description: string;
-  /** Photo for the application card. Cards without one show the "image coming
-      soon" placeholder, so entries can ship before the photography does. */
-  image?: string;
-};
+
 export type MachineImage = { src: string; alt: string };
 
 export type Machine = {
   slug: string;
   name: string;
   fullName: string;
-  /** One-line positioning shown under the name */
   tagline: string;
-  /** Short descriptor used on catalog cards */
   blurb: string;
-  /** Long-form overview paragraph(s) */
   overview: string;
-  /** Tier label for the catalog ("Entry", "Specialised", ...) */
   tier: string;
-  /** Headline word for the hero eyebrow / family role */
   role: string;
-  /** Release year badge */
   year: string;
-  /** Sort + display accent */
+  /** Set on the models that lead the range; Aura carries no flag. */
   featured?: boolean;
   heroImage: MachineImage;
   images: MachineImage[];
-  /** 3–4 standout numbers for the card + hero */
   stats: StatItem[];
-  /** Full technical specification table */
   specs: SpecItem[];
   features: string[];
   technologies: string[];
-  applications: Application[];
-  /** Compatible bed fixtures / substrates (where published) */
+  /** Substrates the machine prints onto. Absent on Aura, which is vat-based. */
   fixtures?: string[];
-  software: string;
-  /** The control suite's own page, where it has one. Render sites link the
-      software name through this so every Dhee mention reaches /dhee-slicer. */
-  softwareHref?: string;
-  /** What a lab can specify before the machine is built.
-   *
-   *  Configurability is the range's main selling point, so every surface that
-   *  sells a model reads this instead of re-wording it: the catalog row, the
-   *  model page, the comparison table. Each entry below is drawn from the
-   *  machine's own published `specs` and `features` (the "user-configurable",
-   *  "customizable" and "user-defined" lines), not from anything new. */
-  customisation?: {
-    /** One line, used on cards and in section copy. */
-    summary: string;
-    /** The specific choices a lab makes with us. */
-    options: string[];
-  };
-  /** Notable institutions / validation, where published */
+  /** Third-party or institutional validation note, rendered when present. */
   validation?: string;
+  customisation: { summary: string; options: string[] };
+  software: string;
+  /** Link to the slicer's own page, where one exists. */
+  softwareHref?: string;
   sourceUrl: string;
 };
 
@@ -126,12 +98,6 @@ export const machines: Machine[] = [
       "Tri-axial printing",
       "Quad-axial printing",
       "FRESH printing",
-    ],
-    applications: [
-      { title: "Organoid & spheroid printing", description: "Precise formation of organoids and spheroids for disease models." },
-      { title: "Multi-material scaffolds", description: "Complex constructs with graded properties for biomaterial research." },
-      { title: "Complex tissue engineering", description: "Multiple cell types integrated into a single native-like construct." },
-      { title: "Research-driven applications", description: "From pioneering treatments to biological science and food technology." },
     ],
     fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
     customisation: {
@@ -209,13 +175,6 @@ export const machines: Machine[] = [
       "Coaxial printing",
       "Tri-axial printing",
     ],
-    applications: [
-      { title: "Vascular tissue engineering", description: "Perfusable vascular grafts with concentric walls and small-diameter blood-vessel models." },
-      { title: "Respiratory & airway models", description: "Tracheal and bronchial scaffolds with uniform internal lumens." },
-      { title: "Cardiovascular stents & implants", description: "Precision tubular constructs for vascular stents and implants." },
-      { title: "Organoid & disease modeling", description: "Medium-throughput organoid arrays with consistent geometry." },
-      { title: "Ocular & corneal constructs", description: "Hydrogel contact-lens prototypes using mold-assisted workflows." },
-    ],
     fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
     customisation: {
       summary:
@@ -279,11 +238,6 @@ export const machines: Machine[] = [
     technologies: [
       "MSLA (masked screen LCD with LED light source)",
       "A form of DLP bioprinting using a masked screen and LCD projector",
-    ],
-    applications: [
-      { title: "Tissue engineering & regenerative medicine", description: "Cell-laden hydrogel constructs with physiologically relevant architecture." },
-      { title: "Organ-on-chip & microphysiological systems", description: "Microfluidic devices and compartmentalized tissue chambers." },
-      { title: "Bioinspired materials & soft-matter physics", description: "Lattice structures, gradient materials and bio-inspired architectures." },
     ],
     customisation: {
       summary:

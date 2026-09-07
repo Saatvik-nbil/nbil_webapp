@@ -1,37 +1,26 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import {
-  Target,
-  TestTube,
-  Cube,
-  Flask,
-  GearSix,
-} from "@phosphor-icons/react";
+import { ChatsCircle, Package, Receipt } from "@phosphor-icons/react";
 import ShaderBackground from "@/components/ui/shader-background";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const POINTS = [
+const BLOCKS = [
   {
-    icon: Target,
-    text: "Identifying the most suitable bioprinting platform and compatible printheads",
+    icon: ChatsCircle,
+    title: "What We Actually Discuss",
+    body: "Your biology (cell type, what's failed, what matters most), your constraints (budget, timeline, one-off vs. long-term), and your fabrication path (printhead, biomaterial, standard vs. custom build).",
   },
   {
-    icon: TestTube,
-    text: "Selecting biomaterials tailored for your specific cell type or tissue model",
+    icon: Package,
+    title: "What You Walk Away With",
+    body: "A standard configuration quoted directly and a scoped custom build with cost and timeline.",
   },
   {
-    icon: Cube,
-    text: "Understanding which cells, media, and bioinks best support your application",
-  },
-  {
-    icon: Flask,
-    text: "Planning fabrication strategies for tissue- or disease-specific models",
-  },
-  {
-    icon: GearSix,
-    text: "Addressing any technical or experimental considerations relevant to your workflow",
+    icon: Receipt,
+    title: "How We Quote",
+    body: "Itemized, not bundled: hardware, biomaterials, engineering hours, training, and validation runs, each priced separately, each removable if it doesn't apply.",
   },
 ];
 
@@ -61,31 +50,35 @@ export default function ConsultationExpectations() {
             id="expect-heading"
             className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-dark-ink)] leading-[1.12] max-w-[20ch]"
           >
-            What can you expect from the consultation?
+            How do we map your protocol
           </h2>
-          <p className="text-[15.5px] text-[var(--color-dark-ink-muted)] leading-relaxed max-w-[62ch]">
-            This session is designed to help us understand your research
-            objectives, challenges, and the outcomes you&rsquo;re aiming for.
-            Every project is unique, and our goal is to guide you toward the most
-            suitable bioprinting and biofabrication workflow.
+          <p className="text-[15.5px] text-[var(--color-dark-ink-muted)] leading-relaxed max-w-[68ch]">
+            Thirty minutes, one engineer, your actual project. We ask about your
+            cell type, your current failure point, your budget ceiling, and your
+            timeline, and by the end, you&rsquo;ll have three things: a diagnosis
+            of what&rsquo;s not working, a written set of options, and a quote
+            broken down line by line, not a lump sum.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-x-10 gap-y-6 max-w-3xl mx-auto">
-          {POINTS.map(({ icon: Icon, text }, i) => (
+        <div className="grid sm:grid-cols-3 gap-x-8 gap-y-10">
+          {BLOCKS.map(({ icon: Icon, title, body }, i) => (
             <motion.div
-              key={text}
+              key={title}
               initial={reduce ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: (i % 2) * 0.06, duration: 0.5, ease: EASE }}
-              className="flex items-start gap-3.5"
+              transition={{ delay: i * 0.06, duration: 0.5, ease: EASE }}
+              className="flex flex-col gap-3.5"
             >
-              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#13263d]">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#13263d]">
                 <Icon size={18} weight="duotone" className="text-[var(--color-dark-brand)]" />
               </span>
+              <h3 className="font-display text-[1.0625rem] font-semibold tracking-[-0.015em] text-[var(--color-dark-ink)] leading-[1.3]">
+                {title}
+              </h3>
               <p className="text-[14.5px] text-[var(--color-dark-ink-muted)] leading-relaxed">
-                {text}
+                {body}
               </p>
             </motion.div>
           ))}

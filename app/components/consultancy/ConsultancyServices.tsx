@@ -6,11 +6,11 @@ import {
   FlaskConical,
   Lightbulb,
   Boxes,
-  BadgeCheck,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import MobileCollapse from "@/components/ui/mobile-collapse";
 import { OriginButton } from "@/components/ui/origin-button";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -112,6 +112,12 @@ export default function ConsultancyServices() {
         </div>
 
         {/* Service cards */}
+        <MobileCollapse
+          collapsedHeight={820}
+          moreLabel="Show all services"
+          lessLabel="Show fewer services"
+          fadeTo="var(--color-canvas)"
+        >
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {SERVICES.map((service, i) => {
             const Icon = service.icon;
@@ -169,10 +175,11 @@ export default function ConsultancyServices() {
                         highlighted ? "text-white/85" : "text-[var(--color-ink-muted)]",
                       )}
                     >
-                      <BadgeCheck
+                      <span
+                        aria-hidden="true"
                         className={cn(
-                          "mt-0.5 size-4 shrink-0",
-                          highlighted ? "text-[var(--color-dark-brand)]" : "text-[var(--color-brand)]",
+                          "mt-[0.5rem] size-1.5 shrink-0 rounded-full",
+                          highlighted ? "bg-[var(--color-dark-brand)]" : "bg-[var(--color-brand)]",
                         )}
                       />
                       {feature}
@@ -193,6 +200,7 @@ export default function ConsultancyServices() {
             );
           })}
         </div>
+        </MobileCollapse>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 
 const FILL_DURATION = 0.5;
 const FILL_EASE = [0.16, 1, 0.3, 1] as const;
@@ -311,6 +312,7 @@ const OriginButton = React.forwardRef<HTMLButtonElement, OriginButtonProps>(
           transition={fillTransition}
         />
         <span className="relative z-10 inline-flex items-center justify-center gap-2">
+          {loading ? <Spinner size={16} /> : null}
           {children}
         </span>
       </>
