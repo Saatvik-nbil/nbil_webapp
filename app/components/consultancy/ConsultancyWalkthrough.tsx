@@ -11,37 +11,31 @@ const STAGES = [
   {
     step: "01",
     title: "We scope the brief before anything is quoted",
-    duration: "Day zero",
     body: "A doctoral researcher arrives with a silk-based biopolymer carrying a loaded drug, four simpler supporting blends, and a scaffold geometry that exists only as a sketch. We agree on what gets designed, what gets optimised, and what gets printed, and only then does a line-by-line quote go out.",
   },
   {
     step: "02",
     title: "A design engineer builds the geometry",
-    duration: "About 7 business days",
-    body: "The scaffold is modelled from the researcher's inputs, then edited against what a bioprinting protocol can actually hold: wall thickness, pore strategy, and the toolpath the printhead has to follow. Starting from a sketch rather than an existing file is what sets the timeline here.",
+    body: "The scaffold is modelled from the researcher's inputs, then edited against what a bioprinting protocol can actually hold: wall thickness, pore strategy, and the toolpath the printhead has to follow. Starting from a sketch rather than an existing file is what sets the scope here.",
   },
   {
     step: "03",
     title: "A biofabrication engineer optimises the print",
-    duration: "About 7 business days",
     body: "Design, biomaterial and G-code get worked together on a Trivima: minor formulation adjustment, layer strategy, flow and pressure, retraction. The full printing protocol for the lead material is finalised at this stage, not left to the researcher to reverse-engineer later.",
   },
   {
     step: "04",
     title: "The supporting blends are optimised separately",
-    duration: "About 7 business days",
-    body: "The four simpler blends run through their own optimisation pass so the researcher has printable parameters for every material in the study, not just the headline one. Simple blends move faster, and the timeline is quoted separately so it can be dropped if the study narrows.",
+    body: "The four simpler blends run through their own optimisation pass so the researcher has printable parameters for every material in the study, not just the headline one. These are quoted separately, so they can be dropped if the study narrows.",
   },
   {
     step: "05",
     title: "The scaffolds are printed and shipped",
-    duration: "About 3 business days",
     body: "Thirty scaffolds are printed against the finalised protocol for the lead material, with a smaller set per supporting blend, then packed and sent to the lab. What arrives is the print, the protocol that produced it, and the parameter file to reproduce it.",
   },
   {
     step: "06",
-    title: "The report includes what failed",
-    duration: "Within 14 days of optimisation closing",
+    title: "A detailed report",
     body: "A written project report follows: which parameters were abandoned and why, where the formulation fought the printhead, and what we would change if the material is reformulated. The failures are in the report because they are the part that saves the next run.",
   },
 ];
@@ -67,7 +61,7 @@ export default function ConsultancyWalkthrough() {
             id="walkthrough-heading"
             className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
           >
-            How one project actually ran
+            Project walkthrough
           </h2>
           <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
             This is a composite of a real engagement, with the institution, the
@@ -83,7 +77,7 @@ export default function ConsultancyWalkthrough() {
           fadeTo="var(--color-surface-raised)"
         >
         <ol className="relative flex flex-col gap-10 lg:gap-12 border-l border-[var(--color-hairline)] pl-8 lg:pl-12">
-          {STAGES.map(({ step, title, duration, body }, i) => (
+          {STAGES.map(({ step, title, body }, i) => (
             <motion.li
               key={step}
               initial={reduce ? false : { opacity: 0, y: 18 }}
@@ -105,9 +99,6 @@ export default function ConsultancyWalkthrough() {
                 <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75] max-w-[68ch]">
                   {body}
                 </p>
-                <span className="mt-1 inline-flex w-fit rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] px-3 py-1 text-[12.5px] text-[var(--color-ink-muted)]">
-                  {duration}
-                </span>
               </div>
             </motion.li>
           ))}
