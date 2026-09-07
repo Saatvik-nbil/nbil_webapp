@@ -106,11 +106,9 @@ export default function CatalogHero() {
               {...pop(1)}
               className="max-w-[54ch] text-[1.0625rem] leading-relaxed text-white/75"
             >
-              From a non-planar rotary bioprinter to a six-extruder research flagship
-              and a light-based bioprinter, the Trivima range spans extrusion, inkjet,
-              pellet and light-based bioprinting. Every one of them is configured to
-              your protocol before it is built: extruders, heads, build volume and
-              fixtures. Explore the range, spec for spec.
+              The Trivima range spans extrusion, inkjet, pellet and light-based
+              bioprinting. Every machine is configured to your protocol before
+              it is built.
             </motion.p>
 
             <motion.div {...pop(2)} className="mt-1 flex flex-wrap items-center gap-3">

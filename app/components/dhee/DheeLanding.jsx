@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import TestimonialsCarousel from "@/app/components/shared/TestimonialsCarousel";
 
 /* Adapted from the standalone Vite build of the Dhee Slicer site.
    Removed on integration:
      - the hash router (read `window` during render -> broke SSR); the two
-       hashes are now real routes, /dhee-slicer and /dhee-slicer/guide
+       hashes are now the single route /dhee-slicer (the quick-start
+       guide route was removed)
      - CustomCursor and its global `cursor: none` rules; the host already
        mounts CoordinateCursor in app/layout.tsx
      - the app's own <Nav> and <Footer>; the host chrome wraps the page
@@ -102,14 +102,6 @@ function Hero() {
               >
                 Explore Features ↓
               </button>
-              <Link
-                href="/dhee-slicer/guide"
-                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 4px", fontSize: 13, fontWeight: 500, color: "rgba(220,210,255,0.85)", textDecoration: "none", letterSpacing: "-0.01em", transition: "color 0.18s" }}
-                onMouseEnter={e => { e.currentTarget.style.color = "#FFFFFF"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "rgba(220,210,255,0.85)"; }}
-              >
-                Quick-Start Guide →
-              </Link>
             </div>
             <div style={{ display: "flex", gap: 28, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
               {[["Windows 10+", "OS Support"], ["6 Extruders", "Max Channels"], ["96-Well", "Plate Support"]].map(([v, l]) => (

@@ -36,12 +36,16 @@ export default function ConsultancyHero() {
       aria-labelledby="consultancy-hero-heading"
       className="relative isolate overflow-hidden bg-[var(--color-dark-bg)] min-h-svh flex items-center pt-20"
     >
-      {/* Work reel: a six-cell montage of prints and machines, played clean.
-          A very light wash sits over it, with the copy on its own light card
-          rather than relying on a heavy tint for contrast. */}
+      {/* Work reel: a six-cell montage of prints and machines. Held under a
+          light gaussian blur so it reads as colour and movement behind the
+          copy rather than six competing subjects; scaled past full bleed
+          because a blur samples past its own edges and would otherwise leave
+          a soft border. A light wash sits over it, with the copy on its own
+          light card rather than relying on a heavy tint for contrast. */}
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover object-center"
+        style={{ filter: "blur(4px)", transform: "scale(1.04)" }}
         src="/images/HeroSection.mp4"
         autoPlay
         muted
@@ -51,11 +55,12 @@ export default function ConsultancyHero() {
         aria-hidden="true"
       />
 
-      {/* A very light wash: just enough to settle the brightest cells of the
-          reel, not enough to read as a dark overlay. */}
+      {/* A light black wash: just enough to settle the brightest cells of the
+          reel and give the copy card an edge to sit against, not enough to
+          read as a dark overlay. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[rgba(10,20,34,0.16)]"
+        className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.2)]"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16 w-full">

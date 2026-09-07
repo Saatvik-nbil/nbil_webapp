@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/trivima`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/consultancy`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/dhee-slicer`, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/dhee-slicer/guide`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/blogs`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE_URL}/publications`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/blogs/dhee-quick-start`, changeFrequency: "monthly", priority: 0.5 },

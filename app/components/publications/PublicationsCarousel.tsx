@@ -126,10 +126,10 @@ export default function PublicationsCarousel({
             >
               {/* Index and the machine it was printed on */}
               <div className="flex items-start justify-between gap-3 px-6 pt-6">
-                <span className="text-[11.5px] tracking-[0.22em] text-[var(--color-ink-faint)]">
+                <span className="text-[12px] text-[var(--color-ink-faint)]">
                   ( {cardNumber(i)} )
                 </span>
-                <span className="rounded-full bg-white/75 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-[var(--color-brand-strong)]">
+                <span className="rounded-full bg-white/75 px-2.5 py-1 text-[12px] font-semibold text-[var(--color-brand-strong)]">
                   {pub.machine}
                 </span>
               </div>
@@ -152,8 +152,8 @@ export default function PublicationsCarousel({
 
               {/* Citation and title */}
               <div className="flex flex-col gap-2 px-6 pb-6 pt-5">
-                <div className="flex flex-wrap items-center gap-x-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
-                  <span className="text-[var(--color-brand-strong)]">{pub.journal}</span>
+                <div className="flex flex-wrap items-center gap-x-2 text-[12.5px] text-[var(--color-ink-faint)]">
+                  <span className="font-medium text-[var(--color-brand-strong)]">{pub.journal}</span>
                   <span aria-hidden="true">·</span>
                   <span>{pub.year}</span>
                 </div>

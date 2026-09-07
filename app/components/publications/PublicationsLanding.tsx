@@ -67,14 +67,14 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
         {/* Header */}
         <div className="flex items-start gap-4 border-b border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 sm:p-6">
           <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
-              <span className="text-[var(--color-brand-strong)]">{pub.journal}</span>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-[var(--color-ink-faint)]">
+              <span className="font-medium text-[var(--color-brand-strong)]">{pub.journal}</span>
               <span aria-hidden="true">·</span>
               <span>{pub.year}</span>
               {pub.citation ? (
                 <>
                   <span aria-hidden="true">·</span>
-                  <span className="normal-case tracking-normal">{pub.citation}</span>
+                  <span>{pub.citation}</span>
                 </>
               ) : null}
             </div>
@@ -100,13 +100,16 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+        {/* Lenis calls preventDefault on wheel events globally, so without
+            this the trackpad does nothing here and the abstract has to be
+            dragged by its scrollbar. */}
+        <div data-lenis-prevent className="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6">
           <div className="flex flex-col gap-6">
             {/* How the machine was used */}
             <div className="flex flex-col gap-2.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-brand-subtle)] p-4 sm:p-5">
               <div className="flex items-center gap-2">
                 <Sliders size={15} weight="bold" className="text-[var(--color-brand-strong)]" aria-hidden="true" />
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+                <h3 className="text-[13.5px] font-semibold text-[var(--color-brand-strong)]">
                   On a {pub.machine}
                 </h3>
               </div>
@@ -117,7 +120,7 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2">
                 <Quotes size={15} weight="fill" className="text-[var(--color-brand)]" aria-hidden="true" />
-                <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
+                <h3 className="text-[13.5px] font-semibold text-[var(--color-ink-faint)]">
                   Abstract, as published
                 </h3>
               </div>
@@ -196,7 +199,6 @@ export default function PublicationsLanding() {
             transition={{ duration: 0.7, ease: EASE }}
             className="flex max-w-2xl flex-col gap-5"
           >
-            <span className="eyebrow text-[var(--color-dark-brand)]">Publications</span>
             <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white">
               Research published on a Trivima
             </h1>
@@ -205,13 +207,15 @@ export default function PublicationsLanding() {
               bone scaffolds, breast cancer models and hemostatic hydrogels, each
               printed on a machine configured for that lab.
             </p>
-            <dl className="mt-3 flex flex-wrap gap-x-12 gap-y-5 border-t border-white/20 pt-6">
+            {/* Three equal columns, so each figure sits under its own third of
+                the rule above rather than bunching at the left of it. */}
+            <dl className="mt-3 grid grid-cols-3 gap-4 border-t border-white/20 pt-6">
               {stats.map((s) => (
                 <div key={s.label} className="flex flex-col gap-1">
-                  <dd className="font-display text-[1.6rem] font-semibold leading-none text-white">
+                  <dd className="font-display text-[1.35rem] font-semibold leading-none text-white sm:text-[1.6rem]">
                     {s.value}
                   </dd>
-                  <dt className="text-[12px] text-white/60">{s.label}</dt>
+                  <dt className="text-[12.5px] text-white/60">{s.label}</dt>
                 </div>
               ))}
             </dl>

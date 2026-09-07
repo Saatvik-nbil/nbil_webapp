@@ -6,6 +6,7 @@ import NewsletterSection, {
   SUBSCRIBE_URL,
 } from "@/app/components/blog/NewsletterSection";
 import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
+import { OriginButton } from "@/components/ui/origin-button";
 
 export const metadata: Metadata = {
   title: "Newsletter",
@@ -50,15 +51,15 @@ export default function NewsletterPage() {
                 Substack. Subscribe for new issues, or read any of the recent
                 ones below.
               </p>
-              <a
+              <OriginButton
                 href={SUBSCRIBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex h-12 shrink-0 items-center gap-2 rounded-xl bg-[var(--color-brand)] px-6 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)]"
+                className="mt-2 shrink-0 px-6 font-semibold"
               >
                 <EnvelopeSimple size={18} weight="bold" />
                 Subscribe to newsletter
-              </a>
+              </OriginButton>
             </div>
           </div>
         </section>

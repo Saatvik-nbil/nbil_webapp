@@ -24,28 +24,32 @@ export default function PublicationsTeaser() {
       className="py-20 lg:py-28 bg-[var(--color-surface-raised)] border-y border-[var(--color-hairline)]"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col gap-6 mb-12 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-col gap-4 max-w-2xl">
+        {/* The button sits on the heading's line, not the bottom of the copy
+            block: aligning it to the end of a three-line paragraph left it
+            floating well below everything it belongs to. */}
+        <div className="mb-12 lg:mb-16">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
             <h2
               id="publications-teaser-heading"
-              className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+              className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1] max-w-[18ch]"
             >
               The work our machines end up in
             </h2>
-            <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
-              Peer-reviewed papers where the printing was done on a Trivima, in
-              journals that name the machine in their own methods section.
-            </p>
+
+            <OriginButton
+              href="/publications"
+              variant="outline"
+              className="shrink-0 self-start px-5 text-[14px] font-semibold sm:mt-1.5"
+            >
+              See all publications
+              <ArrowUpRight size={16} weight="bold" />
+            </OriginButton>
           </div>
 
-          <OriginButton
-            href="/publications"
-            variant="outline"
-            className="shrink-0 self-start px-5 text-[14px] font-semibold lg:self-auto"
-          >
-            See all publications
-            <ArrowUpRight size={16} weight="bold" />
-          </OriginButton>
+          <p className="mt-5 max-w-[62ch] text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
+            Peer-reviewed papers where the printing was done on a Trivima, in
+            journals that name the machine in their own methods section.
+          </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
