@@ -63,11 +63,6 @@ export default function ConsultancyWalkthrough() {
           >
             Project walkthrough
           </h2>
-          <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
-            This is a composite of a real engagement, with the institution, the
-            people and the commercial terms removed. The shape of the work is
-            unchanged.
-          </p>
         </motion.div>
 
         <MobileCollapse
