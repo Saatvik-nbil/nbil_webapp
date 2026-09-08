@@ -39,15 +39,17 @@ export default function CatalogHero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-[var(--color-dark-bg)]"
+      className="relative flex h-svh items-end overflow-hidden bg-[var(--color-dark-bg)]"
     >
-      {/* Background photo, inset below the navbar so the two never overlap.
-          Full-bleed, but never cropping the actual product shot: a blurred,
-          scaled-up copy fills every edge of the stage (so the section never
-          shows bare background), while the sharp copy on top sits at
-          object-contain: always the complete photo, all three machines,
-          whatever the viewport's aspect ratio. */}
-      <div className="absolute inset-x-0 bottom-0 top-[84px] sm:top-[92px]">
+      {/* Background photo, filling the whole stage.
+
+          It used to sit at object-contain below an 84px dark cap, so a wide
+          viewport got pillar bars either side and a black band on top, and
+          the hero read as a picture pasted onto a dark panel. It covers now:
+          the photo crops rather than letterboxes, so it reaches every edge at
+          any aspect ratio without being stretched. The blurred copy stays
+          underneath as insurance for extreme ratios. */}
+      <div className="absolute inset-0">
         <Image
           src="/images/trivima-lineup.jpg"
           alt=""
@@ -63,19 +65,19 @@ export default function CatalogHero() {
           fill
           priority
           sizes="100vw"
-          className="object-contain"
+          className="object-cover object-center"
         />
       </div>
 
-      {/* Solid dark cap keeps the strip behind the navbar black */}
+      {/* Darkens under the floating navbar so the glass pill stays legible,
+          in place of the solid cap that used to black out the strip. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[84px] bg-[var(--color-dark-bg)] sm:h-[92px]"
-      />
-      {/* Seam blend softens the photo's top edge below the cap */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[84px] z-[1] h-24 bg-gradient-to-b from-[var(--color-dark-bg)] to-transparent sm:top-[92px]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,20,34,0.82) 0%, rgba(10,20,34,0.45) 45%, rgba(10,20,34,0) 100%)",
+        }}
       />
       {/* Bottom scrim anchors the copy once it appears */}
       <div
@@ -90,7 +92,6 @@ export default function CatalogHero() {
           {revealed && (
           <LiquidGlass
             tint="light"
-            distort={false}
             className="max-w-[42rem] rounded-[2rem] border border-white/15 shadow-[0_24px_70px_rgba(2,8,20,0.45)]"
           >
           <div className="flex flex-col gap-6 p-8 sm:p-10 lg:p-12">

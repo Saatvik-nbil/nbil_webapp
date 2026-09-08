@@ -34,10 +34,10 @@ export default function MachineGallery({
       className="flex flex-col gap-4"
     >
       <div className="relative rounded-3xl border border-[var(--color-hairline)] bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-5 pt-14 sm:p-6 sm:pt-14">
-        <span className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand)] px-3 py-1 text-[11px] font-medium text-white">
+        <span className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-lg bg-[var(--color-brand)] px-3 py-1 text-[11px] font-medium text-white">
           {role}
         </span>
-        <span className="absolute top-5 right-5 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-1 text-[11px] text-[var(--color-ink-muted)]">
+        <span className="absolute top-5 right-5 rounded-lg border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-1 text-[11px] text-[var(--color-ink-muted)]">
           {year}
         </span>
         <Image

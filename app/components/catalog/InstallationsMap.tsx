@@ -328,7 +328,7 @@ export default function InstallationsMap() {
             {INTERNATIONAL_INSTALLATIONS.map((inst) => (
               <span
                 key={inst.name}
-                className="rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] px-3 py-1 text-[13px] text-[var(--color-ink-muted)]"
+                className="rounded-lg border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] px-3 py-1 text-[13px] text-[var(--color-ink-muted)]"
               >
                 {inst.name}
                 {inst.city ? `, ${inst.city}` : ""} &middot; {inst.model}

@@ -39,6 +39,31 @@ export type Publication = {
 
 export const publications: Publication[] = [
   {
+    slug: "anisotropic-tissue-analogues",
+    title:
+      "Engineering anisotropic tissue analogues: harnessing synergistic potential of extrusion-based bioprinting and extracellular matrix-based bioink",
+    authors: [
+      "Ashis Kumar Bera",
+      "Mohd Suhail Rizvi",
+      "Vijayasankar KN",
+      "Falguni Pati",
+    ],
+    journal: "Biofabrication",
+    year: "2025",
+    citation: "17, 015003",
+    doi: "10.1088/1758-5090/ad86ec",
+    url: "https://doi.org/10.1088/1758-5090/ad86ec",
+    abstract:
+      "In the realm of tissue engineering, replicating the intricate alignment of cells and the extracellular matrix (ECM) found in native tissue has long been a challenge. Most recent studies have relied on complex multi-step processes to approximate native tissue alignment. To address this challenge, we introduce a novel, single-step method for constructing highly aligned fibrous structures within multi-modular three-dimensional conglomerates. Our approach harnesses the synergistic potential of extrusion-based bioprinting and the fibrillogenesis kinetics of collagen-rich decellularized ECM. We have identified three key parameters governing ECM microfiber alignment during extrusion-based bioprinting: applied shear stress, stretching or extensional force, and post-print deformation. By carefully manipulating these parameters, we have successfully created highly aligned fibrous structures within multi-modular three-dimensional conglomerates. Our technique offers an efficient solution and has been validated by computational modeling. Comprehensive analyses confirm the efficacy across various scenarios, including encapsulated, top-seeded, and migratory cells. Notably, we have demonstrated the versatility and effectiveness of our approach by bioprinting highly aligned cardiac tissue patches, which show further maturation evidenced by the expression of Troponin-T and Myo-D differentiation factor needed for contractility and myotube formation, respectively. In summary, our streamlined approach offers a robust solution for creating anisotropic tissue analogues with precise ECM organization.",
+    trivimaUse:
+      "The 2% dECM hydrogel was extruded on an NBIL (Bengaluru, India) bioprinter from a 3 cc cartridge through a 23-gauge stainless steel nozzle at 15 °C. Print speed was swept from 100 to 5000 mm/min against matched pneumatic pressure to set the shear stress the bioink sees at the nozzle, which is the parameter the paper uses to align the ECM microfibers.",
+    machine: "NBIL bioprinter",
+    institutions: ["Indian Institute of Technology Hyderabad"],
+    topics: ["Anisotropic tissue", "Cardiac patches", "dECM bioink"],
+    thumb: "/publications/thumbs/anisotropic-tissue-analogues.webp",
+    pdf: "/publications/Bera_2025_Biofabrication_17_015003.pdf",
+  },
+  {
     slug: "pharmaceutical-polymer-hydrogels",
     title:
       "Pharmaceutical polymer-based hydrogels for 3D bioprinted drug delivery and tissue engineering applications",

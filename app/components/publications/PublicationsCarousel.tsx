@@ -129,7 +129,7 @@ export default function PublicationsCarousel({
                 <span className="text-[12px] text-[var(--color-ink-faint)]">
                   ( {cardNumber(i)} )
                 </span>
-                <span className="rounded-full bg-white/75 px-2.5 py-1 text-[12px] font-semibold text-[var(--color-brand-strong)]">
+                <span className="rounded-lg bg-white/75 px-2.5 py-1 text-[12px] font-semibold text-[var(--color-brand-strong)]">
                   {pub.machine}
                 </span>
               </div>

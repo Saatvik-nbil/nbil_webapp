@@ -57,7 +57,7 @@ function ProductCard({ machine: m, index }: { machine: Machine; index: number })
           onPointerLeave={resetTilt}
           className="relative flex items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 min-h-[190px] [perspective:900px]"
         >
-          <span className="absolute top-3.5 left-3.5 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--color-ink-muted)]">
+          <span className="absolute top-3.5 left-3.5 rounded-lg border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--color-ink-muted)]">
             {m.tier}
           </span>
           <motion.div

@@ -47,7 +47,7 @@ export const machines: Machine[] = [
     overview:
       "Unleash the full potential of bioprinting with Trivima Pro, crafted for the most demanding research applications. A high-end benchtop system with four to six configurable extruders spanning pneumatic, inkjet, pellet and motor-driven technologies, supporting well-plate, insert, triaxial and quad-axial printing alongside FRESH mode.",
     tier: "Customisable",
-    role: "Six-extruder research flagship",
+    role: "6 extruder flagship",
     year: "2024",
     featured: true,
     heroImage: { src: "/images/pro-1.webp", alt: "Trivima Pro six-extruder bioprinter" },
@@ -55,10 +55,10 @@ export const machines: Machine[] = [
       { src: "/images/pro-1.webp", alt: "Trivima Pro bioprinter with six extruders" },
     ],
     stats: [
-      { label: "Build volume", value: "150×100×100", unit: "mm" },
       { label: "Extruder slots", value: "4–6" },
-      { label: "Inkjet precision", value: "0.5", unit: "nL" },
-      { label: "Pellet temp", value: "Ambient–250", unit: "°C" },
+      { label: "Extruder compatibility", value: "4", unit: "types" },
+      { label: "Build volume", value: "150×100×100", unit: "mm" },
+      { label: "Movement precision", value: "<10", unit: "µm" },
     ],
     specs: [
       { label: "Extruder slots", value: "4 to 6 (user-configurable)" },
@@ -71,7 +71,8 @@ export const machines: Machine[] = [
       { label: "Inkjet precision", value: "0.5 nL dispensation" },
       { label: "Bed temperature", value: "4 °C to 80 °C" },
       { label: "Pressure range", value: "0.02 to 8 Bar" },
-      { label: "Build volume (L×B×H)", value: "150 × 100 × 100 mm (customizable)" },
+      { label: "Build volume (L×B×H)", value: "150 × 100 × 100 mm" },
+      { label: "Movement precision", value: "<10 microns" },
       { label: "Outer dimensions (L×B×H)", value: "90 × 120 × 70 cm" },
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "In-built sterility", value: "H14 HEPA & germicidal UV" },
@@ -102,11 +103,10 @@ export const machines: Machine[] = [
     fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
     customisation: {
       summary:
-        "Specified with you before it is built: how many extruders, which technologies sit in them, and how big the build volume needs to be.",
+        "Specified with you before it is built: how many extruders and which technologies sit in them.",
       options: [
         "Four to six extruder slots, user-configurable",
         "Pneumatic, inkjet, pellet and motor-driven heads in any combination",
-        "Build volume beyond the standard 150 × 100 × 100 mm",
         "Co-axial, tri-axial and quad-axial configurations",
         "Crosslinking at user-defined UV and visible wavelengths",
         "Well plate, petri dish, slide, insert and custom substrate fixtures",
@@ -148,7 +148,7 @@ export const machines: Machine[] = [
       { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
       { label: "Bed temperature", value: "4 °C to 80 °C (liquid-based cooling)" },
       { label: "Pressure range", value: "0.02 to 8 Bar" },
-      { label: "Build volume (L×B×H)", value: "120 × 70 × 50 mm (customizable)" },
+      { label: "Build volume (L×B×H)", value: "120 × 70 × 50 mm" },
       { label: "Movement precision", value: "<10 microns" },
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "Standard wavelengths", value: "365 nm, 405 nm, 420 nm, 520 nm" },
@@ -178,11 +178,10 @@ export const machines: Machine[] = [
     fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
     customisation: {
       summary:
-        "Configured around the geometry you print: two or three extruders, the heads that suit your bioink, and a build volume set with you.",
+        "Configured around the geometry you print: two or three extruders and the heads that suit your bioink.",
       options: [
         "Two to three extruder slots, user-configurable",
         "Pneumatic, pellet and motor-driven heads",
-        "Build volume beyond the standard 120 × 70 × 50 mm",
         "Coaxial and tri-axial heads, user-defined",
         "Crosslinking at 365, 405, 420 or 520 nm",
         "HEPA and germicidal UV chamber as an add-on",

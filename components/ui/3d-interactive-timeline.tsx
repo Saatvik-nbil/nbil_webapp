@@ -291,7 +291,7 @@ const TimelineCard = React.memo(function TimelineCard({
               )}
 
               {event.category && (
-                <span className="absolute right-3 top-3 rounded-full bg-[var(--color-brand-surface)] px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--color-brand-strong)]">
+                <span className="absolute right-3 top-3 rounded-lg bg-[var(--color-brand-surface)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-brand-strong)]">
                   {event.category}
                 </span>
               )}

@@ -141,7 +141,7 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
                   {pub.topics.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-[var(--color-hairline)] px-2.5 py-1 text-[11.5px] text-[var(--color-ink-muted)]"
+                      className="rounded-lg border border-[var(--color-hairline)] px-2.5 py-1 text-[11.5px] text-[var(--color-ink-muted)]"
                     >
                       {t}
                     </span>
@@ -177,11 +177,14 @@ export default function PublicationsLanding() {
   const [open, setOpen] = useState<Publication | null>(null);
   const close = useCallback(() => setOpen(null), []);
 
-  const years = Array.from(new Set(publications.map((p) => p.year)));
+  // Min and max, not first and last: the array is ordered for the shelf, not
+  // by year, so positional reads gave the wrong span as soon as a paper was
+  // inserted anywhere but the end.
+  const years = publications.map((p) => Number(p.year)).filter(Number.isFinite);
   const stats = [
     { value: String(publications.length), label: "Papers" },
     { value: String(new Set(publications.map((p) => p.journal)).size), label: "Journals" },
-    { value: `${years[years.length - 1]} to ${years[0]}`, label: "Published" },
+    { value: `${Math.min(...years)} to ${Math.max(...years)}`, label: "Published" },
   ];
 
   return (
@@ -207,24 +210,25 @@ export default function PublicationsLanding() {
               bone scaffolds, breast cancer models and hemostatic hydrogels, each
               printed on a machine configured for that lab.
             </p>
-            {/* Three equal columns, so each figure sits under its own third of
-                the rule above rather than bunching at the left of it. */}
-            <dl className="mt-3 grid grid-cols-3 gap-4 border-t border-white/20 pt-6">
-              {stats.map((s) => (
-                <div key={s.label} className="flex flex-col gap-1">
-                  <dd className="font-display text-[1.35rem] font-semibold leading-none text-white sm:text-[1.6rem]">
-                    {s.value}
-                  </dd>
-                  <dt className="text-[12.5px] text-white/60">{s.label}</dt>
-                </div>
-              ))}
-            </dl>
           </motion.div>
         </div>
       </section>
 
       {/* The shelf */}
       <section aria-label="Publications" className="mx-auto max-w-7xl py-16 lg:py-24">
+        {/* Three equal columns, so each figure sits under its own third of the
+            rule above rather than bunching at the left of it. */}
+        <dl className="mx-6 mb-12 grid grid-cols-3 gap-4 border-b border-[var(--color-hairline)] pb-8 lg:mb-16">
+          {stats.map((s) => (
+            <div key={s.label} className="flex flex-col gap-1.5">
+              <dd className="font-display text-[1.6rem] font-semibold leading-none text-[var(--color-ink)] sm:text-[2rem]">
+                {s.value}
+              </dd>
+              <dt className="text-[12.5px] text-[var(--color-ink-muted)]">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+
         <PublicationsCarousel publications={publications} onOpen={setOpen} />
         <p className="mt-10 max-w-[70ch] px-6 text-[13.5px] leading-relaxed text-[var(--color-ink-faint)]">
           Published on a Trivima and not listed here? Send us the DOI and we will add

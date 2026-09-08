@@ -235,9 +235,13 @@ export const Component = () => {
 export const SoftGlassFilter: React.FC = () => (
   <svg aria-hidden="true" style={{ position: "absolute", width: 0, height: 0 }}>
     <filter id="liquid-glass-soft" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.008" numOctaves="2" seed="11" result="turb" />
-      <feGaussianBlur in="turb" stdDeviation="2" result="softMap" />
-      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="42" xChannelSelector="R" yChannelSelector="G" />
+      {/* Fractal noise, blurred into a smooth field, then used to push the
+          backdrop's pixels around: the refraction of real frosted glass
+          rather than a flat blur. Low baseFrequency keeps the ripples broad
+          instead of grainy, and the blur stops the displacement stippling. */}
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.012" numOctaves="2" seed="11" result="turb" />
+      <feGaussianBlur in="turb" stdDeviation="3" result="softMap" />
+      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="30" xChannelSelector="R" yChannelSelector="G" />
     </filter>
   </svg>
 );
@@ -268,24 +272,55 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
     tint === "dark" ? "rgba(12, 22, 38, 0.30)" : "rgba(255, 255, 255, 0.16)";
   const innerHighlight =
     tint === "dark"
-      ? "inset 1px 1px 0 0 rgba(255,255,255,0.18), inset -1px -1px 1px 0 rgba(255,255,255,0.08)"
-      : "inset 1px 1px 0 0 rgba(255,255,255,0.55), inset -1px -1px 1px 0 rgba(255,255,255,0.30)";
+      ? "inset 1.5px 1.5px 0 0 rgba(255,255,255,0.30), inset -1.5px -1.5px 2px 0 rgba(255,255,255,0.14), inset 0 0 40px 0 rgba(255,255,255,0.05)"
+      : "inset 1.5px 1.5px 0 0 rgba(255,255,255,0.80), inset -1.5px -1.5px 2px 0 rgba(255,255,255,0.45), inset 0 0 40px 0 rgba(255,255,255,0.12)";
 
   return (
     <div
       className={`liquid-glass relative isolate overflow-hidden ${interactive ? "transition-transform duration-200 active:scale-[0.985]" : ""} ${className}`}
       style={style}
     >
-      {/* refraction + blur */}
+      {/* Frosted backdrop.
+
+          Kept inline rather than in a class: the CSS minifier rewrote these
+          declarations into an invalid form and the browser dropped them, so
+          the glass silently rendered with no blur at all.
+
+          `url(#...)` is deliberately not used here. Chromium does not support
+          SVG filter references in `backdrop-filter`, so the displacement the
+          reference technique relies on never reaches the backdrop. The
+          refraction is built instead from what every engine does support:
+          saturation and lift on the blur, plus the turbulence texture below. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
         style={{
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          filter: distort ? "url(#liquid-glass-soft)" : undefined,
+          backdropFilter:
+            "blur(26px) saturate(210%) brightness(1.10) contrast(1.06)",
+          WebkitBackdropFilter:
+            "blur(26px) saturate(210%) brightness(1.10) contrast(1.06)",
         }}
       />
+
+      {/* The frost itself: fractal noise painted over the panel at low opacity.
+          This is the feTurbulence grain of real frosted glass, and unlike a
+          filtered backdrop it renders everywhere. */}
+      {distort && (
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full rounded-[inherit] opacity-[0.22] mix-blend-overlay"
+        >
+          <filter id="liquid-glass-frost">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.85"
+              numOctaves="3"
+              stitchTiles="stitch"
+            />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#liquid-glass-frost)" />
+        </svg>
+      )}
       {/* tint */}
       <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ background: overlay }} />
       {/* edge highlight (the signature liquid-glass rim) */}

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { machines } from "@/lib/machines";
+import { posts } from "@/lib/blog";
 
 const BASE_URL = "https://nextbiginnovationlabs.com";
 
@@ -32,5 +33,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...machineRoutes];
+  const blogRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: `${BASE_URL}/blogs/${p.slug}`,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...machineRoutes, ...blogRoutes];
 }

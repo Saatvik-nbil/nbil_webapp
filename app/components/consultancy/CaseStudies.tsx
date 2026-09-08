@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import MobileCollapse from "@/components/ui/mobile-collapse";
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { CaretDown } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -9,20 +10,20 @@ type CaseStudy = {
   watermark: string;
   title: string;
   body: string;
-  image: string;
-  alt: string;
-  /** image column on large screens: left or right */
-  imageSide: "left" | "right";
+  /** Omit where we have no photograph cleared for use; the visual column
+   *  falls back to a typographic plate carrying the partner's name. */
+  image?: string;
+  alt?: string;
 };
 
-const CASES: CaseStudy[] = [
+/** The three shown on arrival. */
+const FEATURED: CaseStudy[] = [
   {
     watermark: "Merck",
     title: "Trivima Bioprinter for Merck KGaA (Darmstadt, Germany)",
     body: "As a part of the Merck Accelerator Program, our team developed a customised bioprinting solution for the scientists studying drug efficacy and cellular interaction. To achieve this goal, we developed a medium throughput bioprinter that could print within 96 and 384 well plates within a span of 4 minutes. We achieved high print fidelity as well as a high level of precision by printing one biomaterial right on top of another and bioprinting two biomaterials side-by-side in a 96 well plate setup.",
     image: "/images/cases/merck-kgaa.webp",
     alt: "Merck signage outside the company's Darmstadt campus",
-    imageSide: "left",
   },
   {
     watermark: "MS Ramaiah University",
@@ -30,12 +31,94 @@ const CASES: CaseStudy[] = [
     body: "Proprietary biomaterial comprising of bioceramic (β-TCP) for minor and major fracture healing applications, engineered alongside the research team for reproducible, clinically relevant scaffold architectures.",
     image: "/images/cases/ms-ramaiah.webp",
     alt: "The MS Ramaiah Institute of Technology campus in Bengaluru",
-    imageSide: "right",
+  },
+  {
+    watermark: "Umami Bioworks",
+    title: "Food-grade scaffolds for cultivated seafood",
+    body: "A cultivated-food venture brought us two food-based biomaterials and a scaffold brief. We designed the geometry from their inputs, edited it against what a bioprinting protocol can hold, then optimised the print for each material. Finished scaffolds were produced on both single-extruder and dual-extruder configurations, so the team could compare a single-material architecture against a two-material one side by side.",
   },
 ];
 
+/** Revealed behind the control. */
+const MORE: CaseStudy[] = [
+  {
+    watermark: "KLE College of Pharmacy",
+    title: "Drug-loaded silk scaffolds for pharmaceutics research",
+    body: "For a pharmaceutics research group in Belagavi we took a silk-based biopolymer carrying a loaded drug from a scaffold brief to a finished batch: our design engineer built the geometry, a biofabrication engineer optimised the print protocol on Trivima, and thirty scaffolds were produced against the finalised parameters. Four further biomaterial blends used across the same study were optimised alongside it, so the group had printable parameters for every material in the work. The project closed with a written report covering both the successes and the failures encountered during optimisation.",
+  },
+  {
+    watermark: "Univlabs",
+    title: "Print protocol development under NDA",
+    body: "Working under a mutual NDA with a medical technology company, we optimised the printing behaviour of a proprietary biomaterial on Trivima and established the parameter window it prints in. Scaffold production ran on demand once the optimisation phase closed, and the IP shared for the work stayed with the client throughout.",
+  },
+];
+
+/** Image column sits left on even rows, right on odd ones, counted across
+ *  both lists so the zigzag survives the reveal. */
+function CaseRow({ c, index }: { c: CaseStudy; index: number }) {
+  const reduce = useReducedMotion();
+  const imageRight = index % 2 === 1;
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      {/* Image */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: EASE }}
+        className={imageRight ? "lg:order-2" : "lg:order-1"}
+      >
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_rgba(2,12,27,0.12)]">
+          {c.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={c.image}
+              alt={c.alt ?? ""}
+              className="aspect-[4/3] w-full object-cover"
+            />
+          ) : (
+            <div className="flex aspect-[4/3] w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,var(--color-brand-subtle),var(--color-surface-raised)_70%)] p-8">
+              <span
+                aria-hidden="true"
+                className="select-none text-center font-display text-[clamp(1.5rem,3.4vw,2.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)]/15"
+              >
+                {c.watermark}
+              </span>
+            </div>
+          )}
+        </div>
+      </motion.div>
+
+      {/* Copy + watermark */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ delay: 0.08, duration: 0.6, ease: EASE }}
+        className={`relative ${imageRight ? "lg:order-1" : "lg:order-2"}`}
+      >
+        {/* Oversized brand watermark */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none block font-display font-bold tracking-[-0.03em] leading-[0.85] text-[var(--color-ink)]/[0.06] text-[clamp(2.75rem,7vw,4.75rem)] mb-4"
+        >
+          {c.watermark}
+        </span>
+        <h3 className="font-display text-[1.35rem] lg:text-[1.6rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.2]">
+          {c.title}
+        </h3>
+        <p className="mt-4 text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
+          {c.body}
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function CaseStudies() {
   const reduce = useReducedMotion();
+  const [open, setOpen] = useState(false);
 
   return (
     <section
@@ -52,62 +135,67 @@ export default function CaseStudies() {
           </h2>
         </div>
 
-        <MobileCollapse
-          collapsedHeight={900}
-          moreLabel="Show more partner work"
-          lessLabel="Show less"
-          fadeTo="var(--color-surface)"
-        >
         <div className="flex flex-col gap-20 lg:gap-28">
-          {CASES.map((c, i) => (
-            <div
-              key={c.watermark}
-              className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center"
-            >
-              {/* Image */}
-              <motion.div
-                initial={reduce ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: EASE }}
-                className={c.imageSide === "right" ? "lg:order-2" : "lg:order-1"}
-              >
-                <div className="relative overflow-hidden rounded-3xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_rgba(2,12,27,0.12)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={c.image}
-                    alt={c.alt}
-                    className="aspect-[4/3] w-full object-cover"
-                  />
-                </div>
-              </motion.div>
-
-              {/* Copy + watermark */}
-              <motion.div
-                initial={reduce ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: 0.08, duration: 0.6, ease: EASE }}
-                className={`relative ${c.imageSide === "right" ? "lg:order-1" : "lg:order-2"}`}
-              >
-                {/* Oversized brand watermark */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none select-none block font-display font-bold tracking-[-0.03em] leading-[0.85] text-[var(--color-ink)]/[0.06] text-[clamp(2.75rem,7vw,4.75rem)] mb-4"
-                >
-                  {c.watermark}
-                </span>
-                <h3 className="font-display text-[1.35rem] lg:text-[1.6rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.2]">
-                  {c.title}
-                </h3>
-                <p className="mt-4 text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
-                  {c.body}
-                </p>
-              </motion.div>
-            </div>
+          {FEATURED.map((c, i) => (
+            <CaseRow key={c.watermark} c={c} index={i} />
           ))}
         </div>
-        </MobileCollapse>
+
+        {/* The rest, behind the control. Height animates from the measured
+         *  content height so the reveal reads as one continuous open. */}
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              id="case-studies-more"
+              key="more"
+              initial={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
+              animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+              exit={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
+              transition={{
+                height: { duration: 0.7, ease: EASE },
+                opacity: { duration: 0.45, ease: "easeOut", delay: 0.05 },
+              }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-col gap-20 pt-20 lg:gap-28 lg:pt-28">
+                {MORE.map((c, i) => (
+                  <motion.div
+                    key={c.watermark}
+                    initial={reduce ? false : { opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      ease: EASE,
+                      delay: 0.15 + i * 0.12,
+                    }}
+                  >
+                    <CaseRow c={c} index={FEATURED.length + i} />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="mt-14 flex justify-center lg:mt-20">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="case-studies-more"
+            className="group inline-flex h-12 items-center gap-2.5 rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] px-7 text-[14px] font-semibold text-[var(--color-ink)] transition-colors duration-300 hover:border-[var(--color-ink)]/25 hover:bg-[var(--color-brand-subtle)]"
+          >
+            {open ? "Show fewer collaborations" : "Read more collaborations"}
+            <CaretDown
+              size={14}
+              weight="bold"
+              aria-hidden="true"
+              className={`transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+                open ? "rotate-180" : "group-hover:translate-y-0.5"
+              }`}
+            />
+          </button>
+        </div>
       </div>
     </section>
   );

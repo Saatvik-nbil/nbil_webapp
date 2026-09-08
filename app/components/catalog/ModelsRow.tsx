@@ -37,16 +37,31 @@ const SPEC_PRIORITY = [
   "photo-crosslinking",
 ];
 
+/** "Build volume (L×B×H)" and the "Build volume" headline stat are the
+ *  same number, so compare on the label's leading words. */
+function sameMeasure(a: string, b: string) {
+  const norm = (v: string) =>
+    v.toLowerCase().replace(/\s*\(.*\)\s*$/, "").trim();
+  return norm(a) === norm(b);
+}
+
 function keySpecs(machine: Machine, limit = 4) {
+  // The card already prints the first two stats above these rows; repeating
+  // one as a spec listed the same figure twice in a single card.
+  const shown = machine.stats.slice(0, 2).map((s) => s.label);
+  const available = machine.specs.filter(
+    (s) => !shown.some((label) => sameMeasure(label, s.label)),
+  );
+
   const picked: Machine["specs"] = [];
   for (const keyword of SPEC_PRIORITY) {
     if (picked.length >= limit) break;
-    const hit = machine.specs.find(
+    const hit = available.find(
       (s) => s.label.toLowerCase().includes(keyword) && !picked.includes(s),
     );
     if (hit) picked.push(hit);
   }
-  return picked.length ? picked : machine.specs.slice(0, limit);
+  return picked.length ? picked : available.slice(0, limit);
 }
 
 /** Label / value line, used for both the headline numbers and the spec rows. */
@@ -96,7 +111,7 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
                   but never below `min-h`: the printer is the point of the card,
                   and an earlier version let it collapse to a few pixels. */}
               <div className="relative flex min-h-[150px] flex-1 items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 lg:min-h-[230px]">
-                <span className="absolute left-4 top-4 z-[1] rounded-full bg-[var(--color-brand)] px-2.5 py-1 text-[11px] font-medium text-white">
+                <span className="absolute left-4 top-4 z-[1] rounded-lg bg-[var(--color-brand)] px-2.5 py-1 text-[11px] font-medium text-white">
                   {machine.role}
                 </span>
                 <Image
@@ -154,13 +169,13 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
                       {machine.technologies.slice(0, 3).map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-[var(--color-hairline)] px-2.5 py-1 text-[11.5px] text-[var(--color-ink-muted)]"
+                          className="rounded-lg border border-[var(--color-hairline)] px-2.5 py-1 text-[11.5px] text-[var(--color-ink-muted)]"
                         >
                           {t}
                         </span>
                       ))}
                       {machine.technologies.length > 3 ? (
-                        <span className="rounded-full px-1.5 py-1 text-[11.5px] text-[var(--color-ink-faint)]">
+                        <span className="rounded-lg px-1.5 py-1 text-[11.5px] text-[var(--color-ink-faint)]">
                           +{machine.technologies.length - 3} more
                         </span>
                       ) : null}

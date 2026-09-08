@@ -108,7 +108,7 @@ export default function OurStoryLanding() {
                   aria-pressed={selected}
                   onClick={() => setFilter(f)}
                   className={[
-                    "rounded-full border px-4 py-1.5 text-[11px] uppercase tracking-[0.12em] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60",
+                    "rounded-lg border px-4 py-1.5 text-[12.5px] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60",
                     selected
                       ? "border-[var(--color-brand)] bg-[var(--color-brand)] text-white"
                       : "border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:border-[var(--color-brand)]/40 hover:text-[var(--color-brand-strong)]",

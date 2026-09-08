@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { publications } from "@/lib/publications";
@@ -14,6 +13,14 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * every record, abstract and DOI lives.
  */
 const FEATURED = publications.slice(0, 4);
+
+/** "Bera et al." from the full author list, or the single name if there is one. */
+function firstAuthor(authors: string[]) {
+  const [first] = authors;
+  if (!first) return "";
+  const surname = first.trim().split(/\s+/).slice(-1)[0];
+  return authors.length > 1 ? `${surname} et al.` : surname;
+}
 
 export default function PublicationsTeaser() {
   const reduce = useReducedMotion();
@@ -61,8 +68,12 @@ export default function PublicationsTeaser() {
               viewport={{ once: true, amount: 0.25 }}
               transition={{ delay: (i % 4) * 0.06, duration: 0.5, ease: EASE }}
             >
-              <Link
-                href="/publications"
+              {/* Straight out to the published article: a reader who clicks a
+                  specific paper wants that paper, not the index page. */}
+              <a
+                href={pub.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex h-full flex-col gap-4 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-shadow hover:shadow-[0_18px_50px_rgba(2,12,27,0.12)]"
               >
                 <div className="overflow-hidden rounded-xl border border-[var(--color-hairline)] bg-white">
@@ -79,13 +90,10 @@ export default function PublicationsTeaser() {
                     {pub.title}
                   </h3>
                   <span className="text-[12.5px] text-[var(--color-ink-muted)]">
-                    {pub.journal}, {pub.year}
-                  </span>
-                  <span className="text-[12.5px] text-[var(--color-ink-muted)]">
-                    {pub.machine}
+                    {firstAuthor(pub.authors)}, {pub.year}
                   </span>
                 </div>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>

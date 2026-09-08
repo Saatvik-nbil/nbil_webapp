@@ -110,7 +110,7 @@ export default function NewsletterSection() {
                   alt={issue.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-[var(--color-surface)]/85 px-2.5 py-1 text-[11px] font-medium text-[var(--color-ink)] backdrop-blur-sm">
+                <span className="absolute left-3 top-3 inline-flex items-center rounded-lg bg-[var(--color-surface)]/85 px-2.5 py-1 text-[11px] font-medium text-[var(--color-ink)] backdrop-blur-sm">
                   Substack
                 </span>
               </div>

@@ -24,6 +24,7 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
     installations: [
       { name: "AIIMS", city: "Delhi", model: "Trivima Advanced" },
       { name: "IIT Delhi", model: "Trivima NP" },
+      { name: "Jawaharlal Nehru University", city: "Delhi", model: "Trivima Bioprinter" },
       { name: "Reconstructive Healthcare", model: "Trivima NP" },
     ],
   },
@@ -94,7 +95,7 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
     stateId: "tamil-nadu",
     installations: [
       { name: "SASTRA Deemed University", city: "Thanjavur", model: "Trivima Advanced" },
-      { name: "IIT Madras", model: "Three Trivima Bioprinters" },
+      { name: "IIT Madras", city: "Chennai", model: "Two Trivima Bioprinters" },
       { name: "Central Leather Research Institute", city: "Chennai", model: "Four Trivima Bioprinters" },
       { name: "Sathyabama University", city: "Chennai", model: "Trivima Pro" },
       { name: "Saveetha Medical College", city: "Chennai", model: "Trivima Basic" },
@@ -121,7 +122,16 @@ export function getStateInstallations(stateId: string): Installation[] {
 
 export const INSTALLED_STATE_IDS = new Set(STATE_INSTALLATIONS.map((s) => s.stateId));
 
-export const TOTAL_INSTALLATIONS = STATE_INSTALLATIONS.reduce(
+/** Institutions on the map above. Derived, so it tracks the list. */
+export const TOTAL_SITES = STATE_INSTALLATIONS.reduce(
   (sum, s) => sum + s.installations.length,
   0
 );
+
+/**
+ * Machines installed, as Marketing publishes it. Deliberately not derived:
+ * the map lists the sites we can name, and several installations are not on
+ * it, so summing the rows above understates the fleet. Update this by hand
+ * when Marketing revises the figure.
+ */
+export const TOTAL_INSTALLATIONS = 50;

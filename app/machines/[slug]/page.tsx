@@ -306,7 +306,7 @@ export default async function MachinePage({
                 {machine.technologies.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2 text-[13px] font-medium text-[var(--color-ink)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)] motion-reduce:transform-none"
+                    className="rounded-lg border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2 text-[13px] font-medium text-[var(--color-ink)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)] motion-reduce:transform-none"
                   >
                     {t}
                   </span>
@@ -369,12 +369,21 @@ export default async function MachinePage({
               </div>
 
               <ul className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3" role="list">
-                {machine.customisation.options.map((option, i) => (
+                {machine.customisation.options.map((option, i, all) => (
                   <Reveal
                     as="li"
                     key={option}
                     delay={(i % 2) * 0.05}
-                    className="flex items-start gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-4"
+                    className={[
+                      "flex items-start gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-4",
+                      // An odd count leaves the last card alone beside a hole
+                      // the width of the grid; let it run the full width.
+                      all.length % 2 === 1 && i === all.length - 1
+                        ? "sm:col-span-2"
+                        : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
                   >
                     <span
                       aria-hidden="true"

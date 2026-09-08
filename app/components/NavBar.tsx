@@ -54,7 +54,7 @@ const extAttrs = (external?: boolean) =>
 
 function ComingSoonBadge() {
   return (
-    <span className="ml-2 rounded-full bg-[var(--color-surface-raised)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.06em] text-[var(--color-ink-faint)]">
+    <span className="ml-2 rounded-md bg-[var(--color-surface-raised)] px-1.5 py-0.5 text-[10px] font-medium text-[var(--color-ink-faint)]">
       Soon
     </span>
   );

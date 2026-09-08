@@ -1,26 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, CalendarCheck } from "@phosphor-icons/react";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { OriginButton } from "@/components/ui/origin-button";
+import ModelCompare from "@/app/components/consultancy/ModelCompare";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function ConsultancyHero() {
   const reduce = useReducedMotion();
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (reduce) {
-      video.pause();
-      return;
-    }
-    video.play().catch(() => {});
-  }, [reduce]);
 
   const rise = (delay: number) =>
     reduce
@@ -36,41 +25,28 @@ export default function ConsultancyHero() {
       aria-labelledby="consultancy-hero-heading"
       className="relative isolate overflow-hidden bg-[var(--color-dark-bg)] min-h-svh flex items-center pt-20"
     >
-      {/* Work reel: a six-cell montage of prints and machines. Held under a
-          light gaussian blur so it reads as colour and movement behind the
-          copy rather than six competing subjects; scaled past full bleed
-          because a blur samples past its own edges and would otherwise leave
-          a soft border. A light wash sits over it, with the copy on its own
-          light card rather than relying on a heavy tint for contrast. */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover object-center"
-        style={{ filter: "blur(4px)", transform: "scale(1.04)" }}
-        src="/images/HeroSection.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
+      {/* Manual CAD-to-print comparison. Both frames leave their left third
+          as plain background, which is where the copy panel sits, so the
+          handle's travel is clamped to the right of the frame. */}
+      <ModelCompare />
 
-      {/* A light black wash: just enough to settle the brightest cells of the
-          reel and give the copy card an edge to sit against, not enough to
-          read as a dark overlay. */}
+      {/* A light wash over the whole frame so the copy panel has something to
+          sit against without flattening either image. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[rgba(0,0,0,0.2)]"
+        className="pointer-events-none absolute inset-0 bg-[rgba(10,20,34,0.12)]"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16 w-full">
         <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
-          {/* Copy sits on a light card: the reel underneath runs untinted, so
-              the panel supplies its own ground and the type stays black. */}
+          {/* Copy sits on frosted glass over the comparison's plain-background
+              side. The fill is a diagonal gradient rather than a flat wash:
+              brighter at the top-left corner where the heading sits, thinner
+              through the middle so the silk reads through the panel, which is
+              what makes it look like glass rather than a translucent box. */}
           <LiquidGlass
             tint="light"
-            distort={false}
-            className="rounded-[2rem] border border-white/60 bg-white/85 shadow-[0_24px_70px_rgba(2,8,20,0.28)] backdrop-blur-xl"
+            className="rounded-[2rem] border border-white/55 bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)] shadow-[0_24px_70px_rgba(2,8,20,0.30)]"
           >
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
               <motion.h1
@@ -92,7 +68,7 @@ export default function ConsultancyHero() {
               </motion.p>
               <motion.p
                 {...rise(0.16)}
-                className="mt-5 text-[16px] lg:text-[17px] text-[var(--color-ink-muted)] leading-[1.65] max-w-[52ch]"
+                className="mt-5 text-[16px] lg:text-[17px] text-[var(--color-ink)]/80 leading-[1.65] max-w-[52ch]"
               >
                 Every scaffold, every parameter, every decision, visible to you,
                 at every stage, from first sketch to final print.

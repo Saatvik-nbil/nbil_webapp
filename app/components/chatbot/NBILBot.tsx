@@ -10,7 +10,7 @@ import { Spinner, ThinkingIndicator } from "@/components/ui/spinner";
 import { machines } from "@/lib/machines";
 
 /**
- * NBIL Assistant: a small, always-there chat widget (bottom-right, every
+ * Next Big Assistant: a small, always-there chat widget (bottom-right, every
  * page). Two jobs, chosen up front like a HubSpot-style bot:
  *
  * 1. Point visitors at the right page (bioprinters, software, consultancy,
@@ -231,7 +231,7 @@ export default function NBILBot() {
   }, [submit, say]);
 
   const start = useCallback(async () => {
-    await say("Hi, I'm the NBIL Assistant.");
+    await say("Hi, I'm the Next Big Assistant.");
     setStep("menu");
     await say(
       "I can help you find your way around, or connect you with our team for a quote or consultation. What would you like to do?",
@@ -398,7 +398,7 @@ export default function NBILBot() {
         type="button"
         onClick={togglePanel}
         aria-expanded={panelOpen}
-        aria-label={panelOpen ? "Close NBIL Assistant" : "Open NBIL Assistant"}
+        aria-label={panelOpen ? "Close Next Big Assistant" : "Open Next Big Assistant"}
         className="fixed right-5 bottom-[4.75rem] z-[66] flex size-14 items-center justify-center rounded-full bg-[var(--color-brand)] text-white shadow-[0_14px_36px_rgba(2,12,27,0.28)] transition-transform duration-300 hover:scale-105 hover:bg-[var(--color-brand-hover)] active:scale-95 sm:right-6 sm:bottom-6 motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
         {!reduce && showPulse && !panelOpen ? (
@@ -424,7 +424,7 @@ export default function NBILBot() {
           <motion.div
             role="dialog"
             aria-modal="false"
-            aria-label="NBIL Assistant chat"
+            aria-label="Next Big Assistant chat"
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
@@ -437,7 +437,7 @@ export default function NBILBot() {
                 <Robot size={19} weight="duotone" />
               </span>
               <div className="flex min-w-0 flex-1 flex-col">
-                <span className="text-[13.5px] font-semibold text-[var(--color-ink)]">NBIL Assistant</span>
+                <span className="text-[13.5px] font-semibold text-[var(--color-ink)]">Next Big Assistant</span>
                 <span className="flex items-center gap-1.5 text-[11.5px] text-[var(--color-ink-faint)]">
                   <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
                   Usually replies instantly
