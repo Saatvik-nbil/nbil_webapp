@@ -3,28 +3,40 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Manual before/after wipe for the consultancy hero.
+ * Manual three-stage wipe for the consultancy hero.
  *
- * Both frames are the same subject shot from the same angle, so the divider
- * reads as one object changing state rather than two pictures side by side:
- * the printed construct to the left of the handle, the CAD it was built from
- * to the right.
+ * All three frames are the same subject at the same scale and angle, so this
+ * reads as one object moving through the pipeline rather than three pictures
+ * side by side. Left to right it follows the order the work actually happens
+ * in: the CAD model, then the sliced G-code, then the bioprinted part.
+ *
+ * The divider is a window with real thickness rather than a hairline, and the
+ * middle stage is what shows through it. Dragging the window along the frame
+ * scrubs the same object through all three states.
  *
  * There is no autoplay. The reveal only moves when the reader moves it, by
  * drag, click, or arrow keys on the handle.
  *
- * The travel is clamped to the right of the frame. Both images put the
- * subject there and leave the left of the frame as plain background, which is
- * where the hero's copy panel sits: letting the handle run under the panel
+ * The travel is clamped to the right of the frame. Every image puts the
+ * subject there and leaves the left of the frame as plain background, which is
+ * where the hero's copy panel sits: letting the window run under the panel
  * would mean dragging something the reader cannot see. For the same reason
  * the handle drops below the panel on small screens, where the panel is full
  * width.
  */
 
+/** Half the window's width, as a CSS length. Set on the frame as `--band` so
+ *  the clip paths, the window chrome and the labels all key off one number. */
+const BAND = "var(--band)";
+
 const MIN = 52;
-const MAX = 96;
+/** Leaves room for the window's right edge at full travel. */
+const MAX = 92;
 const START = 68;
 const STEP = 2;
+/** Past this the "Bioprinted" label has nowhere to sit without running off the
+ *  frame or landing on the window's own label. */
+const PRINTED_LABEL_MAX = 86;
 
 /** Cubic ease-in-out, so the hint accelerates and settles rather than sliding
  *  at a constant speed. */
@@ -148,7 +160,7 @@ export default function ModelCompare() {
   return (
     <div
       ref={frameRef}
-      className="absolute inset-0 select-none"
+      className="absolute inset-0 select-none [--band:52px] lg:[--band:78px]"
       onPointerDown={(e) => {
         // Only the bare frame starts a drag: the copy panel above it keeps
         // its own clicks.
@@ -157,45 +169,68 @@ export default function ModelCompare() {
         setFromClientX(e.clientX);
       }}
     >
-      {/* Bottom layer: the CAD the construct was modelled from. */}
+      {/* Three stages stacked in reverse pipeline order, each one clipped a
+          little further left than the one beneath it. What survives is the
+          finished print on the right, the sliced G-code inside the window, and
+          the CAD to its left. */}
+
+      {/* Bottom layer: the finished print, filling the frame. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/consultancy/printed-model.webp"
+        alt="The scaffold bioprinted, held in solution"
+        draggable={false}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
+      />
+
+      {/* Middle stage: the sliced G-code, cut off at the window's right edge. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/consultancy/gcode-model.webp"
+        alt="The same scaffold as sliced G-code toolpaths, layer lines visible"
+        draggable={false}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
+        style={{
+          clipPath: `inset(0 calc(${100 - pct}% - ${BAND}) 0 0)`,
+        }}
+      />
+
+      {/* First stage: the CAD, cut off at the window's left edge. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/consultancy/cad-model.webp"
         alt="CAD model of a bifurcated vascular scaffold on a drawing grid"
         draggable={false}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
+        style={{
+          clipPath: `inset(0 calc(${100 - pct}% + ${BAND}) 0 0)`,
+        }}
       />
 
-      {/* Top layer: the printed construct, clipped to the left of the handle. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/consultancy/printed-model.webp"
-        alt="The same scaffold bioprinted, held in solution"
-        draggable={false}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
-        style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}
-      />
-
-      {/* Divider: a real seam, not a hairline. A dark core keeps it readable
-          on the white CAD grid, the white edges keep it readable on the blue,
-          and the outer glow lifts it off both. */}
+      {/* The window itself: two seams with the G-code showing between them.
+          A dark core keeps each seam readable on the white CAD grid, the white
+          edges keep it readable on the blue, and the outer glow lifts it off
+          both. The inset ring closes the shape so the pair reads as one
+          aperture rather than two unrelated dividers. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 -translate-x-1/2"
-        style={{ left: `${pct}%` }}
+        style={{ left: `${pct}%`, width: `calc(${BAND} * 2)` }}
       >
-        <div className="h-full w-[6px] bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.9)_28%,rgba(10,20,34,0.55)_50%,rgba(255,255,255,0.9)_72%,rgba(255,255,255,0)_100%)] shadow-[0_0_18px_rgba(255,255,255,0.6)]" />
+        <div className="absolute inset-0 ring-1 ring-inset ring-white/25" />
+        <div className="absolute inset-y-0 left-0 w-[6px] -translate-x-1/2 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.9)_28%,rgba(10,20,34,0.55)_50%,rgba(255,255,255,0.9)_72%,rgba(255,255,255,0)_100%)] shadow-[0_0_18px_rgba(255,255,255,0.6)]" />
+        <div className="absolute inset-y-0 right-0 w-[6px] translate-x-1/2 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.9)_28%,rgba(10,20,34,0.55)_50%,rgba(255,255,255,0.9)_72%,rgba(255,255,255,0)_100%)] shadow-[0_0_18px_rgba(255,255,255,0.6)]" />
       </div>
 
       {/* Handle */}
       <button
         type="button"
         role="slider"
-        aria-label="Compare the CAD model with the bioprinted construct"
+        aria-label="Move the window through the CAD model, the sliced G-code and the bioprinted part"
         aria-valuemin={MIN}
         aria-valuemax={MAX}
         aria-valuenow={Math.round(pct)}
-        aria-valuetext={`${Math.round(pct)}% bioprinted construct`}
+        aria-valuetext={`Window over the sliced G-code at ${Math.round(pct)}% across the frame, CAD model to its left, bioprinted part to its right`}
         onKeyDown={onKeyDown}
         onPointerDown={(e) => {
           e.stopPropagation();
@@ -233,17 +268,36 @@ export default function ModelCompare() {
         }`}
         style={{ left: `${pct}%` }}
       >
-        Slide to reveal the full bioprinted part
+        Slide the window through CAD, G-code and print
       </span>
 
-      {/* Side labels sit near the top of the frame: the bottom corners belong
-          to the cookie notice and the chat launcher, which sat over them. */}
-      <span className="pointer-events-none absolute right-5 top-24 rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-3 py-1.5 text-[12.5px] font-medium text-[var(--color-ink)] backdrop-blur-sm lg:right-8 lg:top-28">
+      {/* Stage labels sit near the top of the frame: the bottom corners belong
+          to the cookie notice and the chat launcher, which sat over them. Each
+          one tracks its own stage, so they always read in pipeline order. The
+          first two are hidden on small screens, where the copy panel is full
+          width and there is no room to the left of the window. */}
+      <span
+        className="pointer-events-none absolute top-24 hidden rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-3 py-1.5 text-[12.5px] font-medium text-[var(--color-ink)] backdrop-blur-sm lg:top-28 lg:block"
+        style={{ right: `calc(100% - ${pct}% + ${BAND} + 0.75rem)` }}
+      >
         CAD model
       </span>
       <span
-        className="pointer-events-none absolute top-24 rounded-lg border border-white/25 bg-black/40 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm lg:top-28"
-        style={{ right: `calc(100% - ${pct}% + 1.25rem)` }}
+        className="pointer-events-none absolute top-24 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/30 bg-black/55 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm lg:top-28 lg:block"
+        style={{ left: `${pct}%` }}
+      >
+        Sliced G-code
+      </span>
+      <span
+        className={`pointer-events-none absolute top-24 whitespace-nowrap rounded-lg border border-white/25 bg-black/40 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-200 lg:top-28 motion-reduce:transition-none ${
+          pct > PRINTED_LABEL_MAX ? "opacity-0" : "opacity-100"
+        }`}
+        /* Clamped, then faded out: near full travel an unclamped label ran off
+           the frame, and the clamped one collided with the window's own label.
+           There is barely any print left to point at by then either. */
+        style={{
+          left: `min(calc(${pct}% + ${BAND} + 0.75rem), calc(100% - 8rem))`,
+        }}
       >
         Bioprinted
       </span>

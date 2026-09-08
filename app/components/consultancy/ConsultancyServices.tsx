@@ -148,7 +148,7 @@ export default function ConsultancyServices() {
                     <Icon
                       className={cn(
                         "size-5",
-                        highlighted ? "text-[var(--color-dark-brand)]" : "text-[var(--color-brand-strong)]",
+                        highlighted ? "text-[var(--color-brand-on-dark)]" : "text-[var(--color-brand-strong)]",
                       )}
                     />
                   </span>
@@ -179,7 +179,7 @@ export default function ConsultancyServices() {
                         aria-hidden="true"
                         className={cn(
                           "mt-[0.5rem] size-1.5 shrink-0 rounded-full",
-                          highlighted ? "bg-[var(--color-dark-brand)]" : "bg-[var(--color-brand)]",
+                          highlighted ? "bg-[var(--color-brand-on-dark)]" : "bg-[var(--color-brand)]",
                         )}
                       />
                       {feature}

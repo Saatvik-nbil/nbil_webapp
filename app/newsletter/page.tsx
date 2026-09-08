@@ -36,7 +36,7 @@ export default function NewsletterPage() {
       <NavBar />
       <main>
         {/* Hero */}
-        <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32">
+        <section data-nav-theme="dark" className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-photo-ground)] pt-32 pb-28 lg:pt-40 lg:pb-32">
           <PhotoHeroBackdrop
             src="/images/heroes/newsletter-hero.webp"
             objectPosition="62% 58%"

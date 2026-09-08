@@ -91,9 +91,9 @@ const FRAGMENT_SRC = `
     space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
 
     vec4 lines = vec4(0.0);
-    // --color-dark-bg #0a1422 graded into a brand-tinted deep blue.
-    vec4 bgColor1 = vec4(0.039, 0.078, 0.133, 1.0);
-    vec4 bgColor2 = vec4(0.071, 0.180, 0.333, 1.0);
+    // --color-warm-bg #ece6d8 graded into the deeper beige it sits on.
+    vec4 bgColor1 = vec4(0.925, 0.902, 0.847, 1.0);
+    vec4 bgColor2 = vec4(0.871, 0.831, 0.741, 1.0);
 
     for(int l = 0; l < linesPerGroup; l++) {
       float normalizedLineIndex = float(l) / float(linesPerGroup);
@@ -114,9 +114,15 @@ const FRAGMENT_SRC = `
     }
 
     fragColor = mix(bgColor1, bgColor2, uv.x);
-    fragColor *= verticalFade;
+    // The fade used to multiply the ground toward black at the edges. On beige
+    // that would just soot the top and bottom, so it deepens toward the warmer
+    // beige instead of toward nothing.
+    fragColor = mix(bgColor2, fragColor, verticalFade * 0.75 + 0.25);
     fragColor.a = 1.0;
-    fragColor += lines;
+    // Plasma is composited over the ground, not added to it: additive light on
+    // a light ground clips straight to white and the lines disappear.
+    float plasma = clamp((lines.r + lines.g + lines.b) / 3.0, 0.0, 1.0);
+    fragColor.rgb = mix(fragColor.rgb, lineColor.rgb, plasma * 0.85);
 
     gl_FragColor = fragColor;
   }

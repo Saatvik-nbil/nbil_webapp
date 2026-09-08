@@ -11,32 +11,32 @@ const STAGES = [
   {
     step: "01",
     title: "We scope the brief before anything is quoted",
-    body: "A doctoral researcher arrives with a silk-based biopolymer carrying a loaded drug, four simpler supporting blends, and a scaffold geometry that exists only as a sketch. We agree on what gets designed, what gets optimised, and what gets printed, and only then does a line-by-line quote go out.",
+    body: "A doctoral researcher arrives with a silk fibroin scaffold carrying a loaded drug, four supporting biomaterial blends, and a geometry that exists only as a sketch. We agree on what gets designed, what gets optimised, and what gets printed. Only then does a line-by-line quote go out.",
   },
   {
     step: "02",
     title: "A design engineer builds the geometry",
-    body: "The scaffold is modelled from the researcher's inputs, then edited against what a bioprinting protocol can actually hold: wall thickness, pore strategy, and the toolpath the printhead has to follow. Starting from a sketch rather than an existing file is what sets the scope here.",
+    body: "The scaffold is modelled from the researcher's inputs, then edited against what a bioprinting protocol can actually hold: wall thickness, pore strategy, and the toolpath the printhead needs to follow. Starting from a sketch rather than an existing CAD file is what sets the scope at this stage.",
   },
   {
     step: "03",
     title: "A biofabrication engineer optimises the print",
-    body: "Design, biomaterial and G-code get worked together on a Trivima: minor formulation adjustment, layer strategy, flow and pressure, retraction. The full printing protocol for the lead material is finalised at this stage, not left to the researcher to reverse-engineer later.",
+    body: "Design, biomaterial, and G-code are worked together on a Trivima bioprinter: formulation adjustment, layer strategy, flow and pressure, retraction. The full print protocol for the lead material is finalised here, not left for the researcher to reverse-engineer later.",
   },
   {
     step: "04",
-    title: "The supporting blends are optimised separately",
-    body: "The four simpler blends run through their own optimisation pass so the researcher has printable parameters for every material in the study, not just the headline one. These are quoted separately, so they can be dropped if the study narrows.",
+    title: "Supporting blends are optimised in parallel",
+    body: "The four supporting biomaterial blends run through their own optimisation pass, so the researcher leaves with printable parameters for every material in the study, not just the lead one. Each blend is quoted separately, so any can be dropped if the study narrows.",
   },
   {
     step: "05",
-    title: "The scaffolds are printed and shipped",
-    body: "Thirty scaffolds are printed against the finalised protocol for the lead material, with a smaller set per supporting blend, then packed and sent to the lab. What arrives is the print, the protocol that produced it, and the parameter file to reproduce it.",
+    title: "Scaffolds are printed and shipped",
+    body: "Thirty scaffolds are printed against the finalised protocol for the lead material, with a smaller batch per supporting blend, then packed and shipped to the lab. What arrives is the print, the protocol that produced it, and the parameter file to reproduce it.",
   },
   {
     step: "06",
-    title: "A detailed report",
-    body: "A written project report follows: which parameters were abandoned and why, where the formulation fought the printhead, and what we would change if the material is reformulated. The failures are in the report because they are the part that saves the next run.",
+    title: "A complete, detailed report",
+    body: "A written project report documents which parameters were abandoned and why, where the formulation resisted the printhead, and what we would change if the material were reformulated. Failures are included because they are what saves the next run.",
   },
 ];
 
@@ -63,6 +63,10 @@ export default function ConsultancyWalkthrough() {
           >
             Project walkthrough
           </h2>
+          <p className="text-[15px] lg:text-[16px] text-[var(--color-ink-muted)] leading-[1.7]">
+            A representative example of how a project runs. Actual scope,
+            quantities and timeline vary by project.
+          </p>
         </motion.div>
 
         <MobileCollapse

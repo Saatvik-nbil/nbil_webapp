@@ -16,7 +16,7 @@ type CaseStudy = {
   alt?: string;
 };
 
-/** The three shown on arrival. */
+/** Shown on arrival. */
 const FEATURED: CaseStudy[] = [
   {
     watermark: "Merck",
@@ -32,13 +32,6 @@ const FEATURED: CaseStudy[] = [
     image: "/images/cases/ms-ramaiah.webp",
     alt: "The MS Ramaiah Institute of Technology campus in Bengaluru",
   },
-  {
-    watermark: "Umami Bioworks",
-    title: "Food-grade scaffolds for cultivated seafood",
-    body: "A cultivated-food venture brought us two food-based biomaterials and a scaffold brief. We designed the geometry from their inputs, edited it against what a bioprinting protocol can hold, then optimised the print for each material. Finished scaffolds were produced on both single-extruder and dual-extruder configurations, so the team could compare a single-material architecture against a two-material one side by side.",
-    image: "/images/cases/umami-bioworks.webp",
-    alt: "The Umami Bioworks logo",
-  },
 ];
 
 /** Revealed behind the control. */
@@ -46,14 +39,14 @@ const MORE: CaseStudy[] = [
   {
     watermark: "KLE College of Pharmacy",
     title: "Drug-loaded silk scaffolds for pharmaceutics research",
-    body: "For a pharmaceutics research group in Belagavi we took a silk-based biopolymer carrying a loaded drug from a scaffold brief to a finished batch: our design engineer built the geometry, a biofabrication engineer optimised the print protocol on Trivima, and thirty scaffolds were produced against the finalised parameters. Four further biomaterial blends used across the same study were optimised alongside it, so the group had printable parameters for every material in the work. The project closed with a written report covering both the successes and the failures encountered during optimisation.",
+    body: "KLE College of Pharmacy needed drug-release behaviour tested on a silk fibroin scaffold, a common carrier for controlled drug delivery studies. We carried it from brief to finished batch in one project cycle: our design engineer built the geometry, our biofabrication engineer optimised the print protocol on Trivima, and thirty scaffolds were produced against the finalised parameters. Four additional biomaterial blends used across the same study were optimised in parallel, so the group left with a validated print window for every material in the work, not just one. They received a complete, thorough report covering both the successes and the failures encountered during optimisation.",
     image: "/images/cases/kle-pharmacy.webp",
     alt: "The KLE College of Pharmacy campus building in Belagavi",
   },
   {
     watermark: "Univlabs",
-    title: "Print protocol development under NDA",
-    body: "Working under a mutual NDA with a medical technology company, we optimised the printing behaviour of a proprietary biomaterial on Trivima and established the parameter window it prints in. Scaffold production ran on demand once the optimisation phase closed, and the IP shared for the work stayed with the client throughout.",
+    title: "Print protocol development for a proprietary biomaterial",
+    body: "Univlabs, a medical technology company, brought us a proprietary biomaterial with no existing print profile. We established its full parameter window, pressure, temperature, and speed, within a single optimisation cycle, then handed the process off for on-demand scaffold production. No repeated trial batches, no extended back-and-forth: one optimisation phase, one working protocol, production-ready from there.",
     image: "/images/cases/univlabs.webp",
     alt: "The UnivLabs headquarters building, its name across the facade",
   },
@@ -107,7 +100,7 @@ function CaseRow({ c, index }: { c: CaseStudy; index: number }) {
         {/* Oversized brand watermark */}
         <span
           aria-hidden="true"
-          className="pointer-events-none select-none block font-display font-bold tracking-[-0.03em] leading-[0.85] text-[var(--color-ink)]/[0.06] text-[clamp(2.75rem,7vw,4.75rem)] mb-4"
+          className="pointer-events-none select-none block font-display font-bold tracking-[-0.03em] leading-[0.85] text-[var(--color-ink)]/25 text-[clamp(2.75rem,7vw,4.75rem)] mb-4"
         >
           {c.watermark}
         </span>

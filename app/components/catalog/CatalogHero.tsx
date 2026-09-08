@@ -39,7 +39,8 @@ export default function CatalogHero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative flex h-svh items-end overflow-hidden bg-[var(--color-dark-bg)]"
+      data-nav-theme="dark"
+      className="relative flex h-svh items-end overflow-hidden bg-[var(--color-photo-ground)]"
     >
       {/* Background photo, filling the whole stage.
 

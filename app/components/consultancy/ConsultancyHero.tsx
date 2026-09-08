@@ -23,11 +23,11 @@ export default function ConsultancyHero() {
   return (
     <section
       aria-labelledby="consultancy-hero-heading"
-      className="relative isolate overflow-hidden bg-[var(--color-dark-bg)] min-h-svh flex items-center pt-20"
+      className="relative isolate overflow-hidden bg-[var(--color-photo-ground)] min-h-svh flex items-center pt-20"
     >
-      {/* Manual CAD-to-print comparison. Both frames leave their left third
-          as plain background, which is where the copy panel sits, so the
-          handle's travel is clamped to the right of the frame. */}
+      {/* Manual CAD to G-code to print wipe. All three frames leave their left
+          third as plain background, which is where the copy panel sits, so the
+          window's travel is clamped to the right of the frame. */}
       <ModelCompare />
 
       {/* A light wash over the whole frame so the copy panel has something to
@@ -52,26 +52,18 @@ export default function ConsultancyHero() {
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"
-                className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.04em] text-[var(--color-ink)] leading-[0.92]"
+                className="font-display text-[clamp(1.85rem,3.5vw,2.85rem)] font-bold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.06] max-w-[19ch]"
               >
-                Bioprinting
-                <br />
-                <span className="block text-[0.62em] tracking-[-0.035em] leading-[1.02]">
-                  Engineered With You
-                </span>
+                Get Your Scaffold Design, Bioink Formulation, or Material
+                Testing Done Right.
               </motion.h1>
               <motion.p
-                {...rise(0.12)}
-                className="mt-5 font-display text-[17px] lg:text-[19px] font-semibold tracking-[-0.015em] text-[var(--color-ink)]"
-              >
-                From Protocol to Print. We Build It With You.
-              </motion.p>
-              <motion.p
-                {...rise(0.16)}
+                {...rise(0.14)}
                 className="mt-5 text-[16px] lg:text-[17px] text-[var(--color-ink)]/80 leading-[1.65] max-w-[52ch]"
               >
-                Every scaffold, every parameter, every decision, visible to you,
-                at every stage, from first sketch to final print.
+                Whether it&rsquo;s scaffold geometry, bioink formulation, or
+                material validation, we shape our process around your research,
+                not the other way around.
               </motion.p>
               <motion.div {...rise(0.22)} className="mt-8 flex flex-wrap items-center gap-4">
                 <OriginButton href="#project-form" className="px-6 font-semibold">

@@ -53,7 +53,8 @@ export default function OurStoryLanding() {
       {/* Hero */}
       <section
         aria-labelledby="our-story-heading"
-        className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-28 lg:pt-40 lg:pb-32"
+        data-nav-theme="dark"
+        className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-photo-ground)] pt-32 pb-28 lg:pt-40 lg:pb-32"
       >
         <PhotoHeroBackdrop
           src="/images/heroes/our-story-hero.webp"

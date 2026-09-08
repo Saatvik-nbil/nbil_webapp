@@ -50,7 +50,7 @@ function Fade({ children, delay = 0, style = {} }) {
 /* ─── HERO ───────────────────────────────────────────── */
 function Hero() {
   return (
-    <section id="platform" style={{
+    <section id="platform" data-nav-theme="dark" style={{
       minHeight: "100vh",
       position: "relative",
       overflow: "hidden",
@@ -60,27 +60,27 @@ function Hero() {
       <video autoPlay loop muted playsInline style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}>
         <source src="/dhee/dheeapp.mp4" type="video/mp4" />
       </video>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(120deg, rgba(10,4,26,0.72) 0%, rgba(60,20,120,0.45) 50%, rgba(10,4,26,0.30) 100%)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(120deg, rgba(8,16,28,0.72) 0%, rgba(20,48,102,0.45) 50%, rgba(8,16,28,0.30) 100%)" }} />
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.03)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03)1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
       <div style={{ position: "relative", zIndex: 2, padding: "120px 5vw 80px", width: "100%" }}>
         <Fade delay={0}>
           <div style={{ display: "inline-block", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", borderRadius: 20, padding: "44px 52px 48px", maxWidth: 560, boxShadow: "0 8px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", fontSize: 10.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,180,255,0.85)", fontWeight: 500, marginBottom: 24 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", fontSize: 12.5, color: "rgba(180,208,253,0.9)", fontWeight: 600, marginBottom: 24 }}>
               Designed for precision bioprinting
             </div>
             <h1 style={{ fontSize: "clamp(52px,6vw,84px)", fontWeight: 700, lineHeight: 0.93, letterSpacing: "-0.04em", color: "#FFFFFF", marginBottom: 16 }}>
               DHEE<br />
-              <span style={{ color: "#C4B8FF" }}>Slicer</span>
+              <span style={{ color: "#bcd0f5" }}>Slicer</span>
             </h1>
-            <p style={{ fontSize: "clamp(15px,1.4vw,18px)", color: "rgba(220,210,255,0.82)", lineHeight: 1.55, maxWidth: 400, marginBottom: 20, fontWeight: 400, letterSpacing: "-0.01em" }}>
+            <p style={{ fontSize: "clamp(15px,1.4vw,18px)", color: "rgba(198,220,255,0.82)", lineHeight: 1.55, maxWidth: 400, marginBottom: 20, fontWeight: 400, letterSpacing: "-0.01em" }}>
               Your bioprinting companion re-imagined<br />by Next Big Innovation Labs
             </p>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 9, marginBottom: 32, padding: "7px 14px", borderRadius: 999, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(196,184,255,0.22)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 9, marginBottom: 32, padding: "7px 14px", borderRadius: 999, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(160,196,253,0.22)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}>
               <svg viewBox="0 0 20 20" width="14" height="14" fill="none" style={{ flexShrink: 0 }}>
-                <circle cx="10" cy="10" r="8.25" stroke="rgba(196,184,255,0.55)" strokeWidth="1.3" />
-                <path d="M6.4 10.3l2.4 2.4 4.8-5.1" stroke="#C4B8FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="10" cy="10" r="8.25" stroke="rgba(160,196,253,0.55)" strokeWidth="1.3" />
+                <path d="M6.4 10.3l2.4 2.4 4.8-5.1" stroke="#bcd0f5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: "0.02em", color: "rgba(220,210,255,0.9)" }}>Built in-house, from scratch</span>
+              <span style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: "0.02em", color: "rgba(198,220,255,0.9)" }}>Built in-house, from scratch</span>
             </div>
             {/* The standalone build carried "Request Demo" and "Guide" in its
                 own fixed nav. That nav is gone (the site's NavBar wraps this
@@ -88,9 +88,9 @@ function Hero() {
             <div style={{ marginBottom: 36, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10 }}>
               <button
                 onClick={() => window.open("https://dhee-slicer-daca07d87663.herokuapp.com", "_blank", "noopener,noreferrer")}
-                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", fontSize: 13, fontWeight: 600, borderRadius: 8, cursor: "pointer", letterSpacing: "-0.01em", background: "#6D28D9", color: "#fff", border: "1.5px solid #6D28D9", boxShadow: "0 2px 12px rgba(109,40,217,0.28)", transition: "all 0.18s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#5B21B6"; e.currentTarget.style.borderColor = "#5B21B6"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "#6D28D9"; e.currentTarget.style.borderColor = "#6D28D9"; }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", fontSize: 13, fontWeight: 600, borderRadius: 8, cursor: "pointer", letterSpacing: "-0.01em", background: "#2572fd", color: "#fff", border: "1.5px solid #2572fd", boxShadow: "0 2px 12px rgba(37,114,253,0.28)", transition: "all 0.18s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "#1d4ed8"; e.currentTarget.style.borderColor = "#1d4ed8"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#2572fd"; e.currentTarget.style.borderColor = "#2572fd"; }}
               >
                 Request Demo →
               </button>
@@ -107,7 +107,7 @@ function Hero() {
               {[["Windows 10+", "OS Support"], ["6 Extruders", "Max Channels"], ["96-Well", "Plate Support"]].map(([v, l]) => (
                 <div key={l}>
                   <div style={{ fontSize: 14, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em" }}>{v}</div>
-                  <div style={{ fontSize: 10, color: "rgba(200,185,255,0.7)", marginTop: 3, letterSpacing: "0.03em" }}>{l}</div>
+                  <div style={{ fontSize: 10, color: "rgba(180,208,253,0.7)", marginTop: 3, letterSpacing: "0.03em" }}>{l}</div>
                 </div>
               ))}
             </div>
@@ -121,18 +121,18 @@ function Hero() {
 /* ─── THE PROBLEM ────────────────────────────────────── */
 function Problem() {
   return (
-    <section style={{ background: "#FFFFFF", borderTop: "1px solid #EEE9FF" }}>
+    <section style={{ background: "#FFFFFF", borderTop: "1px solid #e8e1d3" }}>
       <div style={{ padding: "72px 5vw", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10vw", alignItems: "center" }}>
         <Fade>
           <div>
-            <div style={{ fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6D5A8E", fontWeight: 500, marginBottom: 16 }}>The Problem</div>
-            <h2 style={{ fontSize: "clamp(26px,2.8vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820", marginBottom: 16 }}>
+            <div style={{ fontSize: 13, color: "#4a5568", fontWeight: 600, marginBottom: 16 }}>The Problem</div>
+            <h2 style={{ fontSize: "clamp(26px,2.8vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#0c1626", marginBottom: 16 }}>
               A single print can require three separate applications.
             </h2>
-            <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 12 }}>
+            <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.85, marginBottom: 12 }}>
               Model preparation. Slicing. Machine control. Every handoff between tools introduces friction, inconsistency, and lost time.
             </p>
-            <p style={{ fontSize: 15, color: "#6D28D9", fontWeight: 600, lineHeight: 1.75 }}>
+            <p style={{ fontSize: 15, color: "#1d4ed8", fontWeight: 600, lineHeight: 1.75 }}>
               DHEE Slicer replaces all three.
             </p>
           </div>
@@ -142,12 +142,12 @@ function Problem() {
             {["Import", "Prepare", "Slice", "Visualize", "Print"].map((step, i, arr) => (
               <div key={step}>
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(109,40,217,0.07)", border: "1px solid rgba(109,40,217,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: "#6D28D9", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{String(i + 1).padStart(2, "0")}</span>
+                  <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(37,114,253,0.07)", border: "1px solid rgba(37,114,253,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: "#1d4ed8", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{String(i + 1).padStart(2, "0")}</span>
                   </div>
-                  <span style={{ fontSize: 15, fontWeight: 500, color: "#110820", letterSpacing: "-0.01em", padding: "10px 0" }}>{step}</span>
+                  <span style={{ fontSize: 15, fontWeight: 500, color: "#0c1626", letterSpacing: "-0.01em", padding: "10px 0" }}>{step}</span>
                 </div>
-                {i < arr.length - 1 && <div style={{ width: 1, height: 20, background: "linear-gradient(#D8D0F5,transparent)", marginLeft: 17 }} />}
+                {i < arr.length - 1 && <div style={{ width: 1, height: 20, background: "linear-gradient(#dcd3bf,transparent)", marginLeft: 17 }} />}
               </div>
             ))}
           </div>
@@ -160,7 +160,7 @@ function Problem() {
 /* ─── WORKFLOW MOCKS ─────────────────────────────────── */
 function MockModelPrepHTML() {
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#F8F7FF" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f7f5f0" }}>
       <video autoPlay loop muted playsInline style={{ position: "absolute", inset: 0, width: "110%", height: "100%", objectFit: "cover", objectPosition: "center" }}>
         <source src="/dhee/clip-plane.mp4" type="video/mp4" />
       </video>
@@ -175,40 +175,40 @@ function MockSlicingHTML() {
     return () => clearInterval(t);
   }, []);
   return (
-    <div style={{ width: "100%", height: "100%", background: "#F8F7FF", fontFamily: "var(--font-libre-franklin), sans-serif", overflow: "hidden" }}>
-      <div style={{ height: 34, background: "#EEE9FF", borderBottom: "1px solid #D8D0F5", display: "flex", alignItems: "center", gap: 6, padding: "0 14px" }}>
+    <div style={{ width: "100%", height: "100%", background: "#f7f5f0", fontFamily: "var(--font-libre-franklin), sans-serif", overflow: "hidden" }}>
+      <div style={{ height: 34, background: "#e8e1d3", borderBottom: "1px solid #dcd3bf", display: "flex", alignItems: "center", gap: 6, padding: "0 14px" }}>
         {["#FF5F57", "#FFBD2E", "#28CA41"].map(c => <div key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c }} />)}
-        <span style={{ fontSize: 9, color: "#9B8DC4", marginLeft: 10 }}>Slice Configuration</span>
+        <span style={{ fontSize: 9, color: "#64748b", marginLeft: 10 }}>Slice Configuration</span>
       </div>
       <div style={{ display: "flex", height: "calc(100% - 34px)" }}>
-        <div style={{ width: 160, background: "#F0ECFF", borderRight: "1px solid #D8D0F5", padding: 10, flexShrink: 0 }}>
-          <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#B8ACD8", marginBottom: 7, marginTop: 10 }}>Parameters</div>
+        <div style={{ width: 160, background: "#f3f0e9", borderRight: "1px solid #dcd3bf", padding: 10, flexShrink: 0 }}>
+          <div style={{ fontSize: 9.5, color: "#7c8899", fontWeight: 600, marginBottom: 7, marginTop: 10 }}>Parameters</div>
           {[["Layer Height", "0.15 mm", true], ["Infill", "Honeycomb", false], ["Extruder 0", "180°C", true], ["Support", "Tree", false]].map(([l, v, hi]) => (
             <div key={l} style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-              <span style={{ fontSize: 8.5, color: "#9B8DC4" }}>{l}</span>
-              <span style={{ fontSize: 9, color: hi ? "#6D28D9" : "#A89CC8" }}>{v}</span>
+              <span style={{ fontSize: 8.5, color: "#64748b" }}>{l}</span>
+              <span style={{ fontSize: 9, color: hi ? "#1d4ed8" : "#6b7a8f" }}>{v}</span>
             </div>
           ))}
         </div>
         <div style={{ flex: 1, padding: 12, overflow: "hidden" }}>
-          <div style={{ fontSize: 8.5, color: "#9B8DC4", marginBottom: 5, display: "flex", justifyContent: "space-between" }}>
-            <span>Progress</span><span style={{ color: "#6D28D9" }}>{Math.round(prog)}%</span>
+          <div style={{ fontSize: 8.5, color: "#64748b", marginBottom: 5, display: "flex", justifyContent: "space-between" }}>
+            <span>Progress</span><span style={{ color: "#1d4ed8" }}>{Math.round(prog)}%</span>
           </div>
-          <div style={{ height: 3, background: "#DDD5F5", borderRadius: 2, marginBottom: 10, overflow: "hidden" }}>
-            <div style={{ width: `${prog}%`, height: "100%", background: "linear-gradient(90deg,#6D28D9,#8B5CF6)", borderRadius: 2, transition: "width 0.08s linear" }} />
+          <div style={{ height: 3, background: "#ded5c2", borderRadius: 2, marginBottom: 10, overflow: "hidden" }}>
+            <div style={{ width: `${prog}%`, height: "100%", background: "linear-gradient(90deg,#2572fd,#5b93fb)", borderRadius: 2, transition: "width 0.08s linear" }} />
           </div>
-          <div style={{ background: "#F0ECFF", border: "1px solid #D8D0F5", borderRadius: 6, padding: 8, marginBottom: 10 }}>
-            <div style={{ fontSize: 8, color: "#9B8DC4", marginBottom: 5 }}>Console</div>
-            <div style={{ fontSize: 8.5, color: "#A89CC8", marginBottom: 2.5 }}>; Layer 47 / 120</div>
-            <div style={{ fontSize: 8.5, color: "#A89CC8", marginBottom: 2.5 }}>G0 X23.4 Y18.2 Z7.05</div>
-            <div style={{ fontSize: 8.5, color: "#6D28D9", marginBottom: 2.5 }}>; Slicing {Math.round(prog)}% complete</div>
-            <div style={{ fontSize: 8.5, color: "#A89CC8" }}>T0 ; extruder 0 active</div>
+          <div style={{ background: "#f3f0e9", border: "1px solid #dcd3bf", borderRadius: 6, padding: 8, marginBottom: 10 }}>
+            <div style={{ fontSize: 8, color: "#64748b", marginBottom: 5 }}>Console</div>
+            <div style={{ fontSize: 8.5, color: "#6b7a8f", marginBottom: 2.5 }}>; Layer 47 / 120</div>
+            <div style={{ fontSize: 8.5, color: "#6b7a8f", marginBottom: 2.5 }}>G0 X23.4 Y18.2 Z7.05</div>
+            <div style={{ fontSize: 8.5, color: "#1d4ed8", marginBottom: 2.5 }}>; Slicing {Math.round(prog)}% complete</div>
+            <div style={{ fontSize: 8.5, color: "#6b7a8f" }}>T0 ; extruder 0 active</div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
             {[["120", "Layers"], ["2h 14m", "Est."], ["4.2 m", "Filament"]].map(([v, l]) => (
-              <div key={l} style={{ background: "#F0ECFF", border: "1px solid #D8D0F5", borderRadius: 6, padding: "8px 10px", textAlign: "center" }}>
-                <div style={{ fontSize: 14, color: "#3B0764", fontWeight: 600 }}>{v}</div>
-                <div style={{ fontSize: 8, color: "#9B8DC4", marginTop: 2 }}>{l}</div>
+              <div key={l} style={{ background: "#f3f0e9", border: "1px solid #dcd3bf", borderRadius: 6, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontSize: 14, color: "#0c1626", fontWeight: 600 }}>{v}</div>
+                <div style={{ fontSize: 8, color: "#64748b", marginTop: 2 }}>{l}</div>
               </div>
             ))}
           </div>
@@ -220,7 +220,7 @@ function MockSlicingHTML() {
 
 function MockGCodeHTML() {
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#F8F7FF" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f7f5f0" }}>
       <video autoPlay loop muted playsInline style={{ position: "absolute", inset: 0, width: "110%", height: "100%", objectFit: "cover", objectPosition: "center" }}>
         <source src="/dhee/gcode-vis.mp4" type="video/mp4" />
       </video>
@@ -230,7 +230,7 @@ function MockGCodeHTML() {
 
 function MockMachineHTML() {
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#F8F7FF" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f7f5f0" }}>
       <Image src="/dhee/machine.webp" alt="G-Code Visualization" fill sizes="(min-width: 1024px) 50vw, 100vw" style={{ objectFit: "cover", objectPosition: "center" }} />
     </div>
   );
@@ -283,28 +283,28 @@ function TagChip({ label }) {
 
   return (
     <span ref={ref} onMouseEnter={handleMouseEnter} onMouseLeave={() => setHovered(false)} style={{ position: "relative", display: "inline-block" }}>
-      <span style={{ display: "inline-block", fontSize: 11, fontFamily: "var(--font-libre-franklin), sans-serif", color: hovered ? "#5B21B6" : "#6D28D9", background: hovered ? "rgba(109,40,217,0.13)" : "rgba(109,40,217,0.07)", border: `1px solid ${hovered ? "rgba(109,40,217,0.4)" : "rgba(109,40,217,0.18)"}`, borderRadius: 4, padding: "2px 8px", letterSpacing: "0.02em", whiteSpace: "nowrap", cursor: "default", transition: "all 0.15s", transform: hovered ? "translateY(-2px)" : "none", boxShadow: hovered ? "0 4px 12px rgba(109,40,217,0.15)" : "none" }}>
+      <span style={{ display: "inline-block", fontSize: 11, fontFamily: "var(--font-libre-franklin), sans-serif", color: hovered ? "#17389b" : "#1d4ed8", background: hovered ? "rgba(37,114,253,0.13)" : "rgba(37,114,253,0.07)", border: `1px solid ${hovered ? "rgba(37,114,253,0.4)" : "rgba(37,114,253,0.18)"}`, borderRadius: 4, padding: "2px 8px", letterSpacing: "0.02em", whiteSpace: "nowrap", cursor: "default", transition: "all 0.15s", transform: hovered ? "translateY(-2px)" : "none", boxShadow: hovered ? "0 4px 12px rgba(37,114,253,0.15)" : "none" }}>
         {label}
       </span>
       {hovered && (
-        <div style={{ position: "absolute", zIndex: 999, ...(pos.top ? { bottom: "calc(100% + 10px)" } : { top: "calc(100% + 10px)" }), ...(pos.left ? { left: 0 } : { right: 0 }), width: 600, background: "#FFFFFF", border: "1px solid #EEE9FF", borderRadius: 14, boxShadow: "0 16px 48px rgba(109,40,217,0.16), 0 4px 12px rgba(0,0,0,0.08)", overflow: "hidden", pointerEvents: "none", animation: "tagPopIn 0.18s cubic-bezier(0.23,1,0.32,1)" }}>
-          <div style={{ position: "relative", width: "100%", height: 338, background: "linear-gradient(135deg, #EEE9FF 0%, #F0ECFF 100%)", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid #EEE9FF", overflow: "hidden" }}>
+        <div style={{ position: "absolute", zIndex: 999, ...(pos.top ? { bottom: "calc(100% + 10px)" } : { top: "calc(100% + 10px)" }), ...(pos.left ? { left: 0 } : { right: 0 }), width: 600, background: "#FFFFFF", border: "1px solid #e8e1d3", borderRadius: 14, boxShadow: "0 16px 48px rgba(37,114,253,0.16), 0 4px 12px rgba(0,0,0,0.08)", overflow: "hidden", pointerEvents: "none", animation: "tagPopIn 0.18s cubic-bezier(0.23,1,0.32,1)" }}>
+          <div style={{ position: "relative", width: "100%", height: 338, background: "linear-gradient(135deg, #e8e1d3 0%, #f3f0e9 100%)", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid #e8e1d3", overflow: "hidden" }}>
             {meta.mediaType === "video" && meta.media ? (
               <video autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }}><source src={meta.media} type="video/mp4" /></video>
             ) : meta.mediaType === "image" && meta.media ? (
               <Image src={meta.media} alt={label} fill sizes="600px" style={{ objectFit: "cover" }} />
             ) : (
               <div style={{ textAlign: "center" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(109,40,217,0.1)", border: "1px dashed rgba(109,40,217,0.3)", margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg viewBox="0 0 16 16" width="18" height="18" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="rgba(109,40,217,0.4)" strokeWidth="1.2" strokeDasharray="2 2" /><circle cx="5.5" cy="5.5" r="1.5" fill="rgba(109,40,217,0.3)" /><path d="M1 11l4-3 3 2.5 3-4 4 4.5" stroke="rgba(109,40,217,0.4)" strokeWidth="1" fill="none" /></svg>
+                <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(37,114,253,0.1)", border: "1px dashed rgba(37,114,253,0.3)", margin: "0 auto 10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <svg viewBox="0 0 16 16" width="18" height="18" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="rgba(37,114,253,0.4)" strokeWidth="1.2" strokeDasharray="2 2" /><circle cx="5.5" cy="5.5" r="1.5" fill="rgba(37,114,253,0.3)" /><path d="M1 11l4-3 3 2.5 3-4 4 4.5" stroke="rgba(37,114,253,0.4)" strokeWidth="1" fill="none" /></svg>
                 </div>
-                <span style={{ fontSize: 9, color: "#B8ACD8", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.06em" }}>MEDIA PLACEHOLDER</span>
+                <span style={{ fontSize: 9, color: "#7c8899", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.06em" }}>MEDIA PLACEHOLDER</span>
               </div>
             )}
           </div>
           <div style={{ padding: "14px 16px 16px" }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#110820", marginBottom: 6, letterSpacing: "-0.01em" }}>{label}</div>
-            <div style={{ fontSize: 12.5, color: "#6D5A8E", lineHeight: 1.65 }}>{meta.info}</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#0c1626", marginBottom: 6, letterSpacing: "-0.01em" }}>{label}</div>
+            <div style={{ fontSize: 12.5, color: "#4a5568", lineHeight: 1.65 }}>{meta.info}</div>
           </div>
         </div>
       )}
@@ -343,8 +343,8 @@ function Workflow() {
   /* Shared preview panel markup */
   const PreviewPanel = ({ height = 420 }) => (
     <div style={{ position: "relative" }}>
-      <div style={{ position: "absolute", inset: -1, background: "linear-gradient(135deg,rgba(109,40,217,0.16),rgba(139,92,246,0.09))", borderRadius: 13, filter: "blur(14px)", opacity: 0.5 }} />
-      <div style={{ position: "relative", border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height, boxShadow: "0 16px 48px rgba(109,40,217,0.1)" }}>
+      <div style={{ position: "absolute", inset: -1, background: "linear-gradient(135deg,rgba(37,114,253,0.16),rgba(91,147,251,0.09))", borderRadius: 13, filter: "blur(14px)", opacity: 0.5 }} />
+      <div style={{ position: "relative", border: "1px solid #dcd3bf", borderRadius: 12, overflow: "hidden", height, boxShadow: "0 16px 48px rgba(37,114,253,0.1)" }}>
         {WORKFLOW_STEPS.map((step, i) => (
           <div key={step.id} style={{ position: i === 0 ? "relative" : "absolute", inset: 0, width: "100%", height: "100%", opacity: activeStep === i ? 1 : 0, transform: activeStep === i ? "translateY(0)" : "translateY(8px)", transition: "opacity 0.35s, transform 0.35s", pointerEvents: activeStep === i ? "auto" : "none", zIndex: activeStep === i ? 1 : 0 }}>
             <step.Mock />
@@ -355,10 +355,10 @@ function Workflow() {
   );
 
   return (
-    <section id="workflow" style={{ borderTop: "1px solid #EEE9FF", background: "#F8F7FF" }}>
+    <section id="workflow" style={{ borderTop: "1px solid #e8e1d3", background: "#f7f5f0" }}>
       <div style={{ padding: "60px 5vw 36px" }}>
         <Fade>
-          <h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820" }}>From mesh to material.</h2>
+          <h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#0c1626" }}>From mesh to material.</h2>
         </Fade>
       </div>
 
@@ -374,7 +374,7 @@ function Workflow() {
               <button
                 onClick={() => goTo(activeStep - 1)}
                 disabled={activeStep === 0}
-                style={{ width: 36, height: 36, borderRadius: 8, border: "1px solid #D8D0F5", background: activeStep === 0 ? "#F0ECFF" : "#FFFFFF", color: activeStep === 0 ? "#C4B8E8" : "#6D28D9", display: "flex", alignItems: "center", justifyContent: "center", cursor: activeStep === 0 ? "default" : "pointer", transition: "all 0.15s", flexShrink: 0 }}
+                style={{ width: 36, height: 36, borderRadius: 8, border: "1px solid #dcd3bf", background: activeStep === 0 ? "#f3f0e9" : "#FFFFFF", color: activeStep === 0 ? "#a8b0bd" : "#1d4ed8", display: "flex", alignItems: "center", justifyContent: "center", cursor: activeStep === 0 ? "default" : "pointer", transition: "all 0.15s", flexShrink: 0 }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
@@ -387,9 +387,9 @@ function Workflow() {
                     onClick={() => goTo(i)}
                     style={{ border: "none", padding: 0, cursor: "pointer", background: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}
                   >
-                    <div style={{ width: activeStep === i ? 28 : 8, height: 8, borderRadius: 999, background: activeStep === i ? "#6D28D9" : "#DDD5F5", transition: "all 0.25s cubic-bezier(0.23,1,0.32,1)" }} />
+                    <div style={{ width: activeStep === i ? 28 : 8, height: 8, borderRadius: 999, background: activeStep === i ? "#2572fd" : "#ded5c2", transition: "all 0.25s cubic-bezier(0.23,1,0.32,1)" }} />
                     {activeStep === i && (
-                      <span style={{ fontSize: 9, fontFamily: "var(--font-libre-franklin), sans-serif", color: "#6D28D9", letterSpacing: "0.06em", lineHeight: 1 }}>
+                      <span style={{ fontSize: 9, fontFamily: "var(--font-libre-franklin), sans-serif", color: "#1d4ed8", letterSpacing: "0.06em", lineHeight: 1 }}>
                         {step.id}
                       </span>
                     )}
@@ -400,7 +400,7 @@ function Workflow() {
               <button
                 onClick={() => goTo(activeStep + 1)}
                 disabled={activeStep === WORKFLOW_STEPS.length - 1}
-                style={{ width: 36, height: 36, borderRadius: 8, border: "1px solid #D8D0F5", background: activeStep === WORKFLOW_STEPS.length - 1 ? "#F0ECFF" : "#FFFFFF", color: activeStep === WORKFLOW_STEPS.length - 1 ? "#C4B8E8" : "#6D28D9", display: "flex", alignItems: "center", justifyContent: "center", cursor: activeStep === WORKFLOW_STEPS.length - 1 ? "default" : "pointer", transition: "all 0.15s", flexShrink: 0 }}
+                style={{ width: 36, height: 36, borderRadius: 8, border: "1px solid #dcd3bf", background: activeStep === WORKFLOW_STEPS.length - 1 ? "#f3f0e9" : "#FFFFFF", color: activeStep === WORKFLOW_STEPS.length - 1 ? "#a8b0bd" : "#1d4ed8", display: "flex", alignItems: "center", justifyContent: "center", cursor: activeStep === WORKFLOW_STEPS.length - 1 ? "default" : "pointer", transition: "all 0.15s", flexShrink: 0 }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
@@ -409,12 +409,12 @@ function Workflow() {
 
           {/* Active step text */}
           {WORKFLOW_STEPS.map((step, i) => (
-            <div key={step.id} style={{ display: activeStep === i ? "block" : "none", paddingTop: 24, borderTop: "1px solid #EEE9FF" }}>
+            <div key={step.id} style={{ display: activeStep === i ? "block" : "none", paddingTop: 24, borderTop: "1px solid #e8e1d3" }}>
               <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 14 }}>
-                <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 3, flexShrink: 0 }}>{step.id}</span>
-                <h3 style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#110820" }}>{step.title}</h3>
+                <span style={{ fontSize: 11, color: "#4a5568", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 3, flexShrink: 0 }}>{step.id}</span>
+                <h3 style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c1626" }}>{step.title}</h3>
               </div>
-              <p style={{ fontSize: 14.5, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 18 }}>{step.body}</p>
+              <p style={{ fontSize: 14.5, color: "#4a5568", lineHeight: 1.85, marginBottom: 18 }}>{step.body}</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {step.tags.map(t => <TagChip key={t} label={t} />)}
               </div>
@@ -430,13 +430,13 @@ function Workflow() {
           <div className="workflow-text-col" style={{ flex: "1 1 0", minWidth: 0 }}>
             {WORKFLOW_STEPS.map((step, i) => (
               <div key={step.id} ref={el => stepRefs.current[i] = el} data-step={i}
-                style={{ minHeight: "58vh", padding: "48px 0", borderBottom: i < WORKFLOW_STEPS.length - 1 ? "1px solid #EEE9FF" : "none" }}>
+                style={{ minHeight: "58vh", padding: "48px 0", borderBottom: i < WORKFLOW_STEPS.length - 1 ? "1px solid #e8e1d3" : "none" }}>
                 <Fade delay={0.05}>
                   <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-                    <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 4, flexShrink: 0 }}>{step.id}</span>
+                    <span style={{ fontSize: 11, color: "#4a5568", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.08em", paddingTop: 4, flexShrink: 0 }}>{step.id}</span>
                     <div>
-                      <h3 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em", color: "#110820", marginBottom: 14 }}>{step.title}</h3>
-                      <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginBottom: 20 }}>{step.body}</p>
+                      <h3 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c1626", marginBottom: 14 }}>{step.title}</h3>
+                      <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.85, marginBottom: 20 }}>{step.body}</p>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                         {step.tags.map(t => <TagChip key={t} label={t} />)}
                       </div>
@@ -453,7 +453,7 @@ function Workflow() {
               <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 14 }}>
                 {WORKFLOW_STEPS.map((_, i) => (
                   <div key={i} className="s-dot" onClick={() => stepRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                    style={{ width: 6, height: 6, borderRadius: "50%", background: activeStep === i ? "#6D28D9" : "#DDD5F5", transform: activeStep === i ? "scale(1.5)" : "none", cursor: "pointer", transition: "background 0.2s, transform 0.2s" }} />
+                    style={{ width: 6, height: 6, borderRadius: "50%", background: activeStep === i ? "#2572fd" : "#ded5c2", transform: activeStep === i ? "scale(1.5)" : "none", cursor: "pointer", transition: "background 0.2s, transform 0.2s" }} />
                 ))}
               </div>
             </div>
@@ -499,7 +499,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
         gap: "6vw",
         alignItems: "center",
         padding: "68px 5vw",
-        borderBottom: "1px solid #EEE9FF",
+        borderBottom: "1px solid #e8e1d3",
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(28px)",
         transition: "opacity 0.7s, transform 0.7s",
@@ -511,7 +511,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
           className="cap-card"
           onMouseEnter={() => setCardHovered(true)}
           onMouseLeave={() => setCardHovered(false)}
-          style={{ position: "relative", border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
+          style={{ position: "relative", border: "1px solid #dcd3bf", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(37,114,253,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(37,114,253,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
         >
           <MockComponent />
         </div>
@@ -519,12 +519,12 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
 
       <div className="cap-text">
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-          <span style={{ fontSize: 11, color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em" }}>{number}</span>
-          <div style={{ height: 1, width: 28, background: "#D8D0F5" }} />
-          <span style={{ fontSize: 11, color: "#6D5A8E", letterSpacing: "0.06em", textTransform: "uppercase" }}>{label}</span>
+          <span style={{ fontSize: 11, color: "#4a5568", fontFamily: "var(--font-libre-franklin), sans-serif", letterSpacing: "0.1em" }}>{number}</span>
+          <div style={{ height: 1, width: 28, background: "#dcd3bf" }} />
+          <span style={{ fontSize: 13, color: "#4a5568", fontWeight: 600 }}>{label}</span>
         </div>
-        <h3 style={{ fontSize: "clamp(22px,2.5vw,36px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820", marginBottom: 16 }}>{headline}</h3>
-        <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, maxWidth: 440 }}>{body}</p>
+        <h3 style={{ fontSize: "clamp(22px,2.5vw,36px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#0c1626", marginBottom: 16 }}>{headline}</h3>
+        <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.85, maxWidth: 440 }}>{body}</p>
       </div>
 
       {!reversed && (
@@ -532,7 +532,7 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
           className="cap-card"
           onMouseEnter={() => setCardHovered(true)}
           onMouseLeave={() => setCardHovered(false)}
-          style={{ position: "relative", border: "1px solid #D8D0F5", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(109,40,217,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(109,40,217,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
+          style={{ position: "relative", border: "1px solid #dcd3bf", borderRadius: 12, overflow: "hidden", height: 380, transform: cardHovered ? "scale(1.03) translateY(-6px)" : "scale(1) translateY(0)", boxShadow: cardHovered ? "0 32px 72px rgba(37,114,253,0.22), 0 8px 24px rgba(0,0,0,0.1)" : "0 12px 40px rgba(37,114,253,0.08)", transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s cubic-bezier(0.23,1,0.32,1)" }}
         >
           <MockComponent />
         </div>
@@ -543,15 +543,15 @@ function CapRow({ number, label, headline, body, reversed, MockComponent }) {
 
 function Capabilities() {
   return (
-    <section id="capabilities" style={{ borderTop: "1px solid #EEE9FF", background: "#FFFFFF" }}>
+    <section id="capabilities" style={{ borderTop: "1px solid #e8e1d3", background: "#FFFFFF" }}>
       <div style={{ padding: "60px 5vw 32px" }}>
-        <Fade><h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820" }}>Why labs choose DHEE.</h2></Fade>
+        <Fade><h2 style={{ fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#0c1626" }}>Why labs choose DHEE.</h2></Fade>
       </div>
       <CapRow number="01" label="96-Well Plate Support" headline="High-throughput placement, precisely mapped." body="12-, 24-, and 96-well presets with coordinate-mapped placement and per-well auto-scaling. Run multiple scaffold geometries across a single plate without repositioning by hand." reversed={false} MockComponent={CapMock96Well} />
       <CapRow number="02" label="Variable Layer Heights" headline="Different geometry, different parameters, same print." body="Define multiple parameter zones within a single print. Dense outer shells, lighter infill cores, gradated support structures, all controlled per Z-range without splitting the file." reversed={true} MockComponent={CapMockVarLayers} />
       <CapRow number="03" label="Layer Validation" headline="Verify every path before it touches material." body="Inspect every layer in four playback modes before committing to hardware. Line-by-line, layer range, single layer, or full view, with speed control and PDF export for lab records." reversed={false} MockComponent={CapMockGCode} />
 
-      <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: "1px solid #EEE9FF" }}>
+      <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: "1px solid #e8e1d3" }}>
         {[
           { n: "6", label: "Extruder Channels", sub: "E0–E5 independent control" },
           { n: "96", label: "Well Plate Support", sub: "12 / 24 / 96-well presets" },
@@ -559,12 +559,12 @@ function Capabilities() {
           { n: "10d", label: "Offline Cache", sub: "PBKDF2-encrypted local auth" },
         ].map((item, i) => (
           <Fade key={item.label} delay={i * 0.07}>
-            <div className="number-cell" style={{ padding: "44px 5vw", borderRight: i < 3 ? "1px solid #EEE9FF" : "none", transition: "background 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.background = "#F8F7FF"}
+            <div className="number-cell" style={{ padding: "44px 5vw", borderRight: i < 3 ? "1px solid #e8e1d3" : "none", transition: "background 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.background = "#f7f5f0"}
               onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-              <div style={{ fontSize: "clamp(48px,5vw,66px)", fontWeight: 700, letterSpacing: "-0.04em", color: "#6D28D9", lineHeight: 1, marginBottom: 8 }}>{item.n}</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#110820", letterSpacing: "-0.01em", marginBottom: 4 }}>{item.label}</div>
-              <div style={{ fontSize: 11.5, color: "#6D5A8E", lineHeight: 1.5 }}>{item.sub}</div>
+              <div style={{ fontSize: "clamp(48px,5vw,66px)", fontWeight: 700, letterSpacing: "-0.04em", color: "#1d4ed8", lineHeight: 1, marginBottom: 8 }}>{item.n}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#0c1626", letterSpacing: "-0.01em", marginBottom: 4 }}>{item.label}</div>
+              <div style={{ fontSize: 11.5, color: "#4a5568", lineHeight: 1.5 }}>{item.sub}</div>
             </div>
           </Fade>
         ))}
@@ -585,20 +585,20 @@ const SPECS = [
 
 function Specs() {
   return (
-    <section id="specs" style={{ padding: "72px 5vw", borderTop: "1px solid #EEE9FF", background: "#FFFFFF" }}>
+    <section id="specs" style={{ padding: "72px 5vw", borderTop: "1px solid #e8e1d3", background: "#FFFFFF" }}>
       <div className="specs-grid" style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "10vw" }}>
         <Fade>
           <div>
-            <h2 style={{ fontSize: "clamp(22px,2.2vw,34px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#110820", marginBottom: 14 }}>Engineered for performance.</h2>
-            <p style={{ fontSize: 15, color: "#6D5A8E", lineHeight: 1.85, marginTop: 12 }}>Built for serious research hardware. Ensure your workstation meets these specifications before requesting access.</p>
+            <h2 style={{ fontSize: "clamp(22px,2.2vw,34px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.08, color: "#0c1626", marginBottom: 14 }}>Engineered for performance.</h2>
+            <p style={{ fontSize: 15, color: "#4a5568", lineHeight: 1.85, marginTop: 12 }}>Built for serious research hardware. Ensure your workstation meets these specifications before requesting access.</p>
           </div>
         </Fade>
         <Fade delay={0.08}>
-          <div style={{ border: "1px solid #EEE9FF", borderRadius: 10, overflow: "hidden", padding: "4px 28px" }}>
+          <div style={{ border: "1px solid #e8e1d3", borderRadius: 10, overflow: "hidden", padding: "4px 28px" }}>
             {SPECS.map(([label, value], i) => (
-              <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "14px 0", borderBottom: i < SPECS.length - 1 ? "1px solid #EEE9FF" : "none" }}>
-                <span style={{ fontSize: 10.5, letterSpacing: "0.07em", textTransform: "uppercase", color: "#6D5A8E", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{label}</span>
-                <span style={{ fontSize: 14, color: "#110820" }}>{value}</span>
+              <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "14px 0", borderBottom: i < SPECS.length - 1 ? "1px solid #e8e1d3" : "none" }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#4a5568", fontFamily: "var(--font-libre-franklin), sans-serif" }}>{label}</span>
+                <span style={{ fontSize: 14, color: "#0c1626" }}>{value}</span>
               </div>
             ))}
           </div>
@@ -611,16 +611,16 @@ function Specs() {
 /* ─── CTA ────────────────────────────────────────────── */
 function CTA() {
   return (
-    <section style={{ padding: "90px 5vw", borderTop: "1px solid #EEE9FF", position: "relative", overflow: "hidden", background: "linear-gradient(158deg,#F0ECFF 0%,#E8E3F8 100%)" }}>
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 400, background: "radial-gradient(ellipse,rgba(109,40,217,0.09)0%,transparent 65%)", pointerEvents: "none" }} />
+    <section style={{ padding: "90px 5vw", borderTop: "1px solid #e8e1d3", position: "relative", overflow: "hidden", background: "linear-gradient(158deg,#f3f0e9 0%,#e4dcc9 100%)" }}>
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 400, background: "radial-gradient(ellipse,rgba(37,114,253,0.09)0%,transparent 65%)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
         <Fade delay={0.05}>
-          <h2 style={{ fontSize: "clamp(34px,5vw,68px)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.98, color: "#110820", marginBottom: 20 }}>
+          <h2 style={{ fontSize: "clamp(34px,5vw,68px)", fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.98, color: "#0c1626", marginBottom: 20 }}>
             The operating system for advanced bioprinting.
           </h2>
         </Fade>
         <Fade delay={0.08}>
-          <p style={{ fontSize: 16, color: "#6D5A8E", lineHeight: 1.75, maxWidth: 460, margin: "0 auto 36px" }}>
+          <p style={{ fontSize: 16, color: "#4a5568", lineHeight: 1.75, maxWidth: 460, margin: "0 auto 36px" }}>
             DHEE Slicer v1.0 is available now. Contact our team to schedule a demonstration or request access for your research facility.
           </p>
         </Fade>
@@ -628,15 +628,15 @@ function CTA() {
           <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
             <button
               onClick={() => window.open("https://dhee-slicer-daca07d87663.herokuapp.com/register", "_blank")}
-              style={{ display: "inline-flex", alignItems: "center", padding: "8px 18px", fontSize: 12.5, fontWeight: 600, borderRadius: 7, cursor: "pointer", letterSpacing: "-0.01em", background: "#6D28D9", color: "#fff", border: "none", boxShadow: "0 2px 12px rgba(109,40,217,0.28)", transition: "all 0.15s", fontFamily: "'DM Sans',sans-serif" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#5B21B6"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#6D28D9"; e.currentTarget.style.transform = "none"; }}
+              style={{ display: "inline-flex", alignItems: "center", padding: "8px 18px", fontSize: 12.5, fontWeight: 600, borderRadius: 7, cursor: "pointer", letterSpacing: "-0.01em", background: "#2572fd", color: "#fff", border: "none", boxShadow: "0 2px 12px rgba(37,114,253,0.28)", transition: "all 0.15s", fontFamily: "var(--font-libre-franklin), sans-serif" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#1d4ed8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#2572fd"; e.currentTarget.style.transform = "none"; }}
             >
               Request Demo
             </button>
-            <button style={{ display: "inline-flex", alignItems: "center", padding: "13px 28px", fontSize: 14, fontWeight: 600, borderRadius: 7, cursor: "pointer", background: "transparent", color: "#6D28D9", border: "1.5px solid #D8D0F5", transition: "all 0.15s", fontFamily: "'DM Sans',sans-serif" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#F8F7FF"; e.currentTarget.style.borderColor = "#6D28D9"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#D8D0F5"; }}>
+            <button style={{ display: "inline-flex", alignItems: "center", padding: "13px 28px", fontSize: 14, fontWeight: 600, borderRadius: 7, cursor: "pointer", background: "transparent", color: "#1d4ed8", border: "1.5px solid #dcd3bf", transition: "all 0.15s", fontFamily: "var(--font-libre-franklin), sans-serif" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#f7f5f0"; e.currentTarget.style.borderColor = "#2572fd"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#dcd3bf"; }}>
               Contact Research Team
             </button>
           </div>
@@ -735,7 +735,7 @@ export default function DheeLanding() {
       style={{
         fontFamily: "var(--font-libre-franklin), 'Libre Franklin', sans-serif",
         background: "#FFFFFF",
-        color: "#110820",
+        color: "#0c1626",
         overflowX: "clip",
       }}
     >
@@ -800,7 +800,7 @@ export default function DheeLanding() {
           }
 [data-dhee] .stats-grid > div {
             border-right: none !important;
-            border-bottom: 1px solid #EEE9FF !important;
+            border-bottom: 1px solid #e8e1d3 !important;
             padding: 28px 6vw !important;
           }
 

@@ -39,8 +39,8 @@ export default function ConsultancyTestimonials() {
   return (
     <TestimonialsCarousel
       id="testimonials"
-      heading="What our consultancy clients say."
-      description="Researchers and scaling teams on the difference a dedicated bioprinting consultancy made to their project. Pick a client to read its own words."
+      heading="What researchers say after working with us"
+      description="Hear it directly from the researchers and teams behind these projects."
       testimonials={TESTIMONIALS}
       trustedByLabel="Projects we have run"
       trustedLogos={CLIENTS}

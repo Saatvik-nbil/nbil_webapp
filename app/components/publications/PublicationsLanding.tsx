@@ -190,7 +190,7 @@ export default function PublicationsLanding() {
   return (
     <main id="main-content" className="bg-[var(--color-canvas)]">
       {/* Hero */}
-      <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-dark-bg)] pt-32 pb-24 lg:pt-40 lg:pb-28">
+      <section data-nav-theme="dark" className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-photo-ground)] pt-32 pb-24 lg:pt-40 lg:pb-28">
         <PhotoHeroBackdrop
           src="/images/publications-hero.webp"
           objectPosition="58% 30%"

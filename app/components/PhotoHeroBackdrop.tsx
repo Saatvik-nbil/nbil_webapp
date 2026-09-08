@@ -10,7 +10,7 @@ import Image from "next/image";
  * enough to hide the seam ate the half of the photograph the height was for.
  *
  * Drop this as the first child of a `relative isolate overflow-hidden` section
- * whose background is `--color-dark-bg`, and put the copy in a `relative` wrapper
+ * whose background is `--color-photo-ground`, and put the copy in a `relative` wrapper
  * after it. The section owns its own padding; this fills it.
  */
 export default function PhotoHeroBackdrop({

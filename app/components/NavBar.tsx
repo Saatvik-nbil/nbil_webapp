@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { List, X, CaretDown } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
@@ -62,10 +63,12 @@ function ComingSoonBadge() {
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [menuRect, setMenuRect] = useState<{ left: number; bottom: number; width: number } | null>(null);
   const reduce = useReducedMotion();
+  const pathname = usePathname();
 
   const openMenuAt = (label: string, el: HTMLElement | null) => {
     setOpenMenu(label);
@@ -75,24 +78,65 @@ export default function NavBar() {
     }
   };
 
+  /* Which stretches of a page are dark is a property of the page, not of this
+     bar, so sections declare it with data-nav-theme="dark" and the bar reads
+     whatever currently sits under it. Photo heroes are the case that forced
+     this: light glass and a navy wordmark both vanish against them. Re-runs on
+     navigation because the header stays mounted across routes. */
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 24);
-    handler();
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+    /* Probed a little below the top of the viewport, inside the bar itself
+       rather than at its edge, so a section boundary flips the theme as it
+       passes behind the bar and not before it arrives. */
+    const PROBE = 46;
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 24);
+
+      let dark = false;
+      document
+        .querySelectorAll<HTMLElement>('[data-nav-theme="dark"]')
+        .forEach((zone) => {
+          const rect = zone.getBoundingClientRect();
+          if (rect.top <= PROBE && rect.bottom >= PROBE) dark = true;
+        });
+      setOverDark(dark);
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [pathname]);
 
   const closeMobile = () => setMobileOpen(false);
+
+  /* One class pair, reused by the dropdown triggers, the plain links and the
+     mobile toggle so they never drift apart. */
+  const navItemClass = overDark
+    ? "text-white/80 hover:text-white"
+    : "text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)]";
 
   return (
     <header role="banner" className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 pt-3">
       <div className="max-w-7xl mx-auto">
         <LiquidGlass
           distort={false}
-          tint="light"
+          tint={overDark ? "dark" : "light"}
           className={[
-            "rounded-2xl border border-white/50 transition-shadow duration-300",
-            "bg-[var(--color-surface)]/45",
+            "rounded-2xl border transition-[background-color,border-color,box-shadow] duration-300",
+            overDark
+              ? "border-white/15 bg-[#0c1626]/55"
+              : "border-white/50 bg-[var(--color-surface)]/45",
             scrolled
               ? "shadow-[0_10px_34px_rgba(2,12,27,0.14)]"
               : "shadow-[0_4px_18px_rgba(2,12,27,0.06)]",
@@ -117,6 +161,7 @@ export default function NavBar() {
                   // interpolate from; filter:none is not animatable.
                   "drop-shadow-[0_0_0_rgba(37,114,253,0)]",
                   "transition-[scale,filter] duration-700 ease-in-out",
+                  overDark ? "brightness-0 invert" : "",
                   "group-hover:scale-[1.05] group-hover:drop-shadow-[0_2px_12px_rgba(37,114,253,0.38)]",
                   "group-active:scale-[0.985] group-active:duration-200",
                   "motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-active:scale-100",
@@ -154,7 +199,7 @@ export default function NavBar() {
                             : openMenuAt(item.label, e.currentTarget)
                         }
                         onFocus={(e) => openMenuAt(item.label, e.currentTarget)}
-                        className="flex items-center gap-1 text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors duration-150 whitespace-nowrap cursor-pointer"
+                        className={`flex items-center gap-1 text-[14px] ${navItemClass} transition-colors duration-150 whitespace-nowrap cursor-pointer`}
                       >
                         {item.label}
                         <CaretDown
@@ -214,7 +259,7 @@ export default function NavBar() {
                       key={item.label}
                       href={item.href ?? "#"}
                       {...extAttrs(item.external)}
-                      className="text-[14px] text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors duration-150 whitespace-nowrap"
+                      className={`text-[14px] ${navItemClass} transition-colors duration-150 whitespace-nowrap`}
                     >
                       {item.label}
                     </Link>
@@ -228,7 +273,7 @@ export default function NavBar() {
                 Get in touch
               </OriginButton>
               <button
-                className="md:hidden p-2 text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)] transition-colors rounded-lg cursor-pointer"
+                className={`md:hidden rounded-lg p-2 ${navItemClass} transition-colors cursor-pointer`}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
                 aria-expanded={mobileOpen}

@@ -43,7 +43,7 @@ export default function MissionScroll() {
     <section
       ref={root}
       aria-labelledby="mission-heading"
-      className="relative bg-[var(--color-dark-bg)] py-28 lg:py-40 overflow-hidden"
+      className="relative bg-[var(--color-warm-bg)] py-28 lg:py-40 overflow-hidden"
     >
       {/* Animated shader background: scoped to this section by the `relative`
           + `overflow-hidden` on the <section> above. Held at 50% so the plasma
@@ -54,7 +54,7 @@ export default function MissionScroll() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[520px] w-[820px] rounded-full blur-3xl opacity-30"
-        style={{ background: "radial-gradient(closest-side, #1c3a63, transparent)" }}
+        style={{ background: "radial-gradient(closest-side, #ddd0b2, transparent)" }}
       />
 
       <div className="relative max-w-5xl mx-auto px-6">
@@ -66,7 +66,7 @@ export default function MissionScroll() {
           {words.map((w, i) => (
             <span
               key={i}
-              className="mission-word inline-block opacity-[0.16] text-[var(--color-dark-ink)] mr-[0.25em]"
+              className="mission-word inline-block opacity-[0.16] text-[var(--color-warm-ink)] mr-[0.25em]"
             >
               {w}
             </span>
