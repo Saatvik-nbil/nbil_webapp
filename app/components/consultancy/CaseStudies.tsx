@@ -36,6 +36,8 @@ const FEATURED: CaseStudy[] = [
     watermark: "Umami Bioworks",
     title: "Food-grade scaffolds for cultivated seafood",
     body: "A cultivated-food venture brought us two food-based biomaterials and a scaffold brief. We designed the geometry from their inputs, edited it against what a bioprinting protocol can hold, then optimised the print for each material. Finished scaffolds were produced on both single-extruder and dual-extruder configurations, so the team could compare a single-material architecture against a two-material one side by side.",
+    image: "/images/cases/umami-bioworks.webp",
+    alt: "The Umami Bioworks logo",
   },
 ];
 
@@ -45,11 +47,15 @@ const MORE: CaseStudy[] = [
     watermark: "KLE College of Pharmacy",
     title: "Drug-loaded silk scaffolds for pharmaceutics research",
     body: "For a pharmaceutics research group in Belagavi we took a silk-based biopolymer carrying a loaded drug from a scaffold brief to a finished batch: our design engineer built the geometry, a biofabrication engineer optimised the print protocol on Trivima, and thirty scaffolds were produced against the finalised parameters. Four further biomaterial blends used across the same study were optimised alongside it, so the group had printable parameters for every material in the work. The project closed with a written report covering both the successes and the failures encountered during optimisation.",
+    image: "/images/cases/kle-pharmacy.webp",
+    alt: "The KLE College of Pharmacy campus building in Belagavi",
   },
   {
     watermark: "Univlabs",
     title: "Print protocol development under NDA",
     body: "Working under a mutual NDA with a medical technology company, we optimised the printing behaviour of a proprietary biomaterial on Trivima and established the parameter window it prints in. Scaffold production ran on demand once the optimisation phase closed, and the IP shared for the work stayed with the client throughout.",
+    image: "/images/cases/univlabs.webp",
+    alt: "The UnivLabs headquarters building, its name across the facade",
   },
 ];
 
