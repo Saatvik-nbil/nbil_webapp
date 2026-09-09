@@ -49,21 +49,25 @@ export default function ConsultancyHero() {
             className="rounded-[2rem] border border-white/55 bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)] shadow-[0_24px_70px_rgba(2,8,20,0.30)]"
           >
             <div className="flex flex-col p-8 sm:p-10 lg:p-12">
+              <motion.p
+                {...rise(0.02)}
+                className="italic text-[13px] lg:text-[14px] text-[var(--color-ink)]/65 leading-[1.5]"
+              >
+                A Decade of Bioprinting Engineering &amp; Advisory
+              </motion.p>
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"
-                className="font-display text-[clamp(1.85rem,3.5vw,2.85rem)] font-bold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.06] max-w-[19ch]"
+                className="mt-3 font-display text-[clamp(1.85rem,3.5vw,2.85rem)] font-bold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.06] max-w-[19ch]"
               >
-                Get Your Scaffold Design, Bioink Formulation, or Material
-                Testing Done Right.
+                Your Bioprinting Project, Handled Start to Finish.
               </motion.h1>
               <motion.p
                 {...rise(0.14)}
                 className="mt-5 text-[16px] lg:text-[17px] text-[var(--color-ink)]/80 leading-[1.65] max-w-[52ch]"
               >
-                Whether it&rsquo;s scaffold geometry, bioink formulation, or
-                material validation, we shape our process around your research,
-                not the other way around.
+                Design engineering, biomaterial optimization, and print protocol
+                development, run by the same team that builds Trivima itself.
               </motion.p>
               <motion.div {...rise(0.22)} className="mt-8 flex flex-wrap items-center gap-4">
                 <OriginButton href="#project-form" className="px-6 font-semibold">
