@@ -24,20 +24,45 @@ export type Publication = {
   url: string;
   /** Verbatim abstract as published. */
   abstract: string;
-  /** How the Trivima was used, in the paper's own terms. */
-  trivimaUse: string;
-  /** The machine as the paper names it. */
-  machine: string;
+  /** How the Trivima was used, in the paper's own terms. Absent until the
+   *  paper's methods section has been read; never inferred. */
+  trivimaUse?: string;
+  /** The machine as the paper names it. Pairs with `trivimaUse`. */
+  machine?: string;
   institutions: string[];
   topics: string[];
-  /** First-page render, in public/publications/thumbs. */
-  thumb: string;
+  /** First-page render, in public/publications/thumbs. Absent where we do
+   *  not hold the PDF to render one from. */
+  thumb?: string;
   /** Where the record came from. Provenance only: the site links readers to
-   *  the publisher, never to a PDF of the paper. */
-  pdf: string;
+   *  the publisher, never to a PDF of the paper. Absent for records taken
+   *  from the publisher's own metadata rather than a PDF we hold. */
+  pdf?: string;
 };
 
 export const publications: Publication[] = [
+  {
+    slug: "refresh-embedded-decm-bioprinting",
+    title:
+      "REFRESH\u2014Reversible Embedded Bioprinting for Faster Reinforcement and Structuring of dECM Hydrogels",
+    authors: [
+      "Meenu T S",
+      "Ashis Kumar Bera",
+      "Soham Ghosh",
+      "Md Abdullah",
+      "Gaddam Kiranmai",
+      "Falguni Pati",
+    ],
+    journal: "Advanced Healthcare Materials",
+    year: "2026",
+    citation: "15, 22, e04931",
+    doi: "10.1002/adhm.202504931",
+    url: "https://doi.org/10.1002/adhm.202504931",
+    abstract:
+      "Fabrication of complex, multi-layered tissue architecture using decellularized extracellular matrix (dECM)-based hydrogel ink is fundamentally limited by the biomaterial's inherent mechanical fragility and slow gelation kinetics, which severely compromise structural fidelity. Herein, we present REFRESH\u2014Reversible Embedded Bioprinting for Faster Reinforcement and Structuring of dECM Hydrogels, a next-generation embedded bioprinting platform designed for high-fidelity fabrication of anatomically relevant tissue constructs using dECM hydrogels. At the core of this system is a custom-engineered polyethylene glycol (PEG)-gelatin microgel suspension bath that performs dual functions: it modulates the bath's rheological behavior, enhancing yield stress, shear-thinning, and self-healing properties necessary for precise deposition, and actively promotes in situ gelation of dECM hydrogel inks via hydrogen bonding and crowding-induced interactions. This enables faster filament stabilization, reduced structural fusion, and improved print fidelity compared to conventional thermal gelation. We recreated the zonal architecture of the trachea by co-printing cartilage- and trachealis muscle-derived dECM's encapsulating primary chondrocytes, fibroblasts, and subsequent epithelialization to form a biomimetic luminal surface. Furthermore, we fabricated functional trifurcated bronchial structures using lung-derived dECM that supported stromal-like mesenchymal behavior with contractile marker expression. The versatility of the REFRESH platform was further validated by the successful printing of a diverse array of tissue-specific dECM hydrogels beyond the airway system.",
+    institutions: ["Indian Institute of Technology Hyderabad"],
+    topics: ["Embedded bioprinting", "dECM hydrogels", "Tracheal tissue"],
+  },
   {
     slug: "anisotropic-tissue-analogues",
     title:
@@ -243,6 +268,23 @@ export const publications: Publication[] = [
     pdf: "/publications/s40032-024-01112-5 2.pdf",
   },
 ];
+
+/**
+ * The three papers the landing page leads with: one per journal, picked for
+ * international reach rather than recency. Edit this list to change the
+ * picks; the teaser renders whatever is named here, in this order.
+ */
+export const FEATURED_PUBLICATION_SLUGS = [
+  "refresh-embedded-decm-bioprinting", // Advanced Healthcare Materials, Wiley
+  "anisotropic-tissue-analogues", // Biofabrication, IOP
+  "immunocompetent-breast-cancer-model", // Biofabrication, IOP
+] as const;
+
+export const featuredPublications = FEATURED_PUBLICATION_SLUGS.map((slug) => {
+  const pub = publications.find((p) => p.slug === slug);
+  if (!pub) throw new Error(`Unknown featured publication slug: ${slug}`);
+  return pub;
+});
 
 /** Distinct journals, for the section subhead. */
 export const PUBLICATION_JOURNALS = Array.from(

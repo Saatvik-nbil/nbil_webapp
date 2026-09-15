@@ -1,154 +1,344 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown } from "@phosphor-icons/react";
-import { OriginButton } from "@/components/ui/origin-button";
-import { LiquidGlass } from "@/components/ui/liquid-glass";
+import { ArrowUpRight } from "@phosphor-icons/react";
+import BrandDots from "@/app/components/shared/BrandDots";
+import { machines } from "@/lib/machines";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/** How long each machine holds the stage before the next one opens itself.
+ *  Matches the landing page's machine spotlight, so the two read as the same
+ *  cadence. */
+const MACHINE_MS = 6000;
+
+/** The panel sweep. Symmetric ease-in-out rather than the ease-out used for
+ *  copy entrances: a panel this wide wants to gather speed and settle, not
+ *  leap and coast. */
+const SWEEP_MS = 900;
+const SWEEP_EASE = "cubic-bezier(0.76, 0, 0.24, 1)";
+
+/** Copy crossfades across the sweep rather than swapping at the start of it:
+ *  the outgoing panel's words leave quickly, the incoming panel's arrive once
+ *  the geometry has nearly settled. */
+const FADE_MS = 420;
+const FADE_IN_DELAY = 380;
+
+const VISIBLE = "visible" as const;
+const HIDDEN = "hidden" as const;
+
+/** How much of the stage a closed machine keeps. Horizontal on a wide screen,
+ *  a stacked bar below lg, which is the same number either way because
+ *  flex-basis follows whichever axis the row is running on. */
+const CLOSED = "5.25rem";
+
+/**
+ * Per-machine colour, taken from the nbil mark. `ink` is the label colour on
+ * the closed strip: amber never carries white type anywhere on this site
+ * (1.7:1), so Aura's strip labels in a deep brown instead.
+ */
+const SKIN: Record<string, { from: string; to: string; ink: string; wash: string }> = {
+  "trivima-np": {
+    from: "#c40064",
+    to: "#6d0038",
+    ink: "#ffffff",
+    wash: "rgba(196,0,100,0.30)",
+  },
+  "trivima-pro": {
+    from: "#2c30a0",
+    to: "#14175c",
+    ink: "#ffffff",
+    wash: "rgba(44,48,160,0.34)",
+  },
+  "trivima-aura": {
+    from: "#ffb92b",
+    to: "#b87f00",
+    ink: "#3a2600",
+    wash: "rgba(184,127,0,0.30)",
+  },
+};
+
+/**
+ * The bioprinter range as a horizontal accordion: one machine open across the
+ * stage, the other two folded into strips that keep their place in the range's
+ * order. Clicking a strip opens it and folds the last one away.
+ *
+ * It replaces a single lineup photo, which showed all three machines and said
+ * nothing about any of them. This gives each its own full-bleed frame without
+ * costing the page a second screen of height.
+ */
 export default function CatalogHero() {
   const reduce = useReducedMotion();
-  const [revealed, setRevealed] = useState(false); // overlay copy visible
+  const panelBase = useId();
+  const [open, setOpen] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  // The old video hero played once, then popped the copy on "ended". A static
-  // photo has no playback to wait on: reduced motion reveals instantly,
-  // otherwise a short beat lets the image settle before the copy pops in.
+  /* Keyed on `open`, so choosing a machine restarts its full dwell rather
+     than inheriting whatever was left of the last one's. */
   useEffect(() => {
-    if (reduce) {
-      setRevealed(true);
-      return;
-    }
-    const t = setTimeout(() => setRevealed(true), 350);
-    return () => clearTimeout(t);
-  }, [reduce]);
+    if (reduce || paused) return;
+    const timer = setTimeout(
+      () => setOpen((i) => (i + 1) % machines.length),
+      MACHINE_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [open, paused, reduce]);
 
-  // The copy mounts only once `revealed` flips true, so each line animates
-  // from its initial state to visible on mount, a reliable staggered pop.
-  const pop = (i: number) =>
-    reduce
-      ? { initial: false as const }
-      : {
-          initial: { opacity: 0, y: 24, scale: 0.96, filter: "blur(8px)" },
-          animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-          transition: { delay: 0.1 + i * 0.09, duration: 0.6, ease: EASE },
-        };
+  const hold = useCallback(() => setPaused(true), []);
+  const release = useCallback(() => setPaused(false), []);
+
+  /**
+   * Arriving content waits for the sweep, leaving content goes at once, and
+   * `visibility` does the rest: it flips to visible the moment something
+   * starts arriving and to hidden only once it has finished leaving, which is
+   * what keeps a folded panel's links out of the tab order without popping
+   * the copy in and out. `hidden` cannot do this because it is not animatable.
+   */
+  const fade = useCallback(
+    (shown: boolean) => {
+      if (reduce) {
+        return { visibility: shown ? VISIBLE : HIDDEN };
+      }
+      const delay = shown ? FADE_IN_DELAY : 0;
+      return {
+        visibility: shown ? VISIBLE : HIDDEN,
+        transition:
+          `opacity ${FADE_MS}ms ease-in-out ${delay}ms, ` +
+          `visibility 0s linear ${shown ? 0 : FADE_MS}ms`,
+      };
+    },
+    [reduce],
+  );
+
+  function onKeyDown(e: React.KeyboardEvent, index: number) {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen((index + 1) % machines.length);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setOpen((index - 1 + machines.length) % machines.length);
+    }
+  }
 
   return (
     <section
       aria-labelledby="hero-heading"
       data-nav-theme="dark"
-      className="relative flex h-svh items-end overflow-hidden bg-[var(--color-photo-ground)]"
+      className="relative h-svh overflow-hidden bg-[var(--color-photo-ground)]"
+      /* A reader looking at a machine should not have the stage move under
+         them, so any pointer or focus inside the hero holds the rotation. */
+      onPointerEnter={hold}
+      onPointerLeave={release}
+      onFocusCapture={hold}
+      onBlurCapture={release}
     >
-      {/* Background photo, filling the whole stage.
+      <h1 id="hero-heading" className="sr-only">
+        Trivima bioprinters
+      </h1>
 
-          It used to sit at object-contain below an 84px dark cap, so a wide
-          viewport got pillar bars either side and a black band on top, and
-          the hero read as a picture pasted onto a dark panel. It covers now:
-          the photo crops rather than letterboxes, so it reaches every edge at
-          any aspect ratio without being stretched. The blurred copy stays
-          underneath as insurance for extreme ratios. */}
-      <div className="absolute inset-0">
-        <Image
-          src="/images/trivima-lineup.jpg"
-          alt=""
-          aria-hidden="true"
-          fill
-          priority
-          sizes="100vw"
-          className="scale-110 object-cover object-center opacity-70 blur-3xl"
-        />
-        <Image
-          src="/images/trivima-lineup.jpg"
-          alt="The Trivima Pro, NP and Aura bioprinters lined up on a lab bench"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </div>
+      {/* pb below sm clears MobileStickyCTA, which is fixed to the bottom
+          there and otherwise sits on the last closed strip. */}
+      <div className="flex h-full flex-col pb-16 sm:pb-0 lg:flex-row">
+        {machines.map((machine, i) => {
+          const isOpen = i === open;
+          const skin = SKIN[machine.slug];
+          const panelId = `${panelBase}-${machine.slug}`;
 
-      {/* Darkens under the floating navbar so the glass pill stays legible,
-          in place of the solid cap that used to black out the strip. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(10,20,34,0.82) 0%, rgba(10,20,34,0.45) 45%, rgba(10,20,34,0) 100%)",
-        }}
-      />
-      {/* Bottom scrim anchors the copy once it appears */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
-      />
-
-      {/* Overlay copy: glass-blended over the photo, same treatment as the
-          consultancy hero's photo-backed copy panel. */}
-      <div className="relative w-full">
-        <div className="mx-auto max-w-7xl px-6 pb-16 pt-40 lg:pb-24">
-          {revealed && (
-          <LiquidGlass
-            tint="light"
-            className="max-w-[42rem] rounded-[2rem] border border-white/15 shadow-[0_24px_70px_rgba(2,8,20,0.45)]"
-          >
-          <div className="flex flex-col gap-6 p-8 sm:p-10 lg:p-12">
-            <motion.h1
-              id="hero-heading"
-              {...pop(0)}
-              className="font-display text-[2.75rem] font-semibold leading-[1.04] tracking-[-0.03em] text-white sm:text-[3.25rem] lg:text-[4.25rem]"
+          return (
+            <div
+              key={machine.slug}
+              /* min-w-0/min-h-0: a flex item will not go below its content's
+                 min-content size by default, and a folded panel still has the
+                 whole open layout inside it, so the strip was being forced
+                 wider than its flex-basis by type it was not even showing. */
+              className="relative isolate min-h-0 min-w-0 overflow-hidden border-b border-white/10 last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0"
+              style={{
+                flexGrow: isOpen ? 1 : 0,
+                flexShrink: 0,
+                flexBasis: isOpen ? "0%" : CLOSED,
+                transition: reduce
+                  ? undefined
+                  : `flex-grow ${SWEEP_MS}ms ${SWEEP_EASE}, flex-basis ${SWEEP_MS}ms ${SWEEP_EASE}`,
+              }}
             >
-              Bioprinters built to match the geometry of biology.
-            </motion.h1>
+              {/* Closed: the machine's own colour. Open: its photo on the
+                  dark stage, with a wash of the same colour so the panel
+                  still reads as that machine. */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 motion-reduce:transition-none"
+                style={{
+                  background: `linear-gradient(160deg, ${skin.from} 0%, ${skin.to} 100%)`,
+                  opacity: isOpen ? 0 : 1,
+                  transition: reduce ? undefined : `opacity ${SWEEP_MS}ms ${SWEEP_EASE}`,
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 bg-[var(--color-photo-ground)] motion-reduce:transition-none"
+                style={{
+                  opacity: isOpen ? 1 : 0,
+                  transition: reduce ? undefined : `opacity ${SWEEP_MS}ms ${SWEEP_EASE}`,
+                }}
+              />
 
-            <motion.p
-              {...pop(1)}
-              className="max-w-[54ch] text-[1.0625rem] leading-relaxed text-white/75"
-            >
-              The Trivima range spans extrusion, inkjet, pellet and light-based
-              bioprinting. Every machine is configured to your protocol before
-              it is built.
-            </motion.p>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-10"
+                style={{
+                  background: `radial-gradient(110% 80% at 88% 55%, ${skin.wash}, transparent 70%)`,
+                  opacity: isOpen ? 1 : 0,
+                  ...fade(isOpen),
+                }}
+              />
 
-            <motion.div {...pop(2)} className="mt-1 flex flex-wrap items-center gap-3">
-              <OriginButton href="#models" className="h-11 px-6 text-[15px]">
-                Explore the bioprinters
-                <ArrowDown weight="bold" size={17} />
-              </OriginButton>
-              <OriginButton
-                href="#compare"
-                variant="outline"
-                className="h-11 border-white/25 bg-white/10 px-6 text-[15px] text-white backdrop-blur-md"
+              {/* Sits to the right of the copy, the way the machine sits
+                  beside its own name on the model pages. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-full lg:w-[52%]"
+                style={{
+                  opacity: isOpen ? 1 : 0,
+                  transform: isOpen || reduce ? "scale(1)" : "scale(1.04)",
+                  ...fade(isOpen),
+                  transition: reduce
+                    ? undefined
+                    : `${fade(isOpen).transition}, transform ${SWEEP_MS}ms ${SWEEP_EASE}`,
+                }}
               >
-                Compare specs
-              </OriginButton>
-            </motion.div>
+                <Image
+                  src={machine.heroImage.src}
+                  alt=""
+                  fill
+                  priority={i === 0}
+                  sizes="(max-width: 1024px) 100vw, 52vw"
+                  className="object-contain object-center p-8 opacity-70 drop-shadow-[0_28px_60px_rgba(0,0,0,0.55)] lg:p-14 lg:opacity-100"
+                />
+              </div>
 
-            {/* Key facts */}
-            <motion.p
-              {...pop(3)}
-              className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-white/15 pt-6 text-[14px] text-white/70"
-            >
-              <span><strong className="font-semibold text-white">Three models</strong></span>
-              <span aria-hidden="true" className="text-white/35">·</span>
-              <span>
-                <strong className="font-semibold text-white">Four bioprinting technologies</strong>:
-                Extrusion, Inkjet, Pellet and Light
-              </span>
-              <span aria-hidden="true" className="text-white/35">·</span>
-              <span>Down to <strong className="font-semibold text-white">10&nbsp;µm</strong></span>
-              <span aria-hidden="true" className="text-white/35">·</span>
-              <span>10 years of bioprinting in research labs</span>
-            </motion.p>
-          </div>
-          </LiquidGlass>
-          )}
-        </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/35 to-black/55 lg:bg-gradient-to-r lg:from-black/85 lg:via-black/45 lg:to-transparent"
+                style={{ opacity: isOpen ? 1 : 0, ...fade(isOpen) }}
+              />
+
+              {/* Time left on this machine. Keyed on the pause flag as well as
+                  the machine, so the bar and the timer driving it always
+                  restart together. */}
+              {!reduce && isOpen ? (
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[3px] bg-white/15 transition-opacity duration-300 ${
+                    paused ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <motion.div
+                    key={`${machine.slug}-${paused}`}
+                    className="h-full origin-left"
+                    style={{ background: skin.from }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: MACHINE_MS / 1000, ease: "linear" }}
+                  />
+                </div>
+              ) : null}
+
+              {/* Closed strip: the whole panel is the control. It stays
+                  mounted and fades, so the label never appears before the
+                  panel it belongs to has finished narrowing. */}
+              <button
+                type="button"
+                onClick={() => setOpen(i)}
+                onKeyDown={(e) => onKeyDown(e, i)}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                tabIndex={isOpen ? -1 : 0}
+                aria-hidden={isOpen}
+                className={`group absolute inset-0 flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/80 ${
+                  isOpen ? "pointer-events-none" : ""
+                }`}
+                style={{ opacity: isOpen ? 0 : 1, ...fade(!isOpen) }}
+              >
+                <span
+                  className="flex items-center gap-3 px-3 text-[15px] font-semibold tracking-[-0.01em] transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none lg:[writing-mode:vertical-rl]"
+                  style={{ color: skin.ink }}
+                >
+                  {machine.name}
+                  <span className="text-[13px] font-normal opacity-75">
+                    {machine.role}
+                  </span>
+                </span>
+              </button>
+
+              {/* Open panel. It stays laid out so it can fade; `visibility`
+                  in `fade()` is what takes it out of the tab order once it
+                  has finished folding away. */}
+              <div
+                id={panelId}
+                className={`relative flex h-full flex-col justify-between gap-8 overflow-hidden p-7 pt-28 pb-10 sm:p-10 sm:pt-32 sm:pb-12 lg:p-14 lg:pt-32 lg:pb-16 ${
+                  isOpen ? "" : "pointer-events-none"
+                }`}
+                style={{ opacity: isOpen ? 1 : 0, ...fade(isOpen) }}
+              >
+                <div
+                  className="flex flex-col gap-5"
+                  style={{
+                    transform: isOpen || reduce ? "none" : "translateY(14px)",
+                    transition: reduce
+                      ? undefined
+                      : `transform ${SWEEP_MS}ms ${SWEEP_EASE}`,
+                  }}
+                >
+                  <BrandDots tone="light" />
+                  <p className="max-w-[40ch] text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45] text-white/85">
+                    {machine.tagline}
+                  </p>
+                </div>
+
+                <div
+                  className="flex flex-1 flex-col justify-end gap-5"
+                  style={{
+                    transform: isOpen || reduce ? "none" : "translateY(20px)",
+                    transition: reduce
+                      ? undefined
+                      : `transform ${SWEEP_MS}ms ${SWEEP_EASE}`,
+                  }}
+                >
+                  <p className="text-[clamp(1rem,1.5vw,1.375rem)] font-medium text-white/75">
+                    {machine.role}
+                  </p>
+                  <h2 className="max-w-[12ch] font-display text-[clamp(3rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.035em] text-white">
+                    {machine.name}
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <Link
+                      href={`/machines/${machine.slug}`}
+                      className="group inline-flex items-center gap-2 text-[clamp(1rem,1.5vw,1.25rem)] font-semibold text-white underline-offset-8 hover:underline"
+                    >
+                      Learn more
+                      <ArrowUpRight
+                        size={20}
+                        weight="bold"
+                        aria-hidden="true"
+                        className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                      />
+                    </Link>
+                    <Link
+                      href="#compare"
+                      className="text-[clamp(0.9375rem,1.3vw,1.125rem)] text-white/70 underline-offset-8 transition-colors hover:text-white hover:underline"
+                    >
+                      Compare all three
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
-
     </section>
   );
 }

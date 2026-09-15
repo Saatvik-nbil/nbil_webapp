@@ -64,7 +64,7 @@ export default function OurStoryLanding() {
           <motion.h1
             {...rise(0.06)}
             id="our-story-heading"
-            className="max-w-[18ch] font-display text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.025em] text-white lg:text-[3.4rem]"
+            className="h1 max-w-[18ch] text-white"
           >
             Ten years from a bold idea to a working bioprinter range
           </motion.h1>
@@ -89,7 +89,7 @@ export default function OurStoryLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <h2
             id="timeline-heading"
-            className="font-display text-[1.6rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] lg:text-[2rem]"
+            className="h2"
           >
             The full timeline
           </h2>
@@ -144,7 +144,7 @@ export default function OurStoryLanding() {
       <section className="border-t border-[var(--color-hairline)] bg-[var(--color-surface)] py-16 lg:py-20">
         <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h2 className="max-w-[20ch] font-display text-[1.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.25rem]">
+            <h2 className="h2 max-w-[20ch]">
               The next chapter is being written in someone&rsquo;s lab
             </h2>
             <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-[var(--color-ink-muted)]">

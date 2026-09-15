@@ -97,7 +97,7 @@ export default function MagneticDock() {
       <div
         onMouseMove={(e) => setX(e.clientX - e.currentTarget.getBoundingClientRect().left)}
         onMouseLeave={() => setX(0)}
-        className="inline-flex items-end gap-2.5 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]/70 px-3 py-2.5"
+        className="inline-flex items-end gap-2.5"
       >
         {SOCIALS.map((s) => (
           <DockIcon key={s.label} social={s} reduce={reduce} />

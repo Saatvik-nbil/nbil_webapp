@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Manual three-stage wipe for the consultancy hero.
+ * Manual three-stage wipe for a full-bleed hero.
  *
  * All three frames are the same subject at the same scale and angle, so this
  * reads as one object moving through the pipeline rather than three pictures
  * side by side. Left to right it follows the order the work actually happens
- * in: the CAD model, then the sliced G-code, then the bioprinted part.
+ * in: the CAD model, then the sliced toolpaths, then the bioprinted part.
  *
  * The divider is a window with real thickness rather than a hairline, and the
  * middle stage is what shows through it. Dragging the window along the frame
@@ -17,40 +17,61 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * There is no autoplay. The reveal only moves when the reader moves it, by
  * drag, click, or arrow keys on the handle.
  *
- * The travel is clamped to the right of the frame. Every image puts the
- * subject there and leaves the left of the frame as plain background, which is
- * where the hero's copy panel sits: letting the window run under the panel
- * would mean dragging something the reader cannot see. For the same reason
- * the handle drops below the panel on small screens, where the panel is full
- * width.
+ * The travel is clamped to the stretch of frame the subject actually occupies.
+ * Every image puts the subject to the right and leaves the left of the frame
+ * as plain background, which is where the hero's copy panel sits: letting the
+ * window run under the panel would mean dragging something the reader cannot
+ * see. For the same reason the handle drops below the panel on small screens,
+ * where the panel is full width.
  */
 
 /** Half the window's width, as a CSS length. Set on the frame as `--band` so
  *  the clip paths, the window chrome and the labels all key off one number. */
 const BAND = "var(--band)";
 
-const MIN = 52;
-/** Leaves room for the window's right edge at full travel. */
-const MAX = 92;
-const START = 68;
 const STEP = 2;
-/** Past this the "Bioprinted" label has nowhere to sit without running off the
- *  frame or landing on the window's own label. */
-const PRINTED_LABEL_MAX = 86;
 
 /** Cubic ease-in-out, so the hint accelerates and settles rather than sliding
  *  at a constant speed. */
 const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-/** Where the intro nudge travels, in order, and how long each leg takes. */
-const NUDGE: Array<{ to: number; ms: number }> = [
-  { to: START + 10, ms: 620 },
-  { to: START - 10, ms: 900 },
-  { to: START, ms: 620 },
-];
+export type Stage = {
+  src: string;
+  alt: string;
+  /** Chip pinned to this stage, near the top of the frame. */
+  label: string;
+};
 
-export default function ModelCompare() {
+type Props = {
+  /** In pipeline order, left to right. */
+  stages: [Stage, Stage, Stage];
+  /** Where the window may travel, as a percentage of the frame's width. `max`
+   *  has to leave room for the window's own right edge. */
+  travel: { min: number; max: number; start: number };
+  /** Said beside the handle for anyone who missed the nudge. */
+  hint: string;
+  /** How far the opening nudge walks either side of its resting place. */
+  nudge?: number;
+  /** object-position for all three frames. The subject sits off to the right,
+   *  so the small-screen crop has to be pushed that way. */
+  objectPosition?: string;
+};
+
+export default function StageCompare({
+  stages,
+  travel,
+  hint,
+  nudge = 10,
+  objectPosition = "object-[72%_center] lg:object-center",
+}: Props) {
+  const { min: MIN, max: MAX, start: START } = travel;
+  const [first, middle, last] = stages;
+
+  /** Past this the last stage's label has nowhere to sit without running off
+   *  the frame or landing on the window's own label. */
+  const LAST_LABEL_MAX = MAX - 6;
+
   const [pct, setPct] = useState(START);
   const [dragging, setDragging] = useState(false);
   /** Cleared the moment the reader touches the control. */
@@ -63,14 +84,17 @@ export default function ModelCompare() {
     setHinting(false);
   }, []);
 
-  const setFromClientX = useCallback((clientX: number) => {
-    const el = frameRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    if (!rect.width) return;
-    const raw = ((clientX - rect.left) / rect.width) * 100;
-    setPct(Math.min(MAX, Math.max(MIN, raw)));
-  }, []);
+  const setFromClientX = useCallback(
+    (clientX: number) => {
+      const el = frameRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      if (!rect.width) return;
+      const raw = ((clientX - rect.left) / rect.width) * 100;
+      setPct(Math.min(MAX, Math.max(MIN, raw)));
+    },
+    [MIN, MAX],
+  );
 
   /**
    * First-load hint: the handle walks a little either side of its resting
@@ -85,21 +109,28 @@ export default function ModelCompare() {
       return;
     }
 
+    /** Where the nudge travels, in order, and how long each leg takes. */
+    const legs: Array<{ to: number; ms: number }> = [
+      { to: Math.min(MAX, START + nudge), ms: 620 },
+      { to: Math.max(MIN, START - nudge), ms: 900 },
+      { to: START, ms: 620 },
+    ];
+
     let frame = 0;
     let timer = 0;
     let cancelled = false;
 
     const leg = (index: number, from: number) => {
       if (cancelled || touched.current) return;
-      const step = NUDGE[index];
+      const step = legs[index];
       if (!step) {
         setHinting(false);
         return;
       }
-      const start = performance.now();
+      const begun = performance.now();
       const tick = (now: number) => {
         if (cancelled || touched.current) return;
-        const t = Math.min(1, (now - start) / step.ms);
+        const t = Math.min(1, (now - begun) / step.ms);
         setPct(from + (step.to - from) * easeInOut(t));
         if (t < 1) {
           frame = requestAnimationFrame(tick);
@@ -119,7 +150,7 @@ export default function ModelCompare() {
       cancelAnimationFrame(frame);
       clearTimeout(timer);
     };
-  }, []);
+  }, [MIN, MAX, START, nudge]);
 
   // Tracked on the window so a fast drag that leaves the frame keeps working,
   // and so releasing anywhere ends it.
@@ -157,6 +188,8 @@ export default function ModelCompare() {
     }
   };
 
+  const imageClass = `pointer-events-none absolute inset-0 h-full w-full object-cover ${objectPosition}`;
+
   return (
     <div
       ref={frameRef}
@@ -171,46 +204,37 @@ export default function ModelCompare() {
     >
       {/* Three stages stacked in reverse pipeline order, each one clipped a
           little further left than the one beneath it. What survives is the
-          finished print on the right, the sliced G-code inside the window, and
-          the CAD to its left. */}
+          finished print on the right, the middle stage inside the window, and
+          the first stage to its left. */}
 
-      {/* Bottom layer: the finished print, filling the frame. */}
+      {/* Bottom layer: the last stage, filling the frame. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={last.src} alt={last.alt} draggable={false} className={imageClass} />
+
+      {/* Middle stage, cut off at the window's right edge. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/consultancy/printed-model.webp"
-        alt="The scaffold bioprinted, held in solution"
+        src={middle.src}
+        alt={middle.alt}
         draggable={false}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
+        className={imageClass}
+        style={{ clipPath: `inset(0 calc(${100 - pct}% - ${BAND}) 0 0)` }}
       />
 
-      {/* Middle stage: the sliced G-code, cut off at the window's right edge. */}
+      {/* First stage, cut off at the window's left edge. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/consultancy/gcode-model.webp"
-        alt="The same scaffold as sliced G-code toolpaths, layer lines visible"
+        src={first.src}
+        alt={first.alt}
         draggable={false}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
-        style={{
-          clipPath: `inset(0 calc(${100 - pct}% - ${BAND}) 0 0)`,
-        }}
+        className={imageClass}
+        style={{ clipPath: `inset(0 calc(${100 - pct}% + ${BAND}) 0 0)` }}
       />
 
-      {/* First stage: the CAD, cut off at the window's left edge. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/consultancy/cad-model.webp"
-        alt="CAD model of a bifurcated vascular scaffold on a drawing grid"
-        draggable={false}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[72%_center] lg:object-center"
-        style={{
-          clipPath: `inset(0 calc(${100 - pct}% + ${BAND}) 0 0)`,
-        }}
-      />
-
-      {/* The window itself: two seams with the G-code showing between them.
-          A dark core keeps each seam readable on the white CAD grid, the white
-          edges keep it readable on the blue, and the outer glow lifts it off
-          both. The inset ring closes the shape so the pair reads as one
+      {/* The window itself: two seams with the middle stage showing between
+          them. A dark core keeps each seam readable on the white CAD grid, the
+          white edges keep it readable on the blue, and the outer glow lifts it
+          off both. The inset ring closes the shape so the pair reads as one
           aperture rather than two unrelated dividers. */}
       <div
         aria-hidden="true"
@@ -226,11 +250,11 @@ export default function ModelCompare() {
       <button
         type="button"
         role="slider"
-        aria-label="Move the window through the CAD model, the sliced G-code and the bioprinted part"
+        aria-label={`Move the window through the ${first.label.toLowerCase()}, the ${middle.label.toLowerCase()} and the ${last.label.toLowerCase()}`}
         aria-valuemin={MIN}
         aria-valuemax={MAX}
         aria-valuenow={Math.round(pct)}
-        aria-valuetext={`Window over the sliced G-code at ${Math.round(pct)}% across the frame, CAD model to its left, bioprinted part to its right`}
+        aria-valuetext={`Window over the ${middle.label.toLowerCase()} at ${Math.round(pct)}% across the frame, ${first.label.toLowerCase()} to its left, ${last.label.toLowerCase()} to its right`}
         onKeyDown={onKeyDown}
         onPointerDown={(e) => {
           e.stopPropagation();
@@ -268,7 +292,7 @@ export default function ModelCompare() {
         }`}
         style={{ left: `${pct}%` }}
       >
-        Slide the window through CAD, G-code and print
+        {hint}
       </span>
 
       {/* Stage labels sit near the top of the frame: the bottom corners belong
@@ -280,17 +304,17 @@ export default function ModelCompare() {
         className="pointer-events-none absolute top-24 hidden rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-3 py-1.5 text-[12.5px] font-medium text-[var(--color-ink)] backdrop-blur-sm lg:top-28 lg:block"
         style={{ right: `calc(100% - ${pct}% + ${BAND} + 0.75rem)` }}
       >
-        CAD model
+        {first.label}
       </span>
       <span
         className="pointer-events-none absolute top-24 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/30 bg-black/55 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm lg:top-28 lg:block"
         style={{ left: `${pct}%` }}
       >
-        Sliced G-code
+        {middle.label}
       </span>
       <span
         className={`pointer-events-none absolute top-24 whitespace-nowrap rounded-lg border border-white/25 bg-black/40 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-200 lg:top-28 motion-reduce:transition-none ${
-          pct > PRINTED_LABEL_MAX ? "opacity-0" : "opacity-100"
+          pct > LAST_LABEL_MAX ? "opacity-0" : "opacity-100"
         }`}
         /* Clamped, then faded out: near full travel an unclamped label ran off
            the frame, and the clamped one collided with the window's own label.
@@ -299,7 +323,7 @@ export default function ModelCompare() {
           left: `min(calc(${pct}% + ${BAND} + 0.75rem), calc(100% - 8rem))`,
         }}
       >
-        Bioprinted
+        {last.label}
       </span>
     </div>
   );

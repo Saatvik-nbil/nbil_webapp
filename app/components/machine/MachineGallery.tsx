@@ -19,7 +19,7 @@ export default function MachineGallery({
   images: MachineImage[];
   name: string;
   role: string;
-  year: string;
+  year?: string;
   maxWidth?: number;
 }) {
   const [active, setActive] = useState(0);
@@ -37,9 +37,11 @@ export default function MachineGallery({
         <span className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-lg bg-[var(--color-brand)] px-3 py-1 text-[11px] font-medium text-white">
           {role}
         </span>
-        <span className="absolute top-5 right-5 rounded-lg border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-1 text-[11px] text-[var(--color-ink-muted)]">
-          {year}
-        </span>
+        {year ? (
+          <span className="absolute top-5 right-5 rounded-lg border border-[var(--color-hairline)] bg-[var(--color-surface)] px-2.5 py-1 text-[11px] text-[var(--color-ink-muted)]">
+            {year}
+          </span>
+        ) : null}
         <Image
           key={current.src}
           src={current.src}

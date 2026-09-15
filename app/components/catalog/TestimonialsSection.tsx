@@ -31,7 +31,7 @@ const TESTIMONIALS: Testimonial[] = [
     id: 3,
     quote:
       "The Dhee software is very user-friendly, with an easy and efficient slicing process that makes 3D printing simple to operate. The pause-and-resume printing feature is especially useful and adds great flexibility during printing. Overall, it’s a reliable and well-designed software. Great work by the team!",
-    name: "Mohan",
+    name: "Mohan Das P",
     org: "CLRI Chennai",
   },
   {

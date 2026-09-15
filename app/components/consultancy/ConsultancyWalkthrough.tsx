@@ -59,7 +59,7 @@ export default function ConsultancyWalkthrough() {
         >
           <h2
             id="walkthrough-heading"
-            className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+            className="h2"
           >
             Project walkthrough
           </h2>
@@ -87,7 +87,7 @@ export default function ConsultancyWalkthrough() {
             >
               <span
                 aria-hidden="true"
-                className="absolute -left-8 lg:-left-12 top-0 flex size-7 -translate-x-1/2 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[10.5px] font-semibold tracking-[0.02em] text-[var(--color-brand-strong)]"
+                className="absolute -left-9 lg:-left-14 top-0 flex size-11 lg:size-12 -translate-x-1/2 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[17px] lg:text-[19px] font-semibold tabular-nums text-[var(--color-brand-strong)]"
               >
                 {step}
               </span>

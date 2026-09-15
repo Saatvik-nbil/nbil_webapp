@@ -16,20 +16,24 @@ export type Machine = {
   overview: string;
   tier: string;
   role: string;
-  year: string;
+  /** Model year chip on the gallery card. Omitted where it would
+   *  only date the product. */
+  year?: string;
   /** Set on the models that lead the range; Aura carries no flag. */
   featured?: boolean;
   heroImage: MachineImage;
   images: MachineImage[];
   stats: StatItem[];
   specs: SpecItem[];
-  features: string[];
+  /** Absent on Aura, whose page leads with its technologies instead. */
+  features?: string[];
   technologies: string[];
   /** Substrates the machine prints onto. Absent on Aura, which is vat-based. */
   fixtures?: string[];
   /** Third-party or institutional validation note, rendered when present. */
   validation?: string;
-  customisation: { summary: string; options: string[] };
+  /** Absent on Aura, which is not offered build-to-spec. */
+  customisation?: { summary: string; options: string[] };
   software: string;
   /** Link to the slicer's own page, where one exists. */
   softwareHref?: string;
@@ -37,85 +41,6 @@ export type Machine = {
 };
 
 export const machines: Machine[] = [
-  {
-    slug: "trivima-pro",
-    name: "Trivima Pro",
-    fullName: "Trivima Pro Bioprinter",
-    tagline: "Up to six extruders for the most demanding biofabrication.",
-    blurb:
-      "Six-slot, multi-technology flagship with quad-axial printing and 0.5 nL inkjet precision.",
-    overview:
-      "Unleash the full potential of bioprinting with Trivima Pro, crafted for the most demanding research applications. A high-end benchtop system with four to six configurable extruders spanning pneumatic, inkjet, pellet and motor-driven technologies, supporting well-plate, insert, triaxial and quad-axial printing alongside FRESH mode.",
-    tier: "Customisable",
-    role: "6 extruder flagship",
-    year: "2024",
-    featured: true,
-    heroImage: { src: "/images/pro-1.webp", alt: "Trivima Pro six-extruder bioprinter" },
-    images: [
-      { src: "/images/pro-1.webp", alt: "Trivima Pro bioprinter with six extruders" },
-    ],
-    stats: [
-      { label: "Extruder slots", value: "4–6" },
-      { label: "Extruder compatibility", value: "4", unit: "types" },
-      { label: "Build volume", value: "150×100×100", unit: "mm" },
-      { label: "Movement precision", value: "<10", unit: "µm" },
-    ],
-    specs: [
-      { label: "Extruder slots", value: "4 to 6 (user-configurable)" },
-      { label: "Extruder volumes", value: "3CC, 5CC, 10CC, 30CC" },
-      { label: "Extruder technologies", value: "Pneumatic, pellet-based, motor-driven, inkjet (DoD)" },
-      { label: "Pneumatic temperature", value: "8 °C to 60 °C" },
-      { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
-      { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
-      { label: "Inkjet extruder temperature", value: "Ambient temperature to 90 °C" },
-      { label: "Inkjet precision", value: "0.5 nL dispensation" },
-      { label: "Bed temperature", value: "4 °C to 80 °C" },
-      { label: "Pressure range", value: "0.02 to 8 Bar" },
-      { label: "Build volume (L×B×H)", value: "150 × 100 × 100 mm" },
-      { label: "Movement precision", value: "<10 microns" },
-      { label: "Outer dimensions (L×B×H)", value: "90 × 120 × 70 cm" },
-      { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
-      { label: "In-built sterility", value: "H14 HEPA & germicidal UV" },
-      { label: "Control software", value: "Dhee by NBIL" },
-      { label: "Compatible file formats", value: ".stl, .gcode" },
-    ],
-    features: [
-      "Swappable heads across all extruder slots",
-      "Four to six extruders, user-configurable",
-      "Compatible with pneumatic print heads plus additional technologies",
-      "H14 HEPA filtration with germicidal UV sterilization",
-      "Stainless steel inner chamber",
-      "Sturdy benchtop design",
-      "Co-axial, tri-axial and quad-axial printing compatibility",
-      "FRESH printing mode support",
-      "Well-plate, petri dish, slide, insert and custom-substrate fixtures",
-    ],
-    technologies: [
-      "Pneumatic extrusion",
-      "Inkjet (drop-on-demand)",
-      "Pellet-based extrusion",
-      "Motor-driven extrusion",
-      "Co-axial printing",
-      "Tri-axial printing",
-      "Quad-axial printing",
-      "FRESH printing",
-    ],
-    fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
-    customisation: {
-      summary:
-        "Specified with you before it is built: how many extruders and which technologies sit in them.",
-      options: [
-        "Four to six extruder slots, user-configurable",
-        "Pneumatic, inkjet, pellet and motor-driven heads in any combination",
-        "Co-axial, tri-axial and quad-axial configurations",
-        "Crosslinking at user-defined UV and visible wavelengths",
-        "Well plate, petri dish, slide, insert and custom substrate fixtures",
-      ],
-    },
-    software: "Dhee by NBIL",
-    softwareHref: "/dhee-slicer",
-    sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",
-  },
   {
     slug: "trivima-np",
     name: "Trivima NP",
@@ -192,6 +117,84 @@ export const machines: Machine[] = [
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivimanpbioprinter/",
   },
   {
+    slug: "trivima-pro",
+    name: "Trivima Pro",
+    fullName: "Trivima Pro Bioprinter",
+    tagline: "Up to six extruders for the most demanding biofabrication.",
+    blurb:
+      "Six-slot, multi-technology flagship with quad-axial printing and 0.5 nL inkjet precision.",
+    overview:
+      "Unleash the full potential of bioprinting with Trivima Pro, crafted for the most demanding research applications. A high-end benchtop system with four to six configurable extruders spanning pneumatic, inkjet, pellet and motor-driven technologies, supporting well-plate, insert, triaxial and quad-axial printing alongside FRESH mode.",
+    tier: "Customisable",
+    role: "6 extruder flagship",
+    featured: true,
+    heroImage: { src: "/images/pro-1.webp", alt: "Trivima Pro six-extruder bioprinter" },
+    images: [
+      { src: "/images/pro-1.webp", alt: "Trivima Pro bioprinter with six extruders" },
+    ],
+    stats: [
+      { label: "Extruder slots", value: "4–6" },
+      { label: "Extruder compatibility", value: "4", unit: "types" },
+      { label: "Build volume", value: "150×100×100", unit: "mm" },
+      { label: "Movement precision", value: "<10", unit: "µm" },
+    ],
+    specs: [
+      { label: "Extruder slots", value: "4 to 6 (user-configurable)" },
+      { label: "Extruder volumes", value: "3CC, 5CC, 10CC, 30CC" },
+      { label: "Extruder technologies", value: "Pneumatic, pellet-based, motor-driven, inkjet (DoD)" },
+      { label: "Pneumatic temperature", value: "8 °C to 60 °C" },
+      { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
+      { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
+      { label: "Inkjet extruder temperature", value: "Ambient temperature to 90 °C" },
+      { label: "Inkjet precision", value: "0.5 nL dispensation" },
+      { label: "Bed temperature", value: "4 °C to 80 °C" },
+      { label: "Pressure range", value: "0.02 to 8 Bar" },
+      { label: "Build volume (L×B×H)", value: "150 × 100 × 100 mm" },
+      { label: "Movement precision", value: "<10 microns" },
+      { label: "Outer dimensions (L×B×H)", value: "90 × 120 × 70 cm" },
+      { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
+      { label: "In-built sterility", value: "H14 HEPA & germicidal UV" },
+      { label: "Control software", value: "Dhee by NBIL" },
+      { label: "Compatible file formats", value: ".stl, .gcode" },
+    ],
+    features: [
+      "Swappable heads across all extruder slots",
+      "Four to six extruders, user-configurable",
+      "Compatible with pneumatic print heads plus additional technologies",
+      "H14 HEPA filtration with germicidal UV sterilization",
+      "Stainless steel inner chamber",
+      "Sturdy benchtop design",
+      "Co-axial, tri-axial and quad-axial printing compatibility",
+      "FRESH printing mode support",
+      "Well-plate, petri dish, slide, insert and custom-substrate fixtures",
+    ],
+    technologies: [
+      "Pneumatic extrusion",
+      "Inkjet (drop-on-demand)",
+      "Pellet-based extrusion",
+      "Motor-driven extrusion",
+      "Co-axial printing",
+      "Tri-axial printing",
+      "Quad-axial printing",
+      "FRESH printing",
+    ],
+    fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
+    customisation: {
+      summary:
+        "Specified with you before it is built: how many extruders and which technologies sit in them.",
+      options: [
+        "Four to six extruder slots, user-configurable",
+        "Pneumatic, inkjet, pellet and motor-driven heads in any combination",
+        "Co-axial, tri-axial and quad-axial configurations",
+        "Crosslinking at user-defined UV and visible wavelengths",
+        "Well plate, petri dish, slide, insert and custom substrate fixtures",
+      ],
+    },
+    software: "Dhee by NBIL",
+    softwareHref: "/dhee-slicer",
+    sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",
+  },
+  {
     slug: "trivima-aura",
     name: "Trivima Aura",
     fullName: "Trivima Aura Bioprinter",
@@ -226,29 +229,10 @@ export const machines: Machine[] = [
       { label: "Compatible file formats", value: ".stl, .bmp" },
       { label: "Control software", value: "Aura Slicer by NBIL" },
     ],
-    features: [
-      "Compatible with commercial biomaterials and user-defined polymers",
-      "In-built germicidal UV fixtures",
-      "Sterilizable build platform with solvent-compatible surfaces",
-      "40 µm XY resolution for precise extracellular-matrix replication",
-      "Open material system, no proprietary consumables",
-      "Designed for laboratory integration and reproducibility",
-    ],
     technologies: [
       "MSLA (masked screen LCD with LED light source)",
       "A form of DLP bioprinting using a masked screen and LCD projector",
     ],
-    customisation: {
-      summary:
-        "Open by design: an unrestricted material system, adjustable optics and a bed material chosen to suit your chemistry.",
-      options: [
-        "Optical intensity adjustable to the light engine",
-        "Glass or metal print bed",
-        "Stainless steel or anodized aluminium build",
-        "Open material system with no proprietary consumables",
-        "Commercial biomaterials or your own user-defined polymers",
-      ],
-    },
     software: "Aura Slicer by NBIL",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivima-aura/",
   },

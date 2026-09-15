@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import Link from "next/link";
-import { COMPANY } from "@/lib/machines";
+import { COMPANY, formatAddress } from "@/lib/machines";
 import MagneticDock from "@/components/ui/magnetic-dock";
 import { CompanyName } from "@/app/components/CompanyName";
 
@@ -35,8 +35,7 @@ const Footer: FC = () => (
   >
     {/* pb-24 clears MobileStickyCTA, which is fixed to the bottom on phones. */}
     <div className="max-w-7xl mx-auto px-6 pt-12 pb-24 sm:pb-8 lg:pt-14">
-      {/* Main content: three equal columns,
-          Quick Links · Resources · brand + Follow Us */}
+      {/* One row of three peers: Quick Links · Resources · Follow Us. */}
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-12">
         {/* Columns 1 & 2: Quick Links + Resources */}
         {LINK_COLUMNS.map((col) => (
@@ -69,25 +68,42 @@ const Footer: FC = () => (
           </nav>
         ))}
 
-        {/* Column 3: brand logo above the Follow Us dock */}
-        <div className="flex flex-col gap-6">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/recognition/nbil-logo.png"
-            alt={COMPANY.name}
-            className="h-35 w-auto self-start"
-          />
-          <div className="flex flex-col gap-4">
+        {/* Column 3, set like the other two so it reads as their peer. */}
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
             <p className="text-[15px] font-semibold text-[var(--color-ink)]">
               Follow Us
             </p>
-            <MagneticDock />
+            <span
+              aria-hidden="true"
+              className="h-0.5 w-10 rounded-full bg-[var(--color-brand)]"
+            />
           </div>
+          <MagneticDock />
+        </div>
+      </div>
+
+      {/* The one place on the site that carries the address and inbox. */}
+      <div className="mt-12 grid grid-cols-1 gap-8 border-t border-[var(--color-hairline)] pt-8 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[15px] font-semibold text-[var(--color-ink)]">Email</p>
+          <a
+            href={`mailto:${COMPANY.email}`}
+            className="text-[14px] text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)]"
+          >
+            {COMPANY.email}
+          </a>
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[15px] font-semibold text-[var(--color-ink)]">Location</p>
+          <p className="max-w-[40ch] text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
+            {formatAddress()}
+          </p>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="mt-14 pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="mt-10 pt-6 border-t border-[var(--color-hairline)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
           Copyright &copy;{new Date().getFullYear()} {COMPANY.short}. All rights reserved
         </p>

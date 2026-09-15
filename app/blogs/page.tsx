@@ -5,14 +5,14 @@ import RecentBlogs from "@/app/components/blog/RecentBlogs";
 import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Next Big Blogs",
   description:
     "Bioprinting insights and research breakdowns from Next Big Innovation Labs, with deep dives on bioprinting, biomaterials and biofabrication.",
   alternates: { canonical: "https://nextbiginnovationlabs.com/blogs" },
   openGraph: {
     type: "website",
     url: "https://nextbiginnovationlabs.com/blogs",
-    title: "Blog | Next Big Innovation Labs",
+    title: "Next Big Blogs | Next Big Innovation Labs",
     description:
       "Bioprinting insights and research breakdowns from Next Big Innovation Labs, with deep dives on bioprinting, biomaterials and biofabrication.",
     images: [
@@ -39,12 +39,12 @@ export default function BlogsPage() {
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">
-              <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold tracking-[-0.03em] text-white leading-[1.04]">
-                Insights from the lab
+              <h1 className="h1 text-white">
+                Next Big Blogs
               </h1>
               <p className="text-[16px] lg:text-[17px] text-white/75 leading-relaxed">
                 Deep dives on bioprinting, biomaterials and biofabrication from
-                the NBIL team.
+                the Next Big Innovation Labs team.
               </p>
             </div>
           </div>

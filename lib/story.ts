@@ -239,15 +239,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     category: "Collaboration",
   },
   {
-    id: "2025-nyu",
-    year: "2025",
-    title: "Collaboration with NYU Abu Dhabi",
-    body: "A collaboration with New York University, Abu Dhabi, opens a new front in bioprinting research in the Gulf.",
-    image: "/story_timeline/NYU.png",
-    fit: "contain",
-    category: "Collaboration",
-  },
-  {
     id: "today",
     year: "Today",
     title: "A full range, a community",

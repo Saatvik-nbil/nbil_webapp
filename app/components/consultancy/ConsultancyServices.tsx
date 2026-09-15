@@ -4,8 +4,8 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   Printer,
   FlaskConical,
-  Lightbulb,
-  Boxes,
+  SlidersHorizontal,
+  Wrench,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
@@ -48,36 +48,35 @@ const SERVICES: Service[] = [
     features: [
       "Bioink customisation",
       "Pluronic & GelMA formulations",
-      "Crosslinking & rheology tuning",
+      "Crosslinking chemistry",
     ],
     cta: "Contact us",
   },
   {
-    id: "advisory-consultancy",
-    name: "Advisory Consultancy",
-    icon: Lightbulb,
+    id: "biomaterial-optimisation",
+    name: "Biomaterial Optimization",
+    icon: SlidersHorizontal,
     description:
-      "Expert advice on bioprinters, materials, protocols and workflows.",
+      "Take a formulation that almost works and tune it until it prints reliably.",
+    features: [
+      "Rheology & printability tuning",
+      "Crosslinking & shape fidelity",
+      "Cell viability trade-offs",
+    ],
+    cta: "Contact us",
+  },
+  {
+    id: "engineering-consultancy",
+    name: "Engineering Consultancy",
+    icon: Wrench,
+    description:
+      "Expert advice on bioprinters, printheads, protocols and lab workflows.",
     features: [
       "Hardware & printhead selection",
       "Protocol troubleshooting",
       "Experimental design review",
     ],
     cta: "Contact us",
-  },
-  {
-    id: "lab-ecosystem",
-    name: "Complete Lab Ecosystem",
-    icon: Boxes,
-    description:
-      "We build your full bioprinting lab: biofabrication and setup, end to end.",
-    features: [
-      "Trivima bioprinter + DHEE software",
-      "Consumables & in-house bioinks",
-      "Training, consulting & microcourses",
-    ],
-    cta: "Contact us",
-    highlighted: true,
   },
 ];
 
@@ -101,13 +100,13 @@ export default function ConsultancyServices() {
         <div className="flex flex-col items-center text-center gap-4 max-w-2xl mx-auto mb-14 lg:mb-16">
           <h2
             id="services-heading"
-            className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+            className="h2"
           >
             Consultancy services
           </h2>
           <p className="text-[15.5px] text-[var(--color-ink-muted)] leading-relaxed">
-            From a single custom scaffold to a fully equipped bioprinting lab.
-            pick the support that fits your work.
+            From a single custom scaffold to a formulation that prints
+            reliably, pick the support that fits your work.
           </p>
         </div>
 

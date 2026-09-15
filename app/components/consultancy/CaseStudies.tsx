@@ -128,7 +128,7 @@ export default function CaseStudies() {
         <div className="flex flex-col gap-4 max-w-2xl mb-14 lg:mb-20">
           <h2
             id="case-studies-heading"
-            className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+            className="h2"
           >
             Custom bioprinting, delivered with partners
           </h2>

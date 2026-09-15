@@ -78,7 +78,7 @@ export default function CareersSection() {
           <span className="eyebrow text-[var(--color-brand-strong)]">Careers at NBIL</span>
           <h2
             id="careers-heading"
-            className="max-w-[16ch] font-display text-[clamp(2.25rem,6vw,4rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-[var(--color-ink)]"
+            className="h2 max-w-[16ch]"
           >
             Learning from life.
             <br />
@@ -121,7 +121,7 @@ export default function CareersSection() {
         <div className="mt-16 lg:mt-20">
           <motion.h3
             {...rise()}
-            className="max-w-[24ch] font-display text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.25rem]"
+            className="h3 max-w-[24ch]"
           >
             More than a job. A place to grow.
           </motion.h3>

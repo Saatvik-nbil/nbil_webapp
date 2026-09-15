@@ -105,7 +105,9 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
             dragged by its scrollbar. */}
         <div data-lenis-prevent className="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6">
           <div className="flex flex-col gap-6">
-            {/* How the machine was used */}
+            {/* How the machine was used. Shown only where the paper's own
+                methods section has been read. */}
+            {pub.trivimaUse ? (
             <div className="flex flex-col gap-2.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-brand-subtle)] p-4 sm:p-5">
               <div className="flex items-center gap-2">
                 <Sliders size={15} weight="bold" className="text-[var(--color-brand-strong)]" aria-hidden="true" />
@@ -115,6 +117,7 @@ function PublicationDialog({ pub, onClose }: { pub: Publication; onClose: () => 
               </div>
               <p className="text-[14px] leading-relaxed text-[var(--color-ink-muted)]">{pub.trivimaUse}</p>
             </div>
+            ) : null}
 
             {/* Abstract, verbatim */}
             <div className="flex flex-col gap-3">
@@ -202,7 +205,7 @@ export default function PublicationsLanding() {
             transition={{ duration: 0.7, ease: EASE }}
             className="flex max-w-2xl flex-col gap-5"
           >
-            <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white">
+            <h1 className="h1 text-white">
               Research published on a Trivima
             </h1>
             <p className="text-[16px] leading-relaxed text-white/75 lg:text-[17px]">

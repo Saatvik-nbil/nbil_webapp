@@ -8,7 +8,7 @@ import { OriginButton } from "@/components/ui/origin-button";
 import { machines, type Machine } from "@/lib/machines";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const ORDER = ["trivima-np", "trivima-aura", "trivima-pro"];
+const ORDER = ["trivima-np", "trivima-pro", "trivima-aura"];
 // Softer than the FocusAreas tilt it's modelled on: these cards are small, so
 // the same angles would read as a wobble rather than a nudge.
 const TILT_SPRING = { stiffness: 150, damping: 18, mass: 0.4 } as const;
@@ -99,7 +99,7 @@ export default function ProductsShowcase() {
           <div className="flex flex-col gap-4 max-w-2xl">
             <h2
               id="products-heading"
-              className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+              className="h2"
             >
               Trivima: one bioprinter family, three ways to build
             </h2>

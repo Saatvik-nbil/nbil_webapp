@@ -109,7 +109,7 @@ export default function NewsLanding() {
       <section className="mx-auto max-w-7xl px-6 pt-32 pb-10 lg:pt-40 lg:pb-14">
         <motion.h1
           {...rise(0.06)}
-          className="mt-4 max-w-[18ch] font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)] sm:text-[3.25rem] lg:text-[3.75rem]"
+          className="h1 mt-4 max-w-[18ch]"
         >
           What we&rsquo;re building, in the open
         </motion.h1>
@@ -146,7 +146,7 @@ export default function NewsLanding() {
             <div className="flex flex-col gap-4">
               <h2
                 id="watch-heading"
-                className="max-w-[22ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"
+                className="h2 max-w-[22ch]"
               >
                 Podcast features &amp; talks
               </h2>
@@ -208,7 +208,7 @@ export default function NewsLanding() {
             <div className="flex flex-col gap-4">
               <h2
                 id="recent-heading"
-                className="max-w-[20ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"
+                className="h2 max-w-[20ch]"
               >
                 Straight from our feed
               </h2>

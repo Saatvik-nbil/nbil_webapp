@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ChatCircleDots, X, PaperPlaneTilt, ArrowClockwise, Robot } from "@phosphor-icons/react";
+import { X, PaperPlaneTilt, ArrowClockwise, Robot } from "@phosphor-icons/react";
+import BrandChatIcon from "@/app/components/chatbot/BrandChatIcon";
 import { validateEmail } from "@/lib/validation";
 import { useFormSubmit } from "@/app/components/forms/useFormSubmit";
 import { Spinner, ThinkingIndicator } from "@/components/ui/spinner";
@@ -413,7 +414,7 @@ export default function NBILBot() {
             transition={{ duration: 0.2 }}
             className="relative flex items-center justify-center"
           >
-            {panelOpen ? <X size={24} weight="bold" /> : <ChatCircleDots size={26} weight="fill" />}
+            {panelOpen ? <X size={24} weight="bold" /> : <BrandChatIcon size={26} />}
           </motion.span>
         </AnimatePresence>
       </button>

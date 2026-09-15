@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { OriginButton } from "@/components/ui/origin-button";
 import { machines } from "@/lib/machines";
 import { DEFAULT_COUNTRY } from "@/lib/countries";
@@ -16,9 +16,19 @@ import {
   textareaClass,
 } from "./fields";
 import PhoneField from "./PhoneField";
+import BrandDots from "@/app/components/shared/BrandDots";
 import { readField, useFormSubmit } from "./useFormSubmit";
 
 const INTERESTS = ["Request a quote", "Book a live demo", "Custom configuration", "General enquiry"];
+
+const DEMO = "Book a live demo";
+const CONFIGURE = "Custom configuration";
+
+/** Only the models offered build-to-spec. Aura is not one of them, so it is
+ *  absent from the model list whenever the enquiry is a configuration. */
+const CONFIGURABLE = machines.filter((m) => m.customisation);
+
+const NOT_SURE = "Not sure yet";
 
 type Errors = Record<string, string>;
 
@@ -35,6 +45,11 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
   const { status, error, submit, reset } = useFormSubmit("quote");
   const formRef = useRef<HTMLFormElement>(null);
   const [interest, setInterest] = useState(INTERESTS[0]);
+  const [model, setModel] = useState(defaultModel ?? NOT_SURE);
+  const [wanted, setWanted] = useState<string[]>([]);
+  /* Set after hydration: a build-time "today" baked into the static HTML
+     would be stale by the time anyone loads the page. */
+  const [today, setToday] = useState("");
 
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -42,6 +57,27 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
   const [errors, setErrors] = useState<Errors>({});
 
   const busy = status === "submitting";
+
+  const booking = interest === DEMO;
+  const configuring = interest === CONFIGURE;
+  const modelOptions = configuring ? CONFIGURABLE : machines;
+  const selected = machines.find((m) => m.name === model);
+  const configOptions = selected?.customisation?.options ?? [];
+  const showOptions = (booking || configuring) && configOptions.length > 0;
+
+  useEffect(() => {
+    setToday(new Date().toISOString().slice(0, 10));
+  }, []);
+
+  /** Switching enquiry type can strand a model or an option that no longer
+   *  applies, so both are cleared rather than submitted silently. */
+  function chooseInterest(next: string) {
+    setInterest(next);
+    setWanted([]);
+    if (next === CONFIGURE && !CONFIGURABLE.some((m) => m.name === model)) {
+      setModel(NOT_SURE);
+    }
+  }
 
   /** Drops one field's error the moment the visitor starts correcting it. */
   function clearError(key: string) {
@@ -72,12 +108,15 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
 
     if (!organization) found.organization = "Your organization is required.";
     if (!message) found.message = "Please tell us what you need.";
+    if (booking && !readField(data, "demoDate")) {
+      found.demoDate = "Pick a date that suits you.";
+    }
 
     if (Object.keys(found).length) {
       setErrors(found);
       // Send focus to the first problem so the fix is one keystroke away, even
       // when the offending field has scrolled out of view.
-      const first = ["name", "email", "phone", "organization", "message"].find((k) => found[k]);
+      const first = ["name", "email", "phone", "organization", "demoDate", "message"].find((k) => found[k]);
       if (first) {
         formRef.current
           ?.querySelector<HTMLElement>(`#quote-${first}`)
@@ -100,8 +139,14 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
           required: true,
         },
         { label: "Organization", value: organization, required: true },
-        { label: "Model of Interest", value: readField(data, "model"), required: true },
+        { label: "Model of Interest", value: model, required: true },
         { label: "Enquiry Type", value: interest, required: true },
+        ...(booking
+          ? [{ label: "Preferred Demo Date", value: readField(data, "demoDate"), required: true }]
+          : []),
+        ...(wanted.length
+          ? [{ label: configuring ? "Options to Configure" : "Wants to See", value: wanted.join(", ") }]
+          : []),
         { label: "Message", value: message, required: true },
       ],
       readField(data, "company_website"),
@@ -113,6 +158,8 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
       setPhone("");
       setPhoneCountry(DEFAULT_COUNTRY);
       setInterest(INTERESTS[0]);
+      setModel(defaultModel ?? NOT_SURE);
+      setWanted([]);
       setErrors({});
     }
   }
@@ -130,6 +177,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-4">
+      <BrandDots className="mb-1" />
       <Honeypot />
 
       <div className="flex flex-col gap-1.5">
@@ -231,13 +279,14 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
             id="quote-model"
             name="model"
             required
-            defaultValue={defaultModel ?? "Not sure yet"}
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
             disabled={busy}
             className={`${fieldClass()} appearance-none pr-9`}
           >
             {/* A deliberate answer, not a blank: "not sure" is useful to know. */}
-            <option value="Not sure yet">Not sure yet</option>
-            {machines.map((m) => (
+            <option value={NOT_SURE}>{NOT_SURE}</option>
+            {modelOptions.map((m) => (
               <option key={m.slug} value={m.name}>
                 {m.name}
               </option>
@@ -255,7 +304,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
               key={option}
               type="button"
               disabled={busy}
-              onClick={() => setInterest(option)}
+              onClick={() => chooseInterest(option)}
               aria-pressed={interest === option}
               className={[
                 "h-9 rounded-lg px-3.5 text-[13px] font-medium transition-colors disabled:opacity-60",
@@ -269,6 +318,64 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
           ))}
         </div>
       </div>
+
+      {/* Only a demo needs a date, and only a configurable model has options
+          worth ticking, so both appear once the enquiry type asks for them. */}
+      {booking ? (
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="quote-demoDate" className={LABEL}>
+            Preferred date *
+          </label>
+          <input
+            id="quote-demoDate"
+            name="demoDate"
+            type="date"
+            min={today || undefined}
+            disabled={busy}
+            onChange={() => clearError("demoDate")}
+            aria-invalid={errors.demoDate ? true : undefined}
+            aria-describedby={errors.demoDate ? "quote-demoDate-error" : undefined}
+            className={fieldClass(errors.demoDate)}
+          />
+          {errors.demoDate ? (
+            <FieldError id="quote-demoDate-error" message={errors.demoDate} />
+          ) : null}
+        </div>
+      ) : null}
+
+      {showOptions ? (
+        <div className="flex flex-col gap-2">
+          <span className={LABEL}>
+            {configuring
+              ? `What would you like to configure on the ${selected?.name}?`
+              : `Anything in particular you would like to see on the ${selected?.name}?`}
+          </span>
+          <div className="flex flex-col gap-2">
+            {configOptions.map((option) => {
+              const picked = wanted.includes(option);
+              return (
+                <label
+                  key={option}
+                  className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-3 text-[13.5px] text-[var(--color-ink-muted)] leading-relaxed has-[:checked]:border-[var(--color-brand)] has-[:checked]:bg-[var(--color-brand-subtle)]"
+                >
+                  <input
+                    type="checkbox"
+                    checked={picked}
+                    disabled={busy}
+                    onChange={() =>
+                      setWanted((prev) =>
+                        picked ? prev.filter((o) => o !== option) : [...prev, option],
+                      )
+                    }
+                    className="mt-0.5 size-4 shrink-0 accent-[var(--color-brand)]"
+                  />
+                  {option}
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="quote-message" className={LABEL}>

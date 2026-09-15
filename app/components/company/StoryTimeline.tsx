@@ -54,7 +54,7 @@ export default function StoryTimeline() {
       <div className="max-w-7xl mx-auto px-6 w-full mb-10 lg:mb-12">
         <h2
           id="story-heading"
-          className="font-display text-[2rem] lg:text-[2.75rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1] max-w-[20ch]"
+          className="h2 max-w-[20ch]"
         >
           Ten years from a bold idea to a working bioprinter range
         </h2>
@@ -127,7 +127,7 @@ export default function StoryTimeline() {
           className="group relative shrink-0 lg:w-[26rem] rounded-2xl border border-[var(--color-brand)] bg-[var(--color-brand)] p-7 lg:p-9 flex flex-col justify-between gap-8 text-white transition-transform duration-300 ease-out hover:-translate-y-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
         >
           <div>
-            <h3 className="font-display text-[1.9rem] lg:text-[2.2rem] font-semibold tracking-[-0.025em] leading-[1.1]">
+            <h3 className="h3">
               Explore more
             </h3>
             <p className="mt-4 text-[14.5px] leading-relaxed text-white/80">

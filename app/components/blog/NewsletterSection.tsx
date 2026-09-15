@@ -87,7 +87,7 @@ export default function NewsletterSection() {
       <div className="max-w-7xl mx-auto px-6">
         <h2
           id="newsletter-heading"
-          className="mb-10 font-display text-[1.6rem] lg:text-[2rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.1] lg:mb-14"
+          className="h2 mb-10 lg:mb-14"
         >
           Recent issues
         </h2>

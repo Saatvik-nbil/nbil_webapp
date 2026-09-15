@@ -129,21 +129,35 @@ export default function PublicationsCarousel({
                 <span className="text-[12px] text-[var(--color-ink-faint)]">
                   ( {cardNumber(i)} )
                 </span>
-                <span className="rounded-lg bg-white/75 px-2.5 py-1 text-[12px] font-semibold text-[var(--color-brand-strong)]">
-                  {pub.machine}
-                </span>
+                {pub.machine ? (
+                  <span className="rounded-lg bg-white/75 px-2.5 py-1 text-[12px] font-semibold text-[var(--color-brand-strong)]">
+                    {pub.machine}
+                  </span>
+                ) : null}
               </div>
 
               {/* The paper itself, cropped to its masthead and title block */}
               <div className="relative mx-6 mt-5 flex-1 overflow-hidden rounded-xl border border-white/70 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.10)]">
-                <Image
-                  src={pub.thumb}
-                  alt={`First page of ${pub.title}`}
-                  width={760}
-                  height={983}
-                  sizes="(max-width: 640px) 82vw, 400px"
-                  className="absolute inset-x-0 top-0 w-full transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transform-none"
-                />
+                {pub.thumb ? (
+                  <Image
+                    src={pub.thumb}
+                    alt={`First page of ${pub.title}`}
+                    width={760}
+                    height={983}
+                    sizes="(max-width: 640px) 82vw, 400px"
+                    className="absolute inset-x-0 top-0 w-full transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transform-none"
+                  />
+                ) : (
+                  /* No PDF on file to render a first page from. */
+                  <div className="absolute inset-0 flex flex-col justify-between p-6">
+                    <span className="text-[13px] font-semibold text-[var(--color-brand-strong)]">
+                      {pub.journal}
+                    </span>
+                    <span className="font-display text-[18px] font-semibold leading-[1.3] tracking-[-0.015em] text-[var(--color-ink)]">
+                      {pub.title}
+                    </span>
+                  </div>
+                )}
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent"

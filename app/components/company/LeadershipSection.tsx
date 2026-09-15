@@ -19,7 +19,7 @@ export default function LeadershipSection() {
         <div className="lg:col-span-4 flex flex-col gap-4">
           <h2
             id="leaders-heading"
-            className="font-display text-[2rem] lg:text-[2.6rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+            className="h2"
           >
             Engineers and scientists, in equal measure
           </h2>

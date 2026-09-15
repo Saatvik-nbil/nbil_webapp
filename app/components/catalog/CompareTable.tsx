@@ -78,7 +78,7 @@ export default function CompareTable() {
         <div className="flex flex-col gap-4 max-w-2xl mb-12">
           <h2
             id="compare-heading"
-            className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.12]"
+            className="h2"
           >
             Compare the bioprinter range
           </h2>

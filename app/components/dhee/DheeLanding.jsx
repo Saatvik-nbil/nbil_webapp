@@ -651,68 +651,16 @@ const TESTIMONIALS_DATA = [
   { id: 1, name: "Angel G C", role: "PhD Scholar", company: "MSLS", content: "Earlier, I had to juggle multiple applications for slicing, printer control, and printing, but now everything is available in one place. What I like most about the Trivima Advanced is the three-extruder setup and independent temperature control at both the print head and bed, which makes it really easy to work with a wide variety of biomaterials and polymers.", rating: 5, avatar: "/dhee/angel.jpg" },
 ];
 
-// PLACEHOLDER: swap `quote` for the institution's actual words once we have
-// them signed off. Hovering/focusing a logo below pins its testimonial up
-// front in the card; see `testimonial` on each TRUSTED_LABS entry.
-function placeholderTestimonial(id, org, quote) {
-  return { id, quote, name: "Research Team", org };
-}
-
+// The logo row is trusted-by only: hovering a mark no longer pins a quote,
+// because the quotes that sat here were placeholders attributed to a generic
+// "Research Team" rather than anything an institution actually said. Add a
+// `testimonial` back to an entry once that lab's own words are signed off.
 const TRUSTED_LABS = [
-  {
-    name: "IIT Hyderabad",
-    logo: "/institute/iithyd.webp",
-    testimonial: placeholderTestimonial(
-      "iith",
-      "IIT Hyderabad",
-      "Dhee slots straight into our existing workflow: the slicing and machine control finally live in one place instead of three separate tools. For a multi-user lab that alone has cut a lot of the friction between finishing a design and getting it on the print bed."
-    ),
-  },
-  {
-    name: "KJ Somaiya College of Engineering",
-    logo: "/dhee/college/kjs.png",
-    testimonial: placeholderTestimonial(
-      "kjs",
-      "KJ Somaiya College of Engineering",
-      "Our students picked up Dhee quickly: the interface is intuitive enough that onboarding a new lab member takes an afternoon, not a week. That matters a lot when the team turns over every semester."
-    ),
-  },
-  {
-    name: "ARI Pune",
-    logo: "/dhee/college/ari.webp",
-    testimonial: placeholderTestimonial(
-      "ari",
-      "ARI Pune",
-      "The G-code preview has saved us more than one failed print: we catch layer and support issues before the nozzle ever moves. It's the kind of feature you don't appreciate until you've run without it."
-    ),
-  },
-  {
-    name: "IISc Bangalore",
-    logo: "/dhee/college/iisc.webp",
-    testimonial: placeholderTestimonial(
-      "iisc",
-      "IISc Bangalore",
-      "Per-zone temperature and infill control gave us the fine-grained control our multi-material prints actually needed, without having to fight the slicer to get there."
-    ),
-  },
-  {
-    name: "MIT",
-    logo: "/dhee/college/mit.png",
-    testimonial: placeholderTestimonial(
-      "mit",
-      "MIT",
-      "Reliable, well-documented, and the NBIL team is responsive whenever we've had a question about the software, and that support has mattered as much as the tool itself."
-    ),
-  },
-  {
-    name: "CLRI",
-    logo: "/institute/csir-clri-logo.webp",
-    testimonial: placeholderTestimonial(
-      "clri",
-      "CLRI",
-      "The pause-and-resume feature alone has made Dhee worth switching to: it's flexible in exactly the ways our print schedule needs, and it hasn't let us down on a long run yet."
-    ),
-  },
+  { name: "IIT Hyderabad", logo: "/institute/iithyd.webp" },
+  { name: "KJ Somaiya College of Engineering", logo: "/dhee/college/kjs.png" },
+  { name: "ARI Pune", logo: "/dhee/college/ari.webp" },
+  { name: "MIT", logo: "/dhee/college/mit.png" },
+  { name: "CLRI", logo: "/institute/csir-clri-logo.webp" },
 ];
 
 // Rendered via the shared <TestimonialsCarousel> below, see its usage in

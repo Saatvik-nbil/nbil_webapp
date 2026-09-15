@@ -9,6 +9,7 @@ import {
   Lightbulb,
 } from "@phosphor-icons/react";
 import { OriginButton } from "@/components/ui/origin-button";
+import BrandDots from "@/app/components/shared/BrandDots";
 import {
   FIELD,
   FieldError,
@@ -170,7 +171,7 @@ export default function ProjectForm() {
           >
             <h2
               id="project-form-heading"
-              className="font-display text-[1.75rem] lg:text-[2.1rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)]"
+              className="h2"
             >
               Tell Us About Your Project
             </h2>
@@ -192,6 +193,7 @@ export default function ProjectForm() {
                 noValidate
                 className="relative mt-8 flex flex-col gap-5"
               >
+                <BrandDots />
                 <Honeypot />
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">

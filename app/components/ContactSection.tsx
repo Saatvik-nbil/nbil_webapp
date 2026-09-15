@@ -1,24 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { EnvelopeSimple, MapPin, Sliders, Wrench, Headset } from "@phosphor-icons/react";
+import { Sliders, Wrench, Headset } from "@phosphor-icons/react";
 import QuoteForm from "@/app/components/forms/QuoteForm";
-import { COMPANY, formatAddress } from "@/lib/machines";
-
-const CONTACTS = [
-  {
-    icon: EnvelopeSimple,
-    label: "Email",
-    value: COMPANY.email,
-    href: `mailto:${COMPANY.email}` as string | undefined,
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: formatAddress(),
-    href: undefined,
-  },
-];
 
 /** What a lab actually gets, spelled out next to the form. Configurability is
  *  the range's main selling point, so it leads: see the `customisation` field
@@ -66,7 +50,7 @@ export default function ContactSection({ defaultModel }: { defaultModel?: string
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[2rem] lg:text-[2.75rem] font-display font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.15]"
+              className="h2"
             >
               Find the right Trivima for your lab
             </motion.h2>
@@ -107,39 +91,6 @@ export default function ContactSection({ defaultModel }: { defaultModel?: string
               ))}
             </motion.ul>
 
-            {/* Contact details */}
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: 0.16, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-4 border-t border-[var(--color-hairline)] pt-6 sm:flex-row sm:gap-10"
-            >
-              {CONTACTS.map(({ icon: Icon, label, value, href }) => (
-                <div key={label} className="flex items-start gap-3">
-                  <div className="size-8 rounded-lg bg-[var(--color-brand-surface)] flex items-center justify-center shrink-0 mt-0.5">
-                    <Icon size={15} weight="duotone" className="text-[var(--color-brand)]" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] mb-0.5">
-                      {label}
-                    </p>
-                    {href ? (
-                      <a
-                        href={href}
-                        className="text-[14px] text-[var(--color-ink)] hover:text-[var(--color-brand-strong)] transition-colors leading-relaxed"
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[32ch]">
-                        {value}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
           {/* Right: quote request form */}

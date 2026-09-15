@@ -36,7 +36,7 @@ export default function NotFound() {
               <p className="font-display text-[clamp(4.5rem,14vw,8rem)] font-bold leading-none tracking-[-0.03em] text-[var(--color-brand)]">
                 404
               </p>
-              <h1 className="font-display text-[2.25rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] sm:text-[2.75rem]">
+              <h1 className="h1">
                 We couldn&apos;t find that page
               </h1>
               <p className="text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">

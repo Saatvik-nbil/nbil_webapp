@@ -79,7 +79,7 @@ export default function ArticleBody({ blocks }: { blocks: Block[] }) {
             return (
               <h2
                 key={i}
-                className="mt-6 font-display text-[1.5rem] font-semibold leading-[1.2] tracking-[-0.02em] text-[var(--color-ink)] lg:text-[1.85rem]"
+                className="h2 mt-6"
               >
                 <Inlines nodes={b.content} />
               </h2>

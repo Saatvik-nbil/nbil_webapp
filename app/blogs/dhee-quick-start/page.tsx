@@ -280,7 +280,7 @@ export default function DheeQuickStartPage() {
             >
               &larr; Next Big Blogs
             </Link>
-            <h1 className="mt-6 font-display text-[clamp(2.1rem,5.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)]">
+            <h1 className="h1 mt-6">
               {TITLE}
             </h1>
             <p className="mt-6 text-[17px] leading-relaxed text-[var(--color-ink-muted)]">

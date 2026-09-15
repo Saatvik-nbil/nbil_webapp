@@ -53,7 +53,7 @@ export default function TeamLanding() {
         <motion.h1
           id="team-heading"
           {...rise(0.06)}
-          className="mt-4 max-w-[20ch] font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.03em] text-[var(--color-ink)] sm:text-[3.25rem] lg:text-[3.75rem]"
+          className="h1 mt-4 max-w-[20ch]"
         >
           The people printing a better future
         </motion.h1>
@@ -132,7 +132,7 @@ export default function TeamLanding() {
           <motion.div {...rise(0)} className="flex flex-col gap-4">
             <h2
               id="wider-team-heading"
-              className="max-w-[24ch] font-display text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--color-ink)] lg:text-[2.5rem]"
+              className="h2 max-w-[24ch]"
             >
               Engineers, scientists and makers behind every print
             </h2>

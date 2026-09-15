@@ -39,8 +39,10 @@ const FRAGMENT_SRC = `
   const float minorLineFrequency = 1.0;
   const vec4 gridColor = vec4(0.5);
   const float scale = 5.0;
-  // --color-brand #2572fd (37/255, 114/255, 253/255)
-  const vec4 lineColor = vec4(0.145, 0.447, 0.992, 1.0);
+  // --color-warm-accent #a97722 (169/255, 119/255, 34/255). Golden brown
+  // rather than the brand blue: these waves sit on the beige mission ground,
+  // where blue read as a different palette bolted on.
+  const vec4 lineColor = vec4(0.663, 0.467, 0.133, 1.0);
   const float minLineWidth = 0.01;
   const float maxLineWidth = 0.2;
   const float lineSpeed = 1.0 * overallSpeed;

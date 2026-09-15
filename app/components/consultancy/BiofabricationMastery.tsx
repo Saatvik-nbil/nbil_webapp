@@ -34,7 +34,7 @@ export default function BiofabricationMastery() {
         >
           <h2
             id="mastery-heading"
-            className="font-display text-[2.25rem] lg:text-[3.25rem] font-semibold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.05]"
+            className="h2"
           >
             Biofabrication Mastery
           </h2>

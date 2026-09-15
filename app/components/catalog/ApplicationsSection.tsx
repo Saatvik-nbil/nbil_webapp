@@ -1,10 +1,10 @@
 "use client";
 
+import { useId, useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
-import { Drop, Bone, Heartbeat, Wind, Pill, Plant, Dna } from "@phosphor-icons/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { Drop, Bone, Heartbeat, Pill, Dna, CaretDown } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
-import MobileCollapse from "@/components/ui/mobile-collapse";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -22,8 +22,9 @@ type ApplicationGroup = {
   items: Application[];
 };
 
-// Grouped rather than flat: the range covers enough ground now that one long
-// list buries the pharma, food and patient-specific work under the tissue work.
+// Grouped rather than flat, and five fields rather than seven: the range
+// covers enough ground now that one long list buries the pharma, food and
+// patient-specific work under the tissue work.
 const APPLICATION_GROUPS: ApplicationGroup[] = [
   {
     group: "Soft tissue",
@@ -77,8 +78,8 @@ const APPLICATION_GROUPS: ApplicationGroup[] = [
     ],
   },
   {
-    group: "Vascular & cardiovascular",
-    blurb: "Rotary and non-planar bioprinting for lumens, conduits and curved surfaces.",
+    group: "Vascular, respiratory & organ-on-chip",
+    blurb: "Rotary, non-planar and high-resolution bioprinting, where the internal geometry is the experiment.",
     icon: Heartbeat,
     hover: "group-hover:scale-125",
     items: [
@@ -102,14 +103,6 @@ const APPLICATION_GROUPS: ApplicationGroup[] = [
         body: "Perfusable grafts, small-diameter vessels and ducts via coaxial and rotary bioprinting.",
         models: "NP · Pro",
       },
-    ],
-  },
-  {
-    group: "Respiratory & organ-on-chip",
-    blurb: "High-resolution bioprinting where the internal geometry is the experiment.",
-    icon: Wind,
-    hover: "group-hover:translate-x-1 group-hover:scale-110",
-    items: [
       {
         title: "Alveolar & lung-parenchyma models",
         body: "Thin-walled alveolar sacs and acinar geometries bioprinted to study gas exchange, surfactant behaviour and inhaled-drug response.",
@@ -133,8 +126,8 @@ const APPLICATION_GROUPS: ApplicationGroup[] = [
     ],
   },
   {
-    group: "Pharma & nutraceutical printing",
-    blurb: "Dose-on-demand printing for personalised medicine and supplement research.",
+    group: "Pharma, nutraceutical & cellular agriculture",
+    blurb: "Dose-on-demand printing, and bioprinting beyond the clinic where the same extrusion physics applies.",
     icon: Pill,
     hover: "group-hover:-rotate-[25deg] group-hover:scale-110",
     items: [
@@ -148,14 +141,6 @@ const APPLICATION_GROUPS: ApplicationGroup[] = [
         body: "Printed supplement formats with tailored actives, layered release and per-patient nutrient loading.",
         models: "Pro · NP",
       },
-    ],
-  },
-  {
-    group: "Cellular agriculture & materials",
-    blurb: "Bioprinting beyond the clinic, where the same extrusion physics applies.",
-    icon: Plant,
-    hover: "group-hover:rotate-12 group-hover:scale-110",
-    items: [
       {
         title: "Cultivated meat",
         body: "Muscle and adipose constructs bioprinted onto edible scaffolds to build whole-cut texture rather than mince.",
@@ -195,92 +180,135 @@ const APPLICATION_GROUPS: ApplicationGroup[] = [
 
 export default function ApplicationsSection() {
   const reduce = useReducedMotion();
+  const panelBase = useId();
+  /* One field open at a time. Laying all five out at once made this the
+     longest single run on the site; collapsed, the section is a five-line
+     list until the reader asks for a field, and opening one closes the last. */
+  const [openGroup, setOpenGroup] = useState(APPLICATION_GROUPS[0].group);
 
   return (
     <section id="applications" aria-labelledby="applications-heading" className="py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-        {/* Sticky intro */}
-        <div className="lg:col-span-4">
-          <div className="lg:sticky lg:top-28 flex flex-col gap-4">
-            <h2
-              id="applications-heading"
-              className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
-            >
-              What researchers bioprint
-            </h2>
-            <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-              Across the range, Trivima bioprinters fabricate the constructs behind
-              tissue engineering, regenerative medicine, cellular agriculture and
-              personalised medicine.
-            </p>
-            <p className="text-[14px] text-[var(--color-ink-muted)]">
-              Not sure which bioprinter fits?{" "}
-              <Link href="#contact" className="font-medium text-[var(--color-brand-strong)] hover:underline underline-offset-4">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-10 lg:mb-14 flex max-w-[62ch] flex-col gap-4">
+          <h2
+            id="applications-heading"
+            className="h2"
+          >
+            What researchers bioprint
+          </h2>
+          <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
+            Across the range, Trivima bioprinters fabricate the constructs behind
+            tissue engineering, regenerative medicine, cellular agriculture and
+            personalised medicine. Pick a field to see what it covers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+          {/* The five fields, collapsed. */}
+          <div className="lg:col-span-8">
+            <div className="border-t border-[var(--color-hairline)]">
+              {APPLICATION_GROUPS.map(({ group, blurb, icon: Icon, hover, items }) => {
+                const open = openGroup === group;
+                const panelId = panelBase + "-" + group.replace(/\W+/g, "-");
+
+                return (
+                  <div key={group} className="border-b border-[var(--color-hairline)]">
+                    <h3>
+                      <button
+                        type="button"
+                        onClick={() => setOpenGroup(open ? "" : group)}
+                        aria-expanded={open}
+                        aria-controls={panelId}
+                        className="group flex w-full items-center gap-3 py-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)]/60 focus-visible:ring-offset-2"
+                      >
+                        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand-surface)]">
+                          <Icon
+                            size={20}
+                            weight="duotone"
+                            aria-hidden="true"
+                            className={"text-[var(--color-brand-strong)] " + ICON_MOTION + " " + hover}
+                          />
+                        </span>
+                        <span className="flex-1 font-display text-[1.25rem] lg:text-[1.375rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
+                          {group}
+                        </span>
+                        <span className="shrink-0 text-[13px] text-[var(--color-ink-muted)] tabular-nums">
+                          {items.length}
+                        </span>
+                        <CaretDown
+                          size={16}
+                          weight="bold"
+                          aria-hidden="true"
+                          className={
+                            "shrink-0 text-[var(--color-ink-muted)] transition-transform duration-300 motion-reduce:transition-none " +
+                            (open ? "rotate-180" : "")
+                          }
+                        />
+                      </button>
+                    </h3>
+
+                    <AnimatePresence initial={false}>
+                      {open ? (
+                        <motion.div
+                          key="panel"
+                          id={panelId}
+                          initial={reduce ? false : { height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                          transition={{ duration: reduce ? 0 : 0.35, ease: EASE }}
+                          className="overflow-hidden"
+                        >
+                          <p className="pb-5 text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[56ch]">
+                            {blurb}
+                          </p>
+                          <dl className="border-t border-[var(--color-hairline)]">
+                            {items.map((app) => (
+                              <div
+                                key={app.title}
+                                className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 border-b border-[var(--color-hairline)] py-5 last:border-b-0"
+                              >
+                                <div className="flex flex-col gap-1.5">
+                                  <dt className="font-display text-[1.0625rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
+                                    {app.title}
+                                  </dt>
+                                  <dd className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[52ch]">
+                                    {app.body}
+                                  </dd>
+                                </div>
+                                <span className="text-[12px] text-[var(--color-brand-strong)] sm:text-right sm:pt-1 whitespace-nowrap">
+                                  {app.models}
+                                </span>
+                              </div>
+                            ))}
+                          </dl>
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Stays in view while the reader works down the list. */}
+          <aside className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6">
+              <p className="font-display text-[1.125rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
+                Not sure which bioprinter fits?
+              </p>
+              <p className="mt-2 text-[14px] text-[var(--color-ink-muted)] leading-relaxed">
+                Tell us what you are trying to build and our support team will
+                point you at the right machine in the range.
+              </p>
+              <Link
+                href="#contact"
+                className="mt-4 inline-flex text-[14px] font-medium text-[var(--color-brand-strong)] hover:underline underline-offset-4"
+              >
                 Talk to us
               </Link>
-              {" "}and our support team will help you choose.
-            </p>
-          </div>
-        </div>
-
-        {/* Application rows, grouped by field. Every group is a full list of
-            rows, which on a phone is the longest single run on the site, so it
-            opens on the first field with the rest a tap away. */}
-        <MobileCollapse
-          collapsedHeight={900}
-          moreLabel="Show all applications"
-          lessLabel="Show fewer applications"
-          fadeTo="var(--color-canvas)"
-          className="lg:col-span-8"
-        >
-        <div className="flex flex-col gap-14">
-          {APPLICATION_GROUPS.map(({ group, blurb, icon: Icon, hover, items }) => (
-            <div key={group} className="flex flex-col">
-              <div className="group flex flex-col gap-2 pb-5">
-                <h3 className="flex items-center gap-3 font-display text-[1.375rem] lg:text-[1.5rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--color-brand-surface)]">
-                    <Icon
-                      size={20}
-                      weight="duotone"
-                      aria-hidden="true"
-                      className={`text-[var(--color-brand-strong)] ${ICON_MOTION} ${hover}`}
-                    />
-                  </span>
-                  {group}
-                </h3>
-                <p className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[56ch]">
-                  {blurb}
-                </p>
-              </div>
-
-              <dl className="border-t border-[var(--color-hairline)]">
-                {items.map((app, i) => (
-                  <motion.div
-                    key={app.title}
-                    initial={reduce ? false : { opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ delay: (i % 2) * 0.05, duration: 0.5, ease: EASE }}
-                    className="group grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-6 gap-y-1.5 border-b border-[var(--color-hairline)] py-6"
-                  >
-                    <div className="flex flex-col gap-1.5">
-                      <dt className="font-display text-[1.125rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
-                        {app.title}
-                      </dt>
-                      <dd className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed max-w-[52ch]">
-                        {app.body}
-                      </dd>
-                    </div>
-                    <span className="text-[12px] text-[var(--color-brand-strong)] sm:text-right sm:pt-1 whitespace-nowrap">
-                      {app.models}
-                    </span>
-                  </motion.div>
-                ))}
-              </dl>
             </div>
-          ))}
+          </aside>
         </div>
-        </MobileCollapse>
       </div>
     </section>
   );

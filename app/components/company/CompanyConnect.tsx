@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, EnvelopeSimple, MapPin, Flask, Handshake } from "@phosphor-icons/react";
-import { COMPANY, formatAddress } from "@/lib/machines";
+import { ArrowRight, Flask, Handshake } from "@phosphor-icons/react";
+import { COMPANY } from "@/lib/machines";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { OriginButton } from "@/components/ui/origin-button";
 
@@ -40,7 +40,7 @@ export default function CompanyConnect() {
         <motion.div {...rise(0)} className="flex flex-col gap-4 max-w-3xl mb-14">
           <h2
             id="connect-heading"
-            className="font-display text-[2.2rem] lg:text-[3.2rem] font-semibold tracking-[-0.025em] text-[var(--color-warm-ink)] leading-[1.08]"
+            className="h2"
           >
             Let&rsquo;s print a better future, together.
           </h2>
@@ -110,35 +110,6 @@ export default function CompanyConnect() {
           </motion.div>
         </div>
 
-        {/* Contact line */}
-        <motion.div
-          {...rise(0.18)}
-          className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-[var(--color-warm-border)] pt-8"
-        >
-          {[
-            { icon: EnvelopeSimple, label: "Email", value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-            {
-              icon: MapPin,
-              label: "Location",
-              value: formatAddress({ country: false }),
-              href: undefined as string | undefined,
-            },
-          ].map(({ icon: Icon, label, value, href }) => (
-            <div key={label} className="flex items-start gap-3">
-              <Icon size={18} weight="duotone" className="mt-0.5 shrink-0 text-[var(--color-warm-brand)]" aria-hidden="true" />
-              <div className="flex flex-col gap-0.5">
-                <span className="text-[12.5px] font-semibold text-[var(--color-warm-ink)]">{label}</span>
-                {href ? (
-                  <a href={href} className="text-[14px] text-[var(--color-warm-ink)] hover:text-[var(--color-warm-brand)] transition-colors leading-relaxed">
-                    {value}
-                  </a>
-                ) : (
-                  <span className="text-[14px] text-[var(--color-warm-ink-muted)] leading-relaxed">{value}</span>
-                )}
-              </div>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

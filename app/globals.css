@@ -40,6 +40,7 @@
   --color-warm-ink-muted: #4a5568;   /* body copy, 6.0:1 on --color-warm-bg */
   --color-warm-border: #dcd3bf;      /* hairlines that read against the beige */
   --color-warm-brand: #1d4ed8;       /* accent blue, 6.7:1 on --color-warm-bg */
+  --color-warm-accent: #a97722;      /* golden brown; shader-background.tsx mirrors this as a GLSL constant */
 
   /* Ground behind a full-bleed hero photograph, and the accent blue for the
      few cards that are still deliberately dark (the highlighted consultancy
@@ -96,6 +97,34 @@ p {
   text-wrap: pretty;
   max-width: 65ch;
 }
+
+/* ---- Standard heading scale. Section and page headings carry .h1/.h2/.h3
+   rather than a per-component size, so the same level is the same size on
+   every page. Each one fluid, so there is no separate lg: size to keep in
+   step. Card and inline headings stay at their own smaller sizes: they are
+   not part of this scale. ---- */
+.h1 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+.h2 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1.875rem, 3.2vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+.h3 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
 
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar { width: 8px; }

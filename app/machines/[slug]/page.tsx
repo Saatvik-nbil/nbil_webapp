@@ -46,7 +46,7 @@ const ICON_MOTION =
   "transition-transform duration-500 ease-out motion-reduce:transition-none motion-reduce:transform-none";
 
 const SectionHeading = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="font-display text-[1.625rem] lg:text-[2rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-tight">
+  <h2 className="h2">
     {children}
   </h2>
 );
@@ -144,7 +144,7 @@ export default async function MachinePage({
                 </div>
                 <h1
                   id="machine-heading"
-                  className="font-display text-[2.5rem] lg:text-[3.25rem] font-semibold tracking-[-0.03em] text-[var(--color-ink)] leading-[1.05]"
+                  className="h1"
                 >
                   {machine.name}
                 </h1>
@@ -221,7 +221,7 @@ export default async function MachinePage({
             <div className="lg:col-span-3">
               <h2
                 id="overview-heading"
-                className="font-display text-[1.625rem] lg:text-[2rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-tight"
+                className="h2"
               >
                 Overview
               </h2>
@@ -240,44 +240,12 @@ export default async function MachinePage({
         {/* Guided part-by-part camera tour (NP only) */}
         {machine.slug === "trivima-np" && <AnatomyScroll />}
 
-        {/* Specifications */}
-        <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
-          <div className="max-w-7xl mx-auto px-6">
-            <Reveal className="mb-10 w-fit">
-              <SectionHeading><span id="specs-heading">Technical specifications</span></SectionHeading>
-            </Reveal>
-            {/* Twenty-odd specs are a single tall column on a phone, so the
-                list opens partly closed there. */}
-            <MobileCollapse
-              collapsedHeight={620}
-              moreLabel="Show all specifications"
-              lessLabel="Show fewer specifications"
-              fadeTo="var(--color-surface)"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {machine.specs.map((s, i) => (
-                  <Reveal
-                    key={s.label}
-                    delay={(i % 2) * 0.05}
-                    className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 transition-colors hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)]"
-                  >
-                    <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
-                      {s.label}
-                    </span>
-                    <span className="text-[15px] font-medium text-[var(--color-ink)] leading-snug">
-                      {s.value}
-                    </span>
-                  </Reveal>
-                ))}
-              </div>
-            </MobileCollapse>
-          </div>
-        </section>
-
         {/* Features + Technologies */}
-        <section aria-labelledby="features-heading" className="py-20 lg:py-28 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Features */}
+        <section aria-labelledby={machine.features?.length ? "features-heading" : "technologies-heading"} className="py-20 lg:py-28 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
+          <div className={`max-w-7xl mx-auto px-6 grid grid-cols-1 gap-12 lg:gap-16 ${machine.features?.length ? "lg:grid-cols-2" : ""}`}>
+            {/* Features. Absent on Aura, where the column is dropped rather
+                than left as an empty heading. */}
+            {machine.features?.length ? (
             <div className="flex flex-col gap-8">
               <Reveal className="w-fit">
                 <SectionHeading><span id="features-heading">Key features</span></SectionHeading>
@@ -294,11 +262,12 @@ export default async function MachinePage({
                 ))}
               </ul>
             </div>
+            ) : null}
 
             {/* Technologies + fixtures */}
             <div className="flex flex-col gap-8">
               <Reveal className="w-fit">
-                <h2 className="font-display text-[1.625rem] lg:text-[2rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-tight">
+                <h2 id="technologies-heading" className="h2">
                   Printing technologies
                 </h2>
               </Reveal>
@@ -338,6 +307,42 @@ export default async function MachinePage({
                 </div>
               )}
             </div>
+          </div>
+        </section>
+
+        {/* Specifications. Kept immediately above the build-to-spec block
+            so a reader who has just seen the numbers learns which of them
+            move. */}
+        <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6">
+            <Reveal className="mb-10 w-fit">
+              <SectionHeading><span id="specs-heading">Technical specifications</span></SectionHeading>
+            </Reveal>
+            {/* Twenty-odd specs are a single tall column on a phone, so the
+                list opens partly closed there. */}
+            <MobileCollapse
+              collapsedHeight={620}
+              moreLabel="Show all specifications"
+              lessLabel="Show fewer specifications"
+              fadeTo="var(--color-surface)"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {machine.specs.map((s, i) => (
+                  <Reveal
+                    key={s.label}
+                    delay={(i % 2) * 0.05}
+                    className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-5 transition-colors hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)]"
+                  >
+                    <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--color-ink-faint)]">
+                      {s.label}
+                    </span>
+                    <span className="text-[15px] font-medium text-[var(--color-ink)] leading-snug">
+                      {s.value}
+                    </span>
+                  </Reveal>
+                ))}
+              </div>
+            </MobileCollapse>
           </div>
         </section>
 

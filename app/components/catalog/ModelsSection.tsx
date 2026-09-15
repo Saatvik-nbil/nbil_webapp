@@ -3,7 +3,7 @@ import ModelsRow from "./ModelsRow";
 
 // Order the row reads left to right: the two specialised systems first, the
 // flagship last, matching how the range is introduced everywhere else.
-const ORDER = ["trivima-np", "trivima-aura", "trivima-pro"];
+const ORDER = ["trivima-np", "trivima-pro", "trivima-aura"];
 
 export default function ModelsSection() {
   const ordered = ORDER.map((slug) => machines.find((m) => m.slug === slug)).filter(
@@ -17,7 +17,7 @@ export default function ModelsSection() {
         <div className="mb-10 flex flex-col gap-4 max-w-2xl lg:mb-14">
           <h2
             id="models-heading"
-            className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.12]"
+            className="h2"
           >
             One family, three bioprinters, each built to your spec
           </h2>

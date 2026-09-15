@@ -129,7 +129,7 @@ export default function FocusAreas() {
           <div className="flex flex-col gap-4">
             <h2
               id="focus-heading"
-              className="font-display text-[2rem] lg:text-[2.6rem] font-semibold tracking-[-0.025em] text-[var(--color-ink)] leading-[1.1]"
+              className="h2"
             >
               Tools for the work that matters
             </h2>

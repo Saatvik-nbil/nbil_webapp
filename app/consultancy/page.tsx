@@ -6,7 +6,6 @@ import BiofabricationMastery from "@/app/components/consultancy/BiofabricationMa
 import CaseStudies from "@/app/components/consultancy/CaseStudies";
 import ConsultancyWalkthrough from "@/app/components/consultancy/ConsultancyWalkthrough";
 import ConsultancyServices from "@/app/components/consultancy/ConsultancyServices";
-import ConsultancyTestimonials from "@/app/components/consultancy/ConsultancyTestimonials";
 import ProjectForm from "@/app/components/consultancy/ProjectForm";
 
 export const metadata: Metadata = {
@@ -41,7 +40,6 @@ export default function ConsultancyPage() {
         <CaseStudies />
         <ConsultancyWalkthrough />
         <ConsultancyServices />
-        <ConsultancyTestimonials />
         <ProjectForm />
       </main>
       <Footer />

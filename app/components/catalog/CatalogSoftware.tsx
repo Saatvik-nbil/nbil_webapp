@@ -58,7 +58,7 @@ export default function CatalogSoftware() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, ease: EASE }}
-              className="font-display text-[2rem] lg:text-[2.5rem] font-semibold tracking-[-0.025em] leading-[1.12]"
+              className="h2"
               style={{ color: "var(--color-warm-ink)" }}
             >
               Stop switching between software. Run every print from one place.
