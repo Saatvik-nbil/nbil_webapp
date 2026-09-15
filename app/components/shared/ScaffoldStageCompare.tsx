@@ -23,7 +23,7 @@ export default function ScaffoldStageCompare() {
         },
         {
           src: "/images/consultancy/printed-model.webp",
-          alt: "The scaffold bioprinted, held in solution",
+          alt: "The bifurcated aorta scaffold bioprinted, resting on blue silk",
           label: "Bioprinted",
         },
       ]}

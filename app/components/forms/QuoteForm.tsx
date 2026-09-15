@@ -62,7 +62,12 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
   const configuring = interest === CONFIGURE;
   const modelOptions = configuring ? CONFIGURABLE : machines;
   const selected = machines.find((m) => m.name === model);
-  const configOptions = selected?.customisation?.options ?? [];
+  /* A configuration enquiry picks a named build, a demo booking picks what it
+     would like to see on the bench. */
+  const configOptions = configuring
+    ? selected?.configurations ??
+      CONFIGURABLE.flatMap((m) => m.configurations ?? [])
+    : selected?.customisation?.options ?? [];
   const showOptions = (booking || configuring) && configOptions.length > 0;
 
   useEffect(() => {
@@ -145,7 +150,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
           ? [{ label: "Preferred Demo Date", value: readField(data, "demoDate"), required: true }]
           : []),
         ...(wanted.length
-          ? [{ label: configuring ? "Options to Configure" : "Wants to See", value: wanted.join(", ") }]
+          ? [{ label: configuring ? "Configuration" : "Wants to See", value: wanted.join(", ") }]
           : []),
         { label: "Message", value: message, required: true },
       ],
@@ -298,7 +303,11 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
 
       <div className="flex flex-col gap-2">
         <span className={LABEL}>What do you need? *</span>
-        <div className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-1.5">
+        {/* A 2x2 grid rather than wrap: four chips of uneven width left
+            "General enquiry" stranded on a second row on its own, and four
+            across is too narrow for "Custom configuration" in the column this
+            form sits in. */}
+        <div className="grid grid-cols-2 gap-1.5 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)] p-1.5">
           {INTERESTS.map((option) => (
             <button
               key={option}
@@ -307,7 +316,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
               onClick={() => chooseInterest(option)}
               aria-pressed={interest === option}
               className={[
-                "h-9 rounded-lg px-3.5 text-[13px] font-medium transition-colors disabled:opacity-60",
+                "flex min-h-9 w-full items-center justify-center rounded-lg px-2 py-2 text-center text-[13px] font-medium leading-tight transition-colors disabled:opacity-60",
                 interest === option
                   ? "bg-[var(--color-brand)] text-white"
                   : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
@@ -347,7 +356,9 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
         <div className="flex flex-col gap-2">
           <span className={LABEL}>
             {configuring
-              ? `What would you like to configure on the ${selected?.name}?`
+              ? selected
+                ? `Which ${selected.name} configuration?`
+                : "Which configuration?"
               : `Anything in particular you would like to see on the ${selected?.name}?`}
           </span>
           <div className="flex flex-col gap-2">

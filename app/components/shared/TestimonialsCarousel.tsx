@@ -68,12 +68,12 @@ function initialsOf(name: string) {
  *  and the one shown on hovering a trusted-by logo. */
 function TestimonialCardBody({ t }: { t: Testimonial }) {
   return (
-    <div className="flex h-full flex-col rounded-[20px] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-9 pb-7 shadow-[0_8px_40px_-8px_rgba(37,114,253,0.16),0_1px_4px_rgba(0,0,0,0.04)]">
+    <div className="flex h-full flex-col rounded-[20px] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-9 pb-7 shadow-[0_8px_40px_-8px_rgba(169,119,34,0.18),0_1px_4px_rgba(0,0,0,0.04)]">
       <div className="relative mb-7 flex-1">
         <Quotes
           weight="fill"
           size={32}
-          className="absolute -top-1 -left-1 rotate-180 text-[var(--color-brand)]/[0.14]"
+          className="absolute -top-1 -left-1 rotate-180 text-[var(--color-warm-accent)]/[0.18]"
           aria-hidden="true"
         />
         <p className="relative z-[1] text-[16px] font-medium leading-[1.7] tracking-[-0.01em] text-[var(--color-ink)]">
@@ -93,7 +93,7 @@ function TestimonialCardBody({ t }: { t: Testimonial }) {
         ) : (
           <span
             aria-hidden="true"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-hairline)] bg-[var(--color-brand-surface)] text-[13px] font-semibold text-[var(--color-brand-strong)]"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-hairline)] bg-[var(--color-warm-accent)]/12 text-[13px] font-semibold text-[var(--color-warm-accent)]"
           >
             {initialsOf(t.name)}
           </span>
@@ -127,7 +127,7 @@ function LogoMark({ lab }: { lab: TrustedLogo }) {
   return (
     <span
       title={lab.name}
-      className="flex h-[60px] max-w-[170px] items-center rounded-lg border border-dashed border-[var(--color-hairline)] px-3 text-left text-[11.5px] font-medium leading-tight text-[var(--color-ink-faint)] transition-colors duration-300 group-hover:border-[var(--color-brand)] group-hover:text-[var(--color-brand-strong)]"
+      className="flex h-[60px] max-w-[170px] items-center rounded-lg border border-dashed border-[var(--color-hairline)] px-3 text-left text-[11.5px] font-medium leading-tight text-[var(--color-ink-faint)] transition-colors duration-300 group-hover:border-[var(--color-warm-accent)] group-hover:text-[var(--color-warm-accent)]"
     >
       {lab.name}
     </span>
@@ -203,8 +203,8 @@ export default function TestimonialsCarousel({
                     aria-hidden="true"
                     className={`block h-2.5 rounded-full transition-all duration-300 ease-out ${
                       active === i
-                        ? "w-9 bg-[var(--color-brand)]"
-                        : "w-2.5 bg-[var(--color-brand)]/20 hover:bg-[var(--color-brand)]/35"
+                        ? "w-9 bg-[var(--color-warm-accent)]"
+                        : "w-2.5 bg-[var(--color-warm-accent)]/25 hover:bg-[var(--color-warm-accent)]/45"
                     }`}
                   />
                 </button>
@@ -270,11 +270,11 @@ export default function TestimonialsCarousel({
         >
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-2xl bg-[var(--color-brand)]/5"
+            className="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-2xl bg-[var(--color-warm-accent)]/8"
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-2xl bg-[var(--color-brand)]/5"
+            className="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-2xl bg-[var(--color-warm-accent)]/8"
           />
 
           {testimonials.map((t, i) => (

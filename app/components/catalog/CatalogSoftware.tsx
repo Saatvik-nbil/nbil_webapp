@@ -97,7 +97,7 @@ export default function CatalogSoftware() {
                 treatment. */}
             <div className="mt-1 flex flex-col gap-1">
               <h3
-                className="mb-2 font-display text-[15px] font-semibold"
+                className="mb-3 font-display text-[17px] font-semibold"
                 style={{ color: "var(--color-warm-brand)" }}
               >
                 Dhee features
@@ -114,16 +114,16 @@ export default function CatalogSoftware() {
                       duration: 0.5,
                       ease: EASE,
                     }}
-                    className="flex flex-col gap-1.5 py-4"
+                    className="flex flex-col gap-1.5 py-5"
                   >
                     <dt
-                      className="text-[15px] font-semibold"
+                      className="text-[1.0625rem] font-semibold"
                       style={{ color: "var(--color-warm-ink)" }}
                     >
                       {f.title}
                     </dt>
                     <dd
-                      className="text-[13.5px] leading-relaxed"
+                      className="text-[15px] leading-relaxed"
                       style={{ color: "var(--color-warm-ink-muted)" }}
                     >
                       {f.body}

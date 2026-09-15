@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Timeline3D, { type TimelineEvent } from "@/components/ui/3d-interactive-timeline";
-import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
+import VideoHeroBackdrop from "@/app/components/VideoHeroBackdrop";
 import MobileCollapse from "@/components/ui/mobile-collapse";
 import { OriginButton } from "@/components/ui/origin-button";
 import {
@@ -56,9 +56,11 @@ export default function OurStoryLanding() {
         data-nav-theme="dark"
         className="relative isolate flex min-h-svh items-center overflow-hidden bg-[var(--color-photo-ground)] pt-32 pb-28 lg:pt-40 lg:pb-32"
       >
-        <PhotoHeroBackdrop
-          src="/images/heroes/our-story-hero.webp"
-          objectPosition="50% 58%"
+        <VideoHeroBackdrop
+          webm="/video/our-story.webm"
+          mp4="/video/our-story.mp4"
+          poster="/video/our-story-poster.webp"
+          objectPosition="60% center"
         />
         <div className="relative mx-auto w-full max-w-7xl px-6">
           <motion.h1

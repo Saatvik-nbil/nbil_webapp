@@ -31,9 +31,13 @@ export type Publication = {
   machine?: string;
   institutions: string[];
   topics: string[];
-  /** First-page render, in public/publications/thumbs. Absent where we do
-   *  not hold the PDF to render one from. */
+  /** Card image, in public/publications/thumbs. Normally a render of the
+   *  paper's own first page; absent where we do not hold the PDF to render
+   *  one from. */
   thumb?: string;
+  /** Set only where `thumb` is not a first-page render, so the alt text does
+   *  not claim to be one. */
+  thumbAlt?: string;
   /** Where the record came from. Provenance only: the site links readers to
    *  the publisher, never to a PDF of the paper. Absent for records taken
    *  from the publisher's own metadata rather than a PDF we hold. */
@@ -62,6 +66,12 @@ export const publications: Publication[] = [
       "Fabrication of complex, multi-layered tissue architecture using decellularized extracellular matrix (dECM)-based hydrogel ink is fundamentally limited by the biomaterial's inherent mechanical fragility and slow gelation kinetics, which severely compromise structural fidelity. Herein, we present REFRESH\u2014Reversible Embedded Bioprinting for Faster Reinforcement and Structuring of dECM Hydrogels, a next-generation embedded bioprinting platform designed for high-fidelity fabrication of anatomically relevant tissue constructs using dECM hydrogels. At the core of this system is a custom-engineered polyethylene glycol (PEG)-gelatin microgel suspension bath that performs dual functions: it modulates the bath's rheological behavior, enhancing yield stress, shear-thinning, and self-healing properties necessary for precise deposition, and actively promotes in situ gelation of dECM hydrogel inks via hydrogen bonding and crowding-induced interactions. This enables faster filament stabilization, reduced structural fusion, and improved print fidelity compared to conventional thermal gelation. We recreated the zonal architecture of the trachea by co-printing cartilage- and trachealis muscle-derived dECM's encapsulating primary chondrocytes, fibroblasts, and subsequent epithelialization to form a biomimetic luminal surface. Furthermore, we fabricated functional trifurcated bronchial structures using lung-derived dECM that supported stromal-like mesenchymal behavior with contractile marker expression. The versatility of the REFRESH platform was further validated by the successful printing of a diverse array of tissue-specific dECM hydrogels beyond the airway system.",
     institutions: ["Indian Institute of Technology Hyderabad"],
     topics: ["Embedded bioprinting", "dECM hydrogels", "Tracheal tissue"],
+    /* The issue cover rather than this paper's own first page: we do not
+       hold the PDF to render one from, and the cover is for the exact issue
+       the paper appears in. `thumbAlt` keeps the alt text honest about that. */
+    thumb: "/publications/thumbs/refresh-embedded-decm-bioprinting.webp",
+    thumbAlt:
+      "Cover of Advanced Healthcare Materials, volume 15 issue 22, the issue this paper appears in",
   },
   {
     slug: "anisotropic-tissue-analogues",
@@ -290,6 +300,15 @@ export const featuredPublications = FEATURED_PUBLICATION_SLUGS.map((slug) => {
 export const PUBLICATION_JOURNALS = Array.from(
   new Set(publications.map((p) => p.journal)),
 );
+
+/** "Bera et al." from the full author list, or the single name if there is
+ *  one. Honorifics and initials are left as the paper prints them. */
+export function firstAuthor(authors: string[]) {
+  const [first] = authors;
+  if (!first) return "";
+  const surname = first.trim().split(/\s+/).slice(-1)[0];
+  return authors.length > 1 ? `${surname} et al.` : surname;
+}
 
 export function getPublication(slug: string) {
   return publications.find((p) => p.slug === slug);

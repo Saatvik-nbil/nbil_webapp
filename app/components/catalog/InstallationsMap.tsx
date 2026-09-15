@@ -307,7 +307,7 @@ export default function InstallationsMap() {
               {INTERNATIONAL_INSTALLATIONS.length > 0 && (
                 <div className="rounded-2xl border border-[var(--color-brand)]/30 bg-[var(--color-brand-subtle)] p-5">
                   <h3 className="font-display text-[15px] font-semibold text-[var(--color-ink)]">
-                    Beyond India
+                    Global installations
                   </h3>
                   <ul className="mt-3 flex flex-col gap-2.5" role="list">
                     {INTERNATIONAL_INSTALLATIONS.map((inst) => (
@@ -323,9 +323,6 @@ export default function InstallationsMap() {
                               &middot; {inst.city}
                             </span>
                           ) : null}
-                        </p>
-                        <p className="mt-0.5 text-[12px] text-[var(--color-brand-strong)]">
-                          {inst.model}
                         </p>
                       </li>
                     ))}

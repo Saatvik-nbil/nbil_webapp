@@ -81,7 +81,7 @@ export default function PublicationsTeaser() {
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={pub.thumb}
-                      alt={`First page of ${pub.title}`}
+                      alt={pub.thumbAlt ?? `First page of ${pub.title}`}
                       loading="lazy"
                       className="aspect-[3/4] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     />

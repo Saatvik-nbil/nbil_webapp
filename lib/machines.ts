@@ -34,6 +34,9 @@ export type Machine = {
   validation?: string;
   /** Absent on Aura, which is not offered build-to-spec. */
   customisation?: { summary: string; options: string[] };
+  /** The named build-to-spec configurations this model ships as. Pairs with
+   *  `customisation`: absent wherever that is. */
+  configurations?: string[];
   software: string;
   /** Link to the slicer's own page, where one exists. */
   softwareHref?: string;
@@ -112,6 +115,7 @@ export const machines: Machine[] = [
         "HEPA and germicidal UV chamber as an add-on",
       ],
     },
+    configurations: ["NP2", "NP3"],
     software: "Dhee by NBIL",
     softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-bioprinter/trivimanpbioprinter/",
@@ -190,6 +194,7 @@ export const machines: Machine[] = [
         "Well plate, petri dish, slide, insert and custom substrate fixtures",
       ],
     },
+    configurations: ["Pro Config 1", "Pro Config 2", "Pro Config 3"],
     software: "Dhee by NBIL",
     softwareHref: "/dhee-slicer",
     sourceUrl: "https://nextbiginnovationlabs.com/trivima-pro-bioprinter/",

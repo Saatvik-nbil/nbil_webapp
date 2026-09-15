@@ -31,6 +31,11 @@ const ROW_BOTTOM: Slot[] = [
 
 /* ── YouTube: podcast features & talks (channel: @nextbiglearning6504) ── */
 const VIDEOS: { id: string; title: string }[] = [
+  {
+    id: "YM7J-KcMJuY",
+    title:
+      "NBIL has used Fusion 360 to develop India's first commercial 3D Bioprinter (TRIVIMA)",
+  },
   { id: "90fK44sd-yQ", title: "NBIL feature: podcast 1" },
   { id: "YxpZTNFlVAQ", title: "NBIL feature: podcast 2" },
   { id: "IK8dIz7xxGg", title: "NBIL feature: podcast 3" },

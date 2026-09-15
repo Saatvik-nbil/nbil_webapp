@@ -21,6 +21,9 @@ interface GlassBlogCardProps {
   tags?: string[];
   ctaLabel?: string;
   className?: string;
+  /** Extra classes on the cover image. Publications pass `object-top`, so a
+   *  portrait first-page render crops to its masthead rather than its middle. */
+  imageClassName?: string;
 }
 
 const defaultPost = {
@@ -45,6 +48,7 @@ export function GlassBlogCard({
   tags = defaultPost.tags,
   ctaLabel = "Read Article",
   className,
+  imageClassName,
 }: GlassBlogCardProps) {
   const externalAttrs = external
     ? { target: "_blank", rel: "noopener noreferrer" }
@@ -70,7 +74,10 @@ export function GlassBlogCard({
           <img
             src={image}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className={cn(
+              "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105",
+              imageClassName,
+            )}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/70 to-transparent opacity-55 transition-opacity duration-300 group-hover:opacity-40" />
 
@@ -80,7 +87,7 @@ export function GlassBlogCard({
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="bg-[var(--color-surface)]/80 text-[var(--color-ink)] backdrop-blur-sm"
+                  className="h-auto rounded-md whitespace-normal bg-[var(--color-surface)]/85 px-2 py-1 text-left leading-snug text-[var(--color-ink)] backdrop-blur-sm"
                 >
                   {tag}
                 </Badge>
