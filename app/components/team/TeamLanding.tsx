@@ -25,6 +25,7 @@ const TEAM: TeamMember[] = [
   { id: "t6", name: "Gargi Chakraborty", role: "Marketing & Ops Associate", image: "/team/gargiiiiiii.webp", social: { linkedin: "https://www.linkedin.com/in/gargichakraborty14/" } },
   { id: "t7", name: "Aalim Hussain", role: "Mechanical Engineer", image: "/team/Aalim.webp", social: { linkedin: "https://www.linkedin.com/in/aalim-hussain-mechanical-engineer/" } },
   { id: "t8", name: "Snehangshu Sengupta", role: "Mechanical Engineer", image: "/team/Snehangshu.jpg", social: { linkedin: "https://www.linkedin.com/in/snehangshu-sengupta-9251091b1/" } },
+  { id: "t11", name: "Ranjan Manohar", role: "Jr. Design Engineer", image: "/team/Ranjan.webp" },
   { id: "t9", name: "Pooja H P", role: "Biofabrication Intern", image: "/team/Pooja H P.jpg", social: { linkedin: "https://www.linkedin.com/in/pooja-h-p-8a2251214/" } },
   { id: "t3", name: "Sree Nithi R", role: "Biofabrication Intern", image: "/team/SreeNithi.webp", social: { linkedin: "https://www.linkedin.com/in/sree-nithi-r/" } },
 ];
