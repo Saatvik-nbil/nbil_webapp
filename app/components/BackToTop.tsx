@@ -47,11 +47,13 @@ export default function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.7, y: 12 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          // bottom-[9rem] clears both MobileStickyCTA and the NBILBot
-          // launcher on phones; sm:bottom-[5.75rem] clears just the launcher
-          // above sm, where MobileStickyCTA is hidden. See NBILBot.tsx for
-          // the launcher's own offsets. Keep these in sync with it.
-          className="fixed right-5 bottom-[9rem] z-40 flex size-11 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink)] shadow-[0_10px_30px_rgba(2,12,27,0.14)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)] sm:right-8 sm:bottom-[5.75rem]"
+          // Phones don't get this button. The bottom-right corner there
+          // already carries the MobileStickyCTA bar and the NBILBot launcher,
+          // and a third control stacked above them ran up the side of the
+          // screen covering body copy. From sm up, where the CTA bar is
+          // hidden, it sits just above the launcher; keep that offset in sync
+          // with NBILBot.tsx.
+          className="fixed right-8 bottom-[5.75rem] z-40 hidden size-11 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink)] shadow-[0_10px_30px_rgba(2,12,27,0.14)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)] sm:flex"
         >
           <ArrowUp size={18} weight="bold" />
         </motion.button>

@@ -232,18 +232,28 @@ export default function ApplicationsSection() {
                         <span className="flex-1 font-display text-[1.25rem] lg:text-[1.375rem] font-semibold tracking-[-0.015em] text-[var(--color-ink)]">
                           {group}
                         </span>
-                        <span className="shrink-0 text-[13px] text-[var(--color-ink-muted)] tabular-nums">
-                          {items.length}
-                        </span>
-                        <CaretDown
-                          size={16}
-                          weight="bold"
+                        {/* The chevron is the only affordance saying these
+                            rows open, so it is a real target rather than a
+                            hairline glyph: a filled disc that inverts to the
+                            brand colour while its field is open. */}
+                        <span
                           aria-hidden="true"
                           className={
-                            "shrink-0 text-[var(--color-ink-muted)] transition-transform duration-300 motion-reduce:transition-none " +
-                            (open ? "rotate-180" : "")
+                            "flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 motion-reduce:transition-none " +
+                            (open
+                              ? "border-[var(--color-brand)] bg-[var(--color-brand)] text-white"
+                              : "border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink)] group-hover:border-[var(--color-brand)] group-hover:text-[var(--color-brand-strong)]")
                           }
-                        />
+                        >
+                          <CaretDown
+                            size={18}
+                            weight="bold"
+                            className={
+                              "transition-transform duration-300 motion-reduce:transition-none " +
+                              (open ? "rotate-180" : "")
+                            }
+                          />
+                        </span>
                       </button>
                     </h3>
 

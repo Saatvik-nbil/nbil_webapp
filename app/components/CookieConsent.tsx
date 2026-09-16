@@ -59,7 +59,10 @@ export default function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={reduce ? { opacity: 0 } : { y: 16, opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-x-4 bottom-4 z-[90] mx-auto flex max-w-xl flex-col gap-4 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/95 p-5 shadow-[0_18px_50px_rgba(2,12,27,0.16)] backdrop-blur-md sm:flex-row sm:items-center sm:gap-5"
+          /* On phones this has to clear the MobileStickyCTA bar, which is
+             fixed to the bottom edge; landing on top of it buried the Reject
+             button under the bar's own CTA. */
+          className="fixed inset-x-4 bottom-[5.5rem] z-[90] mx-auto flex max-w-xl flex-col gap-4 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)]/95 p-5 shadow-[0_18px_50px_rgba(2,12,27,0.16)] backdrop-blur-md sm:bottom-4 sm:flex-row sm:items-center sm:gap-5"
         >
           <p
             id="cookie-consent-copy"

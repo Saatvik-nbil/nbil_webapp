@@ -91,11 +91,15 @@ export default function ConsultancyWalkthrough() {
               >
                 {step}
               </span>
-              <div className="flex flex-col gap-2">
-                <h3 className="font-display text-[1.2rem] lg:text-[1.35rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.25]">
+              {/* Title and body sit side by side above lg. Stacked, the body's
+                  measure ran out well short of the column and left the right
+                  half of the section empty; paired, the two fill it and the
+                  body still reads at roughly 70 characters. */}
+              <div className="grid gap-x-10 gap-y-2 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:items-baseline">
+                <h3 className="font-display text-[1.2rem] lg:text-[1.35rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] leading-[1.25] text-balance">
                   {title}
                 </h3>
-                <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75] max-w-[68ch]">
+                <p className="text-[15px] text-[var(--color-ink-muted)] leading-[1.75]">
                   {body}
                 </p>
               </div>

@@ -83,12 +83,52 @@ export default function CompareTable() {
             Compare the bioprinter range
           </h2>
           <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed text-pretty">
-            Side by side, where each bioprinter fits. Scroll horizontally on smaller
-            screens.
+            Side by side, where each bioprinter fits.
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] scrollbar-hide">
+        {/* Phones: one card per bioprinter. A three-column table cannot fit a
+            360px screen, and the horizontal scroller it used to need put the
+            two other machines off-screen with no sign they were there. */}
+        <div className="flex flex-col gap-4 md:hidden">
+          {cols.map((m) => (
+            <div
+              key={m.slug}
+              className="overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)]"
+            >
+              <Link
+                href={`/machines/${m.slug}`}
+                className="block border-b border-[var(--color-hairline)] px-5 py-4"
+              >
+                <span className="font-display text-[1.0625rem] font-semibold text-[var(--color-ink)]">
+                  {m.name}
+                </span>
+              </Link>
+              <dl className="flex flex-col">
+                {ROWS.map((row, ri) => (
+                  <div
+                    key={row.label}
+                    className={`flex items-baseline justify-between gap-5 px-5 py-3 ${
+                      ri % 2 === 1 ? "bg-[var(--color-surface-raised)]/40" : ""
+                    }`}
+                  >
+                    <dt className="shrink-0 text-[13px] text-[var(--color-ink-muted)]">
+                      {row.label}
+                    </dt>
+                    <dd className="text-right text-[13px] leading-relaxed text-[var(--color-ink)]">
+                      {row.get(m)}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <div
+          data-lenis-prevent
+          className="hidden overflow-x-auto overscroll-x-contain rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] scrollbar-hide md:block"
+        >
           <table className="w-full border-collapse text-left min-w-[600px]">
             <caption className="sr-only">
               Comparison of the three Trivima bioprinter models across key specifications
@@ -97,7 +137,7 @@ export default function CompareTable() {
               <tr>
                 <th
                   scope="col"
-                  className="sticky left-0 z-10 bg-[var(--color-surface)] px-5 py-5 align-bottom text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)] border-b border-[var(--color-hairline)]"
+                  className="sticky left-0 z-10 bg-[var(--color-surface)] px-5 py-5 align-bottom text-[12.5px] font-medium text-[var(--color-ink-faint)] border-b border-[var(--color-hairline)]"
                 >
                   Specification
                 </th>

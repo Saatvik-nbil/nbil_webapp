@@ -14,6 +14,11 @@ type Slot = { aspect: string; src: string; alt?: string };
 const ROW_TOP: Slot[] = [
   { aspect: "4 / 5", src: "/events/1.webp" },
   { aspect: "16 / 10", src: "/events/2.webp" },
+  {
+    aspect: "3 / 2",
+    src: "/events/9.webp",
+    alt: "Researchers gathered around a Trivima Advanced bioprinter during a lab demonstration",
+  },
   { aspect: "3 / 4", src: "/events/3.webp" },
   { aspect: "4 / 3", src: "/events/4.webp" },
   { aspect: "5 / 6", src: "/events/5.webp" },
@@ -22,8 +27,14 @@ const ROW_TOP: Slot[] = [
 
 const ROW_BOTTOM: Slot[] = [
   { aspect: "16 / 10", src: "/events/7.webp" },
+  {
+    aspect: "8 / 7",
+    src: "/events/10.webp",
+    alt: "A memento being presented to a speaker at a Next Big Innovation Labs event",
+  },
   { aspect: "3 / 4", src: "/events/8.webp" },
   { aspect: "4 / 3", src: "/events/2.webp" },
+  { aspect: "3 / 2", src: "/events/9.webp" },
   { aspect: "4 / 5", src: "/events/4.webp" },
   { aspect: "16 / 9", src: "/events/6.webp" },
   { aspect: "3 / 4", src: "/events/5.webp" },
@@ -40,6 +51,49 @@ const VIDEOS: { id: string; title: string }[] = [
   { id: "YxpZTNFlVAQ", title: "NBIL feature: podcast 2" },
   { id: "IK8dIz7xxGg", title: "NBIL feature: podcast 3" },
   { id: "7rTGcRriepI", title: "NBIL feature: podcast 4" },
+];
+
+/* ── Press coverage: outside writing about NBIL, newest first ──────────
+   Outlet, date and headline are as published; the line under each one is a
+   short factual note on what the piece covers. Every row links out to the
+   original. */
+type Press = {
+  outlet: string;
+  date: string;
+  title: string;
+  note: string;
+  href: string;
+};
+
+const PRESS: Press[] = [
+  {
+    outlet: "The Innovator",
+    date: "March 2025",
+    title: "Startup Of The Week: Next Big Innovation Labs (NBIL)",
+    note: "A profile of the company's bioprinting platform, its backers and the ambition to move bioprinted tissue from drug testing toward the clinic.",
+    href: "https://theinnovator.news/startup-of-the-week-next-big-innovation-labs-nbil/",
+  },
+  {
+    outlet: "World Economic Forum",
+    date: "2023",
+    title: "Next Big Innovation Labs",
+    note: "The Forum's own profile of the company, named to its Technology Pioneers community for a customisable bioprinter aimed at the organ transplant gap.",
+    href: "https://www.weforum.org/organizations/next-big-innovation-labs/",
+  },
+  {
+    outlet: "The Times of India",
+    date: "November 2023",
+    title: "Developing printers to print organ tissues",
+    note: "Sharad Kohli on the three founders behind NBIL, one of three Indian ventures picked as World Economic Forum technology pioneers that year.",
+    href: "https://timesofindia.indiatimes.com/business/startups/companies/developing-printers-to-print-organ-tissues/articleshow/105226703.cms",
+  },
+  {
+    outlet: "YourStory",
+    date: "July 2017",
+    title: "Next Big Innovation Labs takes a big step with govt grants",
+    note: "The early story: a Karnataka government grant, incubation at the Bangalore Bioinnovation Centre, and version one of the bioprinter in final testing.",
+    href: "https://yourstory.com/2017/07/next-big-innovation-labs-biotech-startup-3d-bioprinter-government-grants",
+  },
 ];
 
 /* ── LinkedIn embeds: heights match LinkedIn's published embed sizes ──── */
@@ -200,7 +254,63 @@ export default function NewsLanding() {
         </div>
       </section>
 
-      {/* ── 3. Recent from NBIL (LinkedIn embeds) ── */}
+      {/* ── 3. Press coverage (outside writing about us) ── */}
+      <section
+        aria-labelledby="press-heading"
+        className="border-t border-[var(--color-hairline)] py-16 lg:py-24"
+      >
+        <div className="mx-auto max-w-6xl px-6">
+          <motion.div {...rise(0)} className="flex flex-col gap-4">
+            <h2 id="press-heading" className="h2 max-w-[20ch]">
+              Written about us
+            </h2>
+            <p className="max-w-[58ch] text-[1.0625rem] leading-relaxed text-[var(--color-ink-muted)]">
+              Coverage from the press and the institutions that have followed the
+              company, from the latest profile back to the first grant.
+            </p>
+          </motion.div>
+
+          <ul className="mt-10 border-t border-[var(--color-hairline)]">
+            {PRESS.map((item, i) => (
+              <motion.li key={item.href} {...rise(0.06 + i * 0.05)}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group grid gap-x-8 gap-y-3 border-b border-[var(--color-hairline)] py-7 transition-colors hover:bg-[var(--color-brand-subtle)] md:grid-cols-[11rem_1fr_auto] md:items-start md:px-4"
+                >
+                  <div className="flex items-baseline gap-3 md:flex-col md:gap-1.5">
+                    <span className="text-[14px] font-medium text-[var(--color-ink)]">
+                      {item.outlet}
+                    </span>
+                    <span className="text-[13px] text-[var(--color-ink-faint)]">
+                      {item.date}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[1.0625rem] font-medium leading-snug text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand-strong)] lg:text-[1.125rem]">
+                      {item.title}
+                    </span>
+                    <span className="max-w-[62ch] text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                      {item.note}
+                    </span>
+                  </div>
+
+                  <span
+                    aria-hidden
+                    className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--color-hairline)] text-[var(--color-ink-faint)] transition-colors group-hover:border-[var(--color-brand)] group-hover:bg-[var(--color-brand)] group-hover:text-white md:flex"
+                  >
+                    <ArrowUpRight size={16} weight="bold" />
+                  </span>
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── 4. Recent from NBIL (LinkedIn embeds) ── */}
       <section
         aria-labelledby="recent-heading"
         className="border-t border-[var(--color-hairline)] bg-[var(--color-surface)] py-16 lg:py-24"

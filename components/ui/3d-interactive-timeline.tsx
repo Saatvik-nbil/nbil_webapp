@@ -220,6 +220,7 @@ const TimelineCard = React.memo(function TimelineCard({
   // Even entries hang on the left of the rail, odd entries on the right.
   const isLeft = index % 2 === 0;
   const active = hovered;
+  const contain = event.imageFit === "contain";
 
   return (
     <li
@@ -269,7 +270,11 @@ const TimelineCard = React.memo(function TimelineCard({
           {showImages && (
             <div
               className={cn(
-                "relative aspect-[16/10] w-full overflow-hidden border-b border-[var(--color-hairline)] bg-[var(--color-surface-raised)]",
+                "relative aspect-[16/10] w-full overflow-hidden border-b border-[var(--color-hairline)]",
+                // Logos, certificates and award posters sit on white and keep
+                // a margin: cropping one into the 16:10 frame cuts the
+                // wordmark off, which is the whole point of the image.
+                contain ? "bg-white p-6" : "bg-[var(--color-surface-raised)]",
                 event.image ? "" : "border-dashed"
               )}
             >
@@ -279,7 +284,12 @@ const TimelineCard = React.memo(function TimelineCard({
                   src={event.image}
                   alt={event.title}
                   loading="lazy"
-                  className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                  className={cn(
+                    "h-full w-full object-center transition-transform duration-500 ease-out",
+                    contain
+                      ? "object-contain group-hover:scale-[1.03]"
+                      : "object-cover group-hover:scale-[1.06]"
+                  )}
                 />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-[var(--color-ink-faint)]">

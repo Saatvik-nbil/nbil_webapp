@@ -111,14 +111,55 @@ export default function NavBar() {
     measure();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    /* Scroll and resize alone left the bar stuck on the wrong theme: a hero
+       image or web font landing after mount moves every dark zone without
+       either event firing, and on phones that is the common case. Watching
+       the document's own box catches those reflows. */
+    const ro = new ResizeObserver(schedule);
+    ro.observe(document.documentElement);
+    window.addEventListener("load", schedule);
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      ro.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      window.removeEventListener("load", schedule);
     };
   }, [pathname]);
 
   const closeMobile = () => setMobileOpen(false);
+
+  /* Route changes close the sheet: the header survives navigation, so without
+     this a tap on a link that only changes the hash leaves it hanging open. */
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  /* While the sheet is open the page behind it must not move. Lenis drives
+     scrolling on this site, so stopping it is what actually holds the page;
+     the overflow lock covers the reduced-motion case where Lenis never
+     mounted. Escape closes, as it does for the desktop dropdowns. */
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const lenis = (window as unknown as { lenis?: { stop: () => void; start: () => void } }).lenis;
+    lenis?.stop();
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    /* Flags the page so the floating controls stand down: the chat launcher
+       and the sticky CTA both outrank this header's z-index and were sitting
+       on top of the open sheet. See globals.css. */
+    document.documentElement.dataset.navOpen = "true";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = prev;
+      delete document.documentElement.dataset.navOpen;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [mobileOpen]);
 
   /* One class pair, reused by the dropdown triggers, the plain links and the
      mobile toggle so they never drift apart. */
@@ -127,7 +168,11 @@ export default function NavBar() {
     : "text-[var(--color-ink-muted)] hover:text-[var(--color-brand-strong)]";
 
   return (
-    <header role="banner" className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 pt-3">
+    <header
+      role="banner"
+      className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4"
+      style={{ paddingTop: "calc(0.75rem + env(safe-area-inset-top, 0px))" }}
+    >
       <div className="max-w-7xl mx-auto">
         <LiquidGlass
           distort={false}
@@ -294,14 +339,17 @@ export default function NavBar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden mt-2"
+              className="relative z-10 md:hidden mt-2"
             >
               <LiquidGlass
                 distort={false}
                 tint="light"
                 className="rounded-2xl border border-white/50 bg-[var(--color-surface)]/80 shadow-[0_12px_34px_rgba(2,12,27,0.16)]"
               >
-                <div className="px-4 pb-4 pt-2 flex flex-col max-h-[70vh] overflow-y-auto">
+                <div
+                  data-lenis-prevent
+                  className="flex max-h-[calc(100svh-8.5rem)] flex-col overflow-y-auto overscroll-contain px-4 pb-4 pt-2"
+                >
                   {NAV_ITEMS.map((item) =>
                     item.children ? (
                       <details
@@ -366,6 +414,24 @@ export default function NavBar() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Tap-anywhere-else to close. Sits under the sheet but over the page,
+          and is the reason the sheet above carries its own stacking context. */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.button
+            type="button"
+            aria-label="Close navigation"
+            tabIndex={-1}
+            onClick={closeMobile}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 -z-10 cursor-default bg-[#0c1626]/25 md:hidden"
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 }

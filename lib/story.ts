@@ -10,9 +10,10 @@
  *
  * Photos live in `/public/story_timeline`, `/public/institute` and
  * `/public/events`. Entries without an `image` fall back to the "coming soon"
- * placeholder. `fit` defaults to "cover" for photographs; use "contain" for
- * logos, certificates and award posters, which lose their point when
- * centre-cropped into the card's 16:10 frame.
+ * placeholder. `fit` defaults to "cover" and is read only by the `/our-story`
+ * timeline: set it to "contain" on an individual entry whose image the 16:10
+ * crop is cutting into. It is deliberately per entry, not applied to every
+ * logo at once.
  */
 
 export type StoryCategory =
@@ -51,7 +52,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Recognised under Startup India",
     body: "Formally recognised under the Government of India's Startup India initiative, and under Startup Karnataka in the same year.",
     image: "/story_timeline/gov-login-img.webp",
-    fit: "contain",
     category: "Recognition",
   },
   {
@@ -78,7 +78,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Grant winners: BIRAC",
     body: "Awarded a BIRAC grant by the Government of India, funding the first serious push on the extrusion platform.",
     image: "/story_timeline/BIRAC.webp",
-    fit: "contain",
     category: "Grant",
   },
   {
@@ -87,7 +86,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Grant winners: IIGP 2.0",
     body: "Selected as a grant winner in the India Innovation Growth Programme 2.0, run by the Department of Science & Technology with Lockheed Martin and Tata Trusts.",
     image: "/story_timeline/India Innovation.webp",
-    fit: "contain",
     category: "Grant",
   },
   {
@@ -105,7 +103,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Top startup at BioAsia",
     body: "Named a top startup at BioAsia, Asia's largest life sciences and healthcare forum.",
     image: "/story_timeline/BioAsia.png",
-    fit: "contain",
     category: "Recognition",
   },
   {
@@ -114,7 +111,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "First patents",
     body: "Two foundational bioprinting patents granted, protecting the core extrusion approach.",
     image: "/story_timeline/First Patent.webp",
-    fit: "contain",
     category: "Milestone",
     featured: true,
   },
@@ -141,7 +137,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Microsoft for Startups",
     body: "Selected into the Microsoft Startup Program, scaling the software and cloud workflow.",
     image: "/story_timeline/Microsoft.webp",
-    fit: "contain",
     category: "Recognition",
     featured: true,
   },
@@ -151,7 +146,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Collaboration with AIIMS",
     body: "A collaboration project with the All India Institute of Medical Sciences brings clinical questions directly into the design loop.",
     image: "/institute/All_India_Institute_of_Medical_Sciences,_Delhi.svg.webp",
-    fit: "contain",
     category: "Collaboration",
   },
   {
@@ -160,7 +154,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "HiMedia partnership",
     body: "Strategic partnership with HiMedia Laboratories expands biomaterials and reach.",
     image: "/institute/HiMedia_Logo_-1.png",
-    fit: "contain",
     category: "Collaboration",
     featured: true,
   },
@@ -179,7 +172,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "WEF Technology Pioneer",
     body: "Named among the Top 100 Technology Pioneers by the World Economic Forum; signed an R&D MoU with the Karnataka government.",
     image: "/story_timeline/WORLD ECO.webp",
-    fit: "contain",
     category: "Award",
     featured: true,
   },
@@ -206,7 +198,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Space-grade bioprinting with the Department of Defence Production",
     body: "Selected by the Department of Defence Production, Ministry of Defence, to explore space-grade bioprinting applications.",
     image: "/story_timeline/DOD.webp",
-    fit: "contain",
     category: "Recognition",
   },
   {
@@ -215,7 +206,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Engineering Product of the Year",
     body: "Trivima named Engineering Product of the Year 2024 at the Digital Engineering Awards, in association with L&T Technology Services.",
     image: "/story_timeline/LandT.webp",
-    fit: "contain",
     category: "Award",
     featured: true,
   },
@@ -225,7 +215,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Dell Startup Challenge winners",
     body: "Won the Dell Startup Challenge, recognising the engineering behind the Trivima range.",
     image: "/story_timeline/DELL.webp",
-    fit: "contain",
     category: "Award",
     featured: true,
   },
@@ -235,7 +224,6 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Collaboration with Suwon University",
     body: "A collaboration with Suwon University, South Korea, extends the research network into East Asia.",
     image: "/story_timeline/uni of suwon.png",
-    fit: "contain",
     category: "Collaboration",
   },
   {

@@ -35,12 +35,11 @@ export default function PublicationsLanding() {
             className="flex max-w-2xl flex-col gap-5"
           >
             <h1 className="h1 text-white">
-              Research published on a Trivima
+              Trivima in the Literature.
             </h1>
             <p className="text-[16px] leading-relaxed text-white/75 lg:text-[17px]">
-              Peer-reviewed work from labs running our bioprinters: cardiac patches,
-              bone scaffolds, breast cancer models and hemostatic hydrogels, each
-              printed on a machine configured for that lab.
+              Independent studies from labs running our Trivima, published in
+              Biofabrication, Advanced Healthcare Materials, and beyond.
             </p>
           </motion.div>
         </div>

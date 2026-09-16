@@ -101,10 +101,9 @@ const CARD_LIFT =
    white rather than the old navy panel.
 
    The card is now three grid rows tall while its content is not, so the slack
-   is parked in one place instead of being spread by justify-between, which
-   opened a hole between the headline and the copy. The credit line is pinned
-   to the bottom edge as a footer (mt-auto) and everything else stacks from
-   the top on its own rhythm. */
+   is parked at the bottom instead of being spread by justify-between, which
+   opened a hole between the headline and the copy. Everything stacks from the
+   top on its own rhythm. */
 function IntroCard() {
   const reduce = useReducedMotion();
 
@@ -183,16 +182,6 @@ function IntroCard() {
           Partner with us
         </OriginButton>
       </div>
-
-      <p className="relative mt-auto flex flex-wrap items-center gap-x-2.5 gap-y-1 border-t border-[var(--color-hairline)] pt-6 text-[13px] text-[var(--color-ink-muted)] max-lg:mt-8">
-        <span className="font-semibold text-[var(--color-ink)]">
-          World Economic Forum Technology Pioneer
-        </span>
-        <span aria-hidden className="text-[var(--color-ink-faint)]">
-          ·
-        </span>
-        <span>Bioprinters installed worldwide</span>
-      </p>
     </div>
   );
 }

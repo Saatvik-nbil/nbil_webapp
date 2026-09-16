@@ -400,6 +400,7 @@ export default function NBILBot() {
         onClick={togglePanel}
         aria-expanded={panelOpen}
         aria-label={panelOpen ? "Close Next Big Assistant" : "Open Next Big Assistant"}
+        data-floating-control
         className="fixed right-5 bottom-[4.75rem] z-[66] flex size-14 items-center justify-center rounded-full bg-[var(--color-brand)] text-white shadow-[0_14px_36px_rgba(2,12,27,0.28)] transition-transform duration-300 hover:scale-105 hover:bg-[var(--color-brand-hover)] active:scale-95 sm:right-6 sm:bottom-6 motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
         {!reduce && showPulse && !panelOpen ? (
@@ -430,6 +431,7 @@ export default function NBILBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            data-floating-control
             className="fixed z-[65] left-4 right-4 bottom-[9rem] flex h-[min(70dvh,560px)] flex-col overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] shadow-[0_24px_64px_rgba(2,12,27,0.24)] sm:left-auto sm:right-6 sm:bottom-[5.75rem] sm:h-[560px] sm:w-[380px]"
           >
             {/* Header */}
@@ -464,7 +466,12 @@ export default function NBILBot() {
             </div>
 
             {/* Transcript */}
-            <div ref={scrollRef} aria-live="polite" className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4">
+            <div
+              ref={scrollRef}
+              aria-live="polite"
+              data-lenis-prevent
+              className="flex flex-1 flex-col gap-3 overflow-y-auto overscroll-contain px-4 py-4"
+            >
               {messages.map((m) => (
                 <div key={m.id} className="flex flex-col gap-2">
                   <div className={`flex items-end gap-2 ${m.from === "user" ? "flex-row-reverse" : ""}`}>

@@ -62,18 +62,20 @@ function Hero() {
       </video>
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(120deg, rgba(8,16,28,0.72) 0%, rgba(20,48,102,0.45) 50%, rgba(8,16,28,0.30) 100%)" }} />
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.03)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03)1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
-      <div style={{ position: "relative", zIndex: 2, padding: "120px 5vw 80px", width: "100%" }}>
+      <div style={{ position: "relative", zIndex: 2, padding: "clamp(104px,14vh,120px) clamp(16px,5vw,64px) 80px", width: "100%" }}>
         <Fade delay={0}>
-          <div style={{ display: "inline-block", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", borderRadius: 20, padding: "44px 52px 48px", maxWidth: 560, boxShadow: "0 8px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)" }}>
+          <div style={{ display: "inline-block", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", borderRadius: 20, padding: "clamp(30px,6vw,46px) clamp(24px,6vw,54px) clamp(34px,6vw,50px)", maxWidth: 640, width: "100%", boxShadow: "0 8px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12)" }}>
             <div style={{ display: "inline-flex", alignItems: "center", fontSize: 12.5, color: "rgba(180,208,253,0.9)", fontWeight: 600, marginBottom: 24 }}>
               Designed for precision bioprinting
             </div>
-            <h1 style={{ fontSize: "clamp(52px,6vw,84px)", fontWeight: 700, lineHeight: 0.93, letterSpacing: "-0.04em", color: "#FFFFFF", marginBottom: 16 }}>
-              DHEE<br />
-              <span style={{ color: "#bcd0f5" }}>Slicer</span>
+            {/* One line at every width: the size floor is set low enough that
+                "DHEE Slicer" still fits a 360px card, so the name never breaks
+                across two lines. */}
+            <h1 style={{ fontSize: "clamp(34px,7.4vw,72px)", fontWeight: 700, lineHeight: 1.02, letterSpacing: "-0.04em", color: "#FFFFFF", marginBottom: 18, whiteSpace: "nowrap" }}>
+              DHEE <span style={{ color: "#bcd0f5" }}>Slicer</span>
             </h1>
-            <p style={{ fontSize: "clamp(15px,1.4vw,18px)", color: "rgba(198,220,255,0.82)", lineHeight: 1.55, maxWidth: 400, marginBottom: 20, fontWeight: 400, letterSpacing: "-0.01em" }}>
-              Your bioprinting companion re-imagined<br />by Next Big Innovation Labs
+            <p style={{ fontSize: "clamp(15px,1.4vw,18px)", color: "rgba(198,220,255,0.82)", lineHeight: 1.55, maxWidth: 440, marginBottom: 22, fontWeight: 400, letterSpacing: "-0.01em" }}>
+              Your bioprinting companion re-imagined by Next Big Innovation Labs
             </p>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 9, marginBottom: 32, padding: "7px 14px", borderRadius: 999, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(160,196,253,0.22)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}>
               <svg viewBox="0 0 20 20" width="14" height="14" fill="none" style={{ flexShrink: 0 }}>
@@ -103,11 +105,11 @@ function Hero() {
                 Explore Features ↓
               </button>
             </div>
-            <div style={{ display: "flex", gap: 28, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", columnGap: 32, rowGap: 18, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
               {[["Windows 10+", "OS Support"], ["6 Extruders", "Max Channels"], ["96-Well", "Plate Support"]].map(([v, l]) => (
                 <div key={l}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em" }}>{v}</div>
-                  <div style={{ fontSize: 10, color: "rgba(180,208,253,0.7)", marginTop: 3, letterSpacing: "0.03em" }}>{l}</div>
+                  <div style={{ fontSize: 15, fontWeight: 600, color: "#FFFFFF", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>{v}</div>
+                  <div style={{ fontSize: 11.5, color: "rgba(180,208,253,0.75)", marginTop: 4 }}>{l}</div>
                 </div>
               ))}
             </div>
@@ -122,7 +124,7 @@ function Hero() {
 function Problem() {
   return (
     <section style={{ background: "#FFFFFF", borderTop: "1px solid #e8e1d3" }}>
-      <div style={{ padding: "72px 5vw", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10vw", alignItems: "center" }}>
+      <div className="problem-grid" style={{ padding: "72px 5vw", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10vw", alignItems: "center" }}>
         <Fade>
           <div>
             <div style={{ fontSize: 13, color: "#4a5568", fontWeight: 600, marginBottom: 16 }}>The Problem</div>
@@ -750,6 +752,13 @@ export default function DheeLanding() {
             border-right: none !important;
             border-bottom: 1px solid #e8e1d3 !important;
             padding: 28px 6vw !important;
+          }
+
+          /* ── Problem: two hard columns became two unreadable ones ── */
+[data-dhee] .problem-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 56px 5vw !important;
           }
 
           /* ── Specs: stack label block above table ── */

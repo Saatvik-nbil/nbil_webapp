@@ -286,11 +286,14 @@ export default function StageCompare({
 
       {/* Says what the control does, for anyone who missed the nudge or has
           motion turned off. It steps aside once the reader takes over. */}
+      {/* On a phone the label is wider than the frame, so following the handle
+          pushed it off the right edge; there it centres in the frame and wraps
+          instead. From sm up it tracks the handle as before. */}
       <span
-        className={`pointer-events-none absolute top-[calc(22%+2.75rem)] z-10 -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/25 bg-black/45 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-500 lg:top-[calc(50%+2.75rem)] motion-reduce:transition-none ${
+        className={`pointer-events-none absolute left-1/2 top-[calc(22%+2.75rem)] z-10 max-w-[calc(100%-2rem)] -translate-x-1/2 text-balance rounded-lg border border-white/25 bg-black/45 px-3 py-1.5 text-center text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-500 sm:left-[var(--hint-left)] sm:max-w-none sm:whitespace-nowrap lg:top-[calc(50%+2.75rem)] motion-reduce:transition-none ${
           hinting ? "opacity-100" : "opacity-0"
         }`}
-        style={{ left: `${pct}%` }}
+        style={{ "--hint-left": `${pct}%` } as React.CSSProperties}
       >
         {hint}
       </span>

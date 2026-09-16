@@ -6,7 +6,11 @@
  * so ± × · µ − read correctly), and `trivimaUse` quotes how each paper names
  * and describes the machine in its own methods section. Nothing is inferred.
  *
- * `thumb` is a render of the paper's own first page, generated from the PDF.
+ * `thumb` is a render of the paper itself, generated from the PDF. That is
+ * page one for most publishers, but where one puts a near-blank cover sheet
+ * ahead of the article (IOP does), it is the page the article actually starts
+ * on, since a cover sheet crops to an empty card.
+ *
  * `url` is the DOI, which is the stable link to the published version and the
  * only link the page offers: papers are read at the publisher, not as PDFs
  * served from here.
@@ -33,7 +37,8 @@ export type Publication = {
   topics: string[];
   /** Card image, in public/publications/thumbs. Normally a render of the
    *  paper's own first page; absent where we do not hold the PDF to render
-   *  one from. */
+   *  one from. Where the render is of another page, set `thumbAlt` so the
+   *  alt text does not claim to be page one. */
   thumb?: string;
   /** Set only where `thumb` is not a first-page render, so the alt text does
    *  not claim to be one. */
@@ -64,14 +69,13 @@ export const publications: Publication[] = [
     url: "https://doi.org/10.1002/adhm.202504931",
     abstract:
       "Fabrication of complex, multi-layered tissue architecture using decellularized extracellular matrix (dECM)-based hydrogel ink is fundamentally limited by the biomaterial's inherent mechanical fragility and slow gelation kinetics, which severely compromise structural fidelity. Herein, we present REFRESH\u2014Reversible Embedded Bioprinting for Faster Reinforcement and Structuring of dECM Hydrogels, a next-generation embedded bioprinting platform designed for high-fidelity fabrication of anatomically relevant tissue constructs using dECM hydrogels. At the core of this system is a custom-engineered polyethylene glycol (PEG)-gelatin microgel suspension bath that performs dual functions: it modulates the bath's rheological behavior, enhancing yield stress, shear-thinning, and self-healing properties necessary for precise deposition, and actively promotes in situ gelation of dECM hydrogel inks via hydrogen bonding and crowding-induced interactions. This enables faster filament stabilization, reduced structural fusion, and improved print fidelity compared to conventional thermal gelation. We recreated the zonal architecture of the trachea by co-printing cartilage- and trachealis muscle-derived dECM's encapsulating primary chondrocytes, fibroblasts, and subsequent epithelialization to form a biomimetic luminal surface. Furthermore, we fabricated functional trifurcated bronchial structures using lung-derived dECM that supported stromal-like mesenchymal behavior with contractile marker expression. The versatility of the REFRESH platform was further validated by the successful printing of a diverse array of tissue-specific dECM hydrogels beyond the airway system.",
+    trivimaUse:
+      "Embedded printing was done on a commercial 3D printer named in the paper as Trivima (NBIL, Bengaluru, India), run inside a biosafety cabinet. Paths were designed in Fusion 360, sliced in Simplify3D and driven through Pronterface, extruding from a 3 cc cartridge through a 330 µm nozzle at 15 °C into the PEG–gelatin suspension bath. Filament fidelity was swept from 0.5 to 15 mm s⁻¹, and the cell-laden prints ran at 0.4 bar for cartilage-derived and 0.3 bar for muscle-derived dECM. The same machine printed the multilayer tracheal construct and the cell-laden trifurcate bronchial structure.",
+    machine: "Trivima",
     institutions: ["Indian Institute of Technology Hyderabad"],
     topics: ["Embedded bioprinting", "dECM hydrogels", "Tracheal tissue"],
-    /* The issue cover rather than this paper's own first page: we do not
-       hold the PDF to render one from, and the cover is for the exact issue
-       the paper appears in. `thumbAlt` keeps the alt text honest about that. */
     thumb: "/publications/thumbs/refresh-embedded-decm-bioprinting.webp",
-    thumbAlt:
-      "Cover of Advanced Healthcare Materials, volume 15 issue 22, the issue this paper appears in",
+    pdf: "/publications/Adv_Healthcare_Materials_2026_REFRESH.pdf",
   },
   {
     slug: "anisotropic-tissue-analogues",
@@ -95,7 +99,11 @@ export const publications: Publication[] = [
     machine: "NBIL bioprinter",
     institutions: ["Indian Institute of Technology Hyderabad"],
     topics: ["Anisotropic tissue", "Cardiac patches", "dECM bioink"],
+    /* Page two, not one: IOP prints a near-blank cover sheet as page one,
+       which crops to an empty card. Page two is the article's real opening. */
     thumb: "/publications/thumbs/anisotropic-tissue-analogues.webp",
+    thumbAlt:
+      "Opening page of the paper as published in Biofabrication, showing the title, authors and abstract",
     pdf: "/publications/Bera_2025_Biofabrication_17_015003.pdf",
   },
   {
@@ -235,7 +243,11 @@ export const publications: Publication[] = [
     machine: "Trivima Bioplotter",
     institutions: ["Indian Institute of Technology Hyderabad"],
     topics: ["Breast cancer models", "Drug screening", "High throughput bioprinting"],
+    /* Page two, for the same reason as the Bera paper above: IOP's cover
+       sheet is page one. */
     thumb: "/publications/thumbs/immunocompetent-breast-cancer-model.webp",
+    thumbAlt:
+      "Opening page of the paper as published in Biofabrication, showing the title, authors and abstract",
     pdf: "/publications/Shukla_2024_Biofabrication_16_035030.pdf",
   },
   {

@@ -128,7 +128,7 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
               {/* Body */}
               <div className="flex flex-col gap-3.5 border-t border-[var(--color-hairline)] p-5 lg:p-6">
                 <div className="flex flex-col gap-1.5">
-                  <span className="text-[10.5px] uppercase tracking-[0.14em] text-[var(--color-ink-faint)]">
+                  <span className="text-[11.5px] text-[var(--color-ink-faint)]">
                     {machine.tier}
                   </span>
                   <h3 className="font-display text-[1.3rem] font-semibold tracking-[-0.02em] leading-tight text-[var(--color-ink)]">

@@ -123,19 +123,6 @@ export default function CompanyHero() {
                   Partner with us
                 </OriginButton>
               </motion.div>
-
-              <motion.p
-                {...rise(0.66)}
-                className="mt-8 flex flex-wrap items-center gap-x-2.5 gap-y-1 border-t border-[var(--color-ink)]/15 pt-6 text-[13px] text-[var(--color-ink)]/75"
-              >
-                <span className="font-semibold text-[var(--color-ink)]">
-                  World Economic Forum Technology Pioneer
-                </span>
-                <span aria-hidden className="text-[var(--color-ink)]/35">
-                  ·
-                </span>
-                <span>Bioprinters installed worldwide</span>
-              </motion.p>
             </div>
           </LiquidGlass>
 

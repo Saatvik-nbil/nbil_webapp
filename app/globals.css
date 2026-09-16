@@ -136,6 +136,14 @@ p {
 ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
 /* Utility to hide scrollbar on horizontal scroll tracks */
+/* While the phone navigation sheet is open nothing else floats over the page.
+   The chat launcher and the sticky action bar both carry a higher z-index than
+   the header, so without this they sat on top of the open menu. NavBar sets
+   the attribute; the controls opt in with data-floating-control. */
+html[data-nav-open] [data-floating-control] {
+  display: none !important;
+}
+
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 

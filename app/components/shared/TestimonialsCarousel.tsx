@@ -68,7 +68,7 @@ function initialsOf(name: string) {
  *  and the one shown on hovering a trusted-by logo. */
 function TestimonialCardBody({ t }: { t: Testimonial }) {
   return (
-    <div className="flex h-full flex-col rounded-[20px] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-9 pb-7 shadow-[0_8px_40px_-8px_rgba(169,119,34,0.18),0_1px_4px_rgba(0,0,0,0.04)]">
+    <div className="flex h-full flex-col rounded-[20px] border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-6 pb-6 sm:p-9 sm:pb-7 shadow-[0_8px_40px_-8px_rgba(169,119,34,0.18),0_1px_4px_rgba(0,0,0,0.04)]">
       <div className="relative mb-7 flex-1">
         <Quotes
           weight="fill"
@@ -173,7 +173,7 @@ export default function TestimonialsCarousel({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="flex flex-col"
+          className="flex min-w-0 flex-col"
         >
           <h2
             id={`${id}-heading`}
@@ -181,7 +181,7 @@ export default function TestimonialsCarousel({
           >
             {heading}
           </h2>
-          <p className="mt-[18px] max-w-[400px] text-[15px] leading-[1.85] text-[var(--color-ink-muted)]">
+          <p className="mt-[18px] w-full max-w-[400px] text-[15px] leading-[1.85] text-[var(--color-ink-muted)]">
             {description}
           </p>
 
@@ -217,7 +217,7 @@ export default function TestimonialsCarousel({
             // stray gap under the description with nothing to justify it:
             // mt-9 keeps the same rhythm the dots row uses in that case.
             <div className={multiple ? "mt-14" : "mt-9"}>
-              <div className="mb-5 text-[10.5px] uppercase tracking-[0.08em] text-[var(--color-ink-faint)]">
+              <div className="mb-5 text-[12.5px] font-medium text-[var(--color-ink-faint)]">
                 {trustedByLabel}
               </div>
               <div className="flex flex-wrap items-center gap-x-7 gap-y-5">
@@ -265,7 +265,7 @@ export default function TestimonialsCarousel({
           // Every slide sits in the same grid cell, so the column is exactly
           // as tall as the longest quote: no fixed floor to leave dead air
           // under a short one, and no absolute slide overflowing a tall one.
-          className="relative grid [grid-template-areas:'stack']"
+          className="relative grid min-w-0 [grid-template-areas:'stack']"
           style={minCardHeight ? { minHeight: minCardHeight } : undefined}
         >
           <span
@@ -280,7 +280,7 @@ export default function TestimonialsCarousel({
           {testimonials.map((t, i) => (
             <div
               key={t.id}
-              className="[grid-area:stack] transition-[opacity,transform] duration-500 ease-out"
+              className="min-w-0 [grid-area:stack] transition-[opacity,transform] duration-500 ease-out"
               style={{
                 opacity: active === i && !hoverTestimonial ? 1 : 0,
                 transform:
@@ -301,7 +301,7 @@ export default function TestimonialsCarousel({
             {hoverTestimonial && (
               <motion.div
                 key={hoverTestimonial.id}
-                className="z-10 [grid-area:stack]"
+                className="z-10 min-w-0 [grid-area:stack]"
                 initial={reduce ? false : { opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
