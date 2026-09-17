@@ -12,6 +12,12 @@ const HIDDEN_ON = ["/privacy-policy", "/terms"];
  * the safe-area inset so it clears the home-indicator on notched devices.
  * BackToTop.tsx shifts its own mobile offset up to clear this bar. See the
  * comment there.
+ *
+ * The top corners are rounded to the same 2xl as the site's other floating
+ * surfaces, the cookie notice and the chat panel. Square, this bar cut a hard
+ * white edge straight across whatever it was over, which on the dark heroes
+ * was the most conspicuous thing on the screen. Only the top is rounded: the
+ * bottom edge is flush with the viewport and its corners never show.
  */
 export default function MobileStickyCTA() {
   const pathname = usePathname();
@@ -20,7 +26,7 @@ export default function MobileStickyCTA() {
   return (
     <div
       data-floating-control
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-hairline)] bg-[var(--color-surface)]/95 px-4 pt-3 shadow-[0_-8px_24px_rgba(2,12,27,0.1)] backdrop-blur-sm sm:hidden [padding-bottom:max(0.75rem,env(safe-area-inset-bottom))]">
+      className="fixed inset-x-0 bottom-0 z-40 rounded-t-2xl border-t border-[var(--color-hairline)] bg-[var(--color-surface)]/95 px-4 pt-3 shadow-[0_-8px_24px_rgba(2,12,27,0.1)] backdrop-blur-sm sm:hidden [padding-bottom:max(0.75rem,env(safe-area-inset-bottom))]">
       <Link
         href="/#connect"
         className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-brand)] text-[15px] font-semibold text-white transition-colors active:bg-[var(--color-brand-hover)]"
