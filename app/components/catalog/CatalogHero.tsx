@@ -139,9 +139,12 @@ export default function CatalogHero() {
         Trivima bioprinters
       </h1>
 
-      {/* pb below sm clears MobileStickyCTA, which is fixed to the bottom
-          there and otherwise sits on the last closed strip. */}
-      <div className="flex h-full flex-col pb-16 sm:pb-0 lg:flex-row">
+      {/* Stacked below lg, the strips run down the page and the first one
+          lands under the fixed navbar, whose whole box takes the clicks: the
+          machine folded away at the top could not be reopened. The column is
+          inset past it. pb below sm does the same for MobileStickyCTA, which
+          otherwise sits on the last closed strip. */}
+      <div className="flex h-full flex-col pt-20 pb-16 sm:pb-0 lg:flex-row lg:pt-0">
         {machines.map((machine, i) => {
           const isOpen = i === open;
           const skin = SKIN[machine.slug];
@@ -278,7 +281,7 @@ export default function CatalogHero() {
                   has finished folding away. */}
               <div
                 id={panelId}
-                className={`relative flex h-full flex-col justify-between gap-8 overflow-hidden p-7 pt-28 pb-10 sm:p-10 sm:pt-32 sm:pb-12 lg:p-14 lg:pt-32 lg:pb-16 ${
+                className={`relative flex h-full flex-col justify-between gap-8 overflow-hidden p-7 pb-10 sm:p-10 sm:pb-12 lg:p-14 lg:pt-32 lg:pb-16 ${
                   isOpen ? "" : "pointer-events-none"
                 }`}
                 style={{ opacity: isOpen ? 1 : 0, ...fade(isOpen) }}

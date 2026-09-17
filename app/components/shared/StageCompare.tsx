@@ -1,9 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 /**
- * Manual three-stage wipe for a full-bleed hero.
+ * Manual three-stage wipe for a hero.
  *
  * All three frames are the same subject at the same scale and angle, so this
  * reads as one object moving through the pipeline rather than three pictures
@@ -21,8 +27,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * Every image puts the subject to the right and leaves the left of the frame
  * as plain background, which is where the hero's copy panel sits: letting the
  * window run under the panel would mean dragging something the reader cannot
- * see. For the same reason the handle drops below the panel on small screens,
- * where the panel is full width.
+ * see.
+ *
+ * The frame fills whatever box its parent gives it. Both heroes make that box
+ * a bounded card below `lg` and the full-bleed section from `lg` up, so the
+ * chrome below `lg` is sized for a card a couple of hundred pixels tall rather
+ * than for a whole viewport with a copy panel over it.
+ *
+ * Touch: the root takes `touch-action: pan-y`, so the browser keeps vertical
+ * scrolling and the horizontal axis is ours. Without it the browser claims the
+ * gesture as a pan and cancels the drag, and `preventDefault` on pointermove
+ * cannot win it back. A touch drag is only committed once the movement proves
+ * horizontal, so swiping to scroll from anywhere on the frame never jogs the
+ * window.
  */
 
 /** Half the window's width, as a CSS length. Set on the frame as `--band` so
@@ -30,6 +47,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const BAND = "var(--band)";
 
 const STEP = 2;
+
+/** How far a touch has to travel before it counts as a drag rather than the
+ *  start of a scroll. */
+const SLOP = 6;
 
 /** Cubic ease-in-out, so the hint accelerates and settles rather than sliding
  *  at a constant speed. */
@@ -49,23 +70,56 @@ type Props = {
   /** Where the window may travel, as a percentage of the frame's width. `max`
    *  has to leave room for the window's own right edge. */
   travel: { min: number; max: number; start: number };
+  /** Merged over `travel` below sm. From lg up the copy panel owns the left of
+   *  the frame and the window has to stay clear of it; on a phone the panel is
+   *  above the card instead, so the window can sit further left. */
+  phoneTravel?: Partial<{ min: number; max: number; start: number }>;
   /** Said beside the handle for anyone who missed the nudge. */
   hint: string;
   /** How far the opening nudge walks either side of its resting place. */
   nudge?: number;
-  /** object-position for all three frames. The subject sits off to the right,
-   *  so the small-screen crop has to be pushed that way. */
+  /** A light wash over the stages, so a copy panel laid on top of the frame has
+   *  something to sit against. Drawn under the window chrome, so it never dims
+   *  the handle. */
+  wash?: boolean;
+  /** object-position for all three frames. The sources are 16:9 and so is the
+   *  frame at every width, so the default crops nothing. */
   objectPosition?: string;
 };
+
+/** The pointer that owns the current gesture. `live` is false while a touch is
+ *  down but has not yet proved itself horizontal. */
+type Gesture = { id: number; x: number; y: number; live: boolean };
+
+/** useLayoutEffect on the client, useEffect on the server, where there is no
+ *  layout to run before and React warns about the real one. */
+const useIsoLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 export default function StageCompare({
   stages,
   travel,
+  phoneTravel,
   hint,
   nudge = 10,
-  objectPosition = "object-[72%_center] lg:object-center",
+  wash = false,
+  objectPosition = "object-center",
 }: Props) {
-  const { min: MIN, max: MAX, start: START } = travel;
+  /** Matched on the client, where the viewport is knowable. Both this and the
+   *  effect that follows the resting place run before paint, so hydration
+   *  settles a phone onto its own travel in one go rather than painting the
+   *  server's desktop position first and snapping. */
+  const [onPhone, setOnPhone] = useState(false);
+  useIsoLayoutEffect(() => {
+    const mq = window.matchMedia("(max-width: 639.98px)");
+    const sync = () => setOnPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const { min: MIN, max: MAX, start: START } =
+    onPhone && phoneTravel ? { ...travel, ...phoneTravel } : travel;
   const [first, middle, last] = stages;
 
   /** Past this the last stage's label has nowhere to sit without running off
@@ -78,11 +132,20 @@ export default function StageCompare({
   const [hinting, setHinting] = useState(true);
   const frameRef = useRef<HTMLDivElement>(null);
   const touched = useRef(false);
+  const gesture = useRef<Gesture | null>(null);
 
   const takeOver = useCallback(() => {
     touched.current = true;
     setHinting(false);
   }, []);
+
+  /** The range can change under the window when the viewport crosses sm. A
+   *  reader who has already moved it keeps their position, clamped into the new
+   *  range; otherwise the window takes up the new resting place. */
+  useIsoLayoutEffect(() => {
+    if (touched.current) setPct((v) => Math.min(MAX, Math.max(MIN, v)));
+    else setPct(START);
+  }, [MIN, MAX, START]);
 
   const setFromClientX = useCallback(
     (clientX: number) => {
@@ -152,24 +215,48 @@ export default function StageCompare({
     };
   }, [MIN, MAX, START, nudge]);
 
-  // Tracked on the window so a fast drag that leaves the frame keeps working,
-  // and so releasing anywhere ends it.
-  useEffect(() => {
-    if (!dragging) return;
-    const onMove = (e: PointerEvent) => {
-      e.preventDefault();
+  /** Capture the pointer so a fast drag that leaves the frame keeps working and
+   *  releasing anywhere ends it. Captured events retarget to whichever element
+   *  took the capture and still bubble, so the frame's move and end handlers
+   *  serve the handle's drags too. */
+  const capture = (e: React.PointerEvent, live: boolean) => {
+    gesture.current = { id: e.pointerId, x: e.clientX, y: e.clientY, live };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const onFramePointerDown = (e: React.PointerEvent) => {
+    if (gesture.current) return;
+    takeOver();
+    // A mouse press on the frame is unambiguous, so it jumps the window at
+    // once. A touch has to prove it is a drag first: the frame covers the whole
+    // hero, and a swipe to scroll starts on it far more often than a drag does.
+    const live = e.pointerType === "mouse";
+    capture(e, live);
+    if (live) {
+      setDragging(true);
       setFromClientX(e.clientX);
-    };
-    const stop = () => setDragging(false);
-    window.addEventListener("pointermove", onMove, { passive: false });
-    window.addEventListener("pointerup", stop);
-    window.addEventListener("pointercancel", stop);
-    return () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", stop);
-      window.removeEventListener("pointercancel", stop);
-    };
-  }, [dragging, setFromClientX]);
+    }
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    const g = gesture.current;
+    if (!g || g.id !== e.pointerId) return;
+    if (!g.live) {
+      const dx = e.clientX - g.x;
+      const dy = e.clientY - g.y;
+      if (Math.abs(dx) <= SLOP || Math.abs(dx) <= Math.abs(dy)) return;
+      g.live = true;
+      setDragging(true);
+    }
+    setFromClientX(e.clientX);
+  };
+
+  const onPointerEnd = (e: React.PointerEvent) => {
+    const g = gesture.current;
+    if (!g || g.id !== e.pointerId) return;
+    gesture.current = null;
+    setDragging(false);
+  };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     takeOver();
@@ -193,14 +280,15 @@ export default function StageCompare({
   return (
     <div
       ref={frameRef}
-      className="absolute inset-0 select-none [--band:52px] lg:[--band:78px]"
-      onPointerDown={(e) => {
-        // Only the bare frame starts a drag: the copy panel above it keeps
-        // its own clicks.
-        takeOver();
-        setDragging(true);
-        setFromClientX(e.clientX);
-      }}
+      /* `isolate` keeps the handle, the hint and the labels inside this frame.
+         Without it their `z-10` escapes into the hero section's stacking
+         context and paints them over the copy panel, where the handle also ate
+         taps on the headline. */
+      className="absolute inset-0 isolate select-none touch-pan-y [--band:40px] sm:[--band:52px] lg:[--band:78px]"
+      onPointerDown={onFramePointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerEnd}
+      onPointerCancel={onPointerEnd}
     >
       {/* Three stages stacked in reverse pipeline order, each one clipped a
           little further left than the one beneath it. What survives is the
@@ -231,6 +319,15 @@ export default function StageCompare({
         style={{ clipPath: `inset(0 calc(${100 - pct}% + ${BAND}) 0 0)` }}
       />
 
+      {/* A light wash over all three stages so a copy panel laid on the frame
+          has something to sit against without flattening any of them. */}
+      {wash && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[rgba(10,20,34,0.12)]"
+        />
+      )}
+
       {/* The window itself: two seams with the middle stage showing between
           them. A dark core keeps each seam readable on the white CAD grid, the
           white edges keep it readable on the blue, and the outer glow lifts it
@@ -246,7 +343,8 @@ export default function StageCompare({
         <div className="absolute inset-y-0 right-0 w-[6px] translate-x-1/2 bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.9)_28%,rgba(10,20,34,0.55)_50%,rgba(255,255,255,0.9)_72%,rgba(255,255,255,0)_100%)] shadow-[0_0_18px_rgba(255,255,255,0.6)]" />
       </div>
 
-      {/* Handle */}
+      {/* Handle. `touch-none` rather than the frame's `pan-y`: a finger on the
+          handle is only ever there to drag it, so it should not also scroll. */}
       <button
         type="button"
         role="slider"
@@ -258,10 +356,12 @@ export default function StageCompare({
         onKeyDown={onKeyDown}
         onPointerDown={(e) => {
           e.stopPropagation();
+          if (gesture.current) return;
           takeOver();
+          capture(e, true);
           setDragging(true);
         }}
-        className={`absolute top-[22%] lg:top-1/2 z-10 flex size-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/20 text-white shadow-[0_8px_30px_rgba(2,8,20,0.35)] backdrop-blur-md transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent motion-reduce:transition-none ${
+        className={`absolute top-1/2 z-10 flex size-12 -translate-x-1/2 -translate-y-1/2 touch-none items-center justify-center rounded-full border border-white/70 bg-white/20 text-white shadow-[0_8px_30px_rgba(2,8,20,0.35)] backdrop-blur-md transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent motion-reduce:transition-none ${
           dragging ? "cursor-grabbing scale-105" : "cursor-grab"
         }`}
         style={{ left: `${pct}%` }}
@@ -285,38 +385,89 @@ export default function StageCompare({
       </button>
 
       {/* Says what the control does, for anyone who missed the nudge or has
-          motion turned off. It steps aside once the reader takes over. */}
-      {/* On a phone the label is wider than the frame, so following the handle
-          pushed it off the right edge; there it centres in the frame and wraps
-          instead. From sm up it tracks the handle as before. */}
+          motion turned off. It steps aside once the reader takes over.
+          In the card it sits on the bottom edge, clear of the handle and free
+          to wrap; from lg up, where the frame is the whole hero, it tracks the
+          handle as before. */}
       <span
-        className={`pointer-events-none absolute left-1/2 top-[calc(22%+2.75rem)] z-10 max-w-[calc(100%-2rem)] -translate-x-1/2 text-balance rounded-lg border border-white/25 bg-black/45 px-3 py-1.5 text-center text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-500 sm:left-[var(--hint-left)] sm:max-w-none sm:whitespace-nowrap lg:top-[calc(50%+2.75rem)] motion-reduce:transition-none ${
+        className={`pointer-events-none absolute bottom-3 left-1/2 z-10 max-w-[calc(100%-2rem)] -translate-x-1/2 text-balance rounded-lg border border-white/25 bg-black/45 px-3 py-1.5 text-center text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-500 lg:bottom-auto lg:left-[var(--hint-left)] lg:top-[calc(50%+2.75rem)] lg:max-w-none lg:whitespace-nowrap motion-reduce:transition-none ${
           hinting ? "opacity-100" : "opacity-0"
         }`}
         style={{ "--hint-left": `${pct}%` } as React.CSSProperties}
       >
-        {hint}
+        {/* Below sm the list and the markers already name the stages, so the
+            hint only has to say what to do. The full sentence wrapped to three
+            lines there and sat over the handle it was describing. */}
+        <span className="sm:hidden">Drag to compare</span>
+        <span className="hidden sm:inline">{hint}</span>
       </span>
 
-      {/* Stage labels sit near the top of the frame: the bottom corners belong
-          to the cookie notice and the chat launcher, which sat over them. Each
-          one tracks its own stage, so they always read in pipeline order. The
-          first two are hidden on small screens, where the copy panel is full
-          width and there is no room to the left of the window. */}
+      {/* Below sm the three tracking chips would collide and the last one
+          would run off the card, so the naming splits in two: the stages are
+          listed once, in the band of plain background that sits left of the
+          window at every point in its travel, and a numbered marker rides the
+          top edge above each layer, pointing down into it and travelling with
+          the window. The list is what the numbers mean; the markers are where
+          the layers are. */}
+      <ol className="pointer-events-none absolute left-3 top-8 z-10 flex flex-col items-start gap-0.5 sm:hidden">
+        {stages.map((stage, i) => (
+          <li
+            key={stage.label}
+            className="flex items-center gap-1 rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-2 py-0.5 text-[11px] font-medium text-[var(--color-ink)] backdrop-blur-sm"
+          >
+            <span className="font-semibold tabular-nums text-[var(--color-brand-strong)]">
+              {i + 1}
+            </span>
+            {stage.label}
+          </li>
+        ))}
+      </ol>
+
+      {/* The markers. Each sits over the middle of its own layer: the first
+          stage runs from the frame's left edge to the window, the middle one
+          is what the window shows, and the last runs from the window to the
+          right edge. Clamped so a marker never rides off the card, and the
+          last one goes when the window has eaten the layer it points at. */}
+      <div aria-hidden="true" className="sm:hidden">
+        {[
+          `calc((${pct}% - ${BAND}) / 2)`,
+          `${pct}%`,
+          `calc((${pct}% + ${BAND} + 100%) / 2)`,
+        ].map((centre, i) => (
+          <span
+            key={i}
+            className={`pointer-events-none absolute top-1.5 z-10 flex -translate-x-1/2 flex-col items-center transition-opacity duration-200 motion-reduce:transition-none ${
+              i === 2 && pct > LAST_LABEL_MAX ? "opacity-0" : "opacity-100"
+            }`}
+            style={{ left: `clamp(1rem, ${centre}, calc(100% - 1rem))` }}
+          >
+            <span className="flex size-[18px] items-center justify-center rounded-full border border-white/35 bg-[rgba(10,20,34,0.72)] text-[10.5px] font-semibold leading-none tabular-nums text-white">
+              {i + 1}
+            </span>
+            <span className="size-0 border-x-[4px] border-t-[5px] border-x-transparent border-t-[rgba(10,20,34,0.72)]" />
+          </span>
+        ))}
+      </div>
+
+      {/* Stage labels sit on the top edge of the frame: from lg up the bottom
+          corners belong to the cookie notice and the chat launcher, which sat
+          over them. Each one tracks its own stage, so they always read in
+          pipeline order. All three give way to the static list below sm,
+          where they would collide and name the same stages twice. */}
       <span
-        className="pointer-events-none absolute top-24 hidden rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-3 py-1.5 text-[12.5px] font-medium text-[var(--color-ink)] backdrop-blur-sm lg:top-28 lg:block"
+        className="pointer-events-none absolute top-3 hidden rounded-lg border border-[var(--color-ink)]/10 bg-white/85 px-3 py-1.5 text-[12.5px] font-medium text-[var(--color-ink)] backdrop-blur-sm sm:block lg:top-28"
         style={{ right: `calc(100% - ${pct}% + ${BAND} + 0.75rem)` }}
       >
         {first.label}
       </span>
       <span
-        className="pointer-events-none absolute top-24 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/30 bg-black/55 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm lg:top-28 lg:block"
+        className="pointer-events-none absolute top-3 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-white/30 bg-black/55 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm sm:block lg:top-28"
         style={{ left: `${pct}%` }}
       >
         {middle.label}
       </span>
       <span
-        className={`pointer-events-none absolute top-24 whitespace-nowrap rounded-lg border border-white/25 bg-black/40 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-200 lg:top-28 motion-reduce:transition-none ${
+        className={`pointer-events-none absolute top-3 hidden whitespace-nowrap rounded-lg border border-white/25 bg-black/40 px-3 py-1.5 text-[12.5px] font-medium text-white backdrop-blur-sm transition-opacity duration-200 sm:block lg:top-28 motion-reduce:transition-none ${
           pct > LAST_LABEL_MAX ? "opacity-0" : "opacity-100"
         }`}
         /* Clamped, then faded out: near full travel an unclamped label ran off

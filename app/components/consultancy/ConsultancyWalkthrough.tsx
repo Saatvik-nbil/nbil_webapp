@@ -75,7 +75,7 @@ export default function ConsultancyWalkthrough() {
           lessLabel="Show less"
           fadeTo="var(--color-surface-raised)"
         >
-        <ol className="relative flex flex-col gap-10 lg:gap-12 border-l border-[var(--color-hairline)] pl-8 lg:pl-12">
+        <ol className="relative flex flex-col gap-10 lg:gap-12 border-l border-[var(--color-hairline)] pl-9 lg:pl-12">
           {STAGES.map(({ step, title, body }, i) => (
             <motion.li
               key={step}
@@ -85,9 +85,13 @@ export default function ConsultancyWalkthrough() {
               transition={{ delay: (i % 3) * 0.06, duration: 0.55, ease: EASE }}
               className="relative"
             >
+              {/* The badge straddles the rule, so it hangs into the page
+                  gutter. At the desktop size it hung a pixel past the left
+                  edge of a phone and read as cut off, so it shrinks here
+                  rather than pushing the whole list inwards. */}
               <span
                 aria-hidden="true"
-                className="absolute -left-9 lg:-left-14 top-0 flex size-11 lg:size-12 -translate-x-1/2 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[17px] lg:text-[19px] font-semibold tabular-nums text-[var(--color-brand-strong)]"
+                className="absolute -left-6 lg:-left-14 top-0 flex size-8 lg:size-12 -translate-x-1/2 items-center justify-center rounded-full border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[14px] lg:text-[19px] font-semibold tabular-nums text-[var(--color-brand-strong)]"
               >
                 {step}
               </span>

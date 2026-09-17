@@ -32,11 +32,14 @@ export default function EarStageCompare() {
          later and further. At rest it splits the ear three ways: mesh on the
          left, toolpaths through the window, print on the right. */
       travel={{ min: 66, max: 93, start: 76 }}
+      /* As on the landing hero, the window rests nearer the middle of the
+         card on a phone. The floor stays where the ear starts. */
+      phoneTravel={{ start: 70 }}
       nudge={8}
+      /* Was a sibling div in the hero. Drawn inside the frame it sits under
+         the window chrome rather than dimming the handle. */
+      wash
       hint="Slide the window through CAD, slicing and print"
-      /* Portrait screens crop hard to the middle of the image; pushed right so
-         what survives the crop is the ear rather than empty grid. */
-      objectPosition="object-[76%_center] lg:object-center"
     />
   );
 }

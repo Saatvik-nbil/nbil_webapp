@@ -27,32 +27,48 @@ export default function CompanyHero() {
   return (
     <section
       aria-labelledby="company-hero-heading"
-      className="relative isolate overflow-hidden bg-[var(--color-photo-ground)] min-h-svh flex items-center pt-20"
+      /* A column on small screens: the copy card, then the wipe beneath it.
+         The bottom padding clears MobileStickyCTA, which is fixed to the
+         bottom of the viewport below sm. From lg up this is the full-bleed
+         hero it has always been. */
+      className="relative isolate overflow-hidden bg-[var(--color-photo-ground)] flex flex-col justify-center gap-6 pt-24 pb-24 sm:pb-16 lg:flex-row lg:items-center lg:gap-0 lg:min-h-svh lg:pt-20 lg:pb-0"
     >
       {/* Manual CAD to G-code to print wipe. All three frames leave their left
-          third as plain background, which is where the copy panel sits, so the
-          window's travel is clamped to the right of the frame. */}
-      <ScaffoldStageCompare />
+          third as plain background, which is where the copy panel sits from lg
+          up, so the window's travel is clamped to the right of the frame.
 
-      {/* A light wash over the whole frame so the copy panel has something to
-          sit against without flattening any of the three stages. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[rgba(10,20,34,0.12)]"
-      />
+          Below lg the wipe is its own card under the copy rather than the
+          backdrop behind it: full width it sat almost entirely behind the
+          panel, so the reader was being asked to drag something they could not
+          see. The sources are 16:9, so an aspect-video card crops nothing and
+          the composition matches the desktop one exactly. It stays first in
+          the DOM so that from lg up it paints under the copy. */}
+      <div className="order-last relative mx-6 aspect-video overflow-hidden rounded-[1.5rem] ring-1 ring-white/15 lg:order-none lg:absolute lg:inset-0 lg:mx-0 lg:aspect-auto lg:rounded-none lg:ring-0">
+        <ScaffoldStageCompare />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16 w-full">
+      {/* Click-through except for the panel itself. Containing the wipe's
+          chrome inside its own frame means this wrapper now paints above it,
+          and from lg up the grid's empty right column lies right over the
+          handle: without this it would swallow the drag. */}
+      <div className="pointer-events-none relative max-w-7xl mx-auto px-6 py-0 lg:py-16 w-full">
         <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
-          {/* Copy sits on frosted glass over the wipe's plain-background side.
-              The fill is a diagonal gradient rather than a flat wash: brighter
-              at the top-left corner where the heading sits, thinner through
-              the middle so the silk reads through the panel, which is what
-              makes it look like glass rather than a translucent box. */}
+          {/* From lg up the copy sits on frosted glass over the wipe's
+              plain-background side. The fill is a diagonal gradient rather
+              than a flat wash: brighter at the top-left corner where the
+              heading sits, thinner through the middle so the silk reads
+              through the panel, which is what makes it look like glass rather
+              than a translucent box.
+
+              Below lg there is no wipe behind it, only flat photo-ground, and
+              a translucent fill over a solid colour reads as a grey box. So
+              the panel goes near-opaque white there, which keeps every ink
+              colour on it exactly as tuned. */}
           <LiquidGlass
             tint="light"
-            className="rounded-[2rem] border border-white/55 bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)] shadow-[0_24px_70px_rgba(2,8,20,0.30)]"
+            className="pointer-events-auto rounded-[1.5rem] border border-white/55 bg-[rgba(255,255,255,0.92)] shadow-[0_24px_70px_rgba(2,8,20,0.30)] lg:rounded-[2rem] lg:bg-transparent lg:bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)]"
           >
-            <div className="flex flex-col p-8 sm:p-10 lg:p-12">
+            <div className="flex flex-col p-6 sm:p-10 lg:p-12">
               <motion.div {...rise(0.02)}>
                 <BrandDots />
               </motion.div>

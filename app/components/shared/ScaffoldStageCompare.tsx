@@ -28,8 +28,17 @@ export default function ScaffoldStageCompare() {
         },
       ]}
       /* Clamped to the right of the frame: the scaffold sits there in all
-         three shots, and the copy panel owns everything to its left. */
+         three shots, and from lg up the copy panel owns everything to its
+         left. */
       travel={{ min: 52, max: 92, start: 68 }}
+      /* Nothing sits over the frame on a phone, so the window can rest
+         nearer the middle of the card. Only the resting place moves: the floor
+         is where the scaffold starts, and below it the window is over blank
+         grid with nothing to compare. */
+      phoneTravel={{ start: 62 }}
+      /* Was a sibling div in the hero. Drawn inside the frame it sits under
+         the window chrome rather than dimming the handle. */
+      wash
       hint="Slide the window through CAD, G-code and print"
     />
   );
