@@ -6,9 +6,8 @@ import { CompanyName } from "@/app/components/CompanyName";
 
 const QUICK_LINKS = [
   { label: "Trivima Bioprinters", href: "/trivima" },
-  { label: "Learn Bioprinting", href: "/consultancy" },
   { label: "About Us", href: "/our-story" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Next Big Blogs", href: "/blogs" },
   { label: "Publications", href: "/publications" },
   { label: "Careers", href: "/team#careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
@@ -17,7 +16,6 @@ const QUICK_LINKS = [
 
 const RESOURCES = [
   { label: "Get A Quote", href: "/#connect" },
-  { label: "Enquire about Our Course", href: "/#connect" },
   { label: "Contact Us", href: "/#connect" },
   { label: "Partner With Us", href: "/#connect" },
   { label: "Become An Investor", href: "/#connect" },

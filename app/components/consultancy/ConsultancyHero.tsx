@@ -50,7 +50,7 @@ export default function ConsultancyHero() {
           and from lg up the grid's empty right column lies right over the
           handle: without this it would swallow the drag. */}
       <div className="pointer-events-none relative max-w-7xl mx-auto px-6 py-0 lg:py-16 w-full">
-        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
           {/* From lg up the copy sits on frosted glass over the comparison's
               plain-background side. The fill is a diagonal gradient rather
               than a flat wash: brighter at the top-left corner where the
@@ -64,7 +64,7 @@ export default function ConsultancyHero() {
               colour on it exactly as tuned. */}
           <LiquidGlass
             tint="light"
-            className="pointer-events-auto rounded-[1.5rem] border border-white/55 bg-[rgba(255,255,255,0.92)] shadow-[0_24px_70px_rgba(2,8,20,0.30)] lg:rounded-[2rem] lg:bg-transparent lg:bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)]"
+            className="pointer-events-auto flex min-h-[32rem] flex-col justify-center rounded-[1.5rem] border border-white/55 bg-[rgba(255,255,255,0.92)] shadow-[0_24px_70px_rgba(2,8,20,0.30)] sm:min-h-[28rem] lg:min-h-[32rem] lg:rounded-[2rem] lg:bg-transparent lg:bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)]"
           >
             <div className="flex flex-col p-6 sm:p-10 lg:p-12">
               <motion.div {...rise(0.01)} className="mb-6">
@@ -73,7 +73,7 @@ export default function ConsultancyHero() {
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"
-                className="h1 mt-3 lg:text-[clamp(2rem,3.4vw,2.75rem)]"
+                className="h1 mt-3 lg:text-[clamp(1.75rem,2.8vw,2.25rem)]"
               >
                 <span className="sm:block">Your Bioprinting Project,</span>{" "}
                 <span className="sm:block">Handled Start to Finish.</span>

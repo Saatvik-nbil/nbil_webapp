@@ -66,7 +66,7 @@ export default function CompanyHero() {
               colour on it exactly as tuned. */}
           <LiquidGlass
             tint="light"
-            className="pointer-events-auto rounded-[1.5rem] border border-white/55 bg-[rgba(255,255,255,0.92)] shadow-[0_24px_70px_rgba(2,8,20,0.30)] lg:rounded-[2rem] lg:bg-transparent lg:bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)]"
+            className="pointer-events-auto flex min-h-[32rem] flex-col justify-center rounded-[1.5rem] border border-white/55 bg-[rgba(255,255,255,0.92)] shadow-[0_24px_70px_rgba(2,8,20,0.30)] sm:min-h-[28rem] lg:min-h-[32rem] lg:rounded-[2rem] lg:bg-transparent lg:bg-[linear-gradient(135deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.34)_52%,rgba(255,255,255,0.46)_100%)]"
           >
             <div className="flex flex-col p-6 sm:p-10 lg:p-12">
               <motion.div {...rise(0.02)}>

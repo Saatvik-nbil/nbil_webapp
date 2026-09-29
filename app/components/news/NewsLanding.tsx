@@ -19,10 +19,13 @@ const ROW_TOP: Slot[] = [
     src: "/events/9.webp",
     alt: "Researchers gathered around a Trivima Advanced bioprinter during a lab demonstration",
   },
-  { aspect: "3 / 4", src: "/events/3.webp" },
+  {
+    aspect: "4 / 3",
+    src: "/events/img-0304.webp",
+    alt: "Group gathered beside a bioprinter in the Next Big Innovation Labs lab",
+  },
   { aspect: "4 / 3", src: "/events/4.webp" },
   { aspect: "5 / 6", src: "/events/5.webp" },
-  { aspect: "16 / 9", src: "/events/6.webp" },
 ];
 
 const ROW_BOTTOM: Slot[] = [
@@ -32,11 +35,14 @@ const ROW_BOTTOM: Slot[] = [
     src: "/events/10.webp",
     alt: "A memento being presented to a speaker at a Next Big Innovation Labs event",
   },
-  { aspect: "3 / 4", src: "/events/8.webp" },
+  {
+    aspect: "4 / 3",
+    src: "/events/img-0301.webp",
+    alt: "Researchers reviewing a bioprinting setup in the lab",
+  },
   { aspect: "4 / 3", src: "/events/2.webp" },
   { aspect: "3 / 2", src: "/events/9.webp" },
   { aspect: "4 / 5", src: "/events/4.webp" },
-  { aspect: "16 / 9", src: "/events/6.webp" },
   { aspect: "3 / 4", src: "/events/5.webp" },
 ];
 
@@ -98,6 +104,7 @@ const PRESS: Press[] = [
 
 /* ── LinkedIn embeds: heights match LinkedIn's published embed sizes ──── */
 const POSTS: { id: string; height: number }[] = [
+  { id: "7503011053635670016", height: 798 },
   { id: "7472211153843048448", height: 1049 },
   { id: "7459948340193951745", height: 1259 },
   { id: "7462436032752345088", height: 902 },
