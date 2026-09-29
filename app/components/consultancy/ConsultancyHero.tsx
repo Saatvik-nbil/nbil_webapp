@@ -50,7 +50,7 @@ export default function ConsultancyHero() {
           and from lg up the grid's empty right column lies right over the
           handle: without this it would swallow the drag. */}
       <div className="pointer-events-none relative max-w-7xl mx-auto px-6 py-0 lg:py-16 w-full">
-        <div className="grid lg:grid-cols-[1.08fr_0.92fr] gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-16 items-center">
           {/* From lg up the copy sits on frosted glass over the comparison's
               plain-background side. The fill is a diagonal gradient rather
               than a flat wash: brighter at the top-left corner where the
@@ -70,18 +70,13 @@ export default function ConsultancyHero() {
               <motion.div {...rise(0.01)} className="mb-6">
                 <BrandDots />
               </motion.div>
-              <motion.p
-                {...rise(0.02)}
-                className="italic text-[13px] lg:text-[14px] text-[var(--color-ink)]/65 leading-[1.5]"
-              >
-                A Decade of Bioprinting Engineering &amp; Advisory
-              </motion.p>
               <motion.h1
                 {...rise(0.06)}
                 id="consultancy-hero-heading"
-                className="h1 mt-3 max-w-[19ch]"
+                className="h1 mt-3 lg:text-[clamp(2rem,3.4vw,2.75rem)]"
               >
-                Your Bioprinting Project, Handled Start to Finish.
+                <span className="sm:block">Your Bioprinting Project,</span>{" "}
+                <span className="sm:block">Handled Start to Finish.</span>
               </motion.h1>
               <motion.p
                 {...rise(0.14)}

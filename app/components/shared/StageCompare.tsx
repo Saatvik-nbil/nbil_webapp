@@ -284,7 +284,7 @@ export default function StageCompare({
          Without it their `z-10` escapes into the hero section's stacking
          context and paints them over the copy panel, where the handle also ate
          taps on the headline. */
-      className="absolute inset-0 isolate select-none touch-pan-y [--band:40px] sm:[--band:52px] lg:[--band:78px]"
+      className="absolute inset-0 isolate overflow-hidden rounded-[inherit] select-none touch-pan-y [--band:40px] sm:[--band:52px] lg:[--band:78px]"
       onPointerDown={onFramePointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerEnd}

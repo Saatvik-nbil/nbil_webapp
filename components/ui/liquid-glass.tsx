@@ -293,7 +293,7 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
           saturation and lift on the blur, plus the turbulence texture below. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-10 rounded-[inherit]"
         style={{
           backdropFilter:
             "blur(26px) saturate(210%) brightness(1.10) contrast(1.06)",
@@ -308,7 +308,7 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
       {distort && (
         <svg
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 h-full w-full rounded-[inherit] opacity-[0.22] mix-blend-overlay"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full overflow-hidden rounded-[inherit] opacity-[0.22] mix-blend-overlay"
         >
           <filter id="liquid-glass-frost">
             <feTurbulence
@@ -322,7 +322,7 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
         </svg>
       )}
       {/* tint */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ background: overlay }} />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 rounded-[inherit]" style={{ background: overlay }} />
       {/* edge highlight (the signature liquid-glass rim) */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit]" style={{ boxShadow: innerHighlight }} />
       {children}

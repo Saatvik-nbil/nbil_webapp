@@ -295,7 +295,7 @@ export default function CatalogHero() {
                       : `transform ${SWEEP_MS}ms ${SWEEP_EASE}`,
                   }}
                 >
-                  <BrandDots tone="light" />
+                  <BrandDots />
                   <p className="max-w-[40ch] text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45] text-white/85">
                     {machine.tagline}
                   </p>
