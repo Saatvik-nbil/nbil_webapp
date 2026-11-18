@@ -450,7 +450,7 @@ export default function DheeQuickStartPage() {
                 Contact support
               </OriginButton>
               <OriginButton
-                href="/guides"
+                href="/blogs"
                 variant="outline"
                 className="px-6 font-semibold"
               >

@@ -31,7 +31,7 @@ export default function MobileStickyCTA() {
         href="/#connect"
         className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-brand)] text-[15px] font-semibold text-white transition-colors active:bg-[var(--color-brand-hover)]"
       >
-        Talk to us
+        Contact us
         <ArrowRight size={16} weight="bold" aria-hidden="true" />
       </Link>
     </div>

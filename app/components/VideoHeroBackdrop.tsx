@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Full-bleed video backdrop for a page hero. Same scrim stack as
- * `PhotoHeroBackdrop`, so a hero can swap between the two without its copy
- * changing contrast: darken the media itself, then lay a directional gradient
- * over the side the copy sits on.
+ * Full-bleed video backdrop for a page hero. Same values as `PhotoHeroBackdrop`'s
+ * `clear` scrim, so a hero can swap between the two without its copy changing
+ * contrast: dim the media slightly, then multiply a directional gradient over the
+ * side the copy sits on, which keeps the blacks black rather than milky.
  *
  * The poster carries the first paint and is all anyone sees under
  * `prefers-reduced-motion`, where the video is never loaded at all. Everything
@@ -55,7 +55,7 @@ export default function VideoHeroBackdrop({
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
-        style={{ objectPosition, filter: "brightness(0.72) saturate(0.98)" }}
+        style={{ objectPosition, filter: "brightness(0.92) contrast(1.06)" }}
       />
 
       {play ? (
@@ -70,7 +70,7 @@ export default function VideoHeroBackdrop({
           aria-hidden="true"
           tabIndex={-1}
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition, filter: "brightness(0.72) saturate(0.98)" }}
+          style={{ objectPosition, filter: "brightness(0.92) contrast(1.06)" }}
         >
           {webm ? <source src={webm} type="video/webm" /> : null}
           <source src={mp4} type="video/mp4" />
@@ -84,7 +84,8 @@ export default function VideoHeroBackdrop({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(90deg, rgba(10,20,34,0.90) 0%, rgba(10,20,34,0.70) 44%, rgba(10,20,34,0.22) 72%, rgba(10,20,34,0.06) 100%)",
+            "linear-gradient(90deg, rgba(10,20,34,0.80) 0%, rgba(10,20,34,0.64) 50%, rgba(10,20,34,0.20) 75%, rgba(10,20,34,0) 100%)",
+          mixBlendMode: "multiply",
         }}
       />
       {/* Darkens under the fixed navbar so the glass pill stays legible. */}
@@ -93,7 +94,8 @@ export default function VideoHeroBackdrop({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(10,20,34,0.55) 0%, rgba(10,20,34,0) 42%)",
+            "linear-gradient(180deg, rgba(10,20,34,0.45) 0%, rgba(10,20,34,0) 30%)",
+          mixBlendMode: "multiply",
         }}
       />
     </>

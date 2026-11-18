@@ -310,9 +310,6 @@ export default function CatalogHero() {
                       : `transform ${SWEEP_MS}ms ${SWEEP_EASE}`,
                   }}
                 >
-                  <p className="text-[clamp(1rem,1.5vw,1.375rem)] font-medium text-white/75">
-                    {machine.role}
-                  </p>
                   <h2 className="max-w-[12ch] font-display text-[clamp(3rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.035em] text-white">
                     {machine.name}
                   </h2>

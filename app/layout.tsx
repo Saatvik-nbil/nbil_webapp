@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://nextbiginnovationlabs.com/trivima-bioprinter/",
+    url: "https://nextbiginnovationlabs.com/",
     siteName: "Next Big Innovation Labs",
     title: "Trivima Bioprinters: The Full Range by NBIL",
     description:
@@ -83,9 +83,9 @@ export const metadata: Metadata = {
       "The non-planar NP, the six-extruder Pro and the light-based Aura. Compare spec for spec.",
     images: ["/images/np-side.webp"],
   },
-  alternates: {
-    canonical: "https://nextbiginnovationlabs.com/trivima-bioprinter/",
-  },
+  // No site-wide canonical: it is inherited by every page that doesn't set its
+  // own, which would tell Google all of those pages are one URL. Each page
+  // declares its own canonical instead.
   category: "Scientific Equipment",
 };
 

@@ -36,13 +36,14 @@ export default function BlogsPage() {
           <PhotoHeroBackdrop
             src="/images/heroes/blogs-hero.webp"
             objectPosition="65% center"
+            scrim="clear"
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
             <div className="flex flex-col gap-5 max-w-3xl">
               <h1 className="h1 text-white">
                 Next Big Blogs
               </h1>
-              <p className="text-[16px] lg:text-[17px] text-white/75 leading-relaxed">
+              <p className="text-[16px] lg:text-[17px] text-white/90 leading-relaxed">
                 Deep dives on bioprinting, biomaterials and biofabrication from
                 the Next Big Innovation Labs team.
               </p>

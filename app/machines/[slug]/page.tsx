@@ -31,8 +31,11 @@ export async function generateMetadata({
   return {
     title: `${m.fullName}`,
     description: `${m.tagline} ${m.blurb}`,
-    alternates: { canonical: m.sourceUrl },
+    // `sourceUrl` is the old WordPress page, which now 301s here; canonical
+    // has to be this page's own address.
+    alternates: { canonical: `${COMPANY.site}/machines/${m.slug}` },
     openGraph: {
+      url: `${COMPANY.site}/machines/${m.slug}`,
       title: `${m.fullName} | Trivima by NBIL`,
       description: m.blurb,
       images: [{ url: m.heroImage.src, alt: m.heroImage.alt }],
@@ -86,7 +89,7 @@ export default async function MachinePage({
     })),
     offers: {
       "@type": "Offer",
-      url: machine.sourceUrl,
+      url: `${COMPANY.site}/machines/${machine.slug}`,
       availability: "https://schema.org/InStock",
       seller: { "@type": "Organization", name: COMPANY.name },
       priceSpecification: {
@@ -122,7 +125,7 @@ export default async function MachinePage({
           {/* Top-aligned, not centred: the gallery column is card + thumbnail
               strip, so centring the copy against the whole column drops it
               below the card's midpoint and leaves it level with nothing. Start
-              alignment puts the eyebrow flush with the card's top edge. */}
+              alignment puts the heading near the card's top edge. */}
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
             <MachineGallery
               images={machine.images}
@@ -132,16 +135,10 @@ export default async function MachinePage({
               maxWidth={machine.slug === "trivima-aura" ? 380 : undefined}
             />
 
-            {/* pt-6 ≈ the card's top-5 badge inset plus its py-1, so the tier
-                eyebrow sits on the same line as the role pill and the year
-                chip inside the card. */}
+            {/* pt-6 ≈ the card's top-5 badge inset plus its py-1, so the heading
+                starts level with the role pill and the year chip inside the card. */}
             <div className="flex flex-col gap-6 lg:pt-6">
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-[var(--color-ink-faint)]">
-                  <span>{machine.tier}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{machine.role}</span>
-                </div>
                 <h1
                   id="machine-heading"
                   className="h1"

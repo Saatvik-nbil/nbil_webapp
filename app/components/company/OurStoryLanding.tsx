@@ -157,7 +157,7 @@ export default function OurStoryLanding() {
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
             <OriginButton href="/#connect" className="h-11 px-5 text-[14px]">
-              Talk to us
+              Contact us
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </OriginButton>
             <OriginButton href="/team" variant="outline" className="h-11 px-5 text-[14px]">

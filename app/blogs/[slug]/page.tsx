@@ -68,7 +68,8 @@ export default async function BlogPostPage({
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    image: post.image,
+    // Covers are site-relative; structured data needs an absolute URL.
+    image: post.image.startsWith("/") ? `${BASE_URL}${post.image}` : post.image,
     datePublished: post.isoDate,
     url: `${BASE_URL}/blogs/${post.slug}`,
     publisher: {
@@ -135,8 +136,9 @@ export default async function BlogPostPage({
             </p>
           </header>
 
-          {/* Cover art is served from the publisher's CDN, which is not in the
-              next/image remote allowlist, so it stays a plain img. */}
+          {/* Cover art lives in public/images/blog. It was copied off the old
+              WordPress site before the domain moved here, since its
+              /wp-content/ uploads stop existing once the DNS points at Render. */}
           <div className="my-10 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

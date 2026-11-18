@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   title: "Trivima Bioprinters: The Full Range, Spec for Spec",
   description:
     "Explore the Trivima bioprinter range by NBIL: the non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and light-based (MSLA) bioprinters spec for spec.",
-  alternates: { canonical: "https://nextbiginnovationlabs.com/trivima-bioprinter/" },
+  alternates: { canonical: "https://nextbiginnovationlabs.com/trivima" },
   openGraph: {
     type: "website",
-    url: "https://nextbiginnovationlabs.com/trivima-bioprinter/",
+    url: "https://nextbiginnovationlabs.com/trivima",
     title: "Trivima Bioprinters: The Full Range, Spec for Spec",
     description:
       "The non-planar NP, the six-extruder Pro and the light-based Aura. Compare extrusion, inkjet, pellet and light-based (MSLA) bioprinters spec for spec.",

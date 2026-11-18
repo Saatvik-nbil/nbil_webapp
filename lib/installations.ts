@@ -50,9 +50,9 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
   {
     stateId: "maharashtra",
     installations: [
-      { name: "HiMedia Laboratories", model: "Two Trivima Bioprinters" },
+      { name: "HiMedia Laboratories", model: "Trivima Pro | Trivima Mini" },
       { name: "Somaiya Vidyavihar", model: "Trivima Basic" },
-      { name: "KORE AMMR", model: "Two Trivima Bioprinters" },
+      { name: "KORE AMMR", model: "Trivima Pro | Trivima Mini" },
       { name: "DY Patil", city: "Kolhapur", model: "Trivima Basic" },
       { name: "Agharkar Research Institute", city: "Pune", model: "Trivima Advanced" },
     ],
@@ -67,14 +67,13 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
       { name: "IIT Dharwad", model: "Trivima Advanced" },
       { name: "BMS College of Engineering", city: "Bengaluru", model: "Trivima Mini" },
       { name: "RV College of Engineering", city: "Bengaluru", model: "Trivima Advanced" },
-      { name: "Manipal University", model: "Trivima NP" },
+      { name: "Manipal University", model: "Trivima NP | Trivima Advanced" },
       { name: "University of Agricultural Sciences", city: "Raichur", model: "Trivima NP" },
     ],
   },
   {
     stateId: "kerala",
     installations: [
-      { name: "Manipal University", city: "Mahe", model: "Trivima Advanced" },
       { name: "Moopens Medical College", city: "Wayanad", model: "Trivima Pro" },
       { name: "XL Additive Manufacturing", model: "Trivima Advanced" },
       { name: "Chinmaya Vidya Vishwapeetham", model: "Trivima NP" },
@@ -95,8 +94,8 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
     stateId: "tamil-nadu",
     installations: [
       { name: "SASTRA Deemed University", city: "Thanjavur", model: "Trivima Advanced" },
-      { name: "IIT Madras", city: "Chennai", model: "Two Trivima Bioprinters" },
-      { name: "Central Leather Research Institute", city: "Chennai", model: "Four Trivima Bioprinters" },
+      { name: "IIT Madras", city: "Chennai", model: "Trivima Advanced | Trivima NP" },
+      { name: "Central Leather Research Institute", city: "Chennai", model: "Trivima Basic | Trivima Aura | Trivima NP" },
       { name: "Sathyabama University", city: "Chennai", model: "Trivima Pro" },
       { name: "Saveetha Medical College", city: "Chennai", model: "Trivima Basic" },
     ],
@@ -104,9 +103,9 @@ export const STATE_INSTALLATIONS: StateInstallations[] = [
   {
     stateId: "west-bengal",
     installations: [
-      { name: "JIS University", city: "Kolkata", model: "Two Trivima Bioprinters" },
+      { name: "JIS University", city: "Kolkata", model: "Trivima Basic | Trivima Mini" },
       { name: "IIT Kharagpur", model: "Trivima Advanced" },
-      { name: "NIPER Kolkata", model: "Trivima Pro & Trivima Aura" },
+      { name: "NIPER Kolkata", model: "Trivima Pro | Trivima Aura" },
     ],
   },
 ];

@@ -314,7 +314,7 @@ export default function ApplicationsSection() {
                 href="#contact"
                 className="mt-4 inline-flex text-[14px] font-medium text-[var(--color-brand-strong)] hover:underline underline-offset-4"
               >
-                Talk to us
+                Contact us
               </Link>
             </div>
           </aside>

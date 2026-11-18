@@ -52,7 +52,7 @@ export const machines: Machine[] = [
     blurb:
       "Non-planar system that prints on rotary scaffolds and curved geometries instead of flat layers.",
     overview:
-      "A compact, precision-built system designed for adaptable, high-performance biofabrication. The NP replaces the stationary flat bed with a rotatory spindle module, letting the extruder traverse a revolving mandrel to deposit bioink along true cylindrical and helical paths. This eliminates the layer-seam stress of flat-bed approaches and enables tubular, curved and anatomically complex constructs in a body compact enough for a biosafety cabinet.",
+      "A compact, precision-built system designed for adaptable, high-performance biofabrication. The NP replaces the stationary flat bed with a rotatory spindle module, letting the extruder traverse a revolving mandrel to deposit bioink along true cylindrical and helical paths. This eliminates the layer-seam stress of flat-bed approaches and enables tubular, curved and anatomically complex constructs.",
     tier: "Customisable",
     role: "Non-planar",
     year: "2025",
@@ -66,11 +66,12 @@ export const machines: Machine[] = [
       { label: "Movement precision", value: "<10", unit: "µm" },
       { label: "Build volume", value: "120×70×50", unit: "mm" },
       { label: "Pressure", value: "0.02–8", unit: "Bar" },
-      { label: "Bed temp", value: "Ambient–80", unit: "°C" },
+      { label: "Rotary axis printing", value: "4th axis" },
     ],
     specs: [
       { label: "Extruder slots", value: "2–3 slots (user-configurable)" },
-      { label: "Pneumatic extruder volumes", value: "3CC, 5CC, 10CC" },
+      { label: "Extruder volumes", value: "3CC, 5CC, 10CC" },
+      { label: "Extruder technologies", value: "Pneumatic, pellet-based, motor-driven" },
       { label: "Pneumatic extruder temperature", value: "8 °C to 65 °C" },
       { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
       { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
@@ -81,17 +82,18 @@ export const machines: Machine[] = [
       { label: "Photo-crosslinking", value: "UV & visible (user-defined wavelengths)" },
       { label: "Standard wavelengths", value: "365 nm, 405 nm, 420 nm, 520 nm" },
       { label: "Print bed type", value: "Stationary" },
+      { label: "Control software", value: "Dhee by NBIL" },
       { label: "Compatible file formats", value: ".stl, .gcode" },
     ],
     features: [
       "Swappable heads with two to three extruders",
       "Rotatory spindle module for cylindrical / tubular printing",
       "Lightweight anodized aluminum body with stainless steel components",
-      "Dual-extruder compatibility",
+      "Dual and triple extruder compatibility",
       "Integrated temperature control",
       "UV crosslinking capability",
-      "Fits within biosafety cabinets",
       "Coaxial & tri-axial compatibility (user-defined)",
+      "FRESH printing mode support",
       "HEPA box with UV sterilization (add-on chamber)",
     ],
     technologies: [
@@ -102,6 +104,7 @@ export const machines: Machine[] = [
       "Photo-crosslinking (UV / visible)",
       "Coaxial printing",
       "Tri-axial printing",
+      "FRESH printing",
     ],
     fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
     customisation: {
@@ -137,16 +140,16 @@ export const machines: Machine[] = [
       { src: "/images/pro-1.webp", alt: "Trivima Pro bioprinter with six extruders" },
     ],
     stats: [
-      { label: "Extruder slots", value: "4–6" },
-      { label: "Extruder compatibility", value: "4", unit: "types" },
-      { label: "Build volume", value: "150×100×100", unit: "mm" },
       { label: "Movement precision", value: "<10", unit: "µm" },
+      { label: "Build volume", value: "150×100×100", unit: "mm" },
+      { label: "Pressure", value: "0.02–8", unit: "Bar" },
+      { label: "Extruder slots", value: "4–6" },
     ],
     specs: [
       { label: "Extruder slots", value: "4 to 6 (user-configurable)" },
       { label: "Extruder volumes", value: "3CC, 5CC, 10CC, 30CC" },
       { label: "Extruder technologies", value: "Pneumatic, pellet-based, motor-driven, inkjet (DoD)" },
-      { label: "Pneumatic temperature", value: "8 °C to 60 °C" },
+      { label: "Pneumatic extruder temperature", value: "8 °C to 60 °C" },
       { label: "Pellet extruder temperature", value: "Ambient temperature to 250 °C" },
       { label: "Motor-based extruder temperature", value: "Ambient temperature to 60 °C" },
       { label: "Inkjet extruder temperature", value: "Ambient temperature to 90 °C" },
@@ -182,7 +185,7 @@ export const machines: Machine[] = [
       "Quad-axial printing",
       "FRESH printing",
     ],
-    fixtures: ["Well plates", "Petri dishes", "Slides", "Inserts", "Custom substrates"],
+    fixtures: ["Slides", "Petri dishes", "Well plates", "FRESH substrate", "Well inserts", "Custom substrates"],
     customisation: {
       summary:
         "Specified with you before it is built: how many extruders and which technologies sit in them.",
@@ -205,9 +208,9 @@ export const machines: Machine[] = [
     fullName: "Trivima Aura Bioprinter",
     tagline: "A high-resolution MSLA bioprinter designed for research innovation.",
     blurb:
-      "Light-based MSLA printer reaching ≤40 µm resolution for cell-laden hydrogel constructs.",
+      "Light-based MSLA printer reaching ≤35 µm resolution for cell-laden hydrogel constructs.",
     overview:
-      "A research bioprinter that combines precision, flexibility, and ease of use. Built on MSLA (masked screen LCD) technology with a 405 nm light engine, the Aura cures whole layers at once to reach ≤40 µm XY resolution, an open-material system with no proprietary consumables, designed for reproducible laboratory integration. For research use only.",
+      "A research bioprinter that combines precision, flexibility, and ease of use. Built on MSLA (masked screen LCD) technology with a 405 nm light engine, the Aura cures whole layers at once to reach ≤35 µm XY resolution, an open-material system with no proprietary consumables, designed for reproducible laboratory integration. For research use only.",
     tier: "Specialised",
     role: "Light-based / MSLA",
     year: "2025",
@@ -216,14 +219,14 @@ export const machines: Machine[] = [
       { src: "/images/aura-dlp-iso.webp", alt: "Trivima Aura MSLA bioprinter, front view" },
     ],
     stats: [
-      { label: "Print resolution", value: "≤40", unit: "µm" },
+      { label: "Print resolution", value: "≤35", unit: "µm" },
       { label: "Build volume", value: "80×60×100", unit: "mm" },
       { label: "Crosslinking", value: "405", unit: "nm" },
       { label: "Technology", value: "MSLA" },
     ],
     specs: [
       { label: "Technology", value: "MSLA (masked screen LCD)" },
-      { label: "Print resolution", value: "≤40 microns" },
+      { label: "Print resolution", value: "≤35 microns" },
       { label: "Photo-crosslinking", value: "405 nm UV" },
       { label: "Build volume (L×B×H)", value: "80 × 60 × 100 mm" },
       { label: "Machine build", value: "Metal (stainless steel or anodized aluminium)" },
