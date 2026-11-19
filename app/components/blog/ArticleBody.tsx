@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Reveal from "@/app/components/machine/Reveal";
 
 import type { Block, Inline, ListItem } from "@/lib/markdown";
 
@@ -73,7 +74,9 @@ function Items({ items, ordered }: { items: ListItem[]; ordered: boolean }) {
 export default function ArticleBody({ blocks }: { blocks: Block[] }) {
   return (
     <div className="flex flex-col gap-6">
-      {blocks.map((b, i) => {
+      {/* Each block rises in as it is scrolled to, so a long read moves like
+          the rest of the site instead of sitting static. */}
+      {blocks.map((b, i) => <Reveal key={i}>{(() => {
         if (b.type === "heading") {
           if (b.level === 1 || b.level === 2) {
             return (
@@ -114,7 +117,7 @@ export default function ArticleBody({ blocks }: { blocks: Block[] }) {
             <Inlines nodes={b.content} />
           </p>
         );
-      })}
+      })()}</Reveal>)}
     </div>
   );
 }

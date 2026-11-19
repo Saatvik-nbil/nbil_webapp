@@ -80,7 +80,10 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
 
   return (
     <div
-      className="flex flex-col gap-5 lg:h-[660px] lg:flex-row lg:gap-4"
+      // Fixed so an opening card never shifts the page. Sized for the tallest
+      // open card (NP/Pro, whose body carries the "Built to your spec" note);
+      // at 660px their "View full specifications" link was clipped.
+      className="flex flex-col gap-5 lg:h-[720px] lg:flex-row lg:gap-4"
       onPointerLeave={() => setActive(null)}
     >
       {machines.map((machine, i) => {
@@ -110,7 +113,7 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
               {/* Image well. It gives space back to the body as a card opens,
                   but never below `min-h`: the printer is the point of the card,
                   and an earlier version let it collapse to a few pixels. */}
-              <div className="relative flex min-h-[150px] flex-1 items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 lg:min-h-[230px]">
+              <div className="relative flex min-h-[150px] flex-1 items-center justify-center bg-gradient-to-br from-[var(--color-surface-raised)] to-[var(--color-surface)] p-6 lg:min-h-[200px] xl:min-h-[230px]">
                 <span className="absolute left-4 top-4 z-[1] rounded-lg bg-[var(--color-brand)] px-2.5 py-1 text-[11px] font-medium text-white">
                   {machine.role}
                 </span>
@@ -120,7 +123,9 @@ export default function ModelsRow({ machines }: { machines: Machine[] }) {
                   width={520}
                   height={520}
                   sizes="(max-width: 1024px) 90vw, 45vw"
-                  className="max-h-full w-auto object-contain transition-transform duration-[550ms] group-data-[active=true]:scale-[1.04] motion-reduce:transition-none"
+                  // Stacked (below lg) the well has no fixed height, so the photo
+                  // needs its own cap or it scales up to the card's full width.
+                  className="max-h-[260px] w-auto object-contain lg:max-h-full transition-transform duration-[550ms] group-data-[active=true]:scale-[1.04] motion-reduce:transition-none"
                   style={{ transitionTimingFunction: EASE_IN_OUT }}
                 />
               </div>

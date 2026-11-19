@@ -3,6 +3,7 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import RecentBlogs from "@/app/components/blog/RecentBlogs";
 import PhotoHeroBackdrop from "@/app/components/PhotoHeroBackdrop";
+import { HeroExit, MaskedTitle, RiseIn } from "@/app/components/motion/ScrollFx";
 
 export const metadata: Metadata = {
   title: "Next Big Blogs",
@@ -39,15 +40,13 @@ export default function BlogsPage() {
             scrim="clear"
           />
           <div className="relative w-full max-w-7xl mx-auto px-6">
-            <div className="flex flex-col gap-5 max-w-3xl">
-              <h1 className="h1 text-white">
-                Next Big Blogs
-              </h1>
-              <p className="text-[16px] lg:text-[17px] text-white/90 leading-relaxed">
+            <HeroExit className="flex flex-col gap-5 max-w-3xl" distance={160} fadeTo={0}>
+              <MaskedTitle className="h1 text-white" text="Next Big Blogs" />
+              <RiseIn as="p" delay={0.3} className="text-[16px] lg:text-[17px] text-white/90 leading-relaxed">
                 Deep dives on bioprinting, biomaterials and biofabrication from
                 the Next Big Innovation Labs team.
-              </p>
-            </div>
+              </RiseIn>
+            </HeroExit>
           </div>
         </section>
 

@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { BookOpen, Clock } from "lucide-react";
 
 interface GlassBlogCardProps {
@@ -24,6 +24,8 @@ interface GlassBlogCardProps {
   /** Extra classes on the cover image. Publications pass `object-top`, so a
    *  portrait first-page render crops to its masthead rather than its middle. */
   imageClassName?: string;
+  /** Seconds before the card rises in, so a grid can enter column by column. */
+  delay?: number;
 }
 
 const defaultPost = {
@@ -49,17 +51,19 @@ export function GlassBlogCard({
   ctaLabel = "Read Article",
   className,
   imageClassName,
+  delay = 0,
 }: GlassBlogCardProps) {
+  const reduce = useReducedMotion();
   const externalAttrs = external
     ? { target: "_blank", rel: "noopener noreferrer" }
     : {};
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      initial={reduce ? false : { opacity: 0, y: 48, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className={cn("w-full", className)}
     >
       <a

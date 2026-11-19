@@ -12,9 +12,11 @@ export default function RecentBlogs() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {posts.map((post, i) => (
             <GlassBlogCard
               key={post.slug}
+              // Cards in a row enter left to right.
+              delay={(i % 3) * 0.1}
               title={post.title}
               excerpt={post.excerpt}
               image={post.image}

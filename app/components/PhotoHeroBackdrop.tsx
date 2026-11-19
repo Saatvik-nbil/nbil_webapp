@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BackdropDrift } from "@/app/components/motion/ScrollFx";
 
 /**
  * Full-bleed photo backdrop for a page hero, with the scrim stack needed to keep
@@ -53,16 +54,19 @@ export default function PhotoHeroBackdrop({
 
   return (
     <>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority
-        quality={quality}
-        sizes={sizes}
-        className="object-cover"
-        style={{ objectPosition, filter }}
-      />
+      {/* Drifts slower than the page as the hero scrolls away. */}
+      <BackdropDrift>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority
+          quality={quality}
+          sizes={sizes}
+          className="object-cover"
+          style={{ objectPosition, filter }}
+        />
+      </BackdropDrift>
       {/* Readability scrim: heavy where the copy starts, clearing toward the
           right so the photograph is still legible. */}
       <div

@@ -146,6 +146,8 @@ export const STORY_MILESTONES: StoryMilestone[] = [
     title: "Collaboration with AIIMS",
     body: "A collaboration project with the All India Institute of Medical Sciences brings clinical questions directly into the design loop.",
     image: "/institute/All_India_Institute_of_Medical_Sciences,_Delhi.svg.webp",
+    // A round seal: cropped to 16:10 it lost its top and bottom.
+    fit: "contain",
     category: "Collaboration",
   },
   {

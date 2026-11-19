@@ -9,6 +9,8 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import ArticleBody from "@/app/components/blog/ArticleBody";
 import NewsletterSection from "@/app/components/blog/NewsletterSection";
+import { RiseIn, ScrollZoom } from "@/app/components/motion/ScrollFx";
+import Reveal from "@/app/components/machine/Reveal";
 import { posts, getPost } from "@/lib/blog";
 import { parseMarkdown, splitTitle } from "@/lib/markdown";
 
@@ -107,7 +109,7 @@ export default async function BlogPostPage({
           </nav>
 
           <header className="flex flex-col gap-5">
-            <div className="flex flex-wrap items-center gap-2.5">
+            <RiseIn className="flex flex-wrap items-center gap-2.5">
               {post.tags.map((t) => (
                 <span
                   key={t}
@@ -125,28 +127,31 @@ export default async function BlogPostPage({
               <span className="text-[13px] text-[var(--color-ink-muted)]">
                 {post.readTime}
               </span>
-            </div>
+            </RiseIn>
 
-            <h1 className="h1">
-              {post.title}
-            </h1>
+            <RiseIn delay={0.12}>
+              <h1 className="h1">
+                {post.title}
+              </h1>
+            </RiseIn>
 
-            <p className="text-[17px] leading-[1.7] text-[var(--color-ink-muted)]">
+            <RiseIn as="p" delay={0.24} className="text-[17px] leading-[1.7] text-[var(--color-ink-muted)]">
               {post.excerpt}
-            </p>
+            </RiseIn>
           </header>
 
           {/* Cover art lives in public/images/blog. It was copied off the old
               WordPress site before the domain moved here, since its
               /wp-content/ uploads stop existing once the DNS points at Render. */}
-          <div className="my-10 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
+          {/* Opens out from slightly inset and zoomed as it scrolls into place. */}
+          <ScrollZoom className="my-10 overflow-hidden rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface-raised)]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={post.image}
               alt=""
               className="aspect-[1200/628] w-full object-cover"
             />
-          </div>
+          </ScrollZoom>
 
           <ArticleBody blocks={blocks} />
 
@@ -156,7 +161,7 @@ export default async function BlogPostPage({
             </p>
           )}
 
-          <div className="mt-12 flex flex-col gap-4 border-t border-[var(--color-hairline)] pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <Reveal className="mt-12 flex flex-col gap-4 border-t border-[var(--color-hairline)] pt-8 sm:flex-row sm:items-center sm:justify-between">
             <Link
               href="/blogs"
               className="inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--color-ink)] transition-colors hover:text-[var(--color-brand-strong)]"
@@ -184,7 +189,7 @@ export default async function BlogPostPage({
                 </span>
               </Link>
             )}
-          </div>
+          </Reveal>
         </article>
 
         <NewsletterSection />

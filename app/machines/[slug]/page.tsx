@@ -12,6 +12,16 @@ import ContactSection from "@/app/components/ContactSection";
 import MachineGallery from "@/app/components/machine/MachineGallery";
 import AnatomyScroll from "@/app/components/machine/AnatomyScroll";
 import Reveal from "@/app/components/machine/Reveal";
+import {
+  RiseIn,
+  MaskedTitle,
+  Parallax,
+  HeroExit,
+  ScrubText,
+  Stagger,
+  StaggerItem,
+  ScrollLine,
+} from "@/app/components/motion/ScrollFx";
 import MobileCollapse from "@/components/ui/mobile-collapse";
 import { OriginButton } from "@/components/ui/origin-button";
 import { machines, getMachine, COMPANY } from "@/lib/machines";
@@ -127,33 +137,41 @@ export default async function MachinePage({
               below the card's midpoint and leaves it level with nothing. Start
               alignment puts the heading near the card's top edge. */}
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-            <MachineGallery
-              images={machine.images}
-              name={machine.name}
-              role={machine.role}
-              year={machine.year}
-              maxWidth={machine.slug === "trivima-aura" ? 380 : undefined}
-            />
+            {/* Scroll depth: the gallery drifts down against the page as the
+                hero leaves, and the copy beside it lifts. Kept within the
+                section's bottom padding so the card never crosses the seam. */}
+            <Parallax y={[0, 56]} offset={["start start", "end start"]}>
+              <MachineGallery
+                images={machine.images}
+                name={machine.name}
+                role={machine.role}
+                year={machine.year}
+                maxWidth={machine.slug === "trivima-aura" ? 380 : undefined}
+              />
+            </Parallax>
 
             {/* pt-6 ≈ the card's top-5 badge inset plus its py-1, so the heading
                 starts level with the role pill and the year chip inside the card. */}
-            <div className="flex flex-col gap-6 lg:pt-6">
+            <HeroExit className="flex flex-col gap-6 lg:pt-6" distance={48} fadeTo={1}>
               <div className="flex flex-col gap-3">
-                <h1
-                  id="machine-heading"
-                  className="h1"
-                >
-                  {machine.name}
-                </h1>
-                <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[48ch]">
+                <MaskedTitle id="machine-heading" className="h1" text={machine.name} />
+                <RiseIn as="p" delay={0.25} className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[48ch]">
                   {machine.tagline}
-                </p>
+                </RiseIn>
               </div>
+
+              {/* The overview used to be its own section under the hero, which
+                  left this column ending well above the gallery card beside it.
+                  Here it fills that space and the page loses a repeat. */}
+              <RiseIn as="p" delay={0.35} className="max-w-[60ch] text-[15px] leading-[1.7] text-[var(--color-ink-muted)]">
+                {machine.overview}
+              </RiseIn>
 
               {/* Stat band. Above sm this is a flex row whose cells size to their
                   own content and share the leftover space evenly, so a long value
                   like 150×100×100 can never overrun its neighbour: the divider
                   rule plus a fixed pl-4 keeps every gutter identical. */}
+              <RiseIn delay={0.45}>
               <dl className="grid grid-cols-2 gap-y-5 border-y border-[var(--color-hairline)] py-6 sm:flex sm:justify-between sm:gap-y-0">
                 {machine.stats.map((s, i) => (
                   <div
@@ -181,15 +199,16 @@ export default async function MachinePage({
                   </div>
                 ))}
               </dl>
+              </RiseIn>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <RiseIn delay={0.55} className="flex flex-wrap items-center gap-3">
                 <OriginButton href="#contact" className="h-11 px-6 text-[15px]">
                   Request a quote
                   <ArrowRight size={16} weight="bold" />
                 </OriginButton>
-              </div>
+              </RiseIn>
 
-              <div className="flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-[var(--color-ink-muted)]">
+              <RiseIn delay={0.62} className="flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-[var(--color-ink-muted)]">
                 <span>
                   <span className="text-[var(--color-ink-faint)]">Software</span>{" "}
                   {machine.softwareHref ? (
@@ -207,93 +226,53 @@ export default async function MachinePage({
                   <span className="text-[var(--color-ink-faint)]">File formats</span>{" "}
                   <span className="text-[var(--color-ink)]">{fileFormats}</span>
                 </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Overview */}
-        <section aria-labelledby="overview-heading" className="py-16 lg:py-24 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
-          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            <div className="lg:col-span-3">
-              <h2
-                id="overview-heading"
-                className="h2"
-              >
-                Overview
-              </h2>
-            </div>
-            {/* The overview is the page's lead paragraph, so it is set heavy and
-                large and given most of the row: the heading beside it only has
-                to label it. */}
-            <Reveal className="lg:col-span-9">
-              <p className="font-display text-[1.25rem] lg:text-[1.6rem] font-medium tracking-[-0.02em] text-[var(--color-ink)] leading-[1.45]">
-                {machine.overview}
-              </p>
-            </Reveal>
+              </RiseIn>
+            </HeroExit>
           </div>
         </section>
 
         {/* Guided part-by-part camera tour (NP only) */}
         {machine.slug === "trivima-np" && <AnatomyScroll />}
 
-        {/* Features + Technologies */}
-        <section aria-labelledby={machine.features?.length ? "features-heading" : "technologies-heading"} className="py-20 lg:py-28 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
-          <div className={`max-w-7xl mx-auto px-6 grid grid-cols-1 gap-12 lg:gap-16 ${machine.features?.length ? "lg:grid-cols-2" : ""}`}>
-            {/* Features. Absent on Aura, where the column is dropped rather
-                than left as an empty heading. */}
-            {machine.features?.length ? (
-            <div className="flex flex-col gap-8">
-              <Reveal className="w-fit">
-                <SectionHeading><span id="features-heading">Key features</span></SectionHeading>
-              </Reveal>
-              <ul className="flex flex-col gap-3.5" role="list">
-                {machine.features.map((f, i) => (
-                  <Reveal as="li" key={f} delay={i * 0.04} className="group flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.55rem] size-1.5 shrink-0 rounded-full bg-[var(--color-brand)] transition-transform duration-300 group-hover:scale-125 motion-reduce:transition-none motion-reduce:transform-none"
-                    />
-                    <span className="text-[14px] text-[var(--color-ink-muted)] leading-relaxed">{f}</span>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-            ) : null}
-
-            {/* Technologies + fixtures */}
+        {/* Technologies + fixtures. There used to be a "Key features" column
+            beside this; it repeated the spec table below it and was removed
+            by request. `features` is still in lib/machines.ts, unrendered. */}
+        <section aria-labelledby="technologies-heading" className="py-20 lg:py-28 bg-[var(--color-surface)] border-y border-[var(--color-hairline)]">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 gap-12 lg:gap-16">
             <div className="flex flex-col gap-8">
               <Reveal className="w-fit">
                 <h2 id="technologies-heading" className="h2">
                   Printing technologies
                 </h2>
               </Reveal>
-              <div className="flex flex-wrap gap-2.5">
+              <Stagger className="flex flex-wrap gap-2.5">
                 {machine.technologies.map((t) => (
-                  <span
+                  <StaggerItem
+                    as="span"
                     key={t}
                     className="rounded-lg border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2 text-[13px] font-medium text-[var(--color-ink)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-subtle)] motion-reduce:transform-none"
                   >
                     {t}
-                  </span>
+                  </StaggerItem>
                 ))}
-              </div>
+              </Stagger>
 
               {machine.fixtures && machine.fixtures.length > 0 && (
                 <div className="flex flex-col gap-4">
                   <h3 className="text-[13px] uppercase tracking-[0.12em] text-[var(--color-ink-faint)]">
                     Compatible bed fixtures
                   </h3>
-                  <div className="flex flex-wrap gap-2.5">
+                  <Stagger className="flex flex-wrap gap-2.5">
                     {machine.fixtures.map((f) => (
-                      <span
+                      <StaggerItem
+                        as="span"
                         key={f}
                         className="rounded-lg bg-[var(--color-surface-raised)] px-3.5 py-1.5 text-[13px] text-[var(--color-ink-muted)]"
                       >
                         {f}
-                      </span>
+                      </StaggerItem>
                     ))}
-                  </div>
+                  </Stagger>
                 </div>
               )}
 
@@ -312,9 +291,10 @@ export default async function MachinePage({
             move. */}
         <section aria-labelledby="specs-heading" className="py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6">
-            <Reveal className="mb-10 w-fit">
+            <Reveal className="w-fit">
               <SectionHeading><span id="specs-heading">Technical specifications</span></SectionHeading>
             </Reveal>
+            <ScrollLine className="mt-5 mb-10 max-w-[220px]" />
             {/* Twenty-odd specs are a single tall column on a phone, so the
                 list opens partly closed there. */}
             <MobileCollapse
@@ -357,11 +337,12 @@ export default async function MachinePage({
                     <span id="customisation-heading">Built to your spec</span>
                   </SectionHeading>
                 </Reveal>
-                <Reveal>
-                  <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[46ch]">
-                    {machine.customisation.summary}
-                  </p>
-                </Reveal>
+                {/* Reads in word by word as it scrolls, like the home page's
+                    mission statement. */}
+                <ScrubText
+                  text={machine.customisation.summary}
+                  className="font-display text-[1.25rem] lg:text-[1.4rem] font-medium tracking-[-0.01em] text-[var(--color-ink)] leading-snug max-w-[40ch]"
+                />
                 <Reveal>
                   <OriginButton href="#contact" className="mt-2 h-11 w-fit px-6 text-[15px]">
                     Discuss a configuration
@@ -410,35 +391,70 @@ export default async function MachinePage({
                 All models
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4 max-w-xl">
+            {/* Two wide cards that fill the row: photo on the left, the
+                model's pitch and headline numbers on the right. */}
+            <Stagger className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {others.map((m) => (
+                <StaggerItem key={m.slug}>
                 <Link
-                  key={m.slug}
                   href={`/machines/${m.slug}`}
-                  className="group flex flex-col gap-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-all hover:border-[var(--color-brand)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)]"
+                  className="group grid h-full grid-cols-1 gap-5 rounded-2xl border border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 transition-all hover:border-[var(--color-brand)] hover:shadow-[0_10px_30px_rgba(15,23,42,0.08)] sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:items-center lg:p-6"
                 >
                   {/* The image is absolutely positioned so its 100% height
                       resolves against the square well. Left in flow, a portrait
                       asset (Aura) would size itself from the width and stretch
                       the card past the aspect ratio. */}
-                  <div className="relative aspect-square overflow-hidden rounded-lg bg-[var(--color-surface-raised)]">
+                  <div className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-surface-raised)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={m.heroImage.src}
-                      alt={m.heroImage.alt}
-                      className="absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <Parallax className="absolute inset-0" y={[30, -30]} scale={[1.08, 0.98]}>
+                      <img
+                        src={m.heroImage.src}
+                        alt={m.heroImage.alt}
+                        className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </Parallax>
                   </div>
-                  <div className="flex flex-col gap-0.5">
-                    <span className="text-[13px] font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-strong)] transition-colors">
-                      {m.name}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <span className="w-fit rounded-lg bg-[var(--color-brand-subtle)] px-2.5 py-1 text-[11.5px] font-medium text-[var(--color-brand-strong)]">
+                        {m.role}
+                      </span>
+                      <span className="font-display text-[1.375rem] font-semibold tracking-[-0.02em] text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand-strong)]">
+                        {m.name}
+                      </span>
+                      <span className="text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
+                        {m.tagline}
+                      </span>
+                    </div>
+                    <dl className="flex flex-col gap-2">
+                      {m.stats.slice(0, 2).map((s) => (
+                        <div
+                          key={s.label}
+                          className="flex items-baseline justify-between gap-3 border-b border-[var(--color-hairline)] pb-2 last:border-b-0 last:pb-0"
+                        >
+                          <dt className="text-[12.5px] text-[var(--color-ink-faint)]">{s.label}</dt>
+                          <dd className="text-right text-[13.5px] font-medium text-[var(--color-ink)]">
+                            {s.value}
+                            {s.unit ? ` ${s.unit}` : ""}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <span className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[var(--color-brand-strong)]">
+                      View {m.name}
+                      <ArrowRight
+                        size={14}
+                        weight="bold"
+                        aria-hidden="true"
+                        className="transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+                      />
                     </span>
-                    <span className="text-[11px] text-[var(--color-ink-faint)]">{m.tier}</span>
                   </div>
                 </Link>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
         </section>
 
