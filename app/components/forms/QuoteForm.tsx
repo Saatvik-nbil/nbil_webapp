@@ -41,10 +41,17 @@ type Errors = Record<string, string>;
  * `defaultModel` preselects a bioprinter, so the form on a machine page arrives
  * already scoped to that model.
  */
-export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
+export default function QuoteForm({
+  defaultModel,
+  defaultInterest = INTERESTS[0],
+}: {
+  defaultModel?: string;
+  /** Preselects the enquiry type, e.g. "Book a live demo" in the demo popup. */
+  defaultInterest?: string;
+}) {
   const { status, error, submit, reset } = useFormSubmit("quote");
   const formRef = useRef<HTMLFormElement>(null);
-  const [interest, setInterest] = useState(INTERESTS[0]);
+  const [interest, setInterest] = useState(defaultInterest);
   const [model, setModel] = useState(defaultModel ?? NOT_SURE);
   const [wanted, setWanted] = useState<string[]>([]);
   /* Set after hydration: a build-time "today" baked into the static HTML
@@ -162,7 +169,7 @@ export default function QuoteForm({ defaultModel }: { defaultModel?: string }) {
       setEmail("");
       setPhone("");
       setPhoneCountry(DEFAULT_COUNTRY);
-      setInterest(INTERESTS[0]);
+      setInterest(defaultInterest);
       setModel(defaultModel ?? NOT_SURE);
       setWanted([]);
       setErrors({});

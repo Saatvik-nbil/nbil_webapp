@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { LinkedinLogo, YoutubeLogo, ArrowUpRight } from "@phosphor-icons/react";
+import { PRESS, VIDEOS } from "@/lib/press";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -46,61 +47,8 @@ const ROW_BOTTOM: Slot[] = [
   { aspect: "3 / 4", src: "/events/5.webp" },
 ];
 
-/* ── YouTube: podcast features & talks (channel: @nextbiglearning6504) ── */
-const VIDEOS: { id: string; title: string }[] = [
-  {
-    id: "YM7J-KcMJuY",
-    title:
-      "NBIL has used Fusion 360 to develop India's first commercial 3D Bioprinter (TRIVIMA)",
-  },
-  { id: "90fK44sd-yQ", title: "NBIL feature: podcast 1" },
-  { id: "YxpZTNFlVAQ", title: "NBIL feature: podcast 2" },
-  { id: "IK8dIz7xxGg", title: "NBIL feature: podcast 3" },
-  { id: "7rTGcRriepI", title: "NBIL feature: podcast 4" },
-];
-
-/* ── Press coverage: outside writing about NBIL, newest first ──────────
-   Outlet, date and headline are as published; the line under each one is a
-   short factual note on what the piece covers. Every row links out to the
-   original. */
-type Press = {
-  outlet: string;
-  date: string;
-  title: string;
-  note: string;
-  href: string;
-};
-
-const PRESS: Press[] = [
-  {
-    outlet: "The Innovator",
-    date: "March 2025",
-    title: "Startup Of The Week: Next Big Innovation Labs (NBIL)",
-    note: "A profile of the company's bioprinting platform, its backers and the ambition to move bioprinted tissue from drug testing toward the clinic.",
-    href: "https://theinnovator.news/startup-of-the-week-next-big-innovation-labs-nbil/",
-  },
-  {
-    outlet: "World Economic Forum",
-    date: "2023",
-    title: "Next Big Innovation Labs",
-    note: "The Forum's own profile of the company, named to its Technology Pioneers community for a customisable bioprinter aimed at the organ transplant gap.",
-    href: "https://www.weforum.org/organizations/next-big-innovation-labs/",
-  },
-  {
-    outlet: "The Times of India",
-    date: "November 2023",
-    title: "Developing printers to print organ tissues",
-    note: "Sharad Kohli on the three founders behind NBIL, one of three Indian ventures picked as World Economic Forum technology pioneers that year.",
-    href: "https://timesofindia.indiatimes.com/business/startups/companies/developing-printers-to-print-organ-tissues/articleshow/105226703.cms",
-  },
-  {
-    outlet: "YourStory",
-    date: "July 2017",
-    title: "Next Big Innovation Labs takes a big step with govt grants",
-    note: "The early story: a Karnataka government grant, incubation at the Bangalore Bioinnovation Centre, and version one of the bioprinter in final testing.",
-    href: "https://yourstory.com/2017/07/next-big-innovation-labs-biotech-startup-3d-bioprinter-government-grants",
-  },
-];
+/* Podcast features, talks and press coverage come from lib/press, which the
+   home page's recognition section also reads. */
 
 /* ── LinkedIn embeds: heights match LinkedIn's published embed sizes ──── */
 const POSTS: { id: string; height: number }[] = [
@@ -251,6 +199,14 @@ export default function NewsLanding() {
                         referrerPolicy="strict-origin-when-cross-origin"
                         allowFullScreen
                       />
+                    </div>
+                    <div className="flex flex-col gap-1 px-5 py-4">
+                      <span className="text-[15px] font-medium leading-snug text-[var(--color-ink)]">
+                        {v.title}
+                      </span>
+                      <span className="text-[13px] text-[var(--color-ink-faint)]">
+                        {v.speakers} · {v.source}
+                      </span>
                     </div>
                   </div>
                 ))}

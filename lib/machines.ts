@@ -11,6 +11,8 @@ export type Machine = {
   slug: string;
   name: string;
   fullName: string;
+  /** Page heading on the model's own page, where it differs from `name`. */
+  heading?: string;
   tagline: string;
   blurb: string;
   overview: string;
@@ -48,11 +50,12 @@ export const machines: Machine[] = [
     slug: "trivima-np",
     name: "Trivima NP",
     fullName: "Trivima Non-Planar (NP) Bioprinter",
-    tagline: "Finally, a bioprinter that matches the geometry of biology. With a 4th axis",
+    heading: "Trivima NP Bioprinter",
+    tagline: "A bioprinter that matches the geometry of biology. With a 4th Axis.",
     blurb:
       "Non-planar system that prints on rotary scaffolds and curved geometries instead of flat layers.",
     overview:
-      "A compact, precision-built system designed for adaptable, high-performance biofabrication. The NP replaces the stationary flat bed with a rotatory spindle module, letting the extruder traverse a revolving mandrel to deposit bioink along true cylindrical and helical paths. This eliminates the layer-seam stress of flat-bed approaches and enables tubular, curved and anatomically complex constructs.",
+      "A compact, precision-built system designed for adaptable, high-performance biofabrication. The NP replaces the stationary flat bed with a rotatory spindle module, letting the extruder traverse a revolving mandrel to deposit bioink along true cylindrical and helical paths. This eliminates the layer-seam stress of flat-bed approaches and enables tubular, curved and anatomically complex constructs. With no flat bed to level, bed levelling is a thing of the past on the NP.",
     tier: "Customisable",
     role: "Non-planar",
     year: "2025",
@@ -66,7 +69,7 @@ export const machines: Machine[] = [
       { label: "Movement precision", value: "<10", unit: "µm" },
       { label: "Build volume", value: "120×70×50", unit: "mm" },
       { label: "Pressure", value: "0.02–8", unit: "Bar" },
-      { label: "Rotary axis printing", value: "4th axis" },
+      { label: "Rotary axis printing", value: "4th Axis" },
     ],
     specs: [
       { label: "Extruder slots", value: "2–3 slots (user-configurable)" },

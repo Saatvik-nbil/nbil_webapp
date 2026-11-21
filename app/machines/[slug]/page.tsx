@@ -154,7 +154,7 @@ export default async function MachinePage({
                 starts level with the role pill and the year chip inside the card. */}
             <HeroExit className="flex flex-col gap-6 lg:pt-6" distance={48} fadeTo={1}>
               <div className="flex flex-col gap-3">
-                <MaskedTitle id="machine-heading" className="h1" text={machine.name} />
+                <MaskedTitle id="machine-heading" className="h1" text={machine.heading ?? machine.name} />
                 <RiseIn as="p" delay={0.25} className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[48ch]">
                   {machine.tagline}
                 </RiseIn>

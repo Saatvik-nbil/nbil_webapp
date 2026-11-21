@@ -5,6 +5,7 @@ import { ArrowRight, Flask, Handshake } from "@phosphor-icons/react";
 import { COMPANY } from "@/lib/machines";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { OriginButton } from "@/components/ui/origin-button";
+import DemoDialog from "@/app/components/forms/DemoDialog";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -70,13 +71,16 @@ export default function CompanyConnect() {
                     Explore bioprinters
                     <ArrowRight size={16} weight="bold" />
                   </OriginButton>
-                  <OriginButton
-                    href="/trivima#contact"
-                    variant="outline"
-                    className="h-11 border-[var(--color-warm-border)] bg-transparent px-5 text-[14px] text-[var(--color-warm-ink)]"
-                  >
-                    Request a demo
-                  </OriginButton>
+                  <DemoDialog
+                    trigger={
+                      <OriginButton
+                        variant="outline"
+                        className="h-11 border-[var(--color-warm-border)] bg-white px-5 text-[14px] text-[var(--color-warm-ink)] hover:text-white focus-visible:text-white data-[pressed=true]:text-white"
+                      >
+                        Request a demo
+                      </OriginButton>
+                    }
+                  />
                 </div>
               </div>
             </LiquidGlass>

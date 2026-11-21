@@ -35,7 +35,7 @@ type Stop = {
 const STOPS: Stop[] = [
   { side: "right", fx: 0.56, fy: 0.18, scale: 1.9, ay: 0.38, title: "Extruder", value: "Swappable head, 2 to 3 slots: pneumatic, pellet and motor-driven" },
   { side: "left", fx: 0.56, fy: 0.34, scale: 2.0, title: "Syringe", value: "3CC, 5CC and 10CC barrels, temperature-controlled from 8 to 65 °C" },
-  { side: "right", fx: 0.53, fy: 0.5, scale: 1.8, title: "4th axis", value: "Rotary spindle for true cylindrical and helical, non-planar paths", hero: true },
+  { side: "right", fx: 0.53, fy: 0.5, scale: 1.8, title: "4th Axis", value: "Rotary spindle for true cylindrical and helical, non-planar paths", hero: true },
   { side: "left", fx: 0.52, fy: 0.565, scale: 2.0, title: "Build platform", value: "Flat bed for conventional planar printing, 120 × 70 × 50 mm, 4 to 80 °C" },
   { side: "right", fx: 0.41, fy: 0.67, scale: 2.2, title: "Pressure control knob", value: "Per-channel regulator with live readout, 0.02 to 8 Bar" },
   { side: "left", fx: 0.818, fy: 0.575, scale: 2.2, title: "Emergency stop", value: "Latching e-stop cuts motion and pressure instantly" },

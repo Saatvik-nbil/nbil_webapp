@@ -18,12 +18,12 @@ const TILT_SPRING = { stiffness: 150, damping: 18, mass: 0.4 } as const;
 const AREAS = [
   {
     icon: Pill,
-    title: "Drug development",
+    title: "Novel drug and cosmetic development",
     body: "Bioprinted, physiologically relevant tissue models that let researchers test compounds on human-like constructs instead of flat cell cultures.",
   },
   {
     icon: Heartbeat,
-    title: "Regenerative medicine",
+    title: "Translatable regenerative medicine",
     body: "Bioprinted scaffolds and grafts that guide the body to repair, restore and rebuild damaged tissue.",
   },
   {
@@ -135,7 +135,7 @@ export default function FocusAreas() {
             </h2>
             <p className="text-[1.0625rem] text-[var(--color-ink-muted)] leading-relaxed max-w-[52ch]">
               We build bioprinting solutions for researchers and clinicians working at
-              the edge of medicine. Three problems anchor everything we make.
+              the edge of medicine. Three challenges anchor everything we make.
             </p>
           </div>
 

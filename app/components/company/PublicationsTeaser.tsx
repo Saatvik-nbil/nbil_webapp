@@ -40,7 +40,7 @@ export default function PublicationsTeaser() {
               id="publications-teaser-heading"
               className="h2 max-w-[18ch]"
             >
-              The work our machines end up in
+              Trivima and publications
             </h2>
 
             <OriginButton
